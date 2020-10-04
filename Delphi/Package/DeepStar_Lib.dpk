@@ -1,0 +1,55 @@
+﻿package DeepStar_Lib;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl;
+
+contains
+  DeepStar.DSA.Interfaces in 'DSA\DeepStar.DSA.Interfaces.pas',
+  DeepStar.Utils in 'Utils\DeepStar.Utils.pas',
+  DeepStar.Utils.UString in 'Utils\DeepStar.Utils.UString.pas',
+  DeepStar.DSA.Hash.HashMap in 'DSA\Hash\DeepStar.DSA.Hash.HashMap.pas',
+  DeepStar.DSA.Hash.HashSet in 'DSA\Hash\DeepStar.DSA.Hash.HashSet.pas',
+  DeepStar.DSA.Linear.ArrayList in 'DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas',
+  DeepStar.DSA.Linear.DoubleLinkedList in 'DSA\Linear\DeepStar.DSA.Linear.DoubleLinkedList.pas',
+  DeepStar.DSA.Linear.LinkedList in 'DSA\Linear\DeepStar.DSA.Linear.LinkedList.pas',
+  DeepStar.DSA.Linear.Queue in 'DSA\Linear\DeepStar.DSA.Linear.Queue.pas',
+  DeepStar.DSA.Linear.Stack in 'DSA\Linear\DeepStar.DSA.Linear.Stack.pas',
+  DeepStar.DSA.Math in 'DSA\Math\DeepStar.DSA.Math.pas',
+  DeepStar.DSA.Strings.KMP in 'DSA\Strings\DeepStar.DSA.Strings.KMP.pas',
+  DeepStar.DSA.Strings.RabinKarp in 'DSA\Strings\DeepStar.DSA.Strings.RabinKarp.pas',
+  DeepStar.DSA.Tree.AVLTree in 'DSA\Tree\DeepStar.DSA.Tree.AVLTree.pas',
+  DeepStar.DSA.Tree.BalanceBinarySearchTree in 'DSA\Tree\DeepStar.DSA.Tree.BalanceBinarySearchTree.pas',
+  DeepStar.DSA.Tree.BinarySearchTree in 'DSA\Tree\DeepStar.DSA.Tree.BinarySearchTree.pas',
+  DeepStar.DSA.Tree.BinaryTree in 'DSA\Tree\DeepStar.DSA.Tree.BinaryTree.pas',
+  DeepStar.DSA.Tree.Heap in 'DSA\Tree\DeepStar.DSA.Tree.Heap.pas',
+  DeepStar.DSA.Tree.RBTree in 'DSA\Tree\DeepStar.DSA.Tree.RBTree.pas',
+  DeepStar.DSA.Tree.TreeMap in 'DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas';
+
+end.

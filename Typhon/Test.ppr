@@ -1,0 +1,46 @@
+program Test;
+
+{$mode objfpc}{$H+}
+
+uses
+ {$IFDEF UNIX}
+  cthreads,
+ {$ENDIF}
+  Classes,
+  DeepStar.Utils,
+  DeepStar.Utils.UString,
+  DeepStar.DSA.Hash.HashMap,
+  DeepStar.DSA.Hash.HashSet,
+  DeepStar.DSA.Interfaces,
+  DeepStar.DSA.Tree.AVLTree,
+  DeepStar.DSA.Tree.BalanceBinarySearchTree,
+  DeepStar.DSA.Tree.BinarySearchTree,
+  DeepStar.DSA.Tree.BinaryTree,
+  DeepStar.DSA.Tree.Heap,
+  DeepStar.DSA.Tree.PriorityQueue,
+  DeepStar.DSA.Tree.RBTree,
+  DeepStar.DSA.Tree.TreeMap,
+  DeepStar.DSA.Tree.Trie,
+  DeepStar.DSA.Tree.Test.AVLTree,
+  DeepStar.DSA.Tree.Test.BinarySearchTree,
+  DeepStar.DSA.Tree.Test.RBTree,
+  DeepStar.DSA.Tree.Test.TreeMap,
+  DeepStar.DSA.Strings.KMP,
+  DeepStar.DSA.Strings.RabinKarp,
+  DeepStar.DSA.Strings.Test.KMP,
+  DeepStar.DSA.Strings.Test.RabinKarp,
+  DeepStar.DSA.Math,
+  DeepStar.DSA.Linear.ArrayList,
+  DeepStar.DSA.Linear.DoubleLinkedList,
+  DeepStar.DSA.Linear.LinkedList,
+  DeepStar.DSA.Linear.Queue,
+  DeepStar.DSA.Linear.Stack,
+  DeepStar.DSA.Linear.Test.ArrayList,
+  DeepStar.DSA.Linear.Test.DoubleLinkedList,
+  DeepStar.DSA.Linear.Test.LinkedList,
+  DeepStar.DSA.Linear.Test.Queue,
+  DeepStar.DSA.Linear.Test.Stack,
+  DeepStar.DSA.Hash.Test.HashMap;
+
+begin
+end.
