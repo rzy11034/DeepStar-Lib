@@ -79,9 +79,11 @@ type
     destructor Destroy; override;
 
     function Add(key: K; Value: V): TPtrValue;
+    function Ceiling(e: K):K;
     function ContainsKey(key: K): boolean;
     function ContainsValue(Value: V): boolean;
     function Count: integer;
+    function Floor(e: K) :K;
     function GetItem(key: K): V;
     function IsEmpty: boolean;
     function Keys: TImpl_K.TArr;
@@ -96,6 +98,8 @@ type
   end;
 
 implementation
+
+uses DeepStar.Utils;
 
 { TTreeMap }
 
@@ -154,6 +158,22 @@ begin
 
   _size += 1;
   Result := res;
+end;
+
+function TTreeMap.Ceiling(e: K): K;
+var
+  tmp: TImpl_K.TArr;
+  ret :K;
+begin
+  tmp := Self.Keys;
+
+  if tmp = nil then
+    raise Exception.Create('The Keys is empty.');
+
+  if _cmp_K.Compare(e, tmp[0]) < 0 then
+    Exit(tmp[0]);
+
+  if _cmp_K
 end;
 
 procedure TTreeMap.Clear;
@@ -229,6 +249,11 @@ destructor TTreeMap.Destroy;
 begin
   Clear;
   inherited Destroy;
+end;
+
+function TTreeMap.Floor(e: K): K;
+begin
+
 end;
 
 function TTreeMap.GetItem(key: K): V;

@@ -102,6 +102,10 @@
         <Filename Value="Source\Utils\DeepStar.Utils.pas"/>
         <UnitName Value="DeepStar.Utils"/>
       </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.TreeSet"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

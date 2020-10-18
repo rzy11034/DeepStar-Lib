@@ -166,6 +166,18 @@
         <Filename Value="Package\Source\DSA\Tree\DeepStar.DSA.Tree.Trie.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="Test.Main.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Package\Source\DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Package\Source\DSA\Tree\Test\DeepStar.DSA.Tree.Test.TreeSet.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
