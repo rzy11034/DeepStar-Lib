@@ -1,4 +1,4 @@
-program Test;
+﻿program Test;
 
 {$mode objfpc}{$H+}
 
@@ -7,6 +7,8 @@ uses
   cthreads,
  {$ENDIF}
   Classes,
+  SysUtils,
+  Test.Main,
   DeepStar.Utils,
   DeepStar.Utils.UString,
   DeepStar.DSA.Hash.HashMap,
@@ -40,7 +42,17 @@ uses
   DeepStar.DSA.Linear.Test.LinkedList,
   DeepStar.DSA.Linear.Test.Queue,
   DeepStar.DSA.Linear.Test.Stack,
-  DeepStar.DSA.Hash.Test.HashMap;
+  DeepStar.DSA.Hash.Test.HashMap, DeepStar.DSA.Tree.TreeSet,
+DeepStar.DSA.Tree.Test.TreeSet;
 
 begin
+  try
+    Run;
+    DrawLineProgramEnd;
+    Writeln(END_OF_PROGRAM_EN);
+    Readln;
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
 end.
