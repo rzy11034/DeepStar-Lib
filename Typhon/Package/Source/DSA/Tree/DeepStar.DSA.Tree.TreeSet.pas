@@ -17,6 +17,9 @@ type
     TTreeMap = specialize TTreeMap<T, TObject>;
     TTreeSet_T = specialize TTreeSet<T>;
 
+  public type
+    TPtrValue_T = specialize TPtrValue<T>;
+
   private
     _data: TTreeMap;
 
@@ -36,6 +39,8 @@ type
     procedure AddAll(treeSet: TTreeSet_T);
     procedure Clear;
     procedure Remove(e: T);
+    function Ceiling(e: T): TPtrValue_T;
+    function Floor(e: T): TPtrValue_T;
 
     property Comparer: TImpl_T.ICmp read __getCmp_T write __setCmp_T;
   end;
@@ -62,6 +67,11 @@ begin
   begin
     Self.Add(e);
   end;
+end;
+
+function TTreeSet.Ceiling(e: T): TPtrValue_T;
+begin
+  Result := _data.Ceiling(e);
 end;
 
 procedure TTreeSet.Clear;
@@ -98,6 +108,11 @@ destructor TTreeSet.Destroy;
 begin
   _data.Free;
   inherited Destroy;
+end;
+
+function TTreeSet.Floor(e: T): TPtrValue_T;
+begin
+  Result := _data.Floor(e);
 end;
 
 function TTreeSet.IsEmpty: boolean;

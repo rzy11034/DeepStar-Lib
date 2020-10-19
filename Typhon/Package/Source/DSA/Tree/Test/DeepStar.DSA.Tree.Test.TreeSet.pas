@@ -17,6 +17,14 @@ implementation
 type
   TSet_int = specialize TTreeSet<integer>;
 
+procedure Print(p: TSet_int.TPtrValue_T);
+begin
+  if p = nil then
+    WriteLn('nil')
+  else
+    WriteLn(p.Value);
+end;
+
 procedure Main;
 var
   tree: TSet_int;
@@ -32,6 +40,21 @@ begin
   end;
 
   TArrayUtils_int.Print(tree.ToArray);
+
+  Print(tree.Ceiling(0));
+  Print(tree.Ceiling(60));
+  Print(tree.Ceiling(91));
+  Print(tree.Ceiling(70));
+  Print(tree.Ceiling(100));
+
+  DrawLineBlockEnd;
+
+  Print(tree.Floor(0));
+  Print(tree.Floor(60));
+  Print(tree.Floor(91));
+  Print(tree.Floor(70));
+  Print(tree.Floor(100));
+
 
   for i := 0 to High(arr) do
   begin

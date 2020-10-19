@@ -76,10 +76,10 @@ type
     procedure Remove(e: T);
   end;
 
-  TPtrValue<V> = class
+  TPtrValue<T> = class
   public
-    Value: V;
-    constructor Create(newValue: V);
+    Value: T;
+    constructor Create(newValue: T);
   end;
 
   IMap<K, V> = interface
@@ -101,7 +101,7 @@ implementation
 
 { TPtr_V }
 
-constructor TPtrValue<V>.Create(newValue: V);
+constructor TPtrValue<T>.Create(newValue: T);
 begin
   Value := newValue;
 end;

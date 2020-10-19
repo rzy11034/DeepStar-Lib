@@ -43,11 +43,14 @@ type
       function Sibling: TNode;
     end;
 
-    TPtrValue = specialize TPtrValue<V>;
+    TPtrValue_V = specialize TPtrValue<V>;
     TImpl_K = specialize TImpl<K>;
     TImpl_V = specialize TImpl<V>;
     TList_node = specialize TArrayList<TNode>;
     TQueue_node = specialize TQueue<TNode>;
+
+  public type
+    TPtrValue_K = specialize TPtrValue<K>;
 
   private
     _cmp_K: TImpl_K.ICmp;
@@ -78,16 +81,16 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    function Add(key: K; Value: V): TPtrValue;
-    function Ceiling(e: K):K;
+    function Add(key: K; Value: V): TPtrValue_V;
+    function Ceiling(e: K): TPtrValue_K;
     function ContainsKey(key: K): boolean;
     function ContainsValue(Value: V): boolean;
     function Count: integer;
-    function Floor(e: K) :K;
+    function Floor(e: K): TPtrValue_K;
     function GetItem(key: K): V;
     function IsEmpty: boolean;
     function Keys: TImpl_K.TArr;
-    function Remove(key: K): TPtrValue;
+    function Remove(key: K): TPtrValue_V;
     function Values: TImpl_V.TArr;
     procedure Clear;
     procedure SetItem(key: K; Value: V);
@@ -99,8 +102,6 @@ type
 
 implementation
 
-uses DeepStar.Utils;
-
 { TTreeMap }
 
 constructor TTreeMap.Create;
@@ -111,11 +112,11 @@ begin
   _cmp_V := TImpl_V.TCmp.Default;
 end;
 
-function TTreeMap.Add(key: K; Value: V): TPtrValue;
+function TTreeMap.Add(key: K; Value: V): TPtrValue_V;
 var
   parent, cur: TNode;
   cmp: integer;
-  res: TPtrValue;
+  res: TPtrValue_V;
 begin
   parent := nil;
   cur := _root;
@@ -133,7 +134,7 @@ begin
       cur := cur.Right
     else
     begin
-      res := TPtrValue.Create(cur.Value);
+      res := TPtrValue_V.Create(cur.Value);
       cur.Value := Value;
       Exit;
     end;
@@ -160,20 +161,39 @@ begin
   Result := res;
 end;
 
-function TTreeMap.Ceiling(e: K): K;
+function TTreeMap.Ceiling(e: K): TPtrValue_K;
 var
-  tmp: TImpl_K.TArr;
-  ret :K;
+  temp: TImpl_K.TArr;
+  l, r, mid: integer;
 begin
-  tmp := Self.Keys;
+  temp := Self.Keys;
+  l := 0;
+  r := High(temp);
 
-  if tmp = nil then
-    raise Exception.Create('The Keys is empty.');
+  if temp = nil then raise Exception.Create('The Keys is empty.');
+  if _cmp_K.Compare(e, temp[l]) < 0 then Exit(nil);
 
-  if _cmp_K.Compare(e, tmp[0]) < 0 then
-    Exit(tmp[0]);
+  while l <= r do
+  begin
+    mid := l + (r - l) div 2;
 
-  if _cmp_K
+    if _cmp_K.Compare(e, temp[mid]) = 0 then
+    begin
+      Exit(TPtrValue_K.Create(temp[mid]));
+    end
+    else if _cmp_K.Compare(e, temp[mid]) < 0 then
+    begin
+      if r - 1 < 0 then Break;
+      r := mid - 1;
+    end
+    else
+    begin
+      if l + 1 > High(temp) then Break;
+      l := mid + 1;
+    end;
+  end;
+
+  Result := TPtrValue_K.Create(temp[r]);
 end;
 
 procedure TTreeMap.Clear;
@@ -251,9 +271,41 @@ begin
   inherited Destroy;
 end;
 
-function TTreeMap.Floor(e: K): K;
+function TTreeMap.Floor(e: K): TPtrValue_K;
+var
+  temp: TImpl_K.TArr;
+  l, r, mid: integer;
 begin
+  temp := Self.Keys;
+  l := 0;
+  r := High(temp);
 
+  if temp = nil then raise Exception.Create('The Keys is empty.');
+  if _cmp_K.Compare(e, temp[r]) > 0 then Exit(nil);
+
+  while l <= r do
+  begin
+    mid := l + (r - l) div 2;
+
+    if _cmp_K.Compare(e, temp[mid]) = 0 then
+    begin
+      Exit(TPtrValue_K.Create(temp[mid]));
+    end
+    else if _cmp_K.Compare(e, temp[mid]) < 0 then
+    begin
+      if r - 1 < 0 then Break;
+
+      r := mid - 1;
+    end
+    else
+    begin
+      if l + 1 > High(temp) then Break;
+
+      l := mid + 1;
+    end;
+  end;
+
+  Result := TPtrValue_K.Create(temp[l]);
 end;
 
 function TTreeMap.GetItem(key: K): V;
@@ -297,17 +349,17 @@ begin
   end;
 end;
 
-function TTreeMap.Remove(key: K): TPtrValue;
+function TTreeMap.Remove(key: K): TPtrValue_V;
 var
   cur: TNode;
-  res: TPtrValue;
+  res: TPtrValue_V;
 begin
   res := nil;
   cur := __getNode(_root, key);
 
   if cur <> nil then
   begin
-    res := TPtrValue.Create(cur.Value);
+    res := TPtrValue_V.Create(cur.Value);
     __remove(cur);
   end;
 
