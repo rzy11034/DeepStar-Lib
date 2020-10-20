@@ -170,8 +170,8 @@ begin
   l := 0;
   r := High(temp);
 
-  if temp = nil then raise Exception.Create('The Keys is empty.');
-  if _cmp_K.Compare(e, temp[l]) < 0 then Exit(nil);
+  if (temp = nil) or (_cmp_K.Compare(e, temp[r]) > 0) then
+    Exit(nil);
 
   while l <= r do
   begin
@@ -193,7 +193,7 @@ begin
     end;
   end;
 
-  Result := TPtrValue_K.Create(temp[r]);
+  Result := TPtrValue_K.Create(temp[l]);
 end;
 
 procedure TTreeMap.Clear;
@@ -280,8 +280,8 @@ begin
   l := 0;
   r := High(temp);
 
-  if temp = nil then raise Exception.Create('The Keys is empty.');
-  if _cmp_K.Compare(e, temp[r]) > 0 then Exit(nil);
+  if (temp = nil) or (_cmp_K.Compare(e, temp[l]) < 0) then
+    Exit(nil);
 
   while l <= r do
   begin
@@ -305,7 +305,7 @@ begin
     end;
   end;
 
-  Result := TPtrValue_K.Create(temp[l]);
+  Result := TPtrValue_K.Create(temp[r]);
 end;
 
 function TTreeMap.GetItem(key: K): V;
