@@ -18,7 +18,7 @@ type
     end;
 
   private type
-    TPtr_V = TPtr_V<V>;
+    TPtr_V = TPtrValue<V>;
     TImpl_K = TImpl<K>;
     TImpl_V = TImpl<V>;
     TImpl_TPair = TImpl<TPair>;

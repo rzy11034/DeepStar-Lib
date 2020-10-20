@@ -14,7 +14,7 @@ implementation
 
 type
   TMap = THashMap<integer, integer>;
-  TPtr_int = TPtr_V<integer>;
+  TPtr_int = TPtrValue<integer>;
 
 procedure Main;
 var

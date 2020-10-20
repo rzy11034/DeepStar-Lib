@@ -179,6 +179,7 @@
         <DCCReference Include="DSA\Tree\DeepStar.DSA.Tree.Heap.pas"/>
         <DCCReference Include="DSA\Tree\DeepStar.DSA.Tree.RBTree.pas"/>
         <DCCReference Include="DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas"/>
+        <DCCReference Include="DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -207,6 +208,12 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\Win64\DeepStar_Lib.bpl" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>DeepStar_Lib.bpl</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>

@@ -37,11 +37,17 @@ uses
   DeepStar.DSA.Tree.BinaryTree in 'Package\DSA\Tree\DeepStar.DSA.Tree.BinaryTree.pas',
   DeepStar.DSA.Tree.Heap in 'Package\DSA\Tree\DeepStar.DSA.Tree.Heap.pas',
   DeepStar.DSA.Tree.RBTree in 'Package\DSA\Tree\DeepStar.DSA.Tree.RBTree.pas',
-  DeepStar.DSA.Tree.TreeMap in 'Package\DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas';
+  DeepStar.DSA.Tree.TreeMap in 'Package\DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas',
+  Test.Main in 'Test.Main.pas',
+  DeepStar.DSA.Tree.TreeSet in 'Package\DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas',
+  DeepStar.DSA.Tree.Test.TreeSet in 'Package\DSA\Tree\Test\DeepStar.DSA.Tree.Test.TreeSet.pas';
 
 begin
   try
-    { TODO -oUser -cConsole Main : Insert code here }
+    Run;
+    DrawLineProgramEnd;
+    Writeln(END_OF_PROGRAM_EN);
+    Readln;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);

@@ -50,6 +50,7 @@ contains
   DeepStar.DSA.Tree.BinaryTree in 'DSA\Tree\DeepStar.DSA.Tree.BinaryTree.pas',
   DeepStar.DSA.Tree.Heap in 'DSA\Tree\DeepStar.DSA.Tree.Heap.pas',
   DeepStar.DSA.Tree.RBTree in 'DSA\Tree\DeepStar.DSA.Tree.RBTree.pas',
-  DeepStar.DSA.Tree.TreeMap in 'DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas';
+  DeepStar.DSA.Tree.TreeMap in 'DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas',
+  DeepStar.DSA.Tree.TreeSet in 'DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas';
 
 end.

@@ -328,20 +328,20 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="12"/>
-        <CursorPos X="11" Y="15"/>
+        <TopLine Value="38"/>
+        <CursorPos X="27" Y="34"/>
         <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\..\..\..\..\..\..\usr\local\codetyphon\fpcsrc\packages\fcl-stl\src\gmap.pp"/>
+        <Filename Value="D:\usr\local\codetyphon\fpcsrc\packages\fcl-stl\src\gmap.pp"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
-        <Filename Value="..\..\..\..\..\..\..\usr\local\codetyphon\fpcsrc\packages\fcl-stl\src\gset.pp"/>
+        <Filename Value="D:\usr\local\codetyphon\fpcsrc\packages\fcl-stl\src\gset.pp"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="287"/>
@@ -349,12 +349,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory>
-      <Position>
-        <Filename Value="Package\Source\DSA\Tree\Test\DeepStar.DSA.Tree.Test.TreeSet.pas"/>
-        <Caret Line="20" Column="40" TopLine="30"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>

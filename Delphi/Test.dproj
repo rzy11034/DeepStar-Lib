@@ -183,6 +183,9 @@
         <DCCReference Include="Package\DSA\Tree\DeepStar.DSA.Tree.Heap.pas"/>
         <DCCReference Include="Package\DSA\Tree\DeepStar.DSA.Tree.RBTree.pas"/>
         <DCCReference Include="Package\DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas"/>
+        <DCCReference Include="Test.Main.pas"/>
+        <DCCReference Include="Package\DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas"/>
+        <DCCReference Include="Package\DSA\Tree\Test\DeepStar.DSA.Tree.Test.TreeSet.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -72,7 +72,7 @@ type
     procedure Remove(e: T);
   end;
 
-  TPtr_V<V> = class
+  TPtrValue<V> = class
   public
     Value: V;
     constructor Create(newValue: V);
@@ -80,14 +80,14 @@ type
 
   IMap<K, V> = interface
     ['{4D344A23-A724-4120-80D8-C7F07F33D367}']
-    function Add(key: K; Value: V): TPtr_V<V>;
+    function Add(key: K; Value: V): TPtrValue<V>;
     function ContainsKey(key: K): boolean;
     function ContainsValue(value: V): boolean;
     function Count: integer;
     function GetItem(key: K): V;
     function IsEmpty: boolean;
     function Keys: TImpl<K>.TArr;
-    function Remove(key: K): TPtr_V<V>;
+    function Remove(key: K): TPtrValue<V>;
     function Values: TImpl<V>.TArr;
     procedure Clear;
     procedure SetItem(key: K; Value: V);
@@ -97,7 +97,7 @@ implementation
 
 { TPtr_V<V> }
 
-constructor TPtr_V<V>.Create(newValue: V);
+constructor TPtrValue<V>.Create(newValue: V);
 begin
   Value := newValue;
 end;

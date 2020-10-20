@@ -40,11 +40,14 @@ type
       function Sibling: TNode;
     end;
 
-    TPtr_V = TPtr_V<V>;
+    TPtr_V = TPtrValue<V>;
     TImpl_K = TImpl<K>;
     TImpl_V = TImpl<V>;
     TList_node = TArrayList<TNode>;
     TQueue_node = TQueue<TNode>;
+
+  public type
+    TPtrValue_K = TPtrValue<K>;
 
   private
     _cmp_K: TImpl_K.ICmp;
@@ -86,6 +89,8 @@ type
     function Values: TImpl_V.TArr;
     procedure Clear;
     procedure SetItem(Key: K; Value: V);
+    function Ceiling(e: K): TPtrValue_K;
+    function Floor(e: K): TPtrValue_K;
 
     property Comparer_K: TImpl_K.ICmp read _cmp_K write _cmp_K;
     property Comparer_V: TImpl_V.ICmp read _cmp_V write _cmp_V;
@@ -151,6 +156,45 @@ begin
 
   _size := _size + 1;
   Result := res;
+end;
+
+function TTreeMap<K, V>.Ceiling(e: K): TPtrValue_K;
+var
+  temp: TImpl_K.TArr;
+  l, r, mid: integer;
+begin
+  temp := Self.Keys;
+  l := 0;
+  r := high(temp);
+
+  if temp = nil then
+    raise Exception.Create('The Keys is empty.');
+  if _cmp_K.Compare(e, temp[l]) < 0 then
+    Exit(nil);
+
+  while l <= r do
+  begin
+    mid := l + (r - l) div 2;
+
+    if _cmp_K.Compare(e, temp[mid]) = 0 then
+    begin
+      Exit(TPtrValue_K.Create(temp[mid]));
+    end
+    else if _cmp_K.Compare(e, temp[mid]) < 0 then
+    begin
+      if r - 1 < 0 then
+        Break;
+      r := mid - 1;
+    end
+    else
+    begin
+      if l + 1 > high(temp) then
+        Break;
+      l := mid + 1;
+    end;
+  end;
+
+  Result := TPtrValue_K.Create(temp[r]);
 end;
 
 procedure TTreeMap<K, V>.Clear;
@@ -226,6 +270,47 @@ destructor TTreeMap<K, V>.Destroy;
 begin
   Clear;
   inherited Destroy;
+end;
+
+function TTreeMap<K, V>.Floor(e: K): TPtrValue_K;
+var
+  temp: TImpl_K.TArr;
+  l, r, mid: integer;
+begin
+  temp := Self.Keys;
+  l := 0;
+  r := high(temp);
+
+  if temp = nil then
+    raise Exception.Create('The Keys is empty.');
+  if _cmp_K.Compare(e, temp[r]) > 0 then
+    Exit(nil);
+
+  while l <= r do
+  begin
+    mid := l + (r - l) div 2;
+
+    if _cmp_K.Compare(e, temp[mid]) = 0 then
+    begin
+      Exit(TPtrValue_K.Create(temp[mid]));
+    end
+    else if _cmp_K.Compare(e, temp[mid]) < 0 then
+    begin
+      if r - 1 < 0 then
+        Break;
+
+      r := mid - 1;
+    end
+    else
+    begin
+      if l + 1 > high(temp) then
+        Break;
+
+      l := mid + 1;
+    end;
+  end;
+
+  Result := TPtrValue_K.Create(temp[l]);
 end;
 
 function TTreeMap<K, V>.GetItem(Key: K): V;
