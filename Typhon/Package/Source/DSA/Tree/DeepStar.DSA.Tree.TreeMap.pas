@@ -43,6 +43,7 @@ type
       function Sibling: TNode;
     end;
 
+    IPtrValue_V = specialize IPtrValue<V>;
     TPtrValue_V = specialize TPtrValue<V>;
     TImpl_K = specialize TImpl<K>;
     TImpl_V = specialize TImpl<V>;
@@ -81,7 +82,7 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    function Add(key: K; Value: V): TPtrValue_V;
+    function Add(key: K; Value: V): IPtrValue_V;
     function Ceiling(e: K): TPtrValue_K;
     function ContainsKey(key: K): boolean;
     function ContainsValue(Value: V): boolean;
@@ -90,7 +91,7 @@ type
     function GetItem(key: K): V;
     function IsEmpty: boolean;
     function Keys: TImpl_K.TArr;
-    function Remove(key: K): TPtrValue_V;
+    function Remove(key: K): IPtrValue_V;
     function Values: TImpl_V.TArr;
     procedure Clear;
     procedure SetItem(key: K; Value: V);
@@ -112,7 +113,7 @@ begin
   _cmp_V := TImpl_V.TCmp.Default;
 end;
 
-function TTreeMap.Add(key: K; Value: V): TPtrValue_V;
+function TTreeMap.Add(key: K; Value: V): IPtrValue_V;
 var
   parent, cur: TNode;
   cmp: integer;
@@ -349,7 +350,7 @@ begin
   end;
 end;
 
-function TTreeMap.Remove(key: K): TPtrValue_V;
+function TTreeMap.Remove(key: K): IPtrValue_V;
 var
   cur: TNode;
   res: TPtrValue_V;

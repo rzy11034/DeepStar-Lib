@@ -42,8 +42,9 @@ uses
   DeepStar.DSA.Linear.Test.LinkedList,
   DeepStar.DSA.Linear.Test.Queue,
   DeepStar.DSA.Linear.Test.Stack,
-  DeepStar.DSA.Hash.Test.HashMap, DeepStar.DSA.Tree.TreeSet,
-DeepStar.DSA.Tree.Test.TreeSet;
+  DeepStar.DSA.Hash.Test.HashMap,
+  DeepStar.DSA.Tree.TreeSet,
+  DeepStar.DSA.Tree.Test.TreeSet;
 
 begin
   try

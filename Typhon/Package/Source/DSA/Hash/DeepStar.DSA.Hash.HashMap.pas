@@ -21,7 +21,8 @@ type
     end;
 
   private type
-    TPtrValue = specialize TPtrValue<V>;
+    IPtrValue_V = specialize IPtrValue<V>;
+    TPtrValue_V = specialize TPtrValue<V>;
     TImpl_K = specialize TImpl<K>;
     TImpl_V = specialize TImpl<V>;
     TImpl_TPair = specialize TImpl<TPair>;
@@ -38,14 +39,14 @@ type
     _cmp_K: TImpl_K.ICmp;
     _cmp_V: TImpl_V.ICmp;
 
-    function __getItem(key: K): TPtrValue;
+    function __getItem(key: K): IPtrValue_V;
     function __hash(key: K): integer;
 
   public
     constructor Create(newCapacity: integer = 31);
     destructor Destroy; override;
 
-    function Add(key: K; Value: V): TPtrValue;
+    function Add(key: K; Value: V): IPtrValue_V;
     function Clone: THashMap_K_V;
     function ContainsKey(key: K): boolean;
     function ContainsValue(Value: V): boolean;
@@ -54,7 +55,7 @@ type
     function IsEmpty: boolean;
     function Keys: TImpl_K.TArr;
     function Pairs: TImpl_TPair.TArr;
-    function Remove(key: K): TPtrValue;
+    function Remove(key: K): IPtrValue_V;
     function Values: TImpl_V.TArr;
     procedure AddAll(map: THashMap_K_V);
     procedure Clear;
@@ -93,10 +94,10 @@ begin
   end;
 end;
 
-function THashMap.Add(key: K; Value: V): TPtrValue;
+function THashMap.Add(key: K; Value: V): IPtrValue_V;
 var
   hashcode: integer;
-  res: TPtrValue;
+  res: IPtrValue_V;
 begin
   res := __getItem(key);
 
@@ -204,7 +205,7 @@ end;
 
 function THashMap.GetItem(key: K): V;
 var
-  res: TPtrValue;
+  res: IPtrValue_V;
 begin
   res := __getItem(Key);
 
@@ -261,9 +262,9 @@ begin
   end;
 end;
 
-function THashMap.Remove(key: K): TPtrValue;
+function THashMap.Remove(key: K): IPtrValue_V;
 var
-  res: TPtrValue;
+  res: IPtrValue_V;
   hashcode, i: integer;
 begin
   res := __getItem(Key);
@@ -323,11 +324,11 @@ begin
   end;
 end;
 
-function THashMap.__getItem(key: K): TPtrValue;
+function THashMap.__getItem(key: K): IPtrValue_V;
 var
   hashcode, i: integer;
   Value: V;
-  res: TPtrValue;
+  res: IPtrValue_V;
 begin
   res := nil;
   hashcode := __hash(key);
@@ -337,7 +338,7 @@ begin
     if _cmp_K.Compare(key, _data[hashcode].Items[i].Key) = 0 then
     begin
       Value := _data[hashcode].Items[i].Value;
-      res := TPtrValue.Create(Value);
+      res := TPtrValue_V.Create(Value);
       Break;
     end;
   end;

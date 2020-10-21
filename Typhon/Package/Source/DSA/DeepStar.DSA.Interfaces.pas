@@ -76,22 +76,29 @@ type
     procedure Remove(e: T);
   end;
 
-  TPtrValue<T> = class
+  IPtrValue<T> = interface
+    ['{1500F8C1-4C32-46D8-B32A-2C2D5FE43A18}']
+    function Value: T;
+  end;
+
+  TPtrValue<T> = class(TInterfacedObject, IPtrValue<T>)
+  private
+    _value: T;
   public
-    Value: T;
+    function Value: T;
     constructor Create(newValue: T);
   end;
 
   IMap<K, V> = interface
     ['{4D344A23-A724-4120-80D8-C7F07F33D367}']
-    function Add(key: K; Value: V):  TPtrValue<V>;
+    function Add(key: K; Value: V):  IPtrValue<V>;
     function ContainsKey(key: K): boolean;
     function ContainsValue(value: V): boolean;
     function Count: integer;
     function GetItem(key: K): V;
     function IsEmpty: boolean;
     function Keys: TImpl<K>.TArr;
-    function Remove(key: K):  TPtrValue<V>;
+    function Remove(key: K):  IPtrValue<V>;
     function Values: TImpl<V>.TArr;
     procedure Clear;
     procedure SetItem(key: K; Value: V);
@@ -103,7 +110,12 @@ implementation
 
 constructor TPtrValue<T>.Create(newValue: T);
 begin
-  Value := newValue;
+  _value := newValue;
+end;
+
+function TPtrValue<T>.Value: T;
+begin
+  Result := _value;
 end;
 
 end.
