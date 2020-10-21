@@ -63,6 +63,7 @@ begin
   WriteLn(l.Items[5]);
   WriteLn(l.ToString);
 
+  l.Free;
 end;
 
 end.

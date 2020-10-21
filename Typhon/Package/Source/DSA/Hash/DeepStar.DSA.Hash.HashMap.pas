@@ -119,6 +119,7 @@ procedure THashMap.AddAll(map: THashMap_K_V);
 var
   e: TPair;
 begin
+
   for e in map.Pairs do
   begin
     if not ContainsKey(e.Key) then
@@ -130,10 +131,15 @@ end;
 
 procedure THashMap.Clear;
 var
-  i: integer;
+  i, j: integer;
 begin
   for i := 0 to High(_data) do
   begin
+    for j := 0 to _data[i].Count - 1 do
+    begin
+      _data[i][j].Free;
+    end;
+
     _data[i].Clear;
   end;
 
@@ -195,10 +201,10 @@ destructor THashMap.Destroy;
 var
   i: integer;
 begin
+  Clear;
+
   for i := 0 to High(_data) do
-  begin
-    _data[i].Free;
-  end;
+    FreeAndNil(_data[i]);
 
   inherited Destroy;
 end;
@@ -266,6 +272,7 @@ function THashMap.Remove(key: K): IPtrValue_V;
 var
   res: IPtrValue_V;
   hashcode, i: integer;
+  pair: TPair;
 begin
   res := __getItem(Key);
 
@@ -278,8 +285,9 @@ begin
   begin
     if _cmp_K.Compare(key, _data[hashcode].Items[i].Key) = 0 then
     begin
-      _data[hashcode].Remove(i);
+      pair := _data[hashcode].Remove(i);
       _size -= 1;
+      FreeAndNil(pair);
       Break;
     end;
   end;

@@ -57,6 +57,8 @@ begin
   tree.Remove(1);
   TArrayUtils_int.Print(tree.Keys);
   writeln('tree.IsComplete: ', tree.IsComplete);
+
+  tree.Free;
 end;
 
 end.

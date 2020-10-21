@@ -14,7 +14,7 @@ uses
 
 type
   // 用红黑树实现
-  generic TTreeMap<K, V> = class(TInterfacedObject, specialize IMap<K, V>)
+  generic TTreeMap<K, V> = class (TInterfacedObject, specialize IMap<K, V>)
   private const
     RED = false;
     BLACK = true;
@@ -51,6 +51,7 @@ type
     TQueue_node = specialize TQueue<TNode>;
 
   public type
+    IPtrValue_K = specialize IPtrValue<K>;
     TPtrValue_K = specialize TPtrValue<K>;
 
   private
@@ -87,7 +88,7 @@ type
     function ContainsKey(key: K): boolean;
     function ContainsValue(Value: V): boolean;
     function Count: integer;
-    function Floor(e: K): TPtrValue_K;
+    function Floor(e: K): IPtrValue_K;
     function GetItem(key: K): V;
     function IsEmpty: boolean;
     function Keys: TImpl_K.TArr;
@@ -117,7 +118,7 @@ function TTreeMap.Add(key: K; Value: V): IPtrValue_V;
 var
   parent, cur: TNode;
   cmp: integer;
-  res: TPtrValue_V;
+  res: IPtrValue_V;
 begin
   parent := nil;
   cur := _root;
@@ -272,7 +273,7 @@ begin
   inherited Destroy;
 end;
 
-function TTreeMap.Floor(e: K): TPtrValue_K;
+function TTreeMap.Floor(e: K): IPtrValue_K;
 var
   temp: TImpl_K.TArr;
   l, r, mid: integer;

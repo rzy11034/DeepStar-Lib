@@ -26,8 +26,10 @@ var
   arr: TArr_int;
   p: IPtrValue;
 begin
+  //mm := nil;
   map := TMap.Create;
   arr := [55, 55, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50];
+  //arr := [55, 50];
 
   for i := 0 to High(arr) do
   begin
@@ -68,6 +70,10 @@ begin
   WriteLn(map.IsEmpty);
   TArrayUtils_int.Print(map.Keys);
   TArrayUtils_int.Print(map.Values);
+
+  map.Free;
+  mm.Free;
+
 end;
 
 end.

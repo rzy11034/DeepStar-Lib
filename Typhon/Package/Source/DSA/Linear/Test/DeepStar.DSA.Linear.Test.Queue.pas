@@ -35,6 +35,7 @@ begin
   end;
 
   WriteLn(q.Count);
+  q.Free;
 end;
 
 end.

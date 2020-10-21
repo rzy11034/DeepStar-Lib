@@ -53,6 +53,8 @@ begin
   al.Clear;
   writeln('Main ', al.ToString);
   writeln('Main ', al.Count);
+
+  al.Free;
 end;
 
 end.

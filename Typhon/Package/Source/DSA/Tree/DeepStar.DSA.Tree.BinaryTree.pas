@@ -239,38 +239,42 @@ begin
   end;
 
   queue := TQueue_node.Create;
-  queue.EnQueue(_root);
+  try
+    queue.EnQueue(_root);
 
-  leaf := False;
-  while not queue.IsEmpty do
-  begin
-    node := queue.DeQueue;
-
-    if leaf and not (node.IsLeaf) then // 要求是叶子结点，但是当前节点不是叶子结点
+    leaf := False;
+    while not queue.IsEmpty do
     begin
-      Exit(False);
+      node := queue.DeQueue;
+
+      if leaf and not (node.IsLeaf) then // 要求是叶子结点，但是当前节点不是叶子结点
+      begin
+        Exit(False);
+      end;
+
+      if node.left <> nil then
+      begin
+        queue.EnQueue(node.left);
+      end
+      else if node.right <> nil then
+      begin
+        Exit(False);
+      end;
+
+      if node.right <> nil then
+      begin
+        queue.EnQueue(node.right);
+      end
+      else
+      begin
+        leaf := True; // 要求后面都是叶子节点
+      end;
     end;
 
-    if node.left <> nil then
-    begin
-      queue.EnQueue(node.left);
-    end
-    else if node.right <> nil then
-    begin
-      Exit(False);
-    end;
-
-    if node.right <> nil then
-    begin
-      queue.EnQueue(node.right);
-    end
-    else
-    begin
-      leaf := True; // 要求后面都是叶子节点
-    end;
+    Result := True;
+  finally
+    queue.Free;
   end;
-
-  Result := True;
 end;
 
 function TBinaryTree.GetHeight: integer;

@@ -32,11 +32,15 @@ begin
   end;
 
   TArrayUtils_int.Print(tree.Keys);
+  i := tree.Floor(33).Value;
+  i := tree.Ceiling(44).Value;
 
   for i := 0 to High(arr) do
   begin
     tree.Remove(arr[i]);
   end;
+
+  tree.Free;
 end;
 
 end.

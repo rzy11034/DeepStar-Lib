@@ -35,6 +35,7 @@ begin
   end;
 
   WriteLn(s.Count);
+  s.Free;
 end;
 
 end.

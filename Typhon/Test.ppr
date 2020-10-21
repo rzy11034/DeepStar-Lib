@@ -22,11 +22,13 @@ uses
   DeepStar.DSA.Tree.PriorityQueue,
   DeepStar.DSA.Tree.RBTree,
   DeepStar.DSA.Tree.TreeMap,
+  DeepStar.DSA.Tree.TreeSet,
   DeepStar.DSA.Tree.Trie,
   DeepStar.DSA.Tree.Test.AVLTree,
   DeepStar.DSA.Tree.Test.BinarySearchTree,
   DeepStar.DSA.Tree.Test.RBTree,
   DeepStar.DSA.Tree.Test.TreeMap,
+  DeepStar.DSA.Tree.Test.TreeSet,
   DeepStar.DSA.Strings.KMP,
   DeepStar.DSA.Strings.RabinKarp,
   DeepStar.DSA.Strings.Test.KMP,
@@ -42,9 +44,7 @@ uses
   DeepStar.DSA.Linear.Test.LinkedList,
   DeepStar.DSA.Linear.Test.Queue,
   DeepStar.DSA.Linear.Test.Stack,
-  DeepStar.DSA.Hash.Test.HashMap,
-  DeepStar.DSA.Tree.TreeSet,
-  DeepStar.DSA.Tree.Test.TreeSet;
+  DeepStar.DSA.Hash.Test.HashMap;
 
 begin
   try

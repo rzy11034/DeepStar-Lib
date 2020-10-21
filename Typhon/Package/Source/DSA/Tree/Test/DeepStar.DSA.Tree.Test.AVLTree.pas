@@ -35,6 +35,8 @@ begin
   begin
     tree.Remove(arr[i]);
   end;
+
+  tree.Free;
 end;
 
 end.

@@ -17,7 +17,7 @@ implementation
 type
   TSet_int = specialize TTreeSet<integer>;
 
-procedure Print(p: TSet_int.TPtrValue_T);
+procedure Print(p: TSet_int.IPtrValue_T);
 begin
   if p = nil then
     WriteLn('nil')
