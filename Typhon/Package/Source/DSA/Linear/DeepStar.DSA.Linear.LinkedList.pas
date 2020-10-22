@@ -56,6 +56,7 @@ type
     procedure AddRange(const arr: array of T);
     procedure Clear;
     procedure RemoveElement(e: T);
+    procedure ReverseList;
     procedure SetItem(index: integer; e: T);
 
     property Count: integer read GetSize;
@@ -299,6 +300,25 @@ end;
 function TLinkedList.RemoveLast: T;
 begin
   Result := Remove(Count - 1);
+end;
+
+procedure TLinkedList.ReverseList;
+var
+  pre, cur, next: TNode;
+begin
+  pre:= nil;
+  cur := _dummyHead.Next;
+
+  while cur <> nil do
+  begin
+    next := cur.next;
+
+    cur.Next := pre;
+    pre := cur;
+    cur := next;
+  end;
+
+  _dummyHead.Next := pre;
 end;
 
 procedure TLinkedList.SetItem(index: integer; e: T);
