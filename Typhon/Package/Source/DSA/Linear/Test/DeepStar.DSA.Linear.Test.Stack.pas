@@ -6,7 +6,7 @@ interface
 
 uses
   Classes,
-  SysUtils,
+  SysUtils,  DeepStar.Utils.UString,
   DeepStar.DSA.Linear.Stack;
 
 procedure Main;
@@ -14,7 +14,7 @@ procedure Main;
 implementation
 
 type
-  TStack = specialize TStack<integer>;
+  TStack = specialize TStack<UChar>;
 
 procedure Main;
 var
@@ -25,14 +25,13 @@ begin
 
   for i := 0 to 4 do
   begin
-    s.Push(i);
-
+    s.Push('A');
   end;
 
-  while not s.IsEmpty do
-  begin
-    WriteLn(s.Count, ' - ', s.Peek, ' -> ', s.Pop);
-  end;
+  //while not s.IsEmpty do
+  //begin
+  //  WriteLn(s.Count, ' - ', s.Peek, ' -> ', s.Pop);
+  //end;
 
   WriteLn(s.Count);
   s.Free;

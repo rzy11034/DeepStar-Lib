@@ -93,10 +93,12 @@
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.Stack.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="16"/>
-        <CursorPos X="25" Y="18"/>
+        <CursorPos X="30" Y="28"/>
         <UsageCount Value="39"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas"/>
@@ -109,8 +111,8 @@
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.DoubleLinkedList.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="23"/>
-        <CursorPos X="16" Y="39"/>
+        <TopLine Value="225"/>
+        <CursorPos X="3" Y="170"/>
         <UsageCount Value="39"/>
       </Unit>
       <Unit>
@@ -132,9 +134,7 @@
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.Stack.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <CursorPos X="5" Y="16"/>
         <UsageCount Value="39"/>
       </Unit>
       <Unit>
@@ -287,9 +287,8 @@
       <Unit>
         <Filename Value="Test.Main.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="24" Y="16"/>
+        <CursorPos X="33" Y="19"/>
         <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit>
@@ -325,7 +324,7 @@
         <UsageCount Value="10"/>
       </Unit>
       <Unit>
-        <Filename Value="..\..\..\..\..\..\..\usr\local\codetyphon\fpcsrc\rtl\inc\objpash.inc"/>
+        <Filename Value="D:\usr\local\codetyphon\fpcsrc\rtl\inc\objpash.inc"/>
         <FRMtype Value="0"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="293"/>
@@ -333,7 +332,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="1">
+    <JumpHistory HistoryIndex="2">
       <Position>
         <Filename Value="Test.ppr"/>
         <Caret Line="47" Column="34"/>
@@ -341,6 +340,10 @@
       <Position>
         <Filename Value="Test.Main.pas"/>
         <Caret Line="16" Column="24"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.Stack.pas"/>
+        <Caret Line="34" Column="7"/>
       </Position>
     </JumpHistory>
     <RunParams>

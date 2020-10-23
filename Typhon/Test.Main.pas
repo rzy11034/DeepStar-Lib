@@ -13,7 +13,7 @@ procedure Run;
 implementation
 
 uses
-  DeepStar.DSA.Hash.Test.HashMap;
+  DeepStar.DSA.Linear.Test.Stack;
 
 procedure Run;
 begin
