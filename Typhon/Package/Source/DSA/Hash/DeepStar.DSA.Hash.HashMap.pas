@@ -1,6 +1,7 @@
 ﻿unit DeepStar.DSA.Hash.HashMap;
 
 {$mode objfpc}{$H+}
+{$ModeSwitch advancedrecords}
 
 interface
 
@@ -14,7 +15,7 @@ uses
 type
   generic THashMap<K, V> = class(TInterfacedObject, specialize IMap<K, V>)
   public type
-    TPair = class
+    TPair = record
       Key: K;
       Value: V;
       constructor Create(newKey: K; newValue: V);
@@ -131,15 +132,10 @@ end;
 
 procedure THashMap.Clear;
 var
-  i, j: integer;
+  i: integer;
 begin
   for i := 0 to High(_data) do
   begin
-    for j := 0 to _data[i].Count - 1 do
-    begin
-      _data[i][j].Free;
-    end;
-
     _data[i].Clear;
   end;
 
@@ -287,7 +283,7 @@ begin
     begin
       pair := _data[hashcode].Remove(i);
       _size -= 1;
-      FreeAndNil(pair);
+      res := TPtrValue_V.Create(pair.Value);
       Break;
     end;
   end;
@@ -305,7 +301,7 @@ begin
   begin
     if _cmp_K.Compare(key, _data[hashcode].Items[i].Key) = 0 then
     begin
-      _data[hashcode].Items[i].Value := Value;
+      _data[hashcode].Items[i] := TPair.Create(key, Value);
       Break;
     end;
   end;

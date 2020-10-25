@@ -65,6 +65,7 @@ end;
 
 destructor TPriorityQueue.Destroy;
 begin
+  FreeAndNil(_heap);
   inherited Destroy;
 end;
 

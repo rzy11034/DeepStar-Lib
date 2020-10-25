@@ -25,6 +25,7 @@ var
   i: integer;
   arr: TArr_int;
   p: IPtrValue;
+  a :array of TMap.TPair;
 begin
   //mm := nil;
   map := TMap.Create;
@@ -42,6 +43,8 @@ begin
     else
       WriteLn('nil');
   end;
+
+  map[55] := 99;
 
   WriteLn(map.Remove(55).Value);
 
@@ -73,7 +76,6 @@ begin
 
   map.Free;
   mm.Free;
-
 end;
 
 end.
