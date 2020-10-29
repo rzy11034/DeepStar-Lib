@@ -7,7 +7,7 @@ interface
 uses
   Classes,
   SysUtils,
-  DeepStar.Utils, DeepStar.Utils.UString,
+  DeepStar.Utils, DeepStar.UString,
   DeepStar.DSA.Strings.KMP;
 
 procedure Main;

@@ -90,7 +90,7 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="Package\Source\Utils\DeepStar.Utils.UString.pas"/>
+        <Filename Value="Package\Source\Utils\DeepStar.UString.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>

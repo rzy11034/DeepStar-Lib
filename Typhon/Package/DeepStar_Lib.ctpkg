@@ -15,10 +15,6 @@
     <Version Build="1"/>
     <Files>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Utils.UString.pas"/>
-        <UnitName Value="DeepStar.Utils.UString"/>
-      </Item>
-      <Item>
         <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas"/>
         <UnitName Value="DeepStar.DSA.Linear.ArrayList"/>
       </Item>
@@ -105,6 +101,10 @@
       <Item>
         <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas"/>
         <UnitName Value="DeepStar.DSA.Tree.TreeSet"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.UString.pas"/>
+        <UnitName Value="DeepStar.UString"/>
       </Item>
     </Files>
     <RequiredPkgs>

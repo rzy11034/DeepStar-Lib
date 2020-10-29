@@ -1,4 +1,4 @@
-﻿unit DeepStar.Utils.UString;
+﻿unit DeepStar.UString;
 
 {$mode objfpc}{$H+}
 {$modeswitch typehelpers}

@@ -9,7 +9,7 @@ uses
   SysUtils,
   Math,
   DeepStar.Utils,
-  DeepStar.Utils.UString;
+  DeepStar.UString;
 
 type
   TMath = class

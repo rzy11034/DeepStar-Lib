@@ -10,7 +10,7 @@ uses
   {%H-}Rtti,
   Generics.Defaults,
   Generics.Collections, DeepStar.DSA.Interfaces,
-  DeepStar.Utils.UString,
+  DeepStar.UString,
   DeepStar.DSA.Linear.ArrayList,
   DeepStar.DSA.Linear.Stack,
   DeepStar.DSA.Hash.HashMap,

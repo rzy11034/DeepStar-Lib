@@ -9,7 +9,7 @@ uses
   SysUtils,
   DeepStar.DSA.Linear.ArrayList,
   DeepStar.DSA.Interfaces,
-  DeepStar.Utils.UString,
+  DeepStar.UString,
   DeepStar.Utils;
 
 procedure Main;

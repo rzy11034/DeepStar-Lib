@@ -25,7 +25,6 @@ var
   i: integer;
   arr: TArr_int;
   p: IPtrValue;
-  a :array of TMap.TPair;
 begin
   //mm := nil;
   map := TMap.Create;

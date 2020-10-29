@@ -8,7 +8,7 @@ uses
   Classes,
   SysUtils,
   Generics.Defaults,
-  DeepStar.Utils.UString;
+  DeepStar.UString;
 
 type
   TImpl<T> = class

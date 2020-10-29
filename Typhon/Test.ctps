@@ -16,43 +16,41 @@
       <Unit>
         <Filename Value="Package\Source\Utils\DeepStar.Utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="209"/>
-        <CursorPos X="63" Y="211"/>
+        <EditorIndex Value="13"/>
+        <CursorPos X="19" Y="13"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="Package\Source\Utils\DeepStar.Utils.UString.pas"/>
+        <Filename Value="Package\Source\Utils\DeepStar.UString.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <EditorIndex Value="4"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\DeepStar.DSA.Interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="55"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="12" Y="11"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Hash\Test\DeepStar.DSA.Hash.Test.HashMap.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="56"/>
-        <CursorPos X="27" Y="63"/>
+        <TopLine Value="14"/>
+        <CursorPos Y="28"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="13"/>
-        <CursorPos X="16" Y="20"/>
+        <CursorPos X="24" Y="31"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit>
@@ -67,10 +65,10 @@
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.ArrayList.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="23"/>
-        <CursorPos X="18" Y="34"/>
+        <EditorIndex Value="14"/>
+        <CursorPos X="19" Y="12"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.DoubleLinkedList.pas"/>
@@ -96,33 +94,34 @@
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.Stack.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="27" Y="33"/>
+        <EditorIndex Value="15"/>
+        <CursorPos X="30" Y="9"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="35" Y="35"/>
+        <EditorIndex Value="16"/>
+        <CursorPos X="19" Y="12"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.DoubleLinkedList.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="225"/>
-        <CursorPos X="3" Y="170"/>
+        <EditorIndex Value="17"/>
+        <CursorPos X="19" Y="12"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.LinkedList.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="43"/>
-        <CursorPos X="37" Y="30"/>
+        <EditorIndex Value="6"/>
+        <CursorPos X="19" Y="12"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.Queue.pas"/>
@@ -142,47 +141,42 @@
       <Unit>
         <Filename Value="Package\Source\DSA\Math\DeepStar.DSA.Math.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <EditorIndex Value="7"/>
+        <CursorPos X="19" Y="12"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Strings\Test\DeepStar.DSA.Strings.Test.KMP.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <EditorIndex Value="8"/>
+        <CursorPos X="35" Y="10"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Strings\Test\DeepStar.DSA.Strings.Test.RabinKarp.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <EditorIndex Value="9"/>
+        <CursorPos X="35" Y="10"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Strings\DeepStar.DSA.Strings.KMP.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <EditorIndex Value="10"/>
+        <CursorPos X="35" Y="10"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Strings\DeepStar.DSA.Strings.RabinKarp.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <EditorIndex Value="11"/>
+        <CursorPos X="35" Y="11"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Package\Source\DSA\Tree\Test\DeepStar.DSA.Tree.Test.AVLTree.pas"/>
@@ -279,9 +273,10 @@
       <Unit>
         <Filename Value="Package\Source\DSA\Tree\DeepStar.DSA.Tree.Trie.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="37" Y="19"/>
+        <EditorIndex Value="12"/>
+        <CursorPos X="19" Y="11"/>
         <UsageCount Value="46"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="Test.Main.pas"/>
@@ -333,66 +328,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="60" Column="14" TopLine="44"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="287" TopLine="271"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="274" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="276" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="279" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="281" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="283" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="285" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="286" TopLine="270"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="287" TopLine="271"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="44" Column="21" TopLine="27"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="345" TopLine="331"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="346" TopLine="331"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="347" TopLine="331"/>
-      </Position>
-      <Position>
-        <Filename Value="Package\Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
-        <Caret Line="351" TopLine="335"/>
-      </Position>
       <Position>
         <Filename Value="Package\Source\DSA\Hash\Test\DeepStar.DSA.Hash.Test.HashMap.pas"/>
         <Caret Line="46" TopLine="36"/>
@@ -452,6 +387,60 @@
       <Position>
         <Filename Value="Package\Source\DSA\Hash\Test\DeepStar.DSA.Hash.Test.HashMap.pas"/>
         <Caret Line="49" TopLine="33"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\Utils\DeepStar.UString.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\DeepStar.DSA.Interfaces.pas"/>
+        <Caret Line="11" Column="12"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\Utils\DeepStar.Utils.pas"/>
+        <Caret Line="211" Column="63" TopLine="209"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.ArrayList.pas"/>
+        <Caret Line="34" Column="18" TopLine="23"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Linear\Test\DeepStar.DSA.Linear.Test.Stack.pas"/>
+        <Caret Line="33" Column="27" TopLine="16"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas"/>
+        <Caret Line="35" Column="35"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.DoubleLinkedList.pas"/>
+        <Caret Line="170" Column="3" TopLine="224"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Linear\DeepStar.DSA.Linear.LinkedList.pas"/>
+        <Caret Line="12" Column="25"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Math\DeepStar.DSA.Math.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Strings\Test\DeepStar.DSA.Strings.Test.KMP.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Strings\Test\DeepStar.DSA.Strings.Test.RabinKarp.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Strings\DeepStar.DSA.Strings.KMP.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Strings\DeepStar.DSA.Strings.RabinKarp.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Tree\DeepStar.DSA.Tree.Trie.pas"/>
+        <Caret Line="19" Column="37"/>
+      </Position>
+      <Position>
+        <Filename Value="Package\Source\DSA\Tree\DeepStar.DSA.Tree.Trie.pas"/>
+        <Caret Line="11" Column="19"/>
       </Position>
     </JumpHistory>
     <RunParams>

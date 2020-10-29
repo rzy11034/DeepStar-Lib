@@ -6,7 +6,7 @@ interface
 
 uses
   Classes,
-  SysUtils,  DeepStar.Utils.UString,
+  SysUtils,  DeepStar.UString,
   DeepStar.DSA.Linear.Stack;
 
 procedure Main;

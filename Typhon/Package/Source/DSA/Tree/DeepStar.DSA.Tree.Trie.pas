@@ -8,7 +8,7 @@ uses
   Classes,
   SysUtils,
   DeepStar.DSA.Interfaces,
-  DeepStar.Utils.UString,
+  DeepStar.UString,
   DeepStar.DSA.Hash.HashMap;
 
 type

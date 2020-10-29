@@ -8,7 +8,7 @@ uses
   Classes,
   SysUtils,
   Math,
-  DeepStar.Utils, DeepStar.Utils.UString;
+  DeepStar.Utils, DeepStar.UString;
 
 type
 

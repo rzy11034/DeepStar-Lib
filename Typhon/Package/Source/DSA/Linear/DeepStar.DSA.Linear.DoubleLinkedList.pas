@@ -9,7 +9,7 @@ uses
   SysUtils,
   {%H-}Rtti,
   DeepStar.DSA.Interfaces,
-  DeepStar.Utils.UString;
+  DeepStar.UString;
 
 type
   generic TDoubleLinkedList<T> = class(TInterfacedObject, specialize IList<T>)
