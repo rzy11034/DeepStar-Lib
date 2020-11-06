@@ -138,7 +138,7 @@ begin
     begin
       res := TPtrValue_V.Create(cur.Value);
       cur.Value := Value;
-      Exit;
+      Exit(res);
     end;
   end;
 
