@@ -9,7 +9,8 @@ uses
   SysUtils,
   {%H-}Rtti,
   Generics.Defaults,
-  Generics.Collections, DeepStar.DSA.Interfaces,
+  Generics.Collections,
+  DeepStar.DSA.Interfaces,
   DeepStar.UString,
   DeepStar.DSA.Linear.ArrayList,
   DeepStar.DSA.Linear.Stack,
@@ -42,6 +43,8 @@ type
     TArr3D_T = array of array of array of T;
     TArrayHelper_T = specialize TArrayHelper<T>;
     ICmp_T = specialize IComparer<T>;
+
+  public type
     TCmp_T = specialize TComparer<T>;
     TOnComparison_T = specialize TOnComparison<T>;
     TComparisonFunc_T = specialize TComparisonFunc<T>;
@@ -49,12 +52,12 @@ type
   public
     // 快速排序
     class procedure Sort(var arr: array of T);
-    class procedure Sort(var arr: array of T; const cmp: TComparisonFunc_T);
-    class procedure Sort(var arr: array of T; const cmp: TOnComparison_T);
+    // 快速排序
+    class procedure Sort(var arr: array of T; const cmp: ICmp_T);
     // 二分查找法
     class function BinarySearch(const arr: TArr_T; const e: T): integer;
-    class function BinarySearch(const arr: TArr_T; const e: T; const cmp: TComparisonFunc_T): integer;
-    class function BinarySearch(const arr: TArr_T; const e: T; const cmp: TOnComparison_T): integer;
+    // 二分查找法
+    class function BinarySearch(const arr: TArr_T; const e: T; const cmp: ICmp_T): integer;
     // 顺序查找，返回元素e的下标，元素不存在则返回 -1
     class function IndexOf(const arr: array of T; e: T): integer;
     // 输出一维数组
@@ -143,28 +146,13 @@ begin
 end;
 
 class function TArrayUtils.BinarySearch(const arr: TArr_T; const e: T;
-  const cmp: TComparisonFunc_T): integer;
+  const cmp: ICmp_T): integer;
 var
-  tmpCmp: ICmp_T;
   ret: int64;
 begin
   Result := -1;
-  tmpCmp := TCmp_T.Construct(cmp);
 
-  if TArrayHelper_T.BinarySearch(arr, e, ret, tmpCmp) then
-    Result := ret;
-end;
-
-class function TArrayUtils.BinarySearch(const arr: TArr_T; const e: T;
-  const cmp: TOnComparison_T): integer;
-var
-  tmpCmp: ICmp_T;
-  ret: int64;
-begin
-  Result := -1;
-  tmpCmp := TCmp_T.Construct(cmp);
-
-  if TArrayHelper_T.BinarySearch(arr, e, ret, tmpCmp) then
+  if TArrayHelper_T.BinarySearch(arr, e, ret, cmp) then
     Result := ret;
 end;
 
@@ -197,12 +185,14 @@ end;
 class function TArrayUtils.IndexOf(const arr: array of T; e: T): integer;
 var
   i: integer;
+  cmp: ICmp_T;
 begin
   Result := -1;
+  cmp := TCmp_T.Default;
 
   for i := 0 to High(arr) do
   begin
-    if arr[i] = e then
+    if cmp.Compare(arr[i], e) = 0 then
       Result := i;
   end;
 end;
@@ -322,20 +312,9 @@ begin
   TArrayHelper_T.Sort(arr);
 end;
 
-class procedure TArrayUtils.Sort(var arr: array of T; const cmp: TComparisonFunc_T);
-var
-  tmpCmp: ICmp_T;
+class procedure TArrayUtils.Sort(var arr: array of T; const cmp: ICmp_T);
 begin
-  tmpCmp := TCmp_T.Construct(cmp);
-  TArrayHelper_T.Sort(arr, tmpCmp);
-end;
-
-class procedure TArrayUtils.Sort(var arr: array of T; const cmp: TOnComparison_T);
-var
-  tmpCmp: ICmp_T;
-begin
-  tmpCmp := TCmp_T.Construct(cmp);
-  TArrayHelper_T.Sort(arr, tmpCmp);
+  TArrayHelper_T.Sort(arr, cmp);
 end;
 
 { TUtils }
