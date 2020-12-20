@@ -11,6 +11,11 @@
         <OtherUnitFiles Value="Source\Utils;Source\DSA\Linear;Source\DSA\Math;Source\DSA\Strings;Source\DSA\Tree;Source\DSA\Hash;Source\DSA"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx4105="True"/>
+        </CompilerMessages>
+      </Other>
     </CompilerOptions>
     <Version Build="1"/>
     <Files>

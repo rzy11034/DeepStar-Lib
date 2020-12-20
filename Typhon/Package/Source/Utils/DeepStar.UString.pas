@@ -31,6 +31,7 @@ type
     function ReverseString: UString;
     function Substring(index: integer): UString;
     function Substring(index: integer; len: integer): UString;
+    function ToInteger: Integer; inline;
 
     property Chars[index: integer]: UChar read __getChar;
     property Length: integer read __getLength;
@@ -112,6 +113,11 @@ begin
   end;
 
   Result := chrArr;
+end;
+
+function TUStringHelper.ToInteger: Integer;
+begin
+  Result := StrToInt(Self);
 end;
 
 function TUStringHelper.__getChar(index: integer): UChar;
