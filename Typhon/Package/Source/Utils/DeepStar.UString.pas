@@ -26,12 +26,13 @@ type
     class function Create(const chrArr: TArr_chr): UString; static;
     class function Create(const chrArr: TArr_chr; startIndex, len: integer): UString; static;
 
-    function ToCharArray: TArr_chr;
-    function Split(const Separators: TCharArray): TArr_str;
     function ReverseString: UString;
+    function Split(const Separators: TCharArray): TArr_str;
     function Substring(index: integer): UString;
     function Substring(index: integer; len: integer): UString;
-    function ToInteger: Integer; inline;
+    function ToCharArray: TArr_chr;
+    function ToInteger: integer; inline;
+    function Trim: UString;
 
     property Chars[index: integer]: UChar read __getChar;
     property Length: integer read __getLength;
@@ -115,9 +116,14 @@ begin
   Result := chrArr;
 end;
 
-function TUStringHelper.ToInteger: Integer;
+function TUStringHelper.ToInteger: integer;
 begin
   Result := StrToInt(Self);
+end;
+
+function TUStringHelper.Trim: UString;
+begin
+  Result := SysUtils.Trim(Self);
 end;
 
 function TUStringHelper.__getChar(index: integer): UChar;
