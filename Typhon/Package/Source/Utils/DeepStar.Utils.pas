@@ -14,6 +14,7 @@ uses
   DeepStar.UString,
   DeepStar.DSA.Linear.ArrayList,
   DeepStar.DSA.Linear.Stack,
+  DeepStar.DSA.Linear.Queue,
   DeepStar.DSA.Hash.HashMap,
   DeepStar.DSA.Hash.HashSet;
 
@@ -72,6 +73,8 @@ type
     class function CopyArray2D(arr2D: TArr2D_T): TArr2D_T;
     // 填充数组
     class procedure FillArray(var arr: TArr_T; e: T);
+    // 反转数组
+    class procedure Reverse(var arr: TArr_T);
   end;
 
   TArrayUtils_int = specialize TArrayUtils<integer>;
@@ -79,14 +82,27 @@ type
   TArrayUtils_chr = specialize TArrayUtils<UChar>;
 
 type // 容器类
+  //////////////////////////////
   TList_int = specialize TArrayList<integer>;
   TList_str = specialize TArrayList<UString>;
   TList_chr = specialize TArrayList<UChar>;
   TList_TArr_int = specialize TArrayList<TArr_int>;
+
+  ///////////////////////////////////
   TStack_int = specialize TStack<integer>;
   TStack_chr = specialize TStack<UChar>;
+  TStack_str = specialize TStack<UString>;
+
+  //////////////////////////////////
+  TQueue_int = specialize TQueue<integer>;
+  TQueue_chr = specialize TQueue<UChar>;
+  TQueue_str = specialize TQueue<UString>;
+
+  //////////////////////////////////
   TMap_int_int = specialize THashMap<integer, integer>;
   TMap_str_int = specialize THashMap<UString, integer>;
+
+  /////////////////////////////////
   TSet_str = specialize THashSet<UString>;
   TSet_int = specialize THashSet<integer>;
 
@@ -137,7 +153,7 @@ end;
 
 class function TArrayUtils.BinarySearch(const arr: TArr_T; const e: T): integer;
 var
-  ret: int64;
+  ret: SizeInt;
 begin
   Result := -1;
 
@@ -148,7 +164,7 @@ end;
 class function TArrayUtils.BinarySearch(const arr: TArr_T; const e: T;
   const cmp: ICmp_T): integer;
 var
-  ret: int64;
+  ret: SizeInt;
 begin
   Result := -1;
 
@@ -305,6 +321,23 @@ begin
     end;
     Write(']'#10);
   end;
+end;
+
+class procedure TArrayUtils.Reverse(var arr: TArr_T);
+var
+  temp: TArr_T;
+  j, i: integer;
+begin
+  SetLength(temp, Length(arr));
+
+  j := 0;
+  for i := High(arr) downto 0 do
+  begin
+    temp[j] := arr[i];
+    j += 1;
+  end;
+
+  arr := temp;
 end;
 
 class procedure TArrayUtils.Sort(var arr: array of T);
