@@ -19,24 +19,40 @@ uses
   DeepStar.DSA.Hash.HashSet;
 
 type
+  // 一维数组
   TArr_int = array of integer;
   TArr_int64 = array of int64;
-  TArr2D_int = array of array of integer;
-  TArr3D_int = array of array of array of integer;
   TArr_chr = array of UChar;
-  TArr2D_chr = array of array of UChar;
   TArr_str = array of UString;
   TArr_bool = array of boolean;
+  TArr_dbl = array of double;
 
+  // 二维数组
+  TArr2D_int = array of array of integer;
+  TArr2D_int64 = array of array of int64;
+  TArr2D_chr = array of array of UChar;
+  TArr2D_str = array of array of UString;
+  TArr2D_bool = array of array of boolean;
+  TArr2D_dbl = array of array of double;
+
+  // 三维数组
+  TArr3D_int = array of array of array of integer;
+
+type
   generic TUtils<T> = class
   public
     class procedure Swap(var a, b: T); inline;
   end;
 
+  ///////////////////////////////////
   TUtils_int = specialize TUtils<integer>;
+  TUtils_int64 = specialize TUtils<int64>;
   TUtils_str = specialize TUtils<UString>;
   TUtils_chr = specialize TUtils<UChar>;
+  TUtils_dbl = specialize TUtils<double>;
 
+type
+  // 数组辅助类
   generic TArrayUtils<T> = class
   private type
     TArr_T = array of T;
@@ -80,9 +96,12 @@ type
   TArrayUtils_int = specialize TArrayUtils<integer>;
   TArrayUtils_str = specialize TArrayUtils<UString>;
   TArrayUtils_chr = specialize TArrayUtils<UChar>;
+  TArrayUtils_bool = specialize TArrayUtils<boolean>;
+  TArrayUtils_dbl = specialize TArrayUtils<double>;
 
 type // 容器类
-  //////////////////////////////
+
+  //////////////////////////////////
   TList_int = specialize TArrayList<integer>;
   TList_str = specialize TArrayList<UString>;
   TList_chr = specialize TArrayList<UChar>;

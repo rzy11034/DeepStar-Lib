@@ -24,7 +24,7 @@ type
     procedure __setCmp_T(const newComparer: TImpl_T.ICmp);
 
   public
-    constructor Create;
+    constructor Create(capacity: integer = 31);
     destructor Destroy; override;
 
     function Clone: THashSet_T;
@@ -44,9 +44,9 @@ implementation
 
 { THashSet }
 
-constructor THashSet.Create;
+constructor THashSet.Create(capacity: integer);
 begin
-  _data := THashMap.Create;
+  _data := THashMap.Create(capacity);
 end;
 
 procedure THashSet.Add(e: T);
