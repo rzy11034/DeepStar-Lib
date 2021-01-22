@@ -21,6 +21,7 @@ type
   private
     function __getChar(index: integer): UChar;
     function __getLength: integer;
+    procedure __setChar(index: integer; const newChars: UChar);
 
   public
     class function Create(const chrArr: TArr_chr): UString; static;
@@ -34,7 +35,7 @@ type
     function ToInteger: integer; inline;
     function Trim: UString;
 
-    property Chars[index: integer]: UChar read __getChar;
+    property Chars[index: integer]: UChar read __getChar write __setChar;
     property Length: integer read __getLength;
   end;
 
@@ -49,8 +50,7 @@ begin
   Result := Create(chrArr, 0, System.Length(chrArr));
 end;
 
-class function TUStringHelper.Create(const chrArr: TArr_chr;
-  startIndex, len: integer): UString;
+class function TUStringHelper.Create(const chrArr: TArr_chr; startIndex, len: integer): UString;
 begin
   SetLength(Result, Len);
   Move(chrArr[StartIndex], PChar(PChar(Result))^, Len * SizeOf(UChar));
@@ -134,6 +134,11 @@ end;
 function TUStringHelper.__getLength: integer;
 begin
   Result := System.Length(Self);
+end;
+
+procedure TUStringHelper.__setChar(index: integer; const newChars: UChar);
+begin
+  Self[index + 1] := newChars;
 end;
 
 end.

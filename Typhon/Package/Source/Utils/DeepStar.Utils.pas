@@ -102,28 +102,67 @@ type
 type // 容器类
 
   //////////////////////////////////
+  {$REGION 'List'}
+  IList_int = specialize IList<integer>;
   TList_int = specialize TArrayList<integer>;
+
+  IList_str = specialize IList<UString>;
   TList_str = specialize TArrayList<UString>;
+
+  IList_chr = specialize IList<UChar>;
   TList_chr = specialize TArrayList<UChar>;
+
+  IList_TArr_int = specialize IList<TArr_int>;
   TList_TArr_int = specialize TArrayList<TArr_int>;
+  {$ENDREGION}
 
   ///////////////////////////////////
+  {$REGION 'Stack'}
+  IStack_int = specialize IStack<integer>;
   TStack_int = specialize TStack<integer>;
+
+  IStack_chr = specialize IStack<UChar>;
   TStack_chr = specialize TStack<UChar>;
+
+  IStack_str = specialize IStack<UString>;
   TStack_str = specialize TStack<UString>;
+  {$ENDREGION}
 
   //////////////////////////////////
+  {$REGION 'Queue'}
+  IQueue_int = specialize IQueue<integer>;
   TQueue_int = specialize TQueue<integer>;
+
+  IQueue_chr = specialize IQueue<UChar>;
   TQueue_chr = specialize TQueue<UChar>;
+
+  IQueue_str = specialize IQueue<UString>;
   TQueue_str = specialize TQueue<UString>;
+  {$ENDREGION}
 
   //////////////////////////////////
+  {$REGION 'Map'}
+  IMap_int_int = specialize IMap<integer, integer>;
   TMap_int_int = specialize THashMap<integer, integer>;
+
+  IMap_str_int = specialize IMap<UString, integer>;
   TMap_str_int = specialize THashMap<UString, integer>;
 
+  IMap_chr_int = specialize IMap<UString, integer>;
+  TMap_chr_int = specialize THashMap<UString, integer>;
+  {$ENDREGION}
+
   /////////////////////////////////
+  {$REGION 'Set'}
+  ISet_str = specialize ISet<UString>;
   TSet_str = specialize THashSet<UString>;
+
+  ISet_int = specialize ISet<integer>;
   TSet_int = specialize THashSet<integer>;
+
+  ISet_chr = specialize ISet<UChar>;
+  TSet_chr = specialize THashSet<UChar>;
+  {$ENDREGION}
 
 procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
@@ -381,3 +420,4 @@ begin
 end;
 
 end.
+
