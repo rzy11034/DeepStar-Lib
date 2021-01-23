@@ -7,11 +7,12 @@ interface
 
 uses
   Classes,
-  SysUtils;
+  SysUtils,
+  CWstring;
 
 type
-  UString = UnicodeString;
-  UChar = UnicodeChar;
+  UString = unicodestring;
+  UChar = unicodechar;
 
   TUStringHelper = type Helper for UString
   private type
