@@ -60,6 +60,7 @@ type
     TArr3D_T = array of array of array of T;
     TArrayHelper_T = specialize TArrayHelper<T>;
     ICmp_T = specialize IComparer<T>;
+    TUtils_T = specialize TUtils<T>;
 
   public type
     TCmp_T = specialize TComparer<T>;
@@ -68,15 +69,15 @@ type
 
   public
     // 快速排序
-    class procedure Sort(var arr: array of T);
+    class procedure Sort(var arr: TArr_T);
     // 快速排序
-    class procedure Sort(var arr: array of T; const cmp: ICmp_T);
+    class procedure Sort(var arr: TArr_T; const cmp: ICmp_T);
     // 二分查找法
     class function BinarySearch(const arr: TArr_T; const e: T): integer;
     // 二分查找法
     class function BinarySearch(const arr: TArr_T; const e: T; const cmp: ICmp_T): integer;
     // 顺序查找，返回元素e的下标，元素不存在则返回 -1
-    class function IndexOf(const arr: array of T; e: T): integer;
+    class function IndexOf(const arr: TArr_T; e: T): integer;
     // 输出一维数组
     class procedure Print(arr: TArr_T);
     // 输出二维数组
@@ -162,6 +163,7 @@ type // 容器类
 
   ISet_chr = specialize ISet<UChar>;
   TSet_chr = specialize THashSet<UChar>;
+
   {$ENDREGION}
 
 procedure DrawLineBlockEnd;
@@ -256,7 +258,7 @@ begin
     arr[i] := e;
 end;
 
-class function TArrayUtils.IndexOf(const arr: array of T; e: T): integer;
+class function TArrayUtils.IndexOf(const arr: TArr_T; e: T): integer;
 var
   i: integer;
   cmp: ICmp_T;
@@ -383,27 +385,26 @@ end;
 
 class procedure TArrayUtils.Reverse(var arr: TArr_T);
 var
-  temp: TArr_T;
-  j, i: integer;
+  l, r: integer;
 begin
-  SetLength(temp, Length(arr));
+  l := 0;
+  r := High(arr);
 
-  j := 0;
-  for i := High(arr) downto 0 do
+  while l < r do
   begin
-    temp[j] := arr[i];
-    j += 1;
-  end;
+    TUtils_T.Swap(arr[l], arr[r]);
 
-  arr := temp;
+    l += 1;
+    r -= 1;
+  end;
 end;
 
-class procedure TArrayUtils.Sort(var arr: array of T);
+class procedure TArrayUtils.Sort(var arr: TArr_T);
 begin
   TArrayHelper_T.Sort(arr);
 end;
 
-class procedure TArrayUtils.Sort(var arr: array of T; const cmp: ICmp_T);
+class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: ICmp_T);
 begin
   TArrayHelper_T.Sort(arr, cmp);
 end;
@@ -420,4 +421,3 @@ begin
 end;
 
 end.
-
