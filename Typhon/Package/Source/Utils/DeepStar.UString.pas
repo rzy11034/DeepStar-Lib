@@ -6,9 +6,11 @@
 interface
 
 uses
+  {$IFDEF UNIX}
+  cwstring,
+  {$ENDIF}
   Classes,
-  SysUtils,
-  CWstring;
+  SysUtils;
 
 type
   UString = unicodestring;
