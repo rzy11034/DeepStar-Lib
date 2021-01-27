@@ -16,7 +16,9 @@ uses
   DeepStar.DSA.Linear.Stack,
   DeepStar.DSA.Linear.Queue,
   DeepStar.DSA.Hash.HashMap,
-  DeepStar.DSA.Hash.HashSet;
+  DeepStar.DSA.Hash.HashSet,
+  DeepStar.DSA.Tree.TreeMap,
+  DeepStar.DSA.Tree.TreeSet;
 
 type
   // 一维数组
@@ -144,27 +146,42 @@ type // 容器类
   //////////////////////////////////
   {$REGION 'Map'}
   IMap_int_int = specialize IMap<integer, integer>;
-  TMap_int_int = specialize THashMap<integer, integer>;
+  THashMap_int_int = specialize THashMap<integer, integer>;
+  TTreeMap_int_int = specialize TTreeMap<integer, integer>;
 
   IMap_str_int = specialize IMap<UString, integer>;
-  TMap_str_int = specialize THashMap<UString, integer>;
+  THashMap_str_int = specialize THashMap<UString, integer>;
+  TTreeMap_str_int = specialize TTreeMap<UString, integer>;
 
   IMap_chr_int = specialize IMap<UString, integer>;
-  TMap_chr_int = specialize THashMap<UString, integer>;
+  THashMap_chr_int = specialize THashMap<UString, integer>;
+  TTreeMap_chr_int = specialize TTreeMap<UString, integer>;
+
+  IMap_int_str = specialize IMap<integer, UString>;
+  THashMap_int_str = specialize THashMap<integer, UString>;
+  TTreeMap_int_str = specialize TTreeMap<integer, UString>;
   {$ENDREGION}
 
   /////////////////////////////////
   {$REGION 'Set'}
   ISet_str = specialize ISet<UString>;
-  TSet_str = specialize THashSet<UString>;
+  THashSet_str = specialize THashSet<UString>;
+  TTreeSet_str = specialize TTreeSet<UString>;
 
   ISet_int = specialize ISet<integer>;
-  TSet_int = specialize THashSet<integer>;
+  THashSet_int = specialize THashSet<integer>;
+  TTreeSet_int = specialize TTreeSet<integer>;
 
   ISet_chr = specialize ISet<UChar>;
-  TSet_chr = specialize THashSet<UChar>;
+  THashSet_chr = specialize THashSet<UChar>;
+  TTreeSet_chr = specialize TTreeSet<UChar>;
+
+  ISet_dbl = specialize ISet<double>;
+  THashSet_dbl = specialize THashSet<double>;
+  TTreeSet_dbl = specialize TTreeSet<double>;
 
   {$ENDREGION}
+
 
 procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
