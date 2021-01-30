@@ -147,7 +147,6 @@ end;
 
 destructor TArrayList.Destroy;
 begin
-  _data := nil;
   inherited Destroy;
 end;
 

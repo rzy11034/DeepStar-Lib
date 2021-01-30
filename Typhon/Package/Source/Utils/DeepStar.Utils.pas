@@ -13,6 +13,8 @@ uses
   DeepStar.DSA.Interfaces,
   DeepStar.UString,
   DeepStar.DSA.Linear.ArrayList,
+  DeepStar.DSA.Linear.LinkedList,
+  DeepStar.DSA.Linear.DoubleLinkedList,
   DeepStar.DSA.Linear.Stack,
   DeepStar.DSA.Linear.Queue,
   DeepStar.DSA.Hash.HashMap,
@@ -107,16 +109,27 @@ type // 容器类
   //////////////////////////////////
   {$REGION 'List'}
   IList_int = specialize IList<integer>;
-  TList_int = specialize TArrayList<integer>;
+  TArrayList_int = specialize TArrayList<integer>;
+  TLinkedList_int = specialize TLinkedList<integer>;
+  TDoubleLinkedList_int = specialize TDoubleLinkedList<integer>;
 
   IList_str = specialize IList<UString>;
-  TList_str = specialize TArrayList<UString>;
+  TArrayList_str = specialize TArrayList<UString>;
+  TLinkedList_str = specialize TLinkedList<UString>;
+  TDoubleLinkedList_str = specialize TDoubleLinkedList<UString>;
 
   IList_chr = specialize IList<UChar>;
-  TList_chr = specialize TArrayList<UChar>;
+  TArrayList_chr = specialize TArrayList<UChar>;
+  TLinkedList_chr = specialize TLinkedList<UChar>;
+  TDoubleLinkedList_chr = specialize TDoubleLinkedList<UChar>;
+
+  IList_dbl = specialize IList<double>;
+  TArrayList_dbl = specialize TArrayList<double>;
+  TLinkedList_dbl = specialize TLinkedList<double>;
+  TDoubleLinkedList_dbl = specialize TDoubleLinkedList<double>;
 
   IList_TArr_int = specialize IList<TArr_int>;
-  TList_TArr_int = specialize TArrayList<TArr_int>;
+  TArrayList_TArr_int = specialize TArrayList<TArr_int>;
   {$ENDREGION}
 
   ///////////////////////////////////
@@ -187,6 +200,7 @@ procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
 procedure NeedInput;
 function Chr(i: cardinal): UChar;
+function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
 
 resourcestring
   END_OF_PROGRAM_EN = 'Press any key to continue...';
@@ -224,6 +238,14 @@ end;
 function Chr(i: cardinal): UChar;
 begin
   Result := UChar(i);
+end;
+
+function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
+begin
+  if Condition then
+    Result := TrueResult
+  else
+    Result := FalseResult;
 end;
 
 { TArrayUtils }

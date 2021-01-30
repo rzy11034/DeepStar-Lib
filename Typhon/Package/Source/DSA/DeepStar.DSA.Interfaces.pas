@@ -102,6 +102,7 @@ type
     function Values: TImpl<V>.TArr;
     procedure Clear;
     procedure SetItem(key: K; Value: V);
+    property Item[key: K]: V read GetItem write SetItem; default;
   end;
 
 implementation
