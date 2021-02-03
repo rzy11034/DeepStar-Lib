@@ -343,10 +343,11 @@ var
 begin
   if arr = nil then
   begin
-    WriteLn('[]');
+    WriteLn('[[]]');
     Exit;
   end;
 
+  Write('[');
   case formated of
     true:
     begin
@@ -362,7 +363,11 @@ begin
           if j <> High(arr[i]) then
             Write(', '#9);
         end;
-        Write(']'#10);
+
+        if i <> High(arr) then
+          Write('], ')
+        else
+          Write(']');
       end;
     end;
 
@@ -380,10 +385,15 @@ begin
           if j <> High(arr[i]) then
             Write(', ');
         end;
-        Write(']'#10);
+
+        if i <> High(arr) then
+          Write('], ')
+        else
+          Write(']');
       end;
     end;
   end;
+  Write(']'#10);
 end;
 
 class procedure TArrayUtils.Print3D(arr: TArr3D_T);
