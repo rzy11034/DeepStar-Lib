@@ -24,6 +24,7 @@ type
 
     procedure __quickSort(l, r: integer);
     procedure __reSize(newCapacity: integer);
+    procedure __swap(var a, b: T);
 
   public
     // 构造函数，传入数组的容量 capacity 构造 TArrayList
@@ -77,6 +78,9 @@ type
     function ToArray: TArr;
     // 清空列表
     procedure Clear;
+    // 反转列表
+    procedure Reverse;
+
     function ToString: UString; reintroduce;
 
     property Count: integer read GetSize;
@@ -270,6 +274,21 @@ begin
   Result := Remove(_size - 1);
 end;
 
+procedure TArrayList.Reverse;
+var
+  l, r: integer;
+begin
+  l := 0;
+  r := _size - 1;
+
+  while l < r do
+  begin
+    __swap(_data[l], _data[r]);
+    l += 1;
+    r -= 1;
+  end;
+end;
+
 procedure TArrayList.SetItem(index: integer; e: T);
 begin
   if (index < 0) or (index > _size) then
@@ -380,6 +399,15 @@ end;
 procedure TArrayList.__reSize(newCapacity: integer);
 begin
   SetLength(Self._data, newCapacity);
+end;
+
+procedure TArrayList.__swap(var a, b: T);
+var
+  temp: T;
+begin
+  temp := a;
+  a := b;
+  b := temp;
 end;
 
 end.

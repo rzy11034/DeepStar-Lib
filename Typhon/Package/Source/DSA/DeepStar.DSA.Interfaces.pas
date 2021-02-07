@@ -43,6 +43,8 @@ type
     procedure Clear;
     procedure RemoveElement(e: T);
     procedure SetItem(index: integer; e: T);
+    procedure Reverse;
+
     property Count: integer read GetSize;
     property Items[i: integer]: T read GetItem write SetItem; default;
   end;

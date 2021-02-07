@@ -56,7 +56,7 @@ type
     procedure AddRange(const arr: array of T);
     procedure Clear;
     procedure RemoveElement(e: T);
-    procedure ReverseList;
+    procedure Reverse;
     procedure SetItem(index: integer; e: T);
 
     property Count: integer read GetSize;
@@ -302,7 +302,7 @@ begin
   Result := Remove(Count - 1);
 end;
 
-procedure TLinkedList.ReverseList;
+procedure TLinkedList.Reverse;
 var
   pre, cur, next: TNode;
 begin

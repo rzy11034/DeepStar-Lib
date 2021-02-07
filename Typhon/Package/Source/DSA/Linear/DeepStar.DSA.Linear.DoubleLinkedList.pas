@@ -31,11 +31,14 @@ type
   private
     _size: integer;
     _dummyhead: TNode;
-    _tail: TNode;
+    _dummyTail: TNode;
     _cmp: TImpl.ICmp;
+
+    procedure __Swap(var a, b: T);
 
   public
     constructor Create;
+    constructor Create(const arr: array of T);
     destructor Destroy; override;
 
     function Contains(e: T): boolean;
@@ -57,6 +60,7 @@ type
     procedure Clear;
     procedure RemoveElement(e: T);
     procedure SetItem(index: integer; e: T);
+    procedure Reverse;
 
     property Count: integer read GetSize;
     property Comparer: TImpl.ICmp read _cmp write _cmp;
@@ -86,12 +90,18 @@ end;
 
 { TDoubleLinkedList }
 
+constructor TDoubleLinkedList.Create(const arr: array of T);
+begin
+  Create;
+  Self.AddRange(arr);
+end;
+
 constructor TDoubleLinkedList.Create;
 begin
   _dummyhead := TNode.Create;
-  _tail := TNode.Create;
-  _dummyhead.Next := _tail;
-  _tail.Prev := _dummyhead;
+  _dummyTail := TNode.Create;
+  _dummyhead.Next := _dummyTail;
+  _dummyTail.Prev := _dummyhead;
   _size := 0;
   _cmp := TImpl.TCmp.Default;
 end;
@@ -108,9 +118,9 @@ begin
   begin
     tmp := TNode.Create(e);
     _dummyhead.Next := tmp;
-    _tail.Prev := tmp;
+    _dummyTail.Prev := tmp;
     tmp.Prev := _dummyhead;
-    tmp.Next := _tail;
+    tmp.Next := _dummyTail;
     _size += 1;
     Exit;
   end;
@@ -119,7 +129,7 @@ begin
 
   if index >= mid then
   begin
-    cur := _tail.Prev;
+    cur := _dummyTail.Prev;
     for i := _size - 1 downto index + 1 do
       cur := cur.Prev;
 
@@ -179,7 +189,7 @@ var
 begin
   cur := _dummyHead.Next;
 
-  while cur <> _tail do
+  while cur <> _dummyTail do
   begin
     if _cmp.Compare(cur.E, e) = 0 then
       Exit(true);
@@ -193,7 +203,7 @@ end;
 destructor TDoubleLinkedList.Destroy;
 begin
   Self.Clear;
-  FreeAndNil(_tail);
+  FreeAndNil(_dummyTail);
   FreeAndNil(_dummyhead);
   inherited Destroy;
 end;
@@ -215,7 +225,7 @@ begin
 
   if index >= mid then
   begin
-    cur := _tail.Prev;
+    cur := _dummyTail.Prev;
     for i := _size - 1 downto index + 1 do
       cur := cur.Prev;
   end
@@ -277,7 +287,7 @@ begin
 
   if index >= mid then
   begin
-    del := _tail.Prev;
+    del := _dummyTail.Prev;
     for i := _size - 1 downto index + 1 do
       del := del.Prev;
   end
@@ -303,7 +313,7 @@ var
 begin
   cur := _dummyhead.Next;
 
-  while cur <> _tail do
+  while cur <> _dummyTail do
   begin
     if _cmp.Compare(cur.E, e) = 0 then
     begin
@@ -330,6 +340,29 @@ begin
   Result := Remove(_size - 1);
 end;
 
+procedure TDoubleLinkedList.Reverse;
+var
+  head, tail: TNode;
+  l, r: integer;
+begin
+  if _size <= 1 then Exit;
+
+  l := 0;
+  r := _size - 1;
+  head := _dummyhead.Next;
+  tail := _dummyTail.Prev;
+
+  while l < r do
+  begin
+    __Swap(head.E, tail.E);
+    head := head.Next;
+    tail := tail.Prev;
+
+    l += 1;
+    r -= 1;
+  end;
+end;
+
 procedure TDoubleLinkedList.SetItem(index: integer; e: T);
 var
   mid: integer;
@@ -343,7 +376,7 @@ begin
 
   if index >= mid then
   begin
-    cur := _tail.Prev;
+    cur := _dummyTail.Prev;
     for i := _size - 1 downto index + 1 do
       cur := cur.Prev;
   end
@@ -386,7 +419,7 @@ begin
   try
     cur := _dummyHead.Next;
 
-    while cur <> _tail do
+    while cur <> _dummyTail do
     begin
       e := cur.E;
       TValue.Make(@e, TypeInfo(T), Value);
@@ -401,6 +434,15 @@ begin
   finally
     sb.Free;
   end;
+end;
+
+procedure TDoubleLinkedList.__Swap(var a, b: T);
+var
+  temp: T;
+begin
+  temp := a;
+  a := b;
+  b := temp;
 end;
 
 end.
