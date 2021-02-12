@@ -24,6 +24,9 @@ type
 
     procedure __quickSort(l, r: integer);
     procedure __reSize(newCapacity: integer);
+    procedure __SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
+    procedure __SetComparer(onComparison: TImpl.TOnComparisons);
+    procedure __SetComparer(const newComparer: TImpl.ICmp);
     procedure __swap(var a, b: T);
 
   public
@@ -80,11 +83,10 @@ type
     procedure Clear;
     // 反转列表
     procedure Reverse;
-
     function ToString: UString; reintroduce;
 
     property Count: integer read GetSize;
-    property Comparer: TImpl.ICmp read _cmp write _cmp;
+    property Comparer:TImpl.ICmp write __SetComparer;
     property Items[i: integer]: T read GetItem write SetItem; default;
   end;
 
@@ -399,6 +401,21 @@ end;
 procedure TArrayList.__reSize(newCapacity: integer);
 begin
   SetLength(Self._data, newCapacity);
+end;
+
+procedure TArrayList.__SetComparer(const newComparer: TImpl.ICmp);
+begin
+  _cmp := newComparer;
+end;
+
+procedure TArrayList.__SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
+begin
+  _cmp := TImpl.TCmp.Construct(comparisonFunc);
+end;
+
+procedure TArrayList.__SetComparer(onComparison: TImpl.TOnComparisons);
+begin
+  _cmp := TImpl.TCmp.Construct(onComparison);
 end;
 
 procedure TArrayList.__swap(var a, b: T);

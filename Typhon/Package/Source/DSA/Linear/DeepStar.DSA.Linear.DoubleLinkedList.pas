@@ -39,6 +39,7 @@ type
   public
     constructor Create;
     constructor Create(const arr: array of T);
+
     destructor Destroy; override;
 
     function Contains(e: T): boolean;
