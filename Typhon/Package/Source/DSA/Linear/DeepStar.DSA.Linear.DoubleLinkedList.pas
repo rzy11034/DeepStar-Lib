@@ -34,12 +34,16 @@ type
     _dummyTail: TNode;
     _cmp: TImpl.ICmp;
 
+    procedure __SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
+    procedure __SetComparer(onComparison: TImpl.TOnComparisons);
+    procedure __SetComparer(const newComparer: TImpl.ICmp);
     procedure __Swap(var a, b: T);
 
   public
     constructor Create;
     constructor Create(const arr: array of T);
-
+    constructor Create(comparisonFunc: TImpl.TComparisonFuncs);
+    constructor Create(onComparison: TImpl.TOnComparisons);
     destructor Destroy; override;
 
     function Contains(e: T): boolean;
@@ -64,7 +68,7 @@ type
     procedure Reverse;
 
     property Count: integer read GetSize;
-    property Comparer: TImpl.ICmp read _cmp write _cmp;
+    property Comparer: TImpl.ICmp write __SetComparer;
     property Items[i: integer]: T read GetItem write SetItem; default;
   end;
 
@@ -95,6 +99,18 @@ constructor TDoubleLinkedList.Create(const arr: array of T);
 begin
   Create;
   Self.AddRange(arr);
+end;
+
+constructor TDoubleLinkedList.Create(comparisonFunc: TImpl.TComparisonFuncs);
+begin
+  Self.Create;
+  __SetComparer(comparisonFunc);
+end;
+
+constructor TDoubleLinkedList.Create(onComparison: TImpl.TOnComparisons);
+begin
+  Self.Create;
+  __SetComparer(onComparison);
 end;
 
 constructor TDoubleLinkedList.Create;
@@ -435,6 +451,21 @@ begin
   finally
     sb.Free;
   end;
+end;
+
+procedure TDoubleLinkedList.__SetComparer(const newComparer: TImpl.ICmp);
+begin
+  _cmp := newComparer;
+end;
+
+procedure TDoubleLinkedList.__SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
+begin
+  _cmp := TImpl.TCmp.Construct(comparisonFunc);
+end;
+
+procedure TDoubleLinkedList.__SetComparer(onComparison: TImpl.TOnComparisons);
+begin
+  _cmp := TImpl.TCmp.Construct(onComparison);
 end;
 
 procedure TDoubleLinkedList.__Swap(var a, b: T);

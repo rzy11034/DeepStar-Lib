@@ -86,7 +86,7 @@ type
     function ToString: UString; reintroduce;
 
     property Count: integer read GetSize;
-    property Comparer:TImpl.ICmp write __SetComparer;
+    property Comparer: TImpl.ICmp write __SetComparer;
     property Items[i: integer]: T read GetItem write SetItem; default;
   end;
 
@@ -301,7 +301,7 @@ end;
 
 procedure TArrayList.Sort;
 begin
-  __quickSort(0, Length(_data) - 1);
+  __quickSort(0, _size - 1);
 end;
 
 function TArrayList.ToArray: TArr;
