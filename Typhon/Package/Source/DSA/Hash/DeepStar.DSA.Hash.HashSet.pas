@@ -12,7 +12,7 @@ uses
 
 type
   generic THashSet<T> = class(TInterfacedObject, specialize ISet<T>)
-  private type
+  public type
     TImpl_T = specialize TImpl<T>;
     THashMap = specialize THashMap<T, TObject>;
     THashSet_T = specialize THashSet<T>;

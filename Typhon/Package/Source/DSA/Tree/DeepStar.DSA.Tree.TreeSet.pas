@@ -12,23 +12,19 @@ uses
 
 type
   generic TTreeSet<T> = class(TInterfacedObject, specialize ISet<T>)
-  private type
+  public type
     TImpl_T = specialize TImpl<T>;
     TTreeMap = specialize TTreeMap<T, TObject>;
     TTreeSet_T = specialize TTreeSet<T>;
-
-  public type
     IPtrValue_T = specialize IPtrValue<T>;
     TPtrValue_T = specialize TPtrValue<T>;
 
   private
     _data: TTreeMap;
 
-    function __getCmp_T: TImpl_T.ICmp;
-    procedure __setCmp_T(const newComparer: TImpl_T.ICmp);
-
   public
     constructor Create;
+    constructor Create(cmp: TImpl_T.ICmp);
     destructor Destroy; override;
 
     function Clone: TTreeSet_T;
@@ -42,13 +38,16 @@ type
     procedure Remove(e: T);
     function Ceiling(e: T): IPtrValue_T;
     function Floor(e: T): IPtrValue_T;
-
-    property Comparer: TImpl_T.ICmp read __getCmp_T write __setCmp_T;
   end;
 
 implementation
 
 { TTreeSet }
+
+constructor TTreeSet.Create(cmp: TImpl_T.ICmp);
+begin
+   _data := TTreeMap.Create(cmp);
+end;
 
 constructor TTreeSet.Create;
 begin
@@ -129,16 +128,6 @@ end;
 function TTreeSet.ToArray: TImpl_T.TArr;
 begin
   Result := _data.Keys;
-end;
-
-function TTreeSet.__getCmp_T: TImpl_T.ICmp;
-begin
-  Result := _data.Comparer_K;
-end;
-
-procedure TTreeSet.__setCmp_T(const newComparer: TImpl_T.ICmp);
-begin
-  _data.Comparer_K := newComparer;
 end;
 
 end.

@@ -20,6 +20,7 @@ type
 
   public
     constructor Create;
+    constructor Create(cmp: TImpl_K.ICmp);
     destructor Destroy; override;
 
     procedure Add(key: K; Value: V); override;
@@ -29,6 +30,12 @@ type
 implementation
 
 { TBinarySearchTree }
+
+constructor TBinarySearchTree.Create(cmp: TImpl_K.ICmp);
+begin
+  Self.Create;
+  Self._cmp_K := cmp;
+end;
 
 constructor TBinarySearchTree.Create;
 begin

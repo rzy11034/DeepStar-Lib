@@ -14,15 +14,14 @@ type
   THeapkind = DeepStar.DSA.Tree.Heap.THeapkind;
 
   generic TPriorityQueue<T> = class(TInterfacedObject, specialize IQueue<T>)
-  private type
+  public type
     THeap = specialize THeap<T>;
     TImpl = specialize TImpl<T>;
     ICmp = TImpl.ICmp;
+    TCmp = TImpl.TCmp;
 
   private
     _heap: THeap;
-    function __getCmp: ICmp;
-    procedure __setCmp(const newComparer: ICmp);
 
   public
     constructor Create(heapkind: THeapkind = THeapkind.Min);
@@ -34,8 +33,6 @@ type
     procedure EnQueue(e: T);
     function DeQueue: T;
     function Peek: T;
-
-    property Comparer: ICmp read __getCmp write __setCmp;
   end;
 
 implementation
@@ -44,8 +41,7 @@ implementation
 
 constructor TPriorityQueue.Create(cmp: ICmp; heapkind: THeapkind);
 begin
-  _heap := THeap.Create(10, heapkind);
-  _heap.Comparer := cmp;
+  _heap := THeap.Create(cmp, 10, heapkind);
 end;
 
 constructor TPriorityQueue.Create(heapkind: THeapkind);
@@ -82,16 +78,6 @@ end;
 function TPriorityQueue.Peek: T;
 begin
   Result := _heap.FindFirst;
-end;
-
-function TPriorityQueue.__getCmp: ICmp;
-begin
-  Result := _heap.Comparer;
-end;
-
-procedure TPriorityQueue.__setCmp(const newComparer: ICmp);
-begin
-  _heap.Comparer := newComparer;
 end;
 
 end.

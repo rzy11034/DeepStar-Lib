@@ -1,4 +1,4 @@
-﻿unit DeepStar.DSA.Math;
+﻿unit DeepStar.Math;
 
 {$mode objfpc}{$H+}
 

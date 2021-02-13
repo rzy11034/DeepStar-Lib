@@ -21,7 +21,6 @@ type
       constructor Create(newKey: K; newValue: V);
     end;
 
-  private type
     IPtrValue_V = specialize IPtrValue<V>;
     TPtrValue_V = specialize TPtrValue<V>;
     TImpl_K = specialize TImpl<K>;

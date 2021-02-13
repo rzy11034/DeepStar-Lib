@@ -19,7 +19,7 @@ type
     RED = false;
     BLACK = true;
 
-  private type
+  public type
     TNode = class(TObject)
     public
       Key: K;
@@ -49,8 +49,6 @@ type
     TImpl_V = specialize TImpl<V>;
     TList_node = specialize TArrayList<TNode>;
     TQueue_node = specialize TQueue<TNode>;
-
-  public type
     IPtrValue_K = specialize IPtrValue<K>;
     TPtrValue_K = specialize TPtrValue<K>;
 
@@ -81,6 +79,7 @@ type
 
   public
     constructor Create;
+    constructor Create(cmp_K:TImpl_K.ICmp);
     destructor Destroy; override;
 
     function Add(key: K; Value: V): IPtrValue_V;
@@ -97,14 +96,19 @@ type
     procedure Clear;
     procedure SetItem(key: K; Value: V);
 
-    property Comparer_K: TImpl_K.ICmp read _cmp_K write _cmp_K;
-    property Comparer_V: TImpl_V.ICmp read _cmp_V write _cmp_V;
+    property Comparer_V: TImpl_V.ICmp write _cmp_V;
     property Item[key: K]: V read GetItem write SetItem; default;
   end;
 
 implementation
 
 { TTreeMap }
+
+constructor TTreeMap.Create(cmp_K: TImpl_K.ICmp);
+begin
+  Self.Create;
+  _cmp_K := cmp_K;
+end;
 
 constructor TTreeMap.Create;
 begin

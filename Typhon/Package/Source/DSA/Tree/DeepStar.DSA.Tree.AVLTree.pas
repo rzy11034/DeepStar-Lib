@@ -40,6 +40,7 @@ type
 
   public
     constructor Create;
+    constructor Create(cmp: TImpl_K.ICmp);
     destructor Destroy; override;
     function Height: integer;
   end;
@@ -47,6 +48,12 @@ type
 implementation
 
 { TAVLTree }
+
+constructor TAVLTree.Create(cmp: TImpl_K.ICmp);
+begin
+  Self.Create;
+  _cmp_K := cmp;
+end;
 
 constructor TAVLTree.Create;
 begin

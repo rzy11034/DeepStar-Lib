@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <OtherUnitFiles Value="Source\Utils;Source\DSA\Linear;Source\DSA\Math;Source\DSA\Strings;Source\DSA\Tree;Source\DSA\Hash;Source\DSA"/>
+        <OtherUnitFiles Value="Source\Utils;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Tree;Source\DSA\Hash;Source\DSA"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
       <Other>
@@ -40,8 +40,8 @@
         <UnitName Value="DeepStar.DSA.Linear.Stack"/>
       </Item>
       <Item>
-        <Filename Value="Source\DSA\Math\DeepStar.DSA.Math.pas"/>
-        <UnitName Value="DeepStar.DSA.Math"/>
+        <Filename Value="Source\Utils\DeepStar.Math.pas"/>
+        <UnitName Value="DeepStar.Math"/>
       </Item>
       <Item>
         <Filename Value="Source\DSA\Strings\DeepStar.DSA.Strings.KMP.pas"/>

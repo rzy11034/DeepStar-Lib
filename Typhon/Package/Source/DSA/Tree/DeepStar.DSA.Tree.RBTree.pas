@@ -44,8 +44,8 @@ type
 
   public
     constructor Create;
+    constructor Create(cmp_K: TImpl_K.ICmp);
     destructor Destroy; override;
-
   end;
 
 implementation
@@ -59,6 +59,12 @@ begin
 end;
 
 { TRBTree }
+
+constructor TRBTree.Create(cmp_K: TImpl_K.ICmp);
+begin
+  Self.Create;
+  _cmp_K := cmp_K
+end;
 
 constructor TRBTree.Create;
 begin

@@ -13,11 +13,12 @@ uses
 
 type
   generic TLinkedList<T> = class(TInterfacedObject, specialize IList<T>)
-  private type
+  public type
     TImpl = specialize TImpl<T>;
     TArr = TImpl.TArr;
+    ICmp = TImpl.ICmp;
+    TCmp = TImpl.TCmp;
 
-  public type
     TNode = class(TObject)
     public
       E: T;
@@ -33,15 +34,14 @@ type
     _dummyHead: TNode;
     _cmp: TImpl.ICmp;
 
-    procedure __SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
-    procedure __SetComparer(onComparison: TImpl.TOnComparisons);
-    procedure __SetComparer(const newComparer: TImpl.ICmp);
+    procedure __SetComparer(const newComparer: ICmp);
 
   public
     constructor Create;
     constructor Create(const arr: TArr);
     constructor Create(comparisonFunc: TImpl.TComparisonFuncs);
     constructor Create(onComparison: TImpl.TOnComparisons);
+    constructor Create(cmp: TImpl.ICmp);
     destructor Destroy; override;
 
     function Contains(e: T): boolean;
@@ -67,7 +67,7 @@ type
 
 
     property Count: integer read GetSize;
-    property Comparer: TImpl.ICmp write __SetComparer;
+    property Comparer: ICmp write __SetComparer;
     property Items[i: integer]: T read GetItem write SetItem; default;
   end;
 
@@ -99,16 +99,21 @@ begin
   Self.AddRange(arr);
 end;
 
+constructor TLinkedList.Create(cmp: TImpl.ICmp);
+begin
+  _cmp := cmp;
+end;
+
 constructor TLinkedList.Create(comparisonFunc: TImpl.TComparisonFuncs);
 begin
   Self.Create;
-  __SetComparer(comparisonFunc);
+  _cmp := TCmp.Construct(comparisonFunc);
 end;
 
 constructor TLinkedList.Create(onComparison: TImpl.TOnComparisons);
 begin
   Self.Create;
-  __SetComparer(onComparison);
+  _cmp := TCmp.Construct(onComparison);
 end;
 
 constructor TLinkedList.Create;
@@ -323,18 +328,18 @@ end;
 
 procedure TLinkedList.Reverse;
 var
-  pre, cur, next: TNode;
+  pre, cur, Next: TNode;
 begin
-  pre:= nil;
+  pre := nil;
   cur := _dummyHead.Next;
 
   while cur <> nil do
   begin
-    next := cur.next;
+    Next := cur.Next;
 
     cur.Next := pre;
     pre := cur;
-    cur := next;
+    cur := Next;
   end;
 
   _dummyHead.Next := pre;
@@ -401,19 +406,9 @@ begin
   end;
 end;
 
-procedure TLinkedList.__SetComparer(const newComparer: TImpl.ICmp);
+procedure TLinkedList.__SetComparer(const newComparer: ICmp);
 begin
   _cmp := newComparer;
-end;
-
-procedure TLinkedList.__SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
-begin
-   _cmp := TImpl.TCmp.Construct(comparisonFunc);
-end;
-
-procedure TLinkedList.__SetComparer(onComparison: TImpl.TOnComparisons);
-begin
-   _cmp := TImpl.TCmp.Construct(onComparison);
 end;
 
 end.

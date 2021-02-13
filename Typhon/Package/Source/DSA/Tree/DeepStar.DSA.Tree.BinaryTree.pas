@@ -15,7 +15,7 @@ uses
 
 type
   generic TBinaryTree<K, V> = class abstract
-  protected type
+  public type
     TNode = class(TObject)
     public
       Key: K;
@@ -78,8 +78,7 @@ type
     procedure Remove(key: K); virtual; abstract;
     procedure SetItem(key: K; newValue: V);
 
-    property Comparer_K: TImpl_K.ICmp read _cmp_K write _cmp_K;
-    property Comparer_V: TImpl_V.ICmp read _cmp_V write _cmp_V;
+    property Comparer_V: TImpl_V.ICmp write _cmp_V;
     property Item[key: K]: V read GetItem write SetItem; default;
   end;
 

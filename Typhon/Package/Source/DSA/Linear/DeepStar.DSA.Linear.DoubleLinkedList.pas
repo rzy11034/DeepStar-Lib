@@ -13,10 +13,11 @@ uses
 
 type
   generic TDoubleLinkedList<T> = class(TInterfacedObject, specialize IList<T>)
-  private type
-    TImpl = specialize TImpl<T>;
-
   public type
+    TImpl = specialize TImpl<T>;
+    ICmp = TImpl.ICmp;
+    TCmp = TImpl.TCmp;
+
     TNode = class(TObject)
     public
       E: T;
@@ -34,8 +35,6 @@ type
     _dummyTail: TNode;
     _cmp: TImpl.ICmp;
 
-    procedure __SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
-    procedure __SetComparer(onComparison: TImpl.TOnComparisons);
     procedure __SetComparer(const newComparer: TImpl.ICmp);
     procedure __Swap(var a, b: T);
 
@@ -44,6 +43,7 @@ type
     constructor Create(const arr: array of T);
     constructor Create(comparisonFunc: TImpl.TComparisonFuncs);
     constructor Create(onComparison: TImpl.TOnComparisons);
+    constructor Create(cmp: TImpl.ICmp);
     destructor Destroy; override;
 
     function Contains(e: T): boolean;
@@ -97,20 +97,26 @@ end;
 
 constructor TDoubleLinkedList.Create(const arr: array of T);
 begin
-  Create;
+  Self.Create;
   Self.AddRange(arr);
+end;
+
+constructor TDoubleLinkedList.Create(cmp: TImpl.ICmp);
+begin
+  Self.Create;
+  _cmp := cmp;
 end;
 
 constructor TDoubleLinkedList.Create(comparisonFunc: TImpl.TComparisonFuncs);
 begin
   Self.Create;
-  __SetComparer(comparisonFunc);
+  _cmp := TCmp.Construct(comparisonFunc);
 end;
 
 constructor TDoubleLinkedList.Create(onComparison: TImpl.TOnComparisons);
 begin
   Self.Create;
-  __SetComparer(onComparison);
+  _cmp := TCmp.Construct(onComparison);
 end;
 
 constructor TDoubleLinkedList.Create;
@@ -456,16 +462,6 @@ end;
 procedure TDoubleLinkedList.__SetComparer(const newComparer: TImpl.ICmp);
 begin
   _cmp := newComparer;
-end;
-
-procedure TDoubleLinkedList.__SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
-begin
-  _cmp := TImpl.TCmp.Construct(comparisonFunc);
-end;
-
-procedure TDoubleLinkedList.__SetComparer(onComparison: TImpl.TOnComparisons);
-begin
-  _cmp := TImpl.TCmp.Construct(onComparison);
 end;
 
 procedure TDoubleLinkedList.__Swap(var a, b: T);

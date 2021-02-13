@@ -14,11 +14,12 @@ type
   THeapkind = (Min, Max);
 
   generic THeap<T> = class
-  private type
+  public type
     TImpl = specialize TImpl<T>;
     TList = specialize TArrayList<T>;
     TArr = TImpl.TArr;
     ICmp = TImpl.ICmp;
+    TCmp = TImpl.TCmp;
 
   private
     _data: TList;
@@ -39,9 +40,10 @@ type
     procedure __shiftDown(k: integer);
 
   public
-    constructor Create(capacity: integer = 10; heapKind: THeapkind = THeapkind.Min); overload;
-    constructor Create(const arr: TArr; cmp: ICmp; heapKind: THeapkind = THeapkind.Min); overload;
-    constructor Create(const arr: TArr; heapKind: THeapkind = THeapkind.Min); overload;
+    constructor Create(capacity: integer = 10; heapKind: THeapkind = THeapkind.Min);
+    constructor Create(cmp: ICmp; capacity: integer = 10; heapKind: THeapkind = THeapkind.Min);
+    constructor Create(const arr: TArr; cmp: ICmp; heapKind: THeapkind = THeapkind.Min);
+    constructor Create(const arr: TArr; heapKind: THeapkind = THeapkind.Min);
     destructor Destroy; override;
 
     // 返回堆中元素个数 </summary>
@@ -56,13 +58,17 @@ type
     function ExtractFirst: T;
     // 替换堆顶元素
     function Replace(e: T): T;
-
-    property Comparer: ICmp read _cmp write _cmp;
   end;
 
 implementation
 
 { THeap }
+
+constructor THeap.Create(cmp: ICmp; capacity: integer; heapKind: THeapkind);
+begin
+  Self.Create(capacity, heapKind);
+  _cmp := cmp;
+end;
 
 constructor THeap.Create(capacity: integer; heapKind: THeapkind);
 begin

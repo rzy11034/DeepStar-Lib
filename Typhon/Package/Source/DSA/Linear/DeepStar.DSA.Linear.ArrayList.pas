@@ -13,9 +13,11 @@ uses
 
 type
   generic TArrayList<T> = class(TInterfacedObject, specialize IList<T>)
-  private type
+  public type
     TImpl = specialize TImpl<T>;
     TArr = TImpl.TArr;
+    ICmp = TImpl.ICmp;
+    TCmp = TImpl.TCmp;
 
   private
     _data: TArr;
@@ -24,8 +26,6 @@ type
 
     procedure __quickSort(l, r: integer);
     procedure __reSize(newCapacity: integer);
-    procedure __SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
-    procedure __SetComparer(onComparison: TImpl.TOnComparisons);
     procedure __SetComparer(const newComparer: TImpl.ICmp);
     procedure __swap(var a, b: T);
 
@@ -39,6 +39,8 @@ type
     constructor Create(comparisonFunc: TImpl.TComparisonFuncs);
     // 构造函数，传入 TOnComparisons。
     constructor Create(onComparison: TImpl.TOnComparisons);
+    // 构造函数，传入 IComparer
+    constructor Create(cmp: TImpl.ICmp);
     destructor Destroy; override;
 
     // 获取数组中的元数个数
@@ -172,6 +174,12 @@ begin
     _data[i] := arr[i];
 
   _size := Length(arr);
+end;
+
+constructor TArrayList.Create(cmp: TImpl.ICmp);
+begin
+  Self.Create;
+  _cmp := cmp;
 end;
 
 constructor TArrayList.Create(comparisonFunc: TImpl.TComparisonFuncs);
@@ -406,16 +414,6 @@ end;
 procedure TArrayList.__SetComparer(const newComparer: TImpl.ICmp);
 begin
   _cmp := newComparer;
-end;
-
-procedure TArrayList.__SetComparer(comparisonFunc: TImpl.TComparisonFuncs);
-begin
-  _cmp := TImpl.TCmp.Construct(comparisonFunc);
-end;
-
-procedure TArrayList.__SetComparer(onComparison: TImpl.TOnComparisons);
-begin
-  _cmp := TImpl.TCmp.Construct(onComparison);
 end;
 
 procedure TArrayList.__swap(var a, b: T);
