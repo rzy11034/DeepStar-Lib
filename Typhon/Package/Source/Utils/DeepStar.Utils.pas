@@ -96,6 +96,10 @@ type
     class procedure FillArray(var arr: TArr_T; e: T);
     // 反转数组
     class procedure Reverse(var arr: TArr_T);
+    // 初始化一维数组并填充初始值
+    class procedure SetLengthAndFill(var arr: TArr_T; n: integer; f: T = Default(T));
+    // 初始化二维数组并填充初始值
+    class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T = Default(T));
   end;
 
   TArrayUtils_int = specialize TArrayUtils<integer>;
@@ -446,6 +450,21 @@ begin
     l += 1;
     r -= 1;
   end;
+end;
+
+class procedure TArrayUtils.SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T);
+var
+  i: integer;
+begin
+  SetLength(arr, n, m);
+  for i := 0 to High(arr) do
+    FillArray(arr[i], f);
+end;
+
+class procedure TArrayUtils.SetLengthAndFill(var arr: TArr_T; n: integer; f: T);
+begin
+  SetLength(arr, n);
+  FillArray(arr, f);
 end;
 
 class procedure TArrayUtils.Sort(var arr: TArr_T);
