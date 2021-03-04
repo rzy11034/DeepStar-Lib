@@ -203,6 +203,7 @@ type // 容器类
 procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
 procedure NeedInput;
+function Exp(d: ValReal): ValReal;
 function Chr(i: cardinal): UChar;
 function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
 
@@ -237,6 +238,11 @@ end;
 procedure NeedInput;
 begin
   writeln('Need input data: ');
+end;
+
+function Exp(d: ValReal): ValReal;
+begin
+  Result := system.Exp(d);
 end;
 
 function Chr(i: cardinal): UChar;
