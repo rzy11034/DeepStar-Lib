@@ -113,16 +113,6 @@
         <UnitName Value="DeepStar.UString"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL2\jedi.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2\sdl.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
         <Filename Value="Source\SDL2\DeepStar.SDL2.pas"/>
         <UnitName Value="DeepStar.SDL2"/>
       </Item>
@@ -145,6 +135,16 @@
       <Item>
         <Filename Value="Source\SDL2\DeepStar.SDL2_ttf.pas"/>
         <UnitName Value="DeepStar.SDL2_ttf"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\jedi.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\sdl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL2\sdlaudio.inc"/>
