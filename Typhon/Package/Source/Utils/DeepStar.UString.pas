@@ -37,6 +37,7 @@ type
     function ToCharArray: TArr_chr;
     function ToInteger: integer; inline;
     function Trim: UString;
+    function PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
 
     property Chars[index: integer]: UChar read __getChar write __setChar;
     property Length: integer read __getLength;
@@ -45,6 +46,9 @@ type
   TStringBuilder = TUnicodeStringBuilder;
 
 implementation
+
+uses
+  DeepStar.Utils;
 
 { TUStringHelper }
 
@@ -57,6 +61,22 @@ class function TUStringHelper.Create(const chrArr: TArr_chr; startIndex, len: in
 begin
   SetLength(Result, Len);
   Move(chrArr[StartIndex], PChar(PChar(Result))^, Len * SizeOf(UChar));
+end;
+
+function TUStringHelper.PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
+var
+  left: TArr_chr;
+  l: integer;
+begin
+  Result := Self;
+  l := toltaWidth - Length;
+
+  if l > 0 then
+  begin
+    SetLength(left, l);
+    TArrayUtils_chr.FillArray(left, PaddingChar);
+    Result := UString.Create(left) + Result;
+  end;
 end;
 
 function TUStringHelper.ReverseString: UString;
