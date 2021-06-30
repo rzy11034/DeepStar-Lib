@@ -150,7 +150,7 @@ begin
 
   mid := _size div 2;
 
-  if index >= mid then
+  if (index >= mid) and (_size > 3) then
   begin
     cur := _dummyTail.Prev;
     for i := _size - 1 downto index + 1 do
