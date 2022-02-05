@@ -14,11 +14,11 @@ uses
 type
   TMath = class
   private
-    class function __charToNum(c: UChar): integer;
-    class function __numToChar(n: integer): UChar;
+    class function __CharToNum(c: UChar): integer;
+    class function __NumToChar(n: integer): UChar;
   public
-    class function AnyToDec(numStr: UString; inType: integer): integer;
-    class function DecToAny(numStr: integer; OutType: integer): UString;
+    class function AnyToDec(numStr: UString; NumberSystem: integer): integer;
+    class function DecToAny(num: integer; NumberSystem: integer): UString;
     // 以最快速度求a的n次方 ===> O(lgn)
     class function Power(a, n: integer): integer;
     // 求矩阵 matrix 的 n 次方
@@ -33,55 +33,51 @@ implementation
 
 { TMath }
 
-class function TMath.AnyToDec(numStr: UString; inType: integer): integer;
+class function TMath.AnyToDec(numStr: UString; NumberSystem: integer): integer;
 var
-  tmp, i: integer;
-  stack: TStack_chr;
+  stack: IStack_chr;
+  i, res: integer;
 begin
-  tmp := 0;
-
   stack := TStack_chr.Create;
-  try
-    for i := Low(numStr) to High(numStr) do
-      stack.Push(numStr[i]);
+  res := 0;
 
-    i := 0;
-    while stack.Count > 0 do
-    begin
-      tmp := tmp + __charToNum(stack.Pop) * Trunc(IntPower(inType, i));
-      i += 1;
-    end;
+  for i := Low(numStr) to High(numStr) do
+    stack.Push(numStr[i]);
 
-    Result := tmp;
-  finally
-    stack.Free;
+  i := 0;
+  while not stack.IsEmpty do
+  begin
+    res += __CharToNum(stack.Pop) * Trunc(IntPower(NumberSystem, i));
+    i += 1;
   end;
+
+  Result := res;
 end;
 
-class function TMath.DecToAny(numStr: integer; OutType: integer): UString;
+class function TMath.DecToAny(num: integer; NumberSystem: integer): UString;
 var
-  tmp: integer;
-  stack: TStack_chr;
+  stack: IStack_chr;
   sb: TStringBuilder;
 begin
   stack := TStack_chr.Create;
-  sb := TStringBuilder.Create;
-  try
-    tmp := numStr;
 
-    while tmp > 0 do
+  sb := TStringBuilder.Create();
+  try
+    while num > 0 do
     begin
-      stack.Push(__numToChar(tmp mod OutType));
-      tmp := tmp div OutType;
+      stack.Push(__NumToChar(num mod NumberSystem));
+      num := num div NumberSystem;
     end;
 
-    while stack.Count > 0 do
+    while not stack.IsEmpty do
+    begin
       sb.Append(stack.Pop);
+    end;
 
     Result := sb.ToString;
+
   finally
     sb.Free;
-    stack.Free;
   end;
 end;
 
@@ -164,34 +160,30 @@ begin
   Result := res * temp;
 end;
 
-class function TMath.__charToNum(c: UChar): integer;
+class function TMath.__CharToNum(c: UChar): integer;
 var
-  ret: integer;
-  tmp: char;
+  res: integer;
 begin
-  ret := -1;
-  tmp := UpCase(c);
+  res := -1;
 
-  if (tmp >= '0') and (tmp <= '9') then
-    ret := Ord(tmp) - Ord('0')
-  else if (tmp >= 'A') and (tmp <= 'Z') then
-    ret := Ord(tmp) - Ord('A') + 10;
+  if c in ['0'..'9'] then
+    res := Ord(c) - Ord('0')
+  else
+    res := Ord(UpCase(c)) - Ord('A') + 10;
 
-  Result := ret;
+  Result := res;
 end;
 
-class function TMath.__numToChar(n: integer): UChar;
+class function TMath.__NumToChar(n: integer): UChar;
 var
-  ret: char;
+  res: UChar;
 begin
-  ret := #0;
+  if n in [0..9] then
+    res := Chr(n + Ord('0'))
+  else
+    res := Chr(n - 10 + Ord('A'));
 
-  if (n >= 0) and (n <= 9) then
-    ret := Chr(n + Ord('0'))
-  else if (n >= 10) and (n <= 35) then
-    ret := Chr(n + Ord('A') - 10);
-
-  Result := ret;
+  Result := res;
 end;
 
 end.
