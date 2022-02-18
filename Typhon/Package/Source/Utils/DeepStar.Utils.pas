@@ -199,6 +199,9 @@ type // 容器类
 
   {$ENDREGION}
 
+resourcestring
+  END_OF_PROGRAM_EN = 'Press any key to continue...';
+  END_OF_PROGRAM_CH = '按任意键继续...';
 
 procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
@@ -206,10 +209,8 @@ procedure NeedInput;
 function Exp(d: ValReal): ValReal;
 function Chr(i: cardinal): UChar;
 function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
-
-resourcestring
-  END_OF_PROGRAM_EN = 'Press any key to continue...';
-  END_OF_PROGRAM_CH = '按任意键继续...';
+procedure WriteF(const Fmt: string; const Args: array of const);
+procedure WriteLnF(const Fmt: string; const Args: array of const);
 
 implementation
 
@@ -256,6 +257,16 @@ begin
     Result := TrueResult
   else
     Result := FalseResult;
+end;
+
+procedure WriteF(const Fmt: string; const Args: array of const);
+begin
+  Write(Format(Fmt, Args));
+end;
+
+procedure WriteLnF(const Fmt: string; const Args: array of const);
+begin
+  WriteLn(Format(Fmt, Args));
 end;
 
 { TArrayUtils }
