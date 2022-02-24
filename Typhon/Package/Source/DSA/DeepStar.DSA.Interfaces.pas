@@ -85,7 +85,7 @@ type
 
   TPtrValue<T> = class(TInterfacedObject, IPtrValue<T>)
   private
-    _value: T;
+    _Value: T;
   public
     function Value: T;
     constructor Create(newValue: T);
@@ -113,12 +113,12 @@ implementation
 
 constructor TPtrValue<T>.Create(newValue: T);
 begin
-  _value := newValue;
+  _Value := newValue;
 end;
 
 function TPtrValue<T>.Value: T;
 begin
-  Result := _value;
+  Result := _Value;
 end;
 
 end.

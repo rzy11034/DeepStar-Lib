@@ -196,7 +196,6 @@ type // 容器类
   ISet_dbl = specialize ISet<double>;
   THashSet_dbl = specialize THashSet<double>;
   TTreeSet_dbl = specialize TTreeSet<double>;
-
   {$ENDREGION}
 
 resourcestring
@@ -348,7 +347,10 @@ begin
   for i := 0 to High(arr) do
   begin
     TValue.Make(@arr[i], TypeInfo(T), Value);
-    Write(Value.ToString);
+    if Value.Kind <> tkFloat then
+      Write(Value.ToString)
+    else
+      Write(Value.AsExtended.ToString);
 
     if i <> High(arr) then
       Write(', ');
@@ -379,7 +381,10 @@ begin
         begin
           tmp := arr[i, j];
           TValue.Make(@tmp, System.TypeInfo(T), Value);
-          Write(Value.ToString);
+          if Value.Kind <> tkFloat then
+            Write(Value.ToString)
+          else
+            Write(Value.AsExtended.ToString);
 
           if j <> High(arr[i]) then
             Write(', '#9);
@@ -401,7 +406,10 @@ begin
         begin
           tmp := arr[i, j];
           TValue.Make(@tmp, TypeInfo(T), Value);
-          Write(Value.ToString);
+          if Value.Kind <> tkFloat then
+            Write(Value.ToString)
+          else
+            Write(Value.AsExtended.ToString);
 
           if j <> High(arr[i]) then
             Write(', ');
@@ -439,7 +447,10 @@ begin
       begin
         tmp := arr[i, j, k];
         TValue.Make(@tmp, TypeInfo(T), Value);
-        Write(Value.ToString);
+        if Value.Kind <> tkFloat then
+          Write(Value.ToString)
+        else
+          Write(Value.AsExtended.ToString);
 
         if k <> High(arr[i, j]) then
           Write(',');

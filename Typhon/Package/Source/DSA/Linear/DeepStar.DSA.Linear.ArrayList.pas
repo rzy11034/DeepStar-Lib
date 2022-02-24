@@ -110,7 +110,7 @@ begin
     _data[i + 1] := _data[i];
 
   _data[index] := e;
-  Inc(_size);
+  _size += 1;
 end;
 
 procedure TArrayList.AddFirst(e: T);
