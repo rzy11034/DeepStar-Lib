@@ -63,10 +63,10 @@ type
     TArr2D_T = array of array of T;
     TArr3D_T = array of array of array of T;
     TArrayHelper_T = specialize TArrayHelper<T>;
-    ICmp_T = specialize IComparer<T>;
     TUtils_T = specialize TUtils<T>;
 
   public type
+    ICmp_T = specialize IComparer<T>;
     TCmp_T = specialize TComparer<T>;
     TOnComparison_T = specialize TOnComparison<T>;
     TComparisonFunc_T = specialize TComparisonFunc<T>;
@@ -76,6 +76,10 @@ type
     class procedure Sort(var arr: TArr_T);
     // 快速排序
     class procedure Sort(var arr: TArr_T; const cmp: ICmp_T);
+    // 快速排序
+    class procedure Sort(var arr: TArr_T; const cmp: TOnComparison_T);
+    // 快速排序
+    class procedure Sort(var arr: TArr_T; const cmp: TComparisonFunc_T);
     // 二分查找法
     class function BinarySearch(const arr: TArr_T; const e: T): integer;
     // 二分查找法
@@ -89,17 +93,21 @@ type
     // 输出三维数组
     class procedure Print3D(arr: TArr3D_T);
     // 复制一维数组
-    class function CopyArray(arr: TArr_T): TArr_T;
+    class function CopyArray(const arr: TArr_T): TArr_T;
     // 复制二维数组
-    class function CopyArray2D(arr2D: TArr2D_T): TArr2D_T;
+    class function CopyArray2D(const arr2D: TArr2D_T): TArr2D_T;
     // 填充数组
     class procedure FillArray(var arr: TArr_T; e: T);
     // 反转数组
     class procedure Reverse(var arr: TArr_T);
+    // 初始化一维数组并填充默认初始值
+    class procedure SetLengthAndFill(var arr: TArr_T; n: integer);
     // 初始化一维数组并填充初始值
-    class procedure SetLengthAndFill(var arr: TArr_T; n: integer; f: T = Default(T));
+    class procedure SetLengthAndFill(var arr: TArr_T; n: integer; f: T);
+    // 初始化一维数组并填充默认初始值
+    class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer);
     // 初始化二维数组并填充初始值
-    class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T = Default(T));
+    class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T);
   end;
 
   TArrayUtils_int = specialize TArrayUtils<integer>;
@@ -291,12 +299,12 @@ begin
     Result := ret;
 end;
 
-class function TArrayUtils.CopyArray(arr: TArr_T): TArr_T;
+class function TArrayUtils.CopyArray(const arr: TArr_T): TArr_T;
 begin
-  Result := Copy(arr);
+  Result := system.Copy(arr);
 end;
 
-class function TArrayUtils.CopyArray2D(arr2D: TArr2D_T): TArr2D_T;
+class function TArrayUtils.CopyArray2D(const arr2D: TArr2D_T): TArr2D_T;
 var
   i: integer;
   res: TArr2D_T;
@@ -480,6 +488,15 @@ begin
   end;
 end;
 
+class procedure TArrayUtils.SetLengthAndFill(var arr: TArr2D_T; n, m: integer);
+var
+  i: integer;
+begin
+  SetLength(arr, n, m);
+  for i := 0 to High(arr) do
+    FillArray(arr[i], Default(T));
+end;
+
 class procedure TArrayUtils.SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T);
 var
   i: integer;
@@ -487,6 +504,12 @@ begin
   SetLength(arr, n, m);
   for i := 0 to High(arr) do
     FillArray(arr[i], f);
+end;
+
+class procedure TArrayUtils.SetLengthAndFill(var arr: TArr_T; n: integer);
+begin
+  SetLength(arr, n);
+  FillArray(arr, Default(T));
 end;
 
 class procedure TArrayUtils.SetLengthAndFill(var arr: TArr_T; n: integer; f: T);
@@ -503,6 +526,16 @@ end;
 class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: ICmp_T);
 begin
   TArrayHelper_T.Sort(arr, cmp);
+end;
+
+class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: TComparisonFunc_T);
+begin
+  TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp));
+end;
+
+class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: TOnComparison_T);
+begin
+  TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp));
 end;
 
 { TUtils }
