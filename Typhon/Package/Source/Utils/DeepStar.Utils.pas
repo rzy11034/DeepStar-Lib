@@ -215,9 +215,11 @@ procedure DrawLineProgramEnd;
 procedure NeedInput;
 function Exp(d: ValReal): ValReal;
 function Chr(i: cardinal): UChar;
-function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
 procedure WriteF(const Fmt: string; const Args: array of const);
 procedure WriteLnF(const Fmt: string; const Args: array of const);
+function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant; deprecated 'Use IfThen<T> instead';
+
+  generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T;
 
 implementation
 
@@ -260,6 +262,18 @@ end;
 
 function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
 begin
+  Result := Default(variant);
+
+  if Condition then
+    Result := TrueResult
+  else
+    Result := FalseResult;
+end;
+
+generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T;
+begin
+  Result := Default(T);
+
   if Condition then
     Result := TrueResult
   else
