@@ -31,7 +31,7 @@ type
     class function Create(const chrArr: TArr_chr; startIndex, len: integer): UString; static;
 
     function ReverseString: UString;
-    function Split(const Separators: TCharArray): TArr_str;
+    function Split(const Separators: TStringArray): TArr_str;
     function Substring(index: integer): UString;
     function Substring(index: integer; len: integer): UString;
     function ToCharArray: TArr_chr;
@@ -94,21 +94,21 @@ begin
   end;
 end;
 
-function TUStringHelper.Split(const Separators: TCharArray): TArr_str;
+function TUStringHelper.Split(const Separators: TStringArray): TArr_str;
 var
-  ret: TArr_str;
   tmp: TStringArray;
   i: integer;
+  res: TArr_str;
 begin
   tmp := string(Self).Split(Separators);
-  SetLength(ret, System.Length(tmp));
+  SetLength(res, System.Length(tmp));
 
   for i := 0 to High(tmp) do
   begin
-    ret[i] := UString(tmp[i]);
+    res[i] := UString(tmp[i]);
   end;
 
-  Result := ret;
+  Result := res;
 end;
 
 function TUStringHelper.Substring(index: integer): UString;

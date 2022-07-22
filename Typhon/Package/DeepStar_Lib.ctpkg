@@ -12,6 +12,11 @@
         <OtherUnitFiles Value="Source\Utils;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Tree;Source\DSA\Hash;Source\DSA;Source\SDL2"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
+      <Linking>
+        <Debugging>
+          <DebugInfoType Value="dsDwarf3"/>
+        </Debugging>
+      </Linking>
       <Other>
         <CompilerMessages>
           <IgnoredMessages idx4105="True"/>
