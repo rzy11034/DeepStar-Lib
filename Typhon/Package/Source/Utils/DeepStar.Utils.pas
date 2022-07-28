@@ -1,6 +1,7 @@
 ﻿unit DeepStar.Utils;
 
 {$mode objfpc}{$H+}
+{$ModeSwitch unicodestrings}
 
 interface
 
@@ -207,8 +208,8 @@ type // 容器类
   {$ENDREGION}
 
 resourcestring
-  END_OF_PROGRAM_EN = 'Press any key to continue...';
-  END_OF_PROGRAM_CH = '按任意键继续...';
+  END_OF_PROGRAM_EN = 'Press <ENTER> key to continue...';
+  END_OF_PROGRAM_CH = '按 <ENTER> 键继续...';
 
 procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
@@ -217,7 +218,8 @@ function Exp(d: ValReal): ValReal;
 function Chr(i: cardinal): UChar;
 procedure WriteF(const Fmt: string; const Args: array of const);
 procedure WriteLnF(const Fmt: string; const Args: array of const);
-function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant; deprecated 'Use IfThen<T> instead';
+function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
+  deprecated 'Use IfThen<T> instead';
 
 generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T;
 
