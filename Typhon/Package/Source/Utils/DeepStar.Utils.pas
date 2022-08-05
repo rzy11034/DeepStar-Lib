@@ -212,6 +212,7 @@ resourcestring
   END_OF_PROGRAM_CH = '按 <ENTER> 键继续...';
 
 procedure DrawLineBlockEnd;
+
 procedure DrawLineProgramEnd;
 procedure NeedInput;
 function Exp(d: ValReal): ValReal;
@@ -229,9 +230,9 @@ procedure DrawLineBlockEnd;
 var
   i: integer;
 begin
-  for i := 0 to 10 do
+  for i := 0 to 70 do
   begin
-    Write('-');
+    Write('─');
   end;
   Writeln;
 end;
@@ -242,7 +243,7 @@ var
 begin
   for i := 0 to 70 do
   begin
-    Write('=');
+    Write('═');
   end;
   Writeln;
 end;
