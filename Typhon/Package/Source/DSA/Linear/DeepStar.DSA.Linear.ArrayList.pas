@@ -160,6 +160,8 @@ end;
 
 constructor TArrayList.Create(capacity: integer);
 begin
+  if capacity < 10 then capacity := 10;
+
   SetLength(_data, capacity);
   _cmp := TImpl.TCmp.Default;
 end;
@@ -209,7 +211,7 @@ end;
 
 function TArrayList.GetItem(index: integer): T;
 begin
-  if (index < 0) or (index > _size) then
+  if (index < 0) or (index >= _size) then
     raise Exception.Create('Get failed. Index is illegal.');
 
   Result := _data[index];
@@ -245,7 +247,7 @@ var
   i: integer;
   res: T;
 begin
-  if (index < 0) or (index > _size) then
+  if (index < 0) or (index >= _size) then
     raise Exception.Create('Remove failed. Index is illegal.');
 
   res := _data[index];
@@ -301,7 +303,7 @@ end;
 
 procedure TArrayList.SetItem(index: integer; e: T);
 begin
-  if (index < 0) or (index > _size) then
+  if (index < 0) or (index >= _size) then
     raise Exception.Create('Set failed. Require index >= 0 and index < Size.');
 
   _data[index] := e;
