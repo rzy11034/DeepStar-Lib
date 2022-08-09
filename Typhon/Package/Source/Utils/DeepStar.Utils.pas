@@ -222,7 +222,7 @@ procedure WriteLnF(const Fmt: string; const Args: array of const);
 function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
   deprecated 'Use IfThen<T> instead';
 
-generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T;
+generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
 
 implementation
 
