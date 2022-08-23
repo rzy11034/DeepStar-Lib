@@ -43,20 +43,6 @@ type
   // 三维数组
   TArr3D_int = array of array of array of integer;
 
-type
-  generic TUtils<T> = class
-  public
-    class procedure Swap(var a, b: T); inline;
-  end;
-
-  ///////////////////////////////////
-  TUtils_int = specialize TUtils<integer>;
-  TUtils_int64 = specialize TUtils<int64>;
-  TUtils_str = specialize TUtils<UString>;
-  TUtils_chr = specialize TUtils<UChar>;
-  TUtils_dbl = specialize TUtils<double>;
-
-type
   // 数组辅助类
   generic TArrayUtils<T> = class
   private type
@@ -64,7 +50,6 @@ type
     TArr2D_T = array of array of T;
     TArr3D_T = array of array of array of T;
     TArrayHelper_T = specialize TArrayHelper<T>;
-    TUtils_T = specialize TUtils<T>;
 
   public type
     ICmp_T = specialize IComparer<T>;
@@ -223,6 +208,7 @@ function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
   deprecated 'Use IfThen<T> instead';
 
 generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
+generic procedure Swap<T>(var a, b: T); inline;
 
 implementation
 
@@ -281,6 +267,15 @@ begin
     Result := TrueResult
   else
     Result := FalseResult;
+end;
+
+generic procedure Swap<T>(var a, b: T);
+var
+  temp: T;
+begin
+  temp := a;
+  a := b;
+  b := temp;
 end;
 
 procedure WriteF(const Fmt: string; const Args: array of const);
@@ -498,7 +493,7 @@ begin
 
   while l < r do
   begin
-    TUtils_T.Swap(arr[l], arr[r]);
+    specialize Swap<T>(arr[l], arr[r]);
 
     l += 1;
     r -= 1;
@@ -553,17 +548,6 @@ end;
 class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: TOnComparison_T);
 begin
   TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp));
-end;
-
-{ TUtils }
-
-class procedure TUtils.Swap(var a, b: T);
-var
-  temp: T;
-begin
-  temp := a;
-  a := b;
-  b := temp;
 end;
 
 end.
