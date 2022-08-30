@@ -61,11 +61,19 @@ type
     // 快速排序
     class procedure Sort(var arr: TArr_T);
     // 快速排序
-    class procedure Sort(var arr: TArr_T; const cmp: ICmp_T);
+    class procedure Sort(var arr: TArr_T; cmp: ICmp_T);
     // 快速排序
-    class procedure Sort(var arr: TArr_T; const cmp: TOnComparison_T);
+    class procedure Sort(var arr: TArr_T; cmp: TOnComparison_T);
     // 快速排序
-    class procedure Sort(var arr: TArr_T; const cmp: TComparisonFunc_T);
+    class procedure Sort(var arr: TArr_T; cmp: TComparisonFunc_T);
+    // 快速排序
+    class procedure Sort(var arr: TArr_T; index, Count: integer);
+    // 快速排序
+    class procedure Sort(var arr: TArr_T; index, Count: integer; cmp: ICmp_T);
+    // 快速排序
+    class procedure Sort(var arr: TArr_T; index, Count: integer; cmp: TOnComparison_T);
+    // 快速排序
+    class procedure Sort(var arr: TArr_T; index, Count: integer; cmp: TComparisonFunc_T);
     // 二分查找法
     class function BinarySearch(const arr: TArr_T; const e: T): integer;
     // 二分查找法
@@ -207,8 +215,8 @@ procedure WriteLnF(const Fmt: string; const Args: array of const);
 function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
   deprecated 'Use IfThen<T> instead';
 
-generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
-generic procedure Swap<T>(var a, b: T); inline;
+  generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
+  generic procedure Swap<T>(var a, b: T); inline;
 
 implementation
 
@@ -535,17 +543,37 @@ begin
   TArrayHelper_T.Sort(arr);
 end;
 
-class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: ICmp_T);
+class procedure TArrayUtils.Sort(var arr: TArr_T; index, Count: integer);
+begin
+  TArrayHelper_T.Sort(arr, TCmp_T.Default, index, Count);
+end;
+
+class procedure TArrayUtils.Sort(var arr: TArr_T; index, Count: integer; cmp: ICmp_T);
+begin
+  TArrayHelper_T.Sort(arr, cmp, index, Count);
+end;
+
+class procedure TArrayUtils.Sort(var arr: TArr_T; index, Count: integer; cmp: TComparisonFunc_T);
+begin
+  TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp), index, Count);
+end;
+
+class procedure TArrayUtils.Sort(var arr: TArr_T; index, Count: integer; cmp: TOnComparison_T);
+begin
+  TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp), index, Count);
+end;
+
+class procedure TArrayUtils.Sort(var arr: TArr_T; cmp: ICmp_T);
 begin
   TArrayHelper_T.Sort(arr, cmp);
 end;
 
-class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: TComparisonFunc_T);
+class procedure TArrayUtils.Sort(var arr: TArr_T; cmp: TComparisonFunc_T);
 begin
   TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp));
 end;
 
-class procedure TArrayUtils.Sort(var arr: TArr_T; const cmp: TOnComparison_T);
+class procedure TArrayUtils.Sort(var arr: TArr_T; cmp: TOnComparison_T);
 begin
   TArrayHelper_T.Sort(arr, TCmp_T.Construct(cmp));
 end;

@@ -19,6 +19,8 @@ type
     TImpl = specialize TImpl<T>;
     ICmp = TImpl.ICmp;
     TCmp = TImpl.TCmp;
+    TOnComparison = TImpl.TOnComparisons;
+    TComparisonFunc = TImpl.TComparisonFuncs;
 
   private
     _heap: THeap;
@@ -26,6 +28,8 @@ type
   public
     constructor Create(heapkind: THeapkind = THeapkind.Min);
     constructor Create(cmp: ICmp; heapkind: THeapkind = THeapkind.Min);
+    constructor Create(cmp: TOnComparison; heapkind: THeapkind = THeapkind.Min);
+    constructor Create(cmp: TComparisonFunc; heapkind: THeapkind = THeapkind.Min);
     destructor Destroy; override;
 
     function Count: integer;
@@ -44,9 +48,19 @@ begin
   _heap := THeap.Create(cmp, 10, heapkind);
 end;
 
+constructor TPriorityQueue.Create(cmp: TComparisonFunc; heapkind: THeapkind);
+begin
+  Create(TImpl.TCmp.Construct(cmp), heapkind);
+end;
+
 constructor TPriorityQueue.Create(heapkind: THeapkind);
 begin
   Create(TImpl.TCmp.Default, heapkind);
+end;
+
+constructor TPriorityQueue.Create(cmp: TOnComparison; heapkind: THeapkind);
+begin
+  Create(TImpl.TCmp.Construct(cmp), heapkind);
 end;
 
 function TPriorityQueue.Count: integer;
