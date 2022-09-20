@@ -200,6 +200,15 @@ type // 容器类
   TTreeSet_dbl = specialize TTreeSet<double>;
   {$ENDREGION}
 
+const
+  {$IFDEF MSWINDOWS}
+  // 换行符
+  NEW_LINE = #13#10;
+  {$ELSE}
+  // 换行符
+  NEW_LINE = #10;
+  {$ENDIF}
+
 resourcestring
   END_OF_PROGRAM_EN = 'Press <ENTER> key to continue...';
   END_OF_PROGRAM_CH = '按 <ENTER> 键继续...';
