@@ -27,6 +27,8 @@ type
     // 矩阵 1 为 n*m 矩阵，矩阵 2 为 m*p 矩阵
     // 结果为 n*p 矩阵
     class function MatrixMultiply(m1, m2: TArr2D_int): TArr2D_int;
+    // 是否素数
+    class function IsPrime(n: uint64): boolean;
   end;
 
 implementation
@@ -79,6 +81,19 @@ begin
   finally
     sb.Free;
   end;
+end;
+
+class function TMath.IsPrime(n: uint64): boolean;
+var
+  i: integer;
+begin
+  if n <= 1 then Exit(false);
+  if n = 2 then Exit(true);
+
+  for i := 2 to round(sqrt(n)) do
+    if n mod i = 0 then Exit(false);
+
+  Result := true;
 end;
 
 class function TMath.MatrixMultiply(m1, m2: TArr2D_int): TArr2D_int;
