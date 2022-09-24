@@ -203,10 +203,10 @@ type // 容器类
 const
   {$IFDEF MSWINDOWS}
   // 换行符
-  NEW_LINE = #13#10;
+  LineEnding = #13#10;
   {$ELSE}
   // 换行符
-  NEW_LINE = #10;
+  LineEnding = #10;
   {$ENDIF}
 
 resourcestring
