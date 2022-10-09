@@ -216,7 +216,7 @@ resourcestring
 procedure DrawLineBlockEnd;
 
 procedure DrawLineProgramEnd;
-procedure NeedInput;
+function NeedInput(need: boolean = true; showText: boolean = true): boolean;
 function Exp(d: ValReal): ValReal;
 function Chr(i: cardinal): UChar;
 procedure WriteF(const Fmt: string; const Args: array of const);
@@ -251,9 +251,16 @@ begin
   Writeln;
 end;
 
-procedure NeedInput;
+function NeedInput(need: boolean; showText: boolean): boolean;
 begin
-  writeln('Need input data: ');
+  if need then
+  begin
+    if showText then
+      writeln('Need input data: ');
+    Exit(true);
+  end;
+
+  Result := false;
 end;
 
 function Exp(d: ValReal): ValReal;
