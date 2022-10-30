@@ -447,7 +447,6 @@ begin
     Exit;
   end;
 
-  Write('[');
   case formated of
     true:
     begin
@@ -468,9 +467,9 @@ begin
         end;
 
         if i <> High(arr) then
-          Write('], ')
+          WriteLn('], ')
         else
-          Write(']');
+          WriteLn(']');
       end;
     end;
 
@@ -499,7 +498,6 @@ begin
       end;
     end;
   end;
-  Write(']'#10);
 end;
 
 class procedure TArrayUtils.Print3D(arr: TArr3D_T);
