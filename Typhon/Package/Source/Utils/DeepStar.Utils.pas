@@ -458,12 +458,12 @@ begin
           tmp := arr[i, j];
           TValue.Make(@tmp, System.TypeInfo(T), Value);
           if Value.Kind <> tkFloat then
-            Write(Value.ToString)
+            WriteF('%6s', [Value.ToString])
           else
-            Write(Value.AsExtended.ToString);
+            WriteF('%6s', [Value.AsExtended.ToString]);
 
           if j <> High(arr[i]) then
-            Write(', '#9);
+            Write(', ');
         end;
 
         if i <> High(arr) then
