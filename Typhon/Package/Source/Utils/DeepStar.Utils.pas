@@ -225,8 +225,8 @@ function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
   deprecated 'Use IfThen<T> instead';
 function CrossFixFileName(const FileName: string): string;
 
-  generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
-  generic procedure Swap<T>(var a, b: T); inline;
+generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
+generic procedure Swap<T>(var a, b: T); inline;
 
 // 交换零基字符串中字符
 procedure Swap(var str: string; indexA, indexB: integer);
