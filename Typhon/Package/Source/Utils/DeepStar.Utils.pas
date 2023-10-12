@@ -102,6 +102,8 @@ type
     class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer);
     // 初始化二维数组并填充初始值
     class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T);
+    // 返回一维数组内存区大小
+    class function MemorySize(const dynArray: TArr_T): integer;
   end;
 
   TArrayUtils_int = specialize TArrayUtils<integer>;
@@ -407,6 +409,11 @@ begin
     if cmp.Compare(arr[i], e) = 0 then
       Result := i;
   end;
+end;
+
+class function TArrayUtils.MemorySize(const dynArray: TArr_T): integer;
+begin
+  Result := SizeOf(dynArray[0]) * Length(dynArray);
 end;
 
 class procedure TArrayUtils.Print(arr: TArr_T);

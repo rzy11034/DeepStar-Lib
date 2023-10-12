@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <OtherUnitFiles Value="Source\Utils;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Tree;Source\DSA\Hash;Source\DSA;Source\SDL2"/>
+        <OtherUnitFiles Value="Source\Utils;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Tree;Source\DSA\Hash;Source\DSA;Source\SDL2;Source\OpenGL"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
       <Parsing>
@@ -133,6 +133,14 @@
       <Item>
         <Filename Value="Source\Utils\DeepStar.UString.pas"/>
         <UnitName Value="DeepStar.UString"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\GLAD_GL.pas"/>
+        <UnitName Value="GLAD_GL"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\GLFW.pas"/>
+        <UnitName Value="GLFW"/>
       </Item>
     </Files>
     <RequiredPkgs>
