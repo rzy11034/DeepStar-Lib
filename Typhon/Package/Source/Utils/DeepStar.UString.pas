@@ -1,6 +1,7 @@
 ﻿unit DeepStar.UString;
 
 {$mode objfpc}{$H+}
+{$ModeSwitch unicodestrings}{$J-}
 {$modeswitch typehelpers}
 
 interface
@@ -30,14 +31,15 @@ type
     class function Create(const chrArr: TArr_chr): UString; static;
     class function Create(const chrArr: TArr_chr; startIndex, len: integer): UString; static;
 
+    function PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
     function ReverseString: UString;
     function Split(const Separators: TStringArray): TArr_str;
     function Substring(index: integer): UString;
     function Substring(index: integer; len: integer): UString;
     function ToCharArray: TArr_chr;
-    function ToInteger: integer; inline;
+    function ToInteger: integer;
+    function ToPAnsiChar: PAnsiChar; inline;
     function Trim: UString;
-    function PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
 
     property Chars[index: integer]: UChar read __getChar write __setChar;
     property Length: integer read __getLength;
@@ -50,7 +52,7 @@ implementation
 uses
   DeepStar.Utils;
 
-{ TUStringHelper }
+  { TUStringHelper }
 
 class function TUStringHelper.Create(const chrArr: TArr_chr): UString;
 begin
@@ -100,13 +102,11 @@ var
   i: integer;
   res: TArr_str;
 begin
-  tmp := string(Self).Split(Separators);
+  tmp := AnsiString(Self).Split(Separators);
   SetLength(res, System.Length(tmp));
 
   for i := 0 to High(tmp) do
-  begin
     res[i] := UString(tmp[i]);
-  end;
 
   Result := res;
 end;
@@ -142,6 +142,11 @@ end;
 function TUStringHelper.ToInteger: integer;
 begin
   Result := StrToInt(Self);
+end;
+
+function TUStringHelper.ToPAnsiChar: PAnsiChar;
+begin
+  Result := PAnsiChar(AnsiString(Self));
 end;
 
 function TUStringHelper.Trim: UString;
