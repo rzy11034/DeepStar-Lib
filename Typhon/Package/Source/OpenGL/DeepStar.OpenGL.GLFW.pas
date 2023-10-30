@@ -40,7 +40,7 @@ More info:
 
   GLFW 3; Date: 20130912
 }
-unit GLFW;
+unit DeepStar.OpenGL.GLFW;
 
 {$mode objfpc}{$H+}
 

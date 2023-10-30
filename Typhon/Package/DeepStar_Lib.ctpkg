@@ -135,12 +135,16 @@
         <UnitName Value="DeepStar.UString"/>
       </Item>
       <Item>
-        <Filename Value="Source\OpenGL\GLAD_GL.pas"/>
-        <UnitName Value="GLAD_GL"/>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.GLAD_GL.pas"/>
+        <UnitName Value="DeepStar.OpenGL.GLAD_GL"/>
       </Item>
       <Item>
-        <Filename Value="Source\OpenGL\GLFW.pas"/>
-        <UnitName Value="GLFW"/>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.GLFW.pas"/>
+        <UnitName Value="DeepStar.OpenGL.GLFW"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.GLM.pas"/>
+        <UnitName Value="DeepStar.OpenGL.GLM"/>
       </Item>
     </Files>
     <RequiredPkgs>

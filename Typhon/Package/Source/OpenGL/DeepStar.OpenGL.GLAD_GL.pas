@@ -18,7 +18,7 @@
     Online:
         https://glad.dav1d.de/#profile=core&language=pascal&specification=gl&loader=on&api=gl%3D4.6
 }
-unit GLAD_GL;
+unit DeepStar.OpenGL.GLAD_GL;
 
 {$IF Defined(FPC)}{$MODE Delphi}{$ENDIF}{$H+}
 
