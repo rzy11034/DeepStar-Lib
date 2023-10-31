@@ -108,8 +108,21 @@ var
   c, s, x, y, z, theta: single;
   res: Tmat4;
 begin
+  //mat4 rotationMatrix(vec3 axis, float angle)
+  //{
+  //    axis = normalize(axis);
+  //    float s = sin(angle);
+  //    float c = cos(angle);
+  //    float oc = 1.0 - c;
+  //
+  //    return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
+  //                oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
+  //                oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
+  //                0.0,                                0.0,                                0.0,                                1.0);
+
   res := TGLM.Mat4_Identity;
-  theta := DegToRad(-degree);
+  //theta := DegToRad(-degree);
+  theta := degree;
   c := Cos(theta);
   s := Sin(theta);
 
@@ -118,18 +131,18 @@ begin
   z := vec.Data[2];
 
   res.Data[0, 0] := x * x * (1 - c) + c;
-  res.Data[1, 0] := x * y * (1 - c) - z * s;
-  res.Data[2, 0] := x * z * (1 - c) + y * s;
+  res.Data[1, 0] := x * y * (1 - c) + z * s;
+  res.Data[2, 0] := x * z * (1 - c) - y * s;
 
-  res.Data[0, 1] := y * x * (1 - c) + z * s;
+  res.Data[0, 1] := x * y * (1 - c) - z * s;
   res.Data[1, 1] := y * y * (1 - c) + c;
-  res.Data[2, 1] := y * z * (1 - c) - x * s;
+  res.Data[2, 1] := y * z * (1 - c) + x * s;
 
-  res.Data[0, 2] := x * z * (1 - c) - y * s;
-  res.Data[1, 2] := y * z * (1 - c) + x * s;
+  res.Data[0, 2] := z * x * (1 - c) + y * s;
+  res.Data[1, 2] := y * z * (1 - c) - x * s;
   res.Data[2, 2] := z * z * (1 - c) + c;
 
-  Result := m * res;
+  Result := res;
 end;
 
 class function TGLM.Scale(m: TMat4; vec: TVec3): TMat4;
