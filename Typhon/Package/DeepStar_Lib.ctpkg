@@ -146,6 +146,14 @@
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.GLM.pas"/>
         <UnitName Value="DeepStar.OpenGL.GLM"/>
       </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.Vector.pas"/>
+        <UnitName Value="DeepStar.OpenGL.Vector"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.Matrix.pas"/>
+        <UnitName Value="DeepStar.OpenGL.Matrix"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

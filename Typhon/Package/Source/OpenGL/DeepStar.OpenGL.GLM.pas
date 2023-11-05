@@ -8,15 +8,16 @@ interface
 uses
   Classes,
   SysUtils,
-  DeepStar.UString,
   Math,
-  matrix;
+  matrix,
+  DeepStar.UString,
+  DeepStar.OpenGL.Vector;
 
 type
   // 向量
-  TVec2 = Tvector2_single;
-  TVec3 = Tvector3_single;
-  TVec4 = Tvector4_single;
+  TVec2 = DeepStar.OpenGL.Vector.TVec2;
+  TVec3 = DeepStar.OpenGL.Vector.TVec3;
+  TVec4 = DeepStar.OpenGL.Vector.TVec4;
   // 矩阵
   TMat2 = Tmatrix2_single;
   TMat3 = Tmatrix3_single;
@@ -78,14 +79,7 @@ type
     class function Mat4ToString(matName: string; m: TMat4): string;
   end;
 
-function Vec3(x, y, z: single): TVec3;
-
 implementation
-
-function Vec3(x, y, z: single): TVec3;
-begin
-  Result.init(x, y, z);
-end;
 
 { TGLM }
 
@@ -192,10 +186,10 @@ begin
   len := vec.length;
 
   if len <= 0 then
-    res.init(1, 0, 0);
+    res.Create(1, 0, 0);
 
   oneOverLen := 1 / len;
-  res.init(vec.Data[0] * oneOverLen, vec.Data[1] * oneOverLen, vec.Data[2] * oneOverLen);
+  res.Create(vec.Data[0] * oneOverLen, vec.Data[1] * oneOverLen, vec.Data[2] * oneOverLen);
 
   Result := res;
 end;
@@ -338,17 +332,17 @@ end;
 
 class function TGLM.Vec2(x, y: single): TVec2;
 begin
-  Result.init(x, y);
+  Result.Create(x, y);
 end;
 
 class function TGLM.Vec3(x, y, z: single): TVec3;
 begin
-  Result.init(x, y, z);
+  Result.Create(x, y, z);
 end;
 
 class function TGLM.Vec4(x, y, z, w: single): TVec4;
 begin
-  Result.init(x, y, z, w);
+  Result.Create(x, y, z, w);
 end;
 
 end.

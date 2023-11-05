@@ -1,4 +1,4 @@
-{ This file was automatically created by Typhon IDE. Do not edit!
+﻿{ This file was automatically created by Typhon IDE. Do not edit!
   This source is only used to compile and install the package.
  }
 
@@ -13,7 +13,7 @@ uses
   DeepStar.DSA.Tree.BalanceBinarySearchTree, DeepStar.DSA.Tree.BinarySearchTree, DeepStar.DSA.Tree.BinaryTree, DeepStar.DSA.Tree.Heap, 
   DeepStar.DSA.Tree.PriorityQueue, DeepStar.DSA.Tree.RBTree, DeepStar.DSA.Tree.TreeMap, DeepStar.DSA.Tree.Trie, DeepStar.DSA.Hash.HashMap, 
   DeepStar.DSA.Hash.HashSet, DeepStar.DSA.Interfaces, DeepStar.Utils, DeepStar.DSA.Tree.TreeSet, DeepStar.UString, DeepStar.OpenGL.GLAD_GL, 
-  DeepStar.OpenGL.GLFW, DeepStar.OpenGL.GLM;
+  DeepStar.OpenGL.GLFW, DeepStar.OpenGL.GLM, DeepStar.OpenGL.Vector, DeepStar.OpenGL.Matrix;
 
 implementation
 
