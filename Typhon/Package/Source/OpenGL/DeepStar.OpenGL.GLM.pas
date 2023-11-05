@@ -1,12 +1,14 @@
 ﻿unit DeepStar.OpenGL.GLM;
 
 {$mode ObjFPC}{$H+}
+{$ModeSwitch unicodestrings}{$J-}
 
 interface
 
 uses
   Classes,
   SysUtils,
+  DeepStar.UString,
   Math,
   matrix;
 
@@ -25,42 +27,86 @@ type
   // 线性代数辅助类
   TGLM = class(TObject)
   public
-    class function Vec2(x, y: single): TVec2; static;
-    class function Vec3(x, y, z: single): TVec3; static;
-    class function Vec4(x, y, z, w: single): TVec4; static;
-    class function Mat4_Identity: TMat4; static; // 返回一个单位矩阵(Identity Matrix)
-    class function Mat4_Zero: TMat4; static; // 返回一个空矩阵(Zero Matrix)
+    class function Vec2(x, y: single): TVec2;
+    class function Vec3(x, y, z: single): TVec3;
+    class function Vec4(x, y, z, w: single): TVec4;
+    class function Mat4_Identity: TMat4;  // 返回一个单位矩阵(Identity Matrix)
+    class function Mat4_Zero: TMat4;  // 返回一个空矩阵(Zero Matrix)
     class function Mat4_Init(aa, ab, ac, ad, ba, bb, bc, bd, ca, cb, cc, cd, da,
-      db, dc, dd: single): TMat4; static;
+      db, dc, dd: single): TMat4;
 
+    //═════════════════════════════════════════════════════════════════════════
+
+    // 向量归一化
     class function Normalize(vec: TVec3): TVec3;
+    // 向量点乘：（内积）
+    class function Dot(a, b: TVec3): single;
+    // 向量叉乘：（外积）
+    class function Cross(a, b: TVec3): TVec3;
+
+    //═════════════════════════════════════════════════════════════════════════
 
     // 返回弧度值
-    class function Radians(degrees: single): single; static;
+    class function Radians(deg: single): single;
+    // 返回角度值
+    class function Degrees(Rad: single): single;
+
+    //═════════════════════════════════════════════════════════════════════════
 
     // 返回位移矩阵
-    class function Translate(m: TMat4; vec: TVec3): TMat4; static;
+    class function Translate(m: TMat4; vec: TVec3): TMat4;
     // 返回旋转矩阵
-    class function Rotate(m: TMat4; degrees: single; vec: TVec3): TMat4; static;
+    class function Rotate(m: TMat4; deg: single; vec: TVec3): TMat4;
     // 返回缩放矩阵
-    class function Scale(m: TMat4; vec: TVec3): TMat4; static;
+    class function Scale(m: TMat4; vec: TVec3): TMat4;
     // 按列优先返回一个一维数组指针
-    class function ValuePtr(const m: TMat4): TArr_Single16; static;
-    // 透视矩阵
-    class function Perspective(fovy, aspect, znear, zfar: single): TMat4; static;
+    class function ValuePtr(const m: TMat4): TArr_Single16;
+    // 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。这
+    // 方法类似于现在已弃用的gluPerspective方法。
+    class function Perspective(fovy, aspect, znear, zfar: single): TMat4;
     // 正交矩阵
-    class function Ortho(left, right, bottom, top, znear, zfar: single): TMat4; static;
+    class function Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
     // 平截头体
-    class function Frustum(left, right, bottom, top, znear, zfar: single): TMat4; static;
+    class function Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
+    // 视点转换
+    class function LookAt(eyes, center, up: TVec3): TMat4;
+    // 创建一个2D正交投影矩阵。这种方法与现在类似已弃用的gluOrtho2D方法。
+    class function Ortho2d(left, right, bottom, top: single): TMat4;
+
+    //═════════════════════════════════════════════════════════════════════════
+
+    class function Mat4ToString(matName: string; m: TMat4): string;
   end;
+
+function Vec3(x, y, z: single): TVec3;
 
 implementation
 
+function Vec3(x, y, z: single): TVec3;
+begin
+  Result.init(x, y, z);
+end;
+
 { TGLM }
+
+class function TGLM.Cross(a, b: TVec3): TVec3;
+begin
+  Result := a >< b;
+end;
+
+class function TGLM.Degrees(Rad: single): single;
+begin
+  Result := RadToDeg(Rad);
+end;
+
+class function TGLM.Dot(a, b: TVec3): single;
+begin
+  Result := a ** b;
+end;
 
 class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
 begin
-  Result := Mat4_Identity;
+  Result := Mat4_Zero;
   Result.Data[0, 0] := 2 * znear / (right - left);
   Result.Data[1, 1] := 2 * znear / (top - bottom);
   Result.Data[2, 0] := (right + left) / (right - left);
@@ -69,6 +115,57 @@ begin
   Result.Data[2, 3] := -1.0;
   Result.Data[3, 2] := -2 * zfar * znear / (zfar - znear);
   Result.Data[3, 3] := 0.0;
+end;
+
+class function TGLM.LookAt(eyes, center, up: TVec3): TMat4;
+var
+  f, s, u: TVec3;
+  res: TMat4;
+begin
+  f := Normalize(center - eyes);
+  s := Normalize(Cross(f, Normalize(up)));
+  u := Cross(s, f);
+
+  res := Mat4_Init(
+    s.Data[0], u.Data[0], -f.Data[0], 0,
+    s.Data[1], u.Data[1], -f.Data[1], 0,
+    s.Data[2], u.Data[2], -f.Data[2], 0,
+    -Dot(s, eyes), -Dot(u, eyes), Dot(f, eyes), 1);
+
+  Result := res.transpose;
+end;
+
+class function TGLM.Mat4ToString(matName: string; m: TMat4): string;
+var
+  sb: TStringBuilder;
+  i, j: integer;
+begin
+  sb := TStringBuilder.Create();
+  try
+    sb.AppendLine(matName + ':'
+
+    for i := 0 to High(m.Data) do
+    begin
+      sb.Append('[');
+      for j := 0 to High(m.Data[i]) do
+      begin
+        sb.Append('%16s', [m.Data[i, j].ToString]);
+
+        if j <> High(m.Data[i]) then
+          sb.Append(', ');
+      end;
+
+      if i <> High(m.Data) then
+        sb.AppendLine('], ')
+      else
+        sb.AppendLine(']');
+    end;
+
+    sb.AppendLine;
+    Result := sb.ToString;
+  finally
+    sb.Free;
+  end;
 end;
 
 class function TGLM.Mat4_Identity: TMat4;
@@ -88,68 +185,77 @@ begin
 end;
 
 class function TGLM.Normalize(vec: TVec3): TVec3;
-
-  //function __fun1__: TVec3;
-  //var
-  //  l: single;
-  //begin
-  //  l := Sqrt((vec.Data[0]) + (vec.Data[1]) + (vec.Data[2]));
-  //  if l = 0.0 then l := 1.0;
-  //  vec /= l;
-  //
-  //  Result := vec;
-  //end;
-
-  function __fun2__: TVec3;
-  var
-    len, oneOverLen: single;
-    res: TVec3;
-  begin
-    len := vec.length;
-
-    if len <= 0 then
-      res.init(1, 0, 0);
-
-    oneOverLen := 1 / len;
-    res.init(vec.Data[0] * oneOverLen, vec.Data[1] * oneOverLen, vec.Data[2] * oneOverLen);
-    Result := res;
-  end;
-
-begin
-  Result := __fun2__;
-end;
-
-class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
 var
-  res:TMat4;
+  len, oneOverLen: single;
+  res: TVec3;
 begin
-  res := Mat4_Identity;
-  res.Data[0, 0] := 2 / (right - left);
-  res.Data[1, 1] := 2 / (top - bottom);
-  res.Data[2, 2] := -2 / (zfar - znear);
-  res.Data[3, 0] := -(right + left) / (right - left);
-  res.Data[3, 1] := -(top + bottom) / (top - bottom);
-  res.Data[3, 2] := -(zfar + znear) / (zfar - znear);
+  len := vec.length;
+
+  if len <= 0 then
+    res.init(1, 0, 0);
+
+  oneOverLen := 1 / len;
+  res.init(vec.Data[0] * oneOverLen, vec.Data[1] * oneOverLen, vec.Data[2] * oneOverLen);
 
   Result := res;
 end;
 
+class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
+var
+  m00, m11, m22, m30, m31, m32: single;
+  res: TMat4;
+begin
+  m00 := single(2 / (right - left));
+  m11 := single(2 / (top - bottom));
+  m22 := single(-2 / (zFar - zNear));
+  m30 := single(-(right + left) / (right - left));
+  m31 := single(-(top + bottom) / (top - bottom));
+  m32 := single(-(zFar + zNear) / (zFar - zNear));
+
+  res := Mat4_Init(
+    m00, 0, 0, 0,
+    0, m11, 0, 0,
+    0, 0, m22, 0,
+    m30, m31, m32, 1);
+
+  Result := res.transpose;
+end;
+
+class function TGLM.Ortho2d(left, right, bottom, top: single): TMat4;
+var
+  m00, m11, m22, m30, m31: single;
+  res: TMat4;
+begin
+  m00 := single(2 / (right - left));
+  m11 := single(2 / (top - bottom));
+  m22 := single(-1);
+  m30 := single(-(right + left) / (right - left));
+  m31 := single(-(top + bottom) / (top - bottom));
+
+  res := Mat4_Init(
+    m00, 0, 0, 0,
+    0, m11, 0, 0,
+    0, 0, m22, 0,
+    m30, m31, 0, 1);
+
+  Result := res.transpose;
+end;
+
 class function TGLM.Perspective(fovy, aspect, znear, zfar: single): TMat4;
 var
-  p, right, top: single;
+  right, top: single;
 begin
-  p := fovy * Pi / 360;
-  top := znear * Tan(p);
+  top := znear * Tan(fovy / 2);
   right := top * aspect;
-  Result := Frustum(-right, right, -top, top, znear, zfar);
+  Result := Frustum(-right, right, -top, top, znear, zfar).transpose;
 end;
 
-class function TGLM.Radians(degrees: single): single;
+class function TGLM.Radians(deg: single): single;
 begin
-  Result := DegToRad(degrees);
+  Result := DegToRad(deg);
 end;
 
-class function TGLM.Rotate(m: TMat4; degrees: single; vec: TVec3): TMat4;
+class function TGLM.Rotate(m: TMat4; deg: single; vec: TVec3): TMat4;
 var
   c, s, x, y, z: single;
   res: Tmat4;
@@ -167,8 +273,8 @@ begin
   //                0.0,                                0.0,                                0.0,                                1.0);
 
   res := TGLM.Mat4_Identity;
-  c := Cos(degrees);
-  s := Sin(degrees);
+  c := Cos(deg);
+  s := Sin(deg);
 
   vec := Normalize(vec);
   x := vec.Data[0];
