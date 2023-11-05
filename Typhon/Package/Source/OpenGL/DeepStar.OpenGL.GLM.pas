@@ -142,7 +142,7 @@ var
 begin
   sb := TStringBuilder.Create();
   try
-    sb.AppendLine(matName + ':'
+    sb.AppendLine(matName + ': -------> ');
 
     for i := 0 to High(m.Data) do
     begin
