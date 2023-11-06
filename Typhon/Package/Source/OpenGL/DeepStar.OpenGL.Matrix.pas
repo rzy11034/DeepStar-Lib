@@ -12,18 +12,30 @@ uses
   DeepStar.OpenGL.Vector;
 
 type
+  TMat3 = packed record
+    case integer of
+      0: (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30,
+        m31, m32, m33: GLfloat);
+      1: (Data: array[0..2, 0..2] of GLfloat);
+  end;
+
   TMat4 = packed record
-    constructor Create(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23, x30, x31, x32, x33: GLfloat);
+    constructor Create(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23,
+      x30, x31, x32, x33: GLfloat);
+    constructor Create(vec0, vec1, vec2: TVec3);
     procedure InitZero;
     procedure InitIdentity;
-    function GetColumn(c: byte): Tvec4;
+    function GetColumn(c: byte): TVec4;
     function GetRow(r: byte): TVec4;
+    procedure SetColumn(c: byte; const vec: TVec4);
+    procedure SetRow(r: byte; const vec: TVec4);
     //function determinant: GLfloat;
     //function inverse(Adeterminant: single): TMat4;
     function Transpose: TMat4;
 
     case integer of
-      0: (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33: GLfloat);
+      0: (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30,
+        m31, m32, m33: GLfloat);
       1: (Data: array[0..3, 0..3] of GLfloat);
   end;
 
@@ -53,14 +65,23 @@ begin
   m22 := x22;
   m23 := x23;
 
-  // column
+  // column 4
   m30 := x30;
   m31 := x31;
   m32 := x32;
   m33 := x33;
 end;
 
-function TMat4.GetColumn(c: byte): Tvec4;
+constructor TMat4.Create(vec0, vec1, vec2: TVec3);
+begin
+  Create(
+    vec0.x, vec1.x, vec2.x, vec3.x,
+    vec0.y, vec1.y, vec2.y, vec3.y,
+    vec0.z, vec1.z, vec2.z, vec3.z,
+    0, 0, 0, 0);
+end;
+
+function TMat4.GetColumn(c: byte): TVec4;
 var
   res: TVec4;
 begin
@@ -102,6 +123,28 @@ begin
     0, 0, 0, 0,
     0, 0, 0, 0,
     0, 0, 0, 0);
+end;
+
+procedure TMat4.SetColumn(c: byte; const vec: TVec4);
+begin
+  case c of
+    0: begin
+      m00 := vec.x;
+      m01 := vec.y;
+      m02 := vec.z;
+      m03 := vec.w;
+    end;
+
+    1: begin
+      m10, m11, m12, m13
+    end;res := TVec4.Create();
+    2: res := TVec4.Create(m20, m21, m22, m23);
+    3: res := TVec4.Create(m30, m31, m32, m33);
+  end;
+end;
+
+procedure TMat4.SetRow(r: byte; const vec: TVec4);
+begin
 end;
 
 function TMat4.Transpose: TMat4;
