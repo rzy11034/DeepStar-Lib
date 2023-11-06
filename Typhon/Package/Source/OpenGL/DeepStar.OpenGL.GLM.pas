@@ -9,9 +9,9 @@ uses
   Classes,
   SysUtils,
   Math,
-  matrix,
   DeepStar.UString,
-  DeepStar.OpenGL.Vector;
+  DeepStar.OpenGL.Vector,
+  DeepStar.OpenGL.Matrix;
 
 type
   // 向量
@@ -19,9 +19,8 @@ type
   TVec3 = DeepStar.OpenGL.Vector.TVec3;
   TVec4 = DeepStar.OpenGL.Vector.TVec4;
   // 矩阵
-  TMat2 = Tmatrix2_single;
-  TMat3 = Tmatrix3_single;
-  TMat4 = Tmatrix4_single;
+  TMat3 = DeepStar.OpenGL.Matrix.TMat3;
+  TMat4 = DeepStar.OpenGL.Matrix.TMat4;
 
   TArr_Single16 = array[0..15] of single;
 
@@ -31,10 +30,15 @@ type
     class function Vec2(x, y: single): TVec2;
     class function Vec3(x, y, z: single): TVec3;
     class function Vec4(x, y, z, w: single): TVec4;
+
+    class function Mat3_Identity: TMat3;  // 返回一个单位矩阵(Identity Matrix)
+    class function Mat3_Zero: TMat3;  // 返回一个空矩阵(Zero Matrix)
+    class function Mat3_Init(x00, x01, x02, x10, x11, x12, x20, x21, x22: single): TMat3;
+
     class function Mat4_Identity: TMat4;  // 返回一个单位矩阵(Identity Matrix)
     class function Mat4_Zero: TMat4;  // 返回一个空矩阵(Zero Matrix)
-    class function Mat4_Init(aa, ab, ac, ad, ba, bb, bc, bd, ca, cb, cc, cd, da,
-      db, dc, dd: single): TMat4;
+    class function Mat4_Init(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23,
+      x30, x31, x32, x33: single): TMat4;
 
     //═════════════════════════════════════════════════════════════════════════
 
@@ -53,6 +57,7 @@ type
     class function Degrees(Rad: single): single;
 
     //═════════════════════════════════════════════════════════════════════════
+    // TMat4
 
     // 返回位移矩阵
     class function Translate(m: TMat4; vec: TVec3): TMat4;
@@ -114,19 +119,31 @@ end;
 class function TGLM.LookAt(eyes, center, up: TVec3): TMat4;
 var
   f, s, u: TVec3;
-  res: TMat4;
 begin
   f := Normalize(center - eyes);
   s := Normalize(Cross(f, Normalize(up)));
   u := Cross(s, f);
 
-  res := Mat4_Init(
-    s.Data[0], u.Data[0], -f.Data[0], 0,
-    s.Data[1], u.Data[1], -f.Data[1], 0,
-    s.Data[2], u.Data[2], -f.Data[2], 0,
-    -Dot(s, eyes), -Dot(u, eyes), Dot(f, eyes), 1);
+  Result := Mat4_Init(
+    s.Data[0], s.Data[1], s.Data[2], -Dot(s, eyes),
+    u.Data[0], u.Data[1], u.Data[2], -Dot(u, eyes),
+    -f.Data[0], -f.Data[1], -f.Data[2], Dot(f, eyes),
+    0, 0, 0, 1);
+end;
 
-  Result := res.transpose;
+class function TGLM.Mat3_Identity: TMat3;
+begin
+  Result.Init_Identity;
+end;
+
+class function TGLM.Mat3_Init(x00, x01, x02, x10, x11, x12, x20, x21, x22: single): TMat3;
+begin
+  Result := TMat3.Create(x00, x01, x02, x10, x11, x12, x20, x21, x22);
+end;
+
+class function TGLM.Mat3_Zero: TMat3;
+begin
+  Result.Init_Zero;
 end;
 
 class function TGLM.Mat4ToString(matName: string; m: TMat4): string;
@@ -167,10 +184,11 @@ begin
   Result.init_identity;
 end;
 
-class function TGLM.Mat4_Init(aa, ab, ac, ad, ba, bb, bc, bd, ca, cb, cc, cd, da,
-  db, dc, dd: single): TMat4;
+class function TGLM.Mat4_Init(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23,
+  x30, x31, x32, x33: single): TMat4;
 begin
-  Result.init(aa, ab, ac, ad, ba, bb, bc, bd, ca, cb, cc, cd, da, db, dc, dd);
+  Result := TMat4.Create(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23,
+    x30, x31, x32, x33);
 end;
 
 class function TGLM.Mat4_Zero: TMat4;
@@ -206,19 +224,16 @@ begin
   m31 := single(-(top + bottom) / (top - bottom));
   m32 := single(-(zFar + zNear) / (zFar - zNear));
 
-  res := Mat4_Init(
-    m00, 0, 0, 0,
-    0, m11, 0, 0,
-    0, 0, m22, 0,
-    m30, m31, m32, 1);
-
-  Result := res.transpose;
+  Result := Mat4_Init(
+    m00, 0, 0, m30,
+    0, m11, 0, m31,
+    0, 0, m22, m32,
+    0, 0, 0, 1);
 end;
 
 class function TGLM.Ortho2d(left, right, bottom, top: single): TMat4;
 var
   m00, m11, m22, m30, m31: single;
-  res: TMat4;
 begin
   m00 := single(2 / (right - left));
   m11 := single(2 / (top - bottom));
@@ -226,13 +241,11 @@ begin
   m30 := single(-(right + left) / (right - left));
   m31 := single(-(top + bottom) / (top - bottom));
 
-  res := Mat4_Init(
-    m00, 0, 0, 0,
-    0, m11, 0, 0,
+  Result := Mat4_Init(
+    m00, 0, 0, m30,
+    0, m11, 0, m31,
     0, 0, m22, 0,
-    m30, m31, 0, 1);
-
-  Result := res.transpose;
+    0, 0, 0, 1);
 end;
 
 class function TGLM.Perspective(fovy, aspect, znear, zfar: single): TMat4;
@@ -254,7 +267,7 @@ var
   c, s, x, y, z: single;
   res: Tmat4;
 begin
-  //mat4 rotationMatrix(vec3 axis, float angle)
+  //Mat4_Init rotationMatrix(vec3 axis, float angle)
   //{
   //    axis = normalize(axis);
   //    float s = sin(angle);

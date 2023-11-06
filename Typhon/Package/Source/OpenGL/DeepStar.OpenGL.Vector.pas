@@ -7,89 +7,88 @@ interface
 
 uses
   Classes,
-  SysUtils,
-  DeepStar.OpenGL.GLAD_GL;
+  SysUtils;
 
 type
   TVec2 = packed record
-    constructor Create(v0, v1: GLfloat);
-    procedure InitZero;
-    procedure InitOne;
+    constructor Create(v0, v1: Single);
+    procedure Init_Zero;
+    procedure Init_One;
     function Length: single;
     function SquaredLength: single;
-    class operator +(const v: TVec2; const scalar: GLfloat): TVec2;
-    class operator +(const scalar: GLfloat; const v: TVec2): TVec2;
+    class operator +(const v: TVec2; const scalar: Single): TVec2;
+    class operator +(const scalar: Single; const v: TVec2): TVec2;
     class operator +(const av, bv: TVec2): TVec2;
     class operator -(const v: TVec2): TVec2;
-    class operator -(const v: TVec2; const scalar: GLfloat): TVec2;
+    class operator -(const v: TVec2; const scalar: Single): TVec2;
     class operator -(const av, bv: TVec2): TVec2;
-    class operator * (const v: TVec2; const scalar: GLfloat): TVec2;
-    class operator * (const scalar: GLfloat; const v: TVec2): TVec2;
+    class operator * (const v: TVec2; const scalar: Single): TVec2;
+    class operator * (const scalar: Single; const v: TVec2): TVec2;
     class operator * (const av, bv: TVec2): TVec2;
-    class operator / (const v: TVec2; const scalar: GLfloat): TVec2;
+    class operator / (const v: TVec2; const scalar: Single): TVec2;
     class operator / (const av, bv: TVec2): TVec2;
     // 向量点乘：（内积）
-    class operator ** (const av, bv: TVec2): GLfloat;
+    class operator ** (const av, bv: TVec2): Single;
 
     case integer of
-      0: (x, y: GLfloat);
-      1: (Data: array[0..1] of GLfloat);
+      0: (Data: array[0..1] of Single);
+      1: (x, y: Single);
   end;
 
   TVec3 = packed record
-    constructor Create(v0, v1, v2: GLfloat);
-    procedure InitZero;
-    procedure InitOne;
+    constructor Create(v0, v1, v2: Single);
+    procedure Init_Zero;
+    procedure Init_One;
     function Length: single;
     function SquaredLength: single;
-    class operator +(const v: TVec3; const scalar: GLfloat): TVec3;
-    class operator +(const scalar: GLfloat; const v: TVec3): TVec3;
+    class operator +(const v: TVec3; const scalar: Single): TVec3;
+    class operator +(const scalar: Single; const v: TVec3): TVec3;
     class operator +(const av, bv: TVec3): TVec3;
     class operator -(const v: TVec3): TVec3;
-    class operator -(const v: TVec3; const scalar: GLfloat): TVec3;
+    class operator -(const v: TVec3; const scalar: Single): TVec3;
     class operator -(const av, bv: TVec3): TVec3;
-    class operator * (const v: TVec3; const scalar: GLfloat): TVec3;
-    class operator * (const scalar: GLfloat; const v: TVec3): TVec3;
+    class operator * (const v: TVec3; const scalar: Single): TVec3;
+    class operator * (const scalar: Single; const v: TVec3): TVec3;
     class operator * (const av, bv: TVec3): TVec3;
-    class operator / (const v: TVec3; const scalar: GLfloat): TVec3;
+    class operator / (const v: TVec3; const scalar: Single): TVec3;
     class operator / (const av, bv: TVec3): TVec3;
     // 向量点乘：（内积）
-    class operator ** (const av, bv: TVec3): GLfloat;
+    class operator ** (const av, bv: TVec3): Single;
     // 向量叉乘：（外积）
     class operator >< (const av, bv: TVec3): TVec3;
 
     case integer of
-      0: (x, y, z: GLfloat);
-      1: (r, g, b: GLfloat);
-      2: (s, t, p: GLfloat);
-      3: (Data: array[0..2] of GLfloat);
+      0: (Data: array[0..2] of Single);
+      1: (x, y, z: Single);
+      2: (r, g, b: Single);
+      3: (s, t, p: Single);
   end;
 
   TVec4 = packed record
-    constructor Create(v0, v1, v2, v3: GLfloat);
-    procedure InitZero;
-    procedure InitOne;
+    constructor Create(v0, v1, v2, v3: Single);
+    procedure Init_Zero;
+    procedure Init_One;
     function Length: single;
     function SquaredLength: single;
-    class operator +(const v: TVec4; const scalar: GLfloat): TVec4;
-    class operator +(const scalar: GLfloat; const v: TVec4): TVec4;
+    class operator +(const v: TVec4; const scalar: Single): TVec4;
+    class operator +(const scalar: Single; const v: TVec4): TVec4;
     class operator +(const av, bv: TVec4): TVec4;
     class operator -(const v: TVec4): TVec4;
-    class operator -(const v: TVec4; const scalar: GLfloat): TVec4;
+    class operator -(const v: TVec4; const scalar: Single): TVec4;
     class operator -(const av, bv: TVec4): TVec4;
-    class operator * (const v: TVec4; const scalar: GLfloat): TVec4;
-    class operator * (const scalar: GLfloat; const v: TVec4): TVec4;
+    class operator * (const v: TVec4; const scalar: Single): TVec4;
+    class operator * (const scalar: Single; const v: TVec4): TVec4;
     class operator * (const av, bv: TVec4): TVec4;
-    class operator / (const v: TVec4; const scalar: GLfloat): TVec4;
+    class operator / (const v: TVec4; const scalar: Single): TVec4;
     class operator / (const av, bv: TVec4): TVec4;
     // 向量点乘：（内积）
-    class operator ** (const av, bv: TVec4): GLfloat;
+    class operator ** (const av, bv: TVec4): Single;
 
     case integer of
-      0: (x, y, z, w: GLfloat);
-      1: (r, g, b, a: GLfloat);
-      2: (s, t, p, q: GLfloat);
-      3: (Data: array[0..3] of GLfloat);
+      0: (Data: array[0..3] of Single);
+      1: (x, y, z, w: Single);
+      2: (r, g, b, a: Single);
+      3: (s, t, p, q: Single);
   end;
 
 
@@ -106,12 +105,12 @@ begin
   end;
 end;
 
-class operator TVec2. * (const scalar: GLfloat; const v: TVec2): TVec2;
+class operator TVec2. * (const scalar: Single; const v: TVec2): TVec2;
 begin
   Result := v * scalar;
 end;
 
-class operator TVec2. * (const v: TVec2; const scalar: GLfloat): TVec2;
+class operator TVec2. * (const v: TVec2; const scalar: Single): TVec2;
 begin
   with Result do
   begin
@@ -120,7 +119,7 @@ begin
   end;
 end;
 
-class operator TVec2. ** (const av, bv: TVec2): GLfloat;
+class operator TVec2. ** (const av, bv: TVec2): Single;
 begin
   Result := av.x * bv.x + av.y * bv.y;
 end;
@@ -134,12 +133,12 @@ begin
   end;
 end;
 
-class operator TVec2. +(const scalar: GLfloat; const v: TVec2): TVec2;
+class operator TVec2. +(const scalar: Single; const v: TVec2): TVec2;
 begin
   Result := v + scalar;
 end;
 
-class operator TVec2. +(const v: TVec2; const scalar: GLfloat): TVec2;
+class operator TVec2. +(const v: TVec2; const scalar: Single): TVec2;
 begin
   with Result do
   begin
@@ -162,7 +161,7 @@ begin
   end;
 end;
 
-class operator TVec2. -(const v: TVec2; const scalar: GLfloat): TVec2;
+class operator TVec2. -(const v: TVec2; const scalar: Single): TVec2;
 begin
   with Result do
   begin
@@ -180,7 +179,7 @@ begin
   end;
 end;
 
-class operator TVec2. / (const v: TVec2; const scalar: GLfloat): TVec2;
+class operator TVec2. / (const v: TVec2; const scalar: Single): TVec2;
 begin
   with Result do
   begin
@@ -189,20 +188,20 @@ begin
   end;
 end;
 
-constructor TVec2.Create(v0, v1: GLfloat);
+constructor TVec2.Create(v0, v1: Single);
 begin
   x := v0;
   y := v1;
 end;
 
-procedure TVec2.InitOne;
+procedure TVec2.Init_One;
 begin
   Create(1, 1);
 end;
 
-procedure TVec2.InitZero;
+procedure TVec2.Init_Zero;
 begin
-  Create(0, 0);
+   Create(0, 0);
 end;
 
 function TVec2.Length: single;
@@ -227,12 +226,12 @@ begin
   end;
 end;
 
-class operator TVec3. * (const scalar: GLfloat; const v: TVec3): TVec3;
+class operator TVec3. * (const scalar: Single; const v: TVec3): TVec3;
 begin
   Result := v * scalar;
 end;
 
-class operator TVec3. * (const v: TVec3; const scalar: GLfloat): TVec3;
+class operator TVec3. * (const v: TVec3; const scalar: Single): TVec3;
 begin
   with Result do
   begin
@@ -242,7 +241,7 @@ begin
   end;
 end;
 
-class operator TVec3. ** (const av, bv: TVec3): GLfloat;
+class operator TVec3. ** (const av, bv: TVec3): Single;
 begin
   Result := av.x * bv.x + av.y * bv.y + av.z * bv.z;
 end;
@@ -257,12 +256,12 @@ begin
   end;
 end;
 
-class operator TVec3. +(const scalar: GLfloat; const v: TVec3): TVec3;
+class operator TVec3. +(const scalar: Single; const v: TVec3): TVec3;
 begin
   Result := v + scalar;
 end;
 
-class operator TVec3. +(const v: TVec3; const scalar: GLfloat): TVec3;
+class operator TVec3. +(const v: TVec3; const scalar: Single): TVec3;
 begin
   with Result do
   begin
@@ -287,7 +286,7 @@ begin
   end;
 end;
 
-class operator TVec3. -(const v: TVec3; const scalar: GLfloat): TVec3;
+class operator TVec3. -(const v: TVec3; const scalar: Single): TVec3;
 begin
   with Result do
   begin
@@ -307,7 +306,7 @@ begin
   end;
 end;
 
-class operator TVec3. / (const v: TVec3; const scalar: GLfloat): TVec3;
+class operator TVec3. / (const v: TVec3; const scalar: Single): TVec3;
 begin
   with Result do
   begin
@@ -327,19 +326,19 @@ begin
   end;
 end;
 
-constructor TVec3.Create(v0, v1, v2: GLfloat);
+constructor TVec3.Create(v0, v1, v2: Single);
 begin
   x := v0;
   y := v1;
   z := v2;
 end;
 
-procedure TVec3.InitOne;
+procedure TVec3.Init_One;
 begin
   Create(1, 1, 1);
 end;
 
-procedure TVec3.InitZero;
+procedure TVec3.Init_Zero;
 begin
   Create(0, 0, 0);
 end;
@@ -367,12 +366,12 @@ begin
   end;
 end;
 
-class operator TVec4. * (const scalar: GLfloat; const v: TVec4): TVec4;
+class operator TVec4. * (const scalar: Single; const v: TVec4): TVec4;
 begin
   Result := v * scalar;
 end;
 
-class operator TVec4. * (const v: TVec4; const scalar: GLfloat): TVec4;
+class operator TVec4. * (const v: TVec4; const scalar: Single): TVec4;
 begin
   with Result do
   begin
@@ -383,7 +382,7 @@ begin
   end;
 end;
 
-class operator TVec4. ** (const av, bv: TVec4): GLfloat;
+class operator TVec4. ** (const av, bv: TVec4): Single;
 begin
   Result := av.x * bv.x + av.y * bv.y + av.z * bv.z + av.w * bv.w;
 end;
@@ -399,12 +398,12 @@ begin
   end;
 end;
 
-class operator TVec4. +(const scalar: GLfloat; const v: TVec4): TVec4;
+class operator TVec4. +(const scalar: Single; const v: TVec4): TVec4;
 begin
   Result := v + scalar;
 end;
 
-class operator TVec4. +(const v: TVec4; const scalar: GLfloat): TVec4;
+class operator TVec4. +(const v: TVec4; const scalar: Single): TVec4;
 begin
   with Result do
   begin
@@ -437,7 +436,7 @@ begin
   end;
 end;
 
-class operator TVec4. -(const v: TVec4; const scalar: GLfloat): TVec4;
+class operator TVec4. -(const v: TVec4; const scalar: Single): TVec4;
 begin
   with Result do
   begin
@@ -459,7 +458,7 @@ begin
   end;
 end;
 
-class operator TVec4. / (const v: TVec4; const scalar: GLfloat): TVec4;
+class operator TVec4. / (const v: TVec4; const scalar: Single): TVec4;
 begin
   with Result do
   begin
@@ -470,7 +469,7 @@ begin
   end;
 end;
 
-constructor TVec4.Create(v0, v1, v2, v3: GLfloat);
+constructor TVec4.Create(v0, v1, v2, v3: Single);
 begin
   x := v0;
   y := v1;
@@ -478,12 +477,12 @@ begin
   w := v3;
 end;
 
-procedure TVec4.InitOne;
+procedure TVec4.Init_One;
 begin
   Create(1, 1, 1, 1);
 end;
 
-procedure TVec4.InitZero;
+procedure TVec4.Init_Zero;
 begin
   Create(0, 0, 0, 0);
 end;
