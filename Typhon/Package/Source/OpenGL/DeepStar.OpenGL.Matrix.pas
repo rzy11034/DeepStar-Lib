@@ -38,7 +38,7 @@ type
       1: (m00, m01, m02, m10, m11, m12, m20, m21, m22: single);
   end;
 
-  TMat4 = packed record
+  TMat4 =  record
     constructor Create(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23,
       x30, x31, x32, x33: single);
     procedure Init_Zero;
