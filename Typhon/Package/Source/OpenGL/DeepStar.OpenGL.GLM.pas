@@ -83,7 +83,7 @@ type
     // 平截头体
     class function Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
     // 视点转换
-    class function LookAt(eyes, center, up: TVec3): TMat4;
+    class function LookAt(const eyes, center, up: TVec3): TMat4;
     // 创建一个2D正交投影矩阵。这种方法与现在类似已弃用的gluOrtho2D方法。
     class function Ortho2d(left, right, bottom, top: single): TMat4;
 
@@ -128,48 +128,120 @@ begin
   Result.Data[3, 3] := 0.0;
 end;
 
-class function TGLM.LookAt(eyes, center, up: TVec3): TMat4;
-var
-  f, s, u: TVec3;
-  translation, rotation: TMat4;
-  position, target, worldUp, zaxis, xaxis, yaxis: TVec3;
+class function TGLM.LookAt(const eyes, center, up: TVec3): TMat4;
+  function __LookAt1__(eyes, center, up: TVec3): TMat4;
+  var
+    f, s, u: TVec3;
+  begin
+    f := Normalize(center - eye);
+    s := Normalize(Cross(f, up));
+    u := Cross(s, f);
+
+    Result.Create(
+      s.Data[0], s.Data[1], s.Data[2], -Dot(s, eyes),
+      u.Data[0], u.Data[1], u.Data[2], -Dot(u, eyes),
+      -f.Data[0], -f.Data[1], -f.Data[2], Dot(f, eyes),
+      0, 0, 0, 1);
+  end;
+
+  function __LookAt2__(eyes, center, up: TVec3): TMat4;
+  var
+    translation, rotation: TMat4;
+    position, target, worldUp, zaxis, xaxis, yaxis: TVec3;
+  begin
+    position := eyes;
+    target := center;
+    worldUp := up;
+
+    zaxis := Normalize(position - target);
+    xaxis := Normalize(Cross(Normalize(worldUp), zaxis));
+    yaxis := Cross(zaxis, xaxis);
+
+    translation := Mat4_Identity; // Identity matrix by default
+    translation.Data[3][0] := -position.x; // Third column, first row
+    translation.Data[3][1] := -position.y;
+    translation.Data[3][2] := -position.z;
+
+    rotation := Mat4_Identity;
+    rotation.Data[0][0] := xaxis.x; // First column, first row
+    rotation.Data[1][0] := xaxis.y;
+    rotation.Data[2][0] := xaxis.z;
+    rotation.Data[0][1] := yaxis.x; // First column, second row
+    rotation.Data[1][1] := yaxis.y;
+    rotation.Data[2][1] := yaxis.z;
+    rotation.Data[0][2] := zaxis.x; // First column, third row
+    rotation.Data[1][2] := zaxis.y;
+    rotation.Data[2][2] := zaxis.z;
+
+    // Return lookAt matrix as combination of translation and rotation matrix
+    Result := (rotation * translation).Transpose;
+  end;
+
+  function __LookAt3__(const Origin, Target, Ceiling: TVec3): TMat4;
+  var
+    XAxis, YAxis, ZAxis: TVec3;
+    translation: TMat4;
+  begin
+    ZAxis := Normalize(Target - Origin);
+    XAxis := Normalize(Cross(Ceiling, ZAxis));
+    YAxis := Cross(ZAxis, XAxis);
+
+    translation := Mat4_Identity;
+    translation.Data[0][3] := -Origin.x;
+    translation.Data[1][3] := -Origin.y;
+    translation.Data[2][3] := -Origin.z;
+
+    Result.Data[0, 0] := XAxis.X;
+    Result.Data[0, 1] := YAxis.X;
+    Result.Data[0, 2] := ZAxis.X;
+    Result.Data[0, 3] := 0.0;
+
+    Result.Data[1, 0] := XAxis.Y;
+    Result.Data[1, 1] := YAxis.Y;
+    Result.Data[1, 2] := ZAxis.Y;
+    Result.Data[1, 3] := 0.0;
+
+    Result.Data[2, 0] := XAxis.Z;
+    Result.Data[2, 1] := YAxis.Z;
+    Result.Data[2, 2] := ZAxis.Z;
+    Result.Data[2, 3] := 0.0;
+
+    Result.Data[3, 0] := -Dot(XAxis, Origin);
+    Result.Data[3, 1] := -Dot(YAxis, Origin);
+    Result.Data[3, 2] := -Dot(ZAxis, Origin);
+    Result.Data[3, 3] := 1.0;
+
+    //Result := Result.Transpose;
+  end;
+
+  function __LookAt4__(eye, center, up: TVec3): TMat4;
+  var
+    f, s, u: TVec3;
+  begin
+    f := Normalize(center - eye);
+    s := Normalize(Cross(f, up));
+    u := Cross(s, f);
+
+
+    Result := Mat4_Identity;
+    Result.Data[0, 0] := s.x;
+    Result.Data[1, 0] := s.y;
+    Result.Data[2, 0] := s.z;
+    Result.Data[0, 1] := u.x;
+    Result.Data[1, 1] := u.y;
+    Result.Data[2, 1] := u.z;
+    Result.Data[0, 2] := -f.x;
+    Result.Data[1, 2] := -f.y;
+    Result.Data[2, 2] := -f.z;
+    Result.Data[3, 0] := -Dot(s, eye);
+    Result.Data[3, 1] := -Dot(u, eye);
+    Result.Data[3, 2] := Dot(f, eye);
+
+    Result := Result.Transpose;
+  end;
+
 begin
-  f := Normalize(center - eyes);
-  s := Normalize(Cross(f, Normalize(up)));
-  u := Cross(s, f);
-
-  Result.Create(
-    s.Data[0], s.Data[1], s.Data[2], -Dot(s, eyes),
-    u.Data[0], u.Data[1], u.Data[2], -Dot(u, eyes),
-    -f.Data[0], -f.Data[1], -f.Data[2], Dot(f, eyes),
-    0, 0, 0, 1);
-
-  //position := eyes;
-  //target := center;
-  //worldUp := up;
-  //
-  //zaxis := Normalize(position - target);
-  //xaxis := Normalize(Cross(Normalize(worldUp), zaxis));
-  //yaxis := Cross(zaxis, xaxis);
-  //
-  //translation := Mat4_Identity; // Identity matrix by default
-  //translation.Data[3][0] := -position.x; // Third column, first row
-  //translation.Data[3][1] := -position.y;
-  //translation.Data[3][2] := -position.z;
-  //
-  //rotation := Mat4_Identity;
-  //rotation.Data[0][0] := xaxis.x; // First column, first row
-  //rotation.Data[1][0] := xaxis.y;
-  //rotation.Data[2][0] := xaxis.z;
-  //rotation.Data[0][1] := yaxis.x; // First column, second row
-  //rotation.Data[1][1] := yaxis.y;
-  //rotation.Data[2][1] := yaxis.z;
-  //rotation.Data[0][2] := zaxis.x; // First column, third row
-  //rotation.Data[1][2] := zaxis.y;
-  //rotation.Data[2][2] := zaxis.z;
-  //
-  //// Return lookAt matrix as combination of translation and rotation matrix
-  //Result := (rotation * translation).Transpose; // R
+  Result := __LookAt1__(eyes, center, up);
 end;
 
 class function TGLM.Mat3(x: single): TMat3;
@@ -299,7 +371,6 @@ end;
 class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
 var
   m00, m11, m22, m30, m31, m32: single;
-  res: TMat4;
 begin
   m00 := single(2 / (right - left));
   m11 := single(2 / (top - bottom));
