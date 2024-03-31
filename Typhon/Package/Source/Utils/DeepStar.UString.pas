@@ -17,7 +17,7 @@ type
   UString = unicodestring;
   UChar = unicodechar;
 
-  TUStringHelper = type Helper for UString
+  TUStringHelper = type Helper(TUnicodeStringHelper) for UString
   private type
     TArr_chr = array of UChar;
     TArr_str = array of UString;
@@ -141,7 +141,8 @@ end;
 
 function TUStringHelper.ToInteger: integer;
 begin
-  Result := StrToInt(Self);
+  //Result := StrToInt(Self);
+  inherited ;
 end;
 
 function TUStringHelper.ToPAnsiChar: PAnsiChar;
