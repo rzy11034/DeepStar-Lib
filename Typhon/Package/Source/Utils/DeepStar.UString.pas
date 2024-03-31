@@ -141,8 +141,7 @@ end;
 
 function TUStringHelper.ToInteger: integer;
 begin
-  //Result := StrToInt(Self);
-  inherited ;
+  Result := inherited ToInteger;
 end;
 
 function TUStringHelper.ToPAnsiChar: PAnsiChar;
