@@ -220,7 +220,7 @@ procedure DrawLineBlockEnd;
 procedure DrawLineProgramEnd;
 function NeedInput(need: boolean = true; showText: boolean = true): boolean;
 function Exp(d: ValReal): ValReal;
-function Chr(i: cardinal): UChar;
+function Chr(i: cardinal): char;
 procedure WriteF(const Fmt: string; const Args: array of const);
 procedure WriteLnF(const Fmt: string; const Args: array of const);
 function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
@@ -243,7 +243,7 @@ begin
   begin
     Write('─');
   end;
-  Writeln;
+  WriteLn;
 end;
 
 procedure DrawLineProgramEnd;
@@ -254,7 +254,7 @@ begin
   begin
     Write('═');
   end;
-  Writeln;
+  WriteLn;
 end;
 
 function NeedInput(need: boolean; showText: boolean): boolean;
@@ -262,7 +262,7 @@ begin
   if need then
   begin
     if showText then
-      writeln('Need input data: ');
+      WriteLn('Need input data: ');
     Exit(true);
   end;
 
@@ -271,7 +271,7 @@ end;
 
 function Exp(d: ValReal): ValReal;
 begin
-  Result := system.Exp(d);
+  Result := System.Exp(d);
 end;
 
 function Chr(i: cardinal): UChar;
@@ -372,7 +372,7 @@ end;
 
 class function TArrayUtils.CopyArray(const arr: TArr_T): TArr_T;
 begin
-  Result := system.Copy(arr);
+  Result := System.Copy(arr);
 end;
 
 class function TArrayUtils.CopyArray2D(const arr2D: TArr2D_T): TArr2D_T;
