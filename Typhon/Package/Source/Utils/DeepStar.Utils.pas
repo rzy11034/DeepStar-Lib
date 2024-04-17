@@ -223,11 +223,11 @@ function Exp(d: ValReal): ValReal;
 function Chr(i: cardinal): char;
 procedure WriteF(const Fmt: string; const Args: array of const);
 procedure WriteLnF(const Fmt: string; const Args: array of const);
-function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
+function IfThen(Condition: boolean; const TrueResult, FalseResult: variant): variant;
   deprecated 'Use IfThen<T> instead';
 function CrossFixFileName(const FileName: string): string;
 
-generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T; inline;
+generic function IfThen<T>(Condition: boolean; const TrueResult: T; const FalseResult: T): T; inline;
 generic procedure Swap<T>(var a, b: T); inline;
 
 // 交换零基字符串中字符
@@ -274,12 +274,12 @@ begin
   Result := System.Exp(d);
 end;
 
-function Chr(i: cardinal): UChar;
+function Chr(i: cardinal): char;
 begin
   Result := UChar(i);
 end;
 
-function IfThen(Condition: boolean; TrueResult, FalseResult: variant): variant;
+function IfThen(Condition: boolean; const TrueResult, FalseResult: variant): variant;
 begin
   Result := Default(variant);
 
@@ -309,7 +309,7 @@ begin
       Result.Chars[i] := NewChar;
 end;
 
-generic function IfThen<T>(Condition: boolean; TrueResult, FalseResult: T): T;
+generic function IfThen<T>(Condition: boolean; const TrueResult: T; const FalseResult: T): T;
 begin
   Result := Default(T);
 

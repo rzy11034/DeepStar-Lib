@@ -164,6 +164,8 @@ begin
 
   SetLength(_data, capacity);
   _cmp := TImpl.TCmp.Default;
+
+  _size := Length(_data);
 end;
 
 constructor TArrayList.Create(const arr: TArr);
