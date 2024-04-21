@@ -11,7 +11,8 @@ uses
   cwstring,
   {$ENDIF}
   Classes,
-  SysUtils;
+  SysUtils,
+  LazUTF8;
 
 type
   UString = unicodestring;
