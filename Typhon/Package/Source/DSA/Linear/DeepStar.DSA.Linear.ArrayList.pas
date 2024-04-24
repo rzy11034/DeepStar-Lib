@@ -65,6 +65,8 @@ type
     procedure AddFirst(e: T);
     // 添加数组所有元素
     procedure AddRange(const arr: array of T);
+    // 添加数组aIndex开始共aCount个元素
+    procedure AddRange(const arr: array of T; aIndex, aCount: integer);
     // 查找数组中是否有元素e
     function Contains(e: T): boolean;
     // 查找数组中元素e忆的索引，如果不存在元素e，则返回-1
@@ -124,10 +126,15 @@ begin
 end;
 
 procedure TArrayList.AddRange(const arr: array of T);
+begin
+  AddRange(arr, 0, Length(arr));
+end;
+
+procedure TArrayList.AddRange(const arr: array of T; aIndex, aCount: integer);
 var
   i: integer;
 begin
-  for i := 0 to Length(arr) - 1 do
+  for i := aIndex to aCount - 1 do
   begin
     Self.AddLast(arr[i]);
   end;
