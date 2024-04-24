@@ -134,6 +134,9 @@ procedure TArrayList.AddRange(const arr: array of T; aIndex, aCount: integer);
 var
   i: integer;
 begin
+  if (aIndex < 0) or (aIndex + aCount > Length(arr)) then
+    raise Exception.Create('Add failed.');
+
   for i := aIndex to aCount - 1 do
   begin
     Self.AddLast(arr[i]);

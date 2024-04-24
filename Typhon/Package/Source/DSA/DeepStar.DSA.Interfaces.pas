@@ -39,7 +39,8 @@ type
     procedure Add(index: integer; e: T);
     procedure AddFirst(e: T);
     procedure AddLast(e: T);
-    procedure AddRange(const arr: array of T);
+    procedure AddRange(const arr: array of T); overload;
+    procedure AddRange(const arr: array of T; aIndex, aCount: integer); overload;
     procedure Clear;
     procedure RemoveElement(e: T);
     procedure SetItem(index: integer; e: T);

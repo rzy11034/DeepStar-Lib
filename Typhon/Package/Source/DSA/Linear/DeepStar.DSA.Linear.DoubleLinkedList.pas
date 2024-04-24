@@ -62,6 +62,7 @@ type
     procedure AddFirst(e: T);
     procedure AddLast(e: T);
     procedure AddRange(const arr: array of T);
+    procedure AddRange(const arr: array of T; aIndex, aCount: integer);
     procedure Clear;
     procedure RemoveElement(e: T);
     procedure SetItem(index: integer; e: T);
@@ -193,6 +194,19 @@ var
   i: integer;
 begin
   for i := 0 to High(arr) do
+  begin
+    Self.AddLast(arr[i]);
+  end;
+end;
+
+procedure TDoubleLinkedList.AddRange(const arr: array of T; aIndex, aCount: integer);
+var
+  i: integer;
+begin
+  if (aIndex < 0) or (aIndex + aCount > Length(arr)) then
+    raise Exception.Create('Add failed.');
+
+  for i := aIndex to aCount - 1 do
   begin
     Self.AddLast(arr[i]);
   end;

@@ -60,6 +60,7 @@ type
     procedure AddFirst(e: T);
     procedure AddLast(e: T);
     procedure AddRange(const arr: array of T);
+    procedure AddRange(const arr: array of T; aIndex, aCount: integer);
     procedure Clear;
     procedure RemoveElement(e: T);
     procedure Reverse;
@@ -166,13 +167,28 @@ begin
     prev := tmp;
     _size += 1;
   end;
+end;
 
-  //for i := 0 to High(arr) do
-  //begin
-  //
-  //  prev.Next := TNode.Create(arr[i], prev.Next);
-  //  _size += 1;
-  //end;
+procedure TLinkedList.AddRange(const arr: array of T; aIndex, aCount: integer);
+var
+  i: integer;
+  prev, tmp: TNode;
+begin
+  if (aIndex < 0) or (aIndex + aCount > Length(arr)) then
+    raise Exception.Create('Add failed.');
+
+  prev := _dummyHead;
+
+  while prev.Next <> nil do
+    prev := prev.Next;
+
+  for i := aIndex to aCount - 1 do
+  begin
+    tmp := TNode.Create(arr[i]);
+    prev.Next := tmp;
+    prev := tmp;
+    _size += 1;
+  end;
 end;
 
 procedure TLinkedList.Clear;
