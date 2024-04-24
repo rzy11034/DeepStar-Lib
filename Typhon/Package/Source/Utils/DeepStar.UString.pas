@@ -34,7 +34,7 @@ type
 
     function PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
     function ReverseString: UString;
-    function Split(const Separators: TStringArray): TArr_str;
+    function Split(const Separators: TArr_chr): TArr_str;
     function Substring(index: integer): UString;
     function Substring(index: integer; len: integer): UString;
     function ToCharArray: TArr_chr;
@@ -97,19 +97,9 @@ begin
   end;
 end;
 
-function TUStringHelper.Split(const Separators: TStringArray): TArr_str;
-var
-  tmp: TStringArray;
-  i: integer;
-  res: TArr_str;
+function TUStringHelper.Split(const Separators: TArr_chr): TArr_str;
 begin
-  tmp := AnsiString(Self).Split(Separators);
-  SetLength(res, System.Length(tmp));
-
-  for i := 0 to High(tmp) do
-    res[i] := UString(tmp[i]);
-
-  Result := res;
+  Result := inherited Split(Separators);
 end;
 
 function TUStringHelper.Substring(index: integer): UString;
