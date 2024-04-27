@@ -15,7 +15,9 @@ uses
   LazUTF8;
 
 type
+  PString = ^UString;
   UString = unicodestring;
+  PChar = ^UChar;
   UChar = unicodechar;
 
   TUStringHelper = type Helper(TUnicodeStringHelper) for UString
@@ -32,11 +34,13 @@ type
     class function Create(const chrArr: TArr_chr): UString; static;
     class function Create(const chrArr: TArr_chr; startIndex, len: integer): UString; static;
 
+    procedure Format(const args: array of const);
     function PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
     function ReverseString: UString;
     function Split(const Separators: TArr_chr): TArr_str;
     function Substring(index: integer): UString;
     function Substring(index: integer; len: integer): UString;
+    function ToAnsiString: AnsiString;
     function ToCharArray: TArr_chr;
     function ToInteger: integer;
     function ToPAnsiChar: PAnsiChar; inline;
@@ -64,6 +68,11 @@ class function TUStringHelper.Create(const chrArr: TArr_chr; startIndex, len: in
 begin
   SetLength(Result, Len);
   Move(chrArr[StartIndex], PChar(PChar(Result))^, Len * SizeOf(UChar));
+end;
+
+procedure TUStringHelper.Format(const args: array of const);
+begin
+  Self := string(SysUtils.Format(Self, Args));
 end;
 
 function TUStringHelper.PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
@@ -110,6 +119,11 @@ end;
 function TUStringHelper.Substring(index: integer; len: integer): UString;
 begin
   Result := System.Copy(Self, index + 1, len);
+end;
+
+function TUStringHelper.ToAnsiString: AnsiString;
+begin
+  Result := AnsiString(Self);
 end;
 
 function TUStringHelper.ToCharArray: TArr_chr;
