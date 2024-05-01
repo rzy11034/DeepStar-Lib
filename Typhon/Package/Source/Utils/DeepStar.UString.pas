@@ -31,8 +31,8 @@ type
     procedure __setChar(index: integer; const newChars: UChar);
 
   public
-    class function Create(const chrArr: TArr_chr): UString; static;
-    class function Create(const chrArr: TArr_chr; startIndex, len: integer): UString; static;
+    constructor Create(const chrArr: TArr_chr);
+    constructor Create(const chrArr: TArr_chr; startIndex, len: integer);
 
     procedure Format(const args: array of const);
     function PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
@@ -59,15 +59,15 @@ uses
 
   { TUStringHelper }
 
-class function TUStringHelper.Create(const chrArr: TArr_chr): UString;
+constructor TUStringHelper.Create(const chrArr: TArr_chr);
 begin
-  Result := Create(chrArr, 0, System.Length(chrArr));
+  Create(chrArr, 0, System.Length(chrArr));
 end;
 
-class function TUStringHelper.Create(const chrArr: TArr_chr; startIndex, len: integer): UString;
+constructor TUStringHelper.Create(const chrArr: TArr_chr; startIndex, len: integer);
 begin
-  SetLength(Result, Len);
-  Move(chrArr[StartIndex], PChar(PChar(Result))^, Len * SizeOf(UChar));
+  SetLength(Self, Len);
+  Move(chrArr[StartIndex], PChar(PChar(Self))^, Len * SizeOf(UChar));
 end;
 
 procedure TUStringHelper.Format(const args: array of const);
