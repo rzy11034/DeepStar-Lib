@@ -10,6 +10,7 @@ uses
   Classes,
   SysUtils,
   Rtti,
+  LazUTF8,
   Generics.Defaults,
   Generics.Collections,
   DeepStar.DSA.Interfaces,

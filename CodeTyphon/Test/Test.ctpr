@@ -213,11 +213,6 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Interface_h.inc"/>
-        <FRMtype Value="0"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
         <Filename Value="..\Package\DeepStar_Lib.ctpkg"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
@@ -246,10 +241,6 @@
       </Unit>
       <Unit>
         <Filename Value="Source\DSA\DeepStar.DSA.Tree.Test.BinarySearchTree.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="Source\DSA\DeepStar.DSA.Tree.Test.RBTree.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
