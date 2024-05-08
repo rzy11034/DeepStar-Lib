@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <PathDelim Value="\"/>
+    <Name Value="DeepStar_Lib"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Version Major="1"/>
+    <Files>
+      <Item>
+        <Filename Value="Source\DSA\DeepStar.DSA.Interfaces.pas"/>
+        <UnitName Value="DeepStar.DSA.Interfaces"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.DoubleLinkedList.pas"/>
+        <UnitName Value="DeepStar.DSA.Linear.DoubleLinkedList"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.LinkedList.pas"/>
+        <UnitName Value="DeepStar.DSA.Linear.LinkedList"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.Queue.pas"/>
+        <UnitName Value="DeepStar.DSA.Linear.Queue"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.Stack.pas"/>
+        <UnitName Value="DeepStar.DSA.Linear.Stack"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Strings\DeepStar.DSA.Strings.RabinKarp.pas"/>
+        <UnitName Value="DeepStar.DSA.Strings.RabinKarp"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Hash\DeepStar.DSA.Hash.HashSet.pas"/>
+        <UnitName Value="DeepStar.DSA.Hash.HashSet"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.BalanceBinarySearchTree.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.BalanceBinarySearchTree"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.BinarySearchTree.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.BinarySearchTree"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.BinaryTree.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.BinaryTree"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.Heap.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.Heap"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.PriorityQueue.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.PriorityQueue"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.RBTree.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.RBTree"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.TreeMap.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.TreeMap"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.TreeSet.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.TreeSet"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.Trie.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.Trie"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.ArrayUtils.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.ArrayUtils_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Lists_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Maps_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Math.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Math_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Queues_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Sets_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Stacks_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.UnicodeString.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.UnicodeString_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.AVLTree.pas"/>
+        <UnitName Value="DeepStar.DSA.Tree.AVLTree"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Strings\DeepStar.DSA.Strings.KMP.pas"/>
+        <UnitName Value="DeepStar.DSA.Strings.KMP"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Arrays_h.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Utils.pas"/>
+        <UnitName Value="DeepStar.Utils"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Hash\DeepStar.DSA.Hash.HashMap.pas"/>
+        <UnitName Value="DeepStar.DSA.Hash.HashMap"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas"/>
+        <UnitName Value="DeepStar.DSA.Linear.ArrayList"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="bs_Utils"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

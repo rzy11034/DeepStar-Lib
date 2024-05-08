@@ -1,0 +1,14 @@
+﻿=============================================
+  CodeTyphon Studio
+  Typhon IDE
+  Package Information file
+=============================================
+
+DeepStar_Lib
+
+Version: 1.0 Date: 2024-05-08 23:58
+
+
+
+
+
