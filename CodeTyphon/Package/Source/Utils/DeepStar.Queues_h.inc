@@ -9,3 +9,6 @@ type
 
   IQueue_str = specialize IQueue<string>;
   TQueue_str = specialize TQueue<string>;
+
+  IQueue_TArr_int = specialize IQueue<TArr_int>;
+  TQueue_TArr_int = specialize TQueue<TArr_int>;
