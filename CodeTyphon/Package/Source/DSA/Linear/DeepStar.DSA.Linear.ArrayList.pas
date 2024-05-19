@@ -18,21 +18,25 @@ type
     TArr = TImpl.TArr;
     ICmp = TImpl.ICmp;
     TCmp = TImpl.TCmp;
+    PT = ^T;
 
   private
-    _data: TArr;
-    _size: integer;
-    _cmp: TImpl.ICmp;
+    _Data: TArr;
+    _Capacity: uint64;
+    _Size: integer;
+    _Cmp: TImpl.ICmp;
 
+    function __GetItemPtr(index: integer): PT;
     procedure __quickSort(l, r: integer);
-    procedure __reSize(newCapacity: integer);
+    procedure __ResizeIncreases;
+    procedure __ResizeDecreases;
     procedure __SetComparer(const newComparer: TImpl.ICmp);
-    procedure __swap(var a, b: T);
+    procedure __Swap(var a, b: T);
 
   public
     // 构造函数，传入数组的容量 capacity 构造 TArrayList
     // 默认数组的容量capacity:=10
-    constructor Create(capacity: integer = 10);
+    constructor Create(capacity: integer = 4);
     // 构造函数，传入数组构造 TArrayList
     constructor Create(const arr: TArr);
     // 构造函数，传入 TComparisonFunc。
@@ -87,11 +91,13 @@ type
     procedure Clear;
     // 反转列表
     procedure Reverse;
+
     function ToString: string; reintroduce;
 
     property Count: integer read GetSize;
     property Comparer: TImpl.ICmp write __SetComparer;
     property Items[i: integer]: T read GetItem write SetItem; default;
+    property ItemPtr[i: integer]: PT read __GetItemPtr;
   end;
 
 implementation
@@ -102,17 +108,17 @@ procedure TArrayList.Add(index: integer; e: T);
 var
   i: integer;
 begin
-  if (index < 0) or (index > _size) then
+  if (index < 0) or (index > _Size) then
     raise Exception.Create('Add failed. Require index >= 0 and index <= Size.');
 
-  if (_size = Length(_data)) then
-    __reSize(2 * Length(Self._data));
+  if (_Size = Length(_Data)) then
+    __ResizeIncreases;
 
-  for i := _size - 1 downto index do
-    _data[i + 1] := _data[i];
+  for i := _Size - 1 downto index do
+    _Data[i + 1] := _Data[i];
 
-  _data[index] := e;
-  _size += 1;
+  _Data[index] := e;
+  _Size += 1;
 end;
 
 procedure TArrayList.AddFirst(e: T);
@@ -122,7 +128,7 @@ end;
 
 procedure TArrayList.AddLast(e: T);
 begin
-  Add(_size, e);
+  Add(_Size, e);
 end;
 
 procedure TArrayList.AddRange(const arr: array of T);
@@ -145,18 +151,18 @@ end;
 
 procedure TArrayList.Clear;
 begin
-  _size := 0;
-  _data := nil;
-  SetLength(_data, 10);
+  _Size := 0;
+  _Data := nil;
+  SetLength(_Data, 10);
 end;
 
 function TArrayList.Contains(e: T): boolean;
 var
   i: integer;
 begin
-  for i := 0 to _size - 1 do
+  for i := 0 to _Size - 1 do
   begin
-    if _cmp.Compare(_data[i], e) = 0 then
+    if _Cmp.Compare(_Data[i], e) = 0 then
       Exit(true);
   end;
 
@@ -170,51 +176,54 @@ end;
 
 constructor TArrayList.Create(capacity: integer);
 begin
-  if capacity < 10 then capacity := 10;
+  if capacity < 4 then capacity := 4;
 
-  SetLength(_data, capacity);
-  _cmp := TImpl.TCmp.Default;
 
-  _size := 0;
+  SetLength(_Data, capacity);
+  _Cmp := TImpl.TCmp.Default;
+
+  _Size := 0;
+  _Capacity := capacity;
 end;
 
 constructor TArrayList.Create(const arr: TArr);
 var
   i: integer;
 begin
-  SetLength(_data, Length(arr));
+  SetLength(_Data, Length(arr));
 
   for i := 0 to Length(arr) - 1 do
-    _data[i] := arr[i];
+    _Data[i] := arr[i];
 
-  _size := Length(arr);
+  _Size := Length(arr);
+  _Capacity := _Size;
 end;
 
 constructor TArrayList.Create(cmp: TImpl.ICmp);
 begin
   Self.Create;
-  _cmp := cmp;
+  _Cmp := cmp;
 end;
 
 constructor TArrayList.Create(comparisonFunc: TImpl.TComparisonFuncs);
 begin
   Self.Create;
-  _cmp := TImpl.TCmp.Construct(ComparisonFunc);
+  _Cmp := TImpl.TCmp.Construct(ComparisonFunc);
 end;
 
 constructor TArrayList.Create(onComparison: TImpl.TOnComparisons);
 begin
   Self.Create;
-  _cmp := TImpl.TCmp.Construct(OnComparison);
+  _Cmp := TImpl.TCmp.Construct(OnComparison);
 end;
 
 function TArrayList.IndexOf(e: T): integer;
 var
   i: integer;
 begin
-  for i := 0 to _size - 1 do
+  for i := 0 to _Size - 1 do
   begin
-    if _Cmp.Compare(_data[i], e) = 0 then
+    if _Cmp.Compare(_Data[i], e) = 0 then
       Exit(i);
   end;
 
@@ -223,15 +232,15 @@ end;
 
 function TArrayList.GetItem(index: integer): T;
 begin
-  if (index < 0) or (index >= _size) then
+  if (index < 0) or (index >= _Size) then
     raise Exception.Create('Get failed. Index is illegal.');
 
-  Result := _data[index];
+  Result := _Data[index];
 end;
 
 function TArrayList.GetCapacity: integer;
 begin
-  Result := Length(Self._data);
+  Result := Length(Self._Data);
 end;
 
 function TArrayList.GetFirst: T;
@@ -241,17 +250,17 @@ end;
 
 function TArrayList.GetLast: T;
 begin
-  Result := GetItem(_size - 1);
+  Result := GetItem(_Size - 1);
 end;
 
 function TArrayList.GetSize: integer;
 begin
-  Result := Self._size;
+  Result := Self._Size;
 end;
 
 function TArrayList.IsEmpty: boolean;
 begin
-  Result := Self._size = 0;
+  Result := Self._Size = 0;
 end;
 
 function TArrayList.Remove(index: integer): T;
@@ -259,18 +268,17 @@ var
   i: integer;
   res: T;
 begin
-  if (index < 0) or (index >= _size) then
+  if (index < 0) or (index >= _Size) then
     raise Exception.Create('Remove failed. Index is illegal.');
 
-  res := _data[index];
+  res := _Data[index];
 
-  for i := index + 1 to _size - 1 do
-    _data[i - 1] := _data[i];
+  for i := index + 1 to _Size - 1 do
+    _Data[i - 1] := _Data[i];
 
-  Dec(Self._size);
+  Dec(Self._Size);
 
-  if (_size = Length(Self._data) div 4) and (Length(Self._data) div 2 <> 0) then
-    __reSize(Length(Self._data) div 2);
+  __ResizeDecreases;
 
   Result := res;
 end;
@@ -279,7 +287,7 @@ procedure TArrayList.RemoveElement(e: T);
 var
   index, i: integer;
 begin
-  for i := 0 to _size - 1 do
+  for i := 0 to _Size - 1 do
   begin
     index := IndexOf(e);
 
@@ -295,7 +303,7 @@ end;
 
 function TArrayList.RemoveLast: T;
 begin
-  Result := Remove(_size - 1);
+  Result := Remove(_Size - 1);
 end;
 
 procedure TArrayList.Reverse;
@@ -303,11 +311,11 @@ var
   l, r: integer;
 begin
   l := 0;
-  r := _size - 1;
+  r := _Size - 1;
 
   while l < r do
   begin
-    __swap(_data[l], _data[r]);
+    __Swap(_Data[l], _Data[r]);
     l += 1;
     r -= 1;
   end;
@@ -315,15 +323,15 @@ end;
 
 procedure TArrayList.SetItem(index: integer; e: T);
 begin
-  if (index < 0) or (index >= _size) then
+  if (index < 0) or (index >= _Size) then
     raise Exception.Create('Set failed. Require index >= 0 and index < Size.');
 
-  _data[index] := e;
+  _Data[index] := e;
 end;
 
 procedure TArrayList.Sort;
 begin
-  __quickSort(0, _size - 1);
+  __quickSort(0, _Size - 1);
 end;
 
 function TArrayList.ToArray: TArr;
@@ -331,15 +339,15 @@ var
   i: integer;
   arr: TArr;
 begin
-  SetLength(arr, _size);
+  SetLength(arr, _Size);
 
-  for i := 0 to _size - 1 do
-    arr[i] := _data[i];
+  for i := 0 to _Size - 1 do
+    arr[i] := _Data[i];
 
   Result := arr;
 end;
 
-function TArrayList.ToString: String;
+function TArrayList.ToString: string;
 var
   res: TStringBuilder;
   i: integer;
@@ -348,20 +356,20 @@ begin
   res := TStringBuilder.Create;
   try
     res.AppendFormat('Array: Size = %d, capacity = %d',
-      [Self._size, Length(Self._data)]);
+      [Self._Size, Length(Self._Data)]);
     res.AppendLine;
     res.Append('  [');
 
-    for i := 0 to _size - 1 do
+    for i := 0 to _Size - 1 do
     begin
-      TValue.Make(@_data[i], TypeInfo(T), Value);
+      TValue.Make(@_Data[i], TypeInfo(T), Value);
 
       if not (Value.IsObject) then
         res.Append(Value.ToString)
       else
         res.Append(Value.AsObject.ToString);
 
-      if i <> _size - 1 then
+      if i <> _Size - 1 then
         res.Append(', ');
     end;
 
@@ -373,30 +381,38 @@ begin
   end;
 end;
 
+function TArrayList.__GetItemPtr(index: integer): PT;
+begin
+  if (index < 0) or (index >= _Size) then
+    raise Exception.Create('Set failed. Require index >= 0 and index < Size.');
+
+  Result := @_Data[index];
+end;
+
 procedure TArrayList.__quickSort(l, r: integer);
 var
   i, j: integer;
   p, q: T;
 begin
-  if ((r - l) <= 0) or (Length(_data) = 0) then
+  if ((r - l) <= 0) or (Length(_Data) = 0) then
     Exit;
 
   repeat
     i := l;
     j := r;
-    p := _data[l + (r - l) shr 1];
+    p := _Data[l + (r - l) shr 1];
     repeat
-      while _cmp.Compare(_data[i], p) < 0 do
+      while _Cmp.Compare(_Data[i], p) < 0 do
         Inc(i);
-      while _cmp.Compare(_data[j], p) > 0 do
+      while _Cmp.Compare(_Data[j], p) > 0 do
         Dec(j);
       if i <= j then
       begin
         if i <> j then
         begin
-          q := _data[i];
-          _data[i] := _data[j];
-          _data[j] := q;
+          q := _Data[i];
+          _Data[i] := _Data[j];
+          _Data[j] := q;
         end;
         Inc(i);
         Dec(j);
@@ -420,17 +436,57 @@ begin
   until l >= r;
 end;
 
-procedure TArrayList.__reSize(newCapacity: integer);
+procedure TArrayList.__ResizeDecreases;
 begin
-  SetLength(Self._data, newCapacity);
+  if _Capacity >= 20 then
+  begin
+    if (_Size = Length(Self._Data) div 4) and (Length(Self._Data) div 2 <> 0) then
+    begin
+      SetLength(Self._Data, Length(Self._Data) div 4);
+      _Capacity := _Size;
+    end;
+  end
+  else
+    Exit;
+end;
+
+procedure TArrayList.__ResizeIncreases;
+  function __NewCapacity__: SizeUInt;
+  const
+    // if size is small, multiply by 2;
+    // if size bigger but <256M, inc by 1/8*size;
+    // otherwise inc by 1/16*size
+    cSizeSmall = 1 * 1024 * 1024;
+    cSizeBig = 256 * 1024 * 1024;
+  var
+    dataSize: SizeUInt;
+    res: SizeUInt;
+  begin
+    dataSize := _Capacity * SizeOf(T);
+
+    if _Capacity = 0 then
+      res := 4
+    else if dataSize < cSizeSmall then
+      res := _Capacity * 2
+    else if dataSize < cSizeBig then
+      res := _Capacity + _Capacity div 8
+    else
+      res := _Capacity + _Capacity div 16;
+
+    Result := res;
+  end;
+
+begin
+  _Capacity := __NewCapacity__;
+  SetLength(Self._Data, _Capacity);
 end;
 
 procedure TArrayList.__SetComparer(const newComparer: TImpl.ICmp);
 begin
-  _cmp := newComparer;
+  _Cmp := newComparer;
 end;
 
-procedure TArrayList.__swap(var a, b: T);
+procedure TArrayList.__Swap(var a, b: T);
 var
   temp: T;
 begin

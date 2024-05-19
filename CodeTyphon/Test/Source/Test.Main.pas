@@ -13,7 +13,7 @@ procedure Run();
 implementation
 
 uses
-  DeepStar.DSA.Strings.Test.RabinKarp;
+  DeepStar.DSA.Linear.Test.ArrayList;
 
 procedure Run();
 begin
