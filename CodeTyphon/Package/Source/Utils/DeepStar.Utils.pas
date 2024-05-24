@@ -10,6 +10,7 @@ uses
   Classes,
   SysUtils,
   Rtti,
+  Math,
   LazUTF8,
   Generics.Defaults,
   Generics.Collections,
@@ -32,6 +33,7 @@ uses
   //═════════════════════════════════════════════════════════════════════════
   {$Include DeepStar.UnicodeString_h.inc}
   {$Include DeepStar.ArrayUtils_h.inc}
+  {$Include DeepStar.Math_h.inc}
   {$Include DeepStar.Common_h.inc}
 
   //════════════════════ 常用容器类特例化定义 ═══════════════════════════════
@@ -49,6 +51,7 @@ implementation
 
 
 {$Include DeepStar.Common.inc}
+{$Include DeepStar.Math.inc}
 {$Include DeepStar.ArrayUtils.inc}
 {$Include DeepStar.UnicodeString.inc}
 
