@@ -72,11 +72,6 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.ArrayUtils_h.inc"/>
-        <FRMtype Value="0"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
         <Filename Value="..\Package\Source\Utils\DeepStar.ArrayUtils.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
@@ -178,37 +173,32 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Arrays_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.ArraysDefSet.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Lists_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Lists.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Queues_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Queues.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Sets_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Sets.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Stacks_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Stacks.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\Package\Source\Utils\DeepStar.UnicodeString.inc"/>
-        <FRMtype Value="0"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.UnicodeString_h.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
@@ -226,12 +216,12 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.Heaps_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Heaps.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="..\Package\Source\Utils\DeepStar.PriorityQueues_h.inc"/>
+        <Filename Value="..\Package\Source\Utils\DeepStar.PriorityQueues.inc"/>
         <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
@@ -261,6 +251,16 @@
       </Unit>
       <Unit>
         <Filename Value="Source\DSA\DeepStar.DSA.Strings.Test.RabinKarp.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Math.inc"/>
+        <FRMtype Value="0"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\Package\Source\Utils\DeepStar.Common.inc"/>
+        <FRMtype Value="0"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
