@@ -1,26 +1,4 @@
-  {%MainUint DeepStar.Utils.pas}
-
-  {$ifdef read_interface}
-
-  procedure DrawLineBlockEnd;
-  procedure DrawLineProgramEnd;
-
-  function NeedInput(need: boolean = true; showText: boolean = true): boolean;
-  function Exp(d: ValReal): ValReal;
-  function Chr(i: cardinal): char;
-  procedure WriteF(const Fmt: string; const Args: array of const);
-  procedure WriteLnF(const Fmt: string; const Args: array of const);
-  function IfThen(Condition: boolean; const TrueResult, FalseResult: variant): variant;
-    deprecated 'Use IfThen<T> instead';
-  function CrossFixFileName(const FileName: string): string;
-
-  generic function IfThen<T>(Condition: boolean; const TrueResult: T; const FalseResult: T): T;
-  generic procedure Swap<T>(var a, b: T);
-
-  // 交换零基字符串中字符
-  procedure Swap(var str: string; indexA, indexB: integer);
-
-  {$else}
+﻿  {%MainUint DeepStar.Utils.pas}
 
 procedure DrawLineBlockEnd;
 var
@@ -133,5 +111,3 @@ procedure WriteLnF(const Fmt: string; const Args: array of const);
 begin
   WriteLn(Format(Fmt.ToAnsiString, Args));
 end;
-
-{$EndIf}

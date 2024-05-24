@@ -6,7 +6,7 @@ interface
 
 uses
   Classes,
-  SysUtils, //gvector,
+  SysUtils, gvector,
   DeepStar.DSA.Interfaces,
   DeepStar.DSA.Linear.ArrayList;
 
@@ -20,7 +20,6 @@ uses
 type
   TImpl = specialize TImpl<integer>;
   TArrayList = specialize TArrayList<integer>;
-  //Tvec = specialize TVector<integer>;
 
 function cmp(const a, b: integer): integer;
 var
@@ -39,7 +38,6 @@ end;
 procedure Main;
 var
   al: TArrayList;
-  //vl: Tvec;
   a: TImpl.TArr;
   i: Integer;
 begin

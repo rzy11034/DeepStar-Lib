@@ -6,12 +6,9 @@
 
 interface
 
-{$define read_interface}
-
 uses
   Classes,
   SysUtils,
-  Math,
   Rtti,
   LazUTF8,
   Generics.Defaults,
@@ -30,35 +27,28 @@ uses
   DeepStar.DSA.Tree.PriorityQueue;
 
   // 常用数组定义
-  {$Include DeepStar.Arrays.inc}
+  {$Include DeepStar.Arrays_h.inc}
 
   //═════════════════════════════════════════════════════════════════════════
-  {$Include DeepStar.UnicodeString.inc}
-  {$Include DeepStar.ArrayUtils.inc}
-  {$Include DeepStar.Math.inc}
+  {$Include DeepStar.UnicodeString_h.inc}
+  {$Include DeepStar.ArrayUtils_h.inc}
+  {$Include DeepStar.Common_h.inc}
 
   //════════════════════ 常用容器类特例化定义 ═══════════════════════════════
-  {$Include DeepStar.Lists.inc}
-  {$Include DeepStar.Stacks.inc}
-  {$Include DeepStar.Queues.inc}
-  {$Include DeepStar.Maps.inc}
-  {$Include DeepStar.Sets.inc}
-  {$Include DeepStar.Heaps.inc}
-  {$Include DeepStar.PriorityQueues.inc}
+  {$Include DeepStar.Lists_h.inc}
+  {$Include DeepStar.Stacks_h.inc}
+  {$Include DeepStar.Queues_h.inc}
+  {$Include DeepStar.Maps_h.inc}
+  {$Include DeepStar.Sets_h.inc}
+  {$Include DeepStar.Heaps_h.inc}
+  {$Include DeepStar.PriorityQueues_h.inc}
   //═════════════════════════════════════════════════════════════════════════
 
-  {$Include DeepStar.Common.inc}
 
 implementation
 
-{$undef read_interface}
-{$define read_implementation}
 
-//═════════════════════════════════════════════════════════════════════════
 {$Include DeepStar.Common.inc}
-
-//═════════════════════════════════════════════════════════════════════════
-{$Include DeepStar.Math.inc}
 {$Include DeepStar.ArrayUtils.inc}
 {$Include DeepStar.UnicodeString.inc}
 
