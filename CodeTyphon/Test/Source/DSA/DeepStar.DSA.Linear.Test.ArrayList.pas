@@ -6,7 +6,7 @@ interface
 
 uses
   Classes,
-  SysUtils, gvector,
+  SysUtils,
   DeepStar.DSA.Interfaces,
   DeepStar.DSA.Linear.ArrayList;
 

@@ -85,52 +85,7 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.ArrayUtils_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Lists_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Maps_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
         <Filename Value="Source\Utils\DeepStar.Math.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Math_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Queues_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Sets_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Stacks_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.UnicodeString.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.UnicodeString_h.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>
@@ -141,11 +96,6 @@
       <Item>
         <Filename Value="Source\DSA\Strings\DeepStar.DSA.Strings.KMP.pas"/>
         <UnitName Value="DeepStar.DSA.Strings.KMP"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Arrays_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Utils.pas"/>
@@ -160,22 +110,52 @@
         <UnitName Value="DeepStar.DSA.Linear.ArrayList"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Common_h.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
         <Filename Value="Source\Utils\DeepStar.Common.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Heaps_h.inc"/>
+        <Filename Value="Source\Utils\DeepStar.Arrays.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.PriorityQueues_h.inc"/>
+        <Filename Value="Source\Utils\DeepStar.Heaps.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Lists.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Maps.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.PriorityQueues.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Queues.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Sets.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Stacks.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.UnicodeStringHelper.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>

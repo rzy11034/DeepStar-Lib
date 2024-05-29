@@ -1,5 +1,6 @@
 ﻿  {%MainUint DeepStar.Utils.pas}
 
+  {$IfDef InterfacePart}
 type
   // 一维数组
   TArr_int = array of integer;
@@ -19,3 +20,7 @@ type
 
   // 三维数组
   TArr3D_int = array of array of array of integer;
+
+  {$Else}
+
+  {$EndIf}
