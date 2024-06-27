@@ -15,6 +15,12 @@ type
     class function DecToAny(num: integer; NumberSystem: integer): string;
     // 判断一个正整数是否为质数
     class function IsPrime(n: uint64): boolean;
+    // 自定义版本四舍五入
+    // RoundMode: TFPURoundingMode = rmNearest 四舍五入
+    // RoundMode: TFPURoundingMode = rmDown 四舍五入到小于value的最大整数。
+    // RoundMode: TFPURoundingMode = rmUp 四舍五入到比value大的最小整数
+    // RoundMode: TFPURoundingMode = rmTruncate 截断小数部分
+    class function RoundEx(Value: extended; roundMode: TFPURoundingMode = rmNearest): int64;
   end;
 
   {$Else}
@@ -80,6 +86,35 @@ begin
   Result := true;
 end;
 
+class function TMath.RoundEx(Value: extended; roundMode: TFPURoundingMode): int64;
+var
+  rm: TFPURoundingMode;
+  res: int64;
+begin
+  if roundMode = rmNearest then
+  begin
+    rm := GetRoundMode;
+    try
+      SetRoundMode(roundMode);
+      res := Round(SimpleRoundTo(Value, 0));
+    finally
+      SetRoundMode(rm);
+    end;
+  end
+  else
+  begin
+    rm := GetRoundMode;
+    try
+      SetRoundMode(roundMode);
+      res := Round(Value);
+    finally
+      SetRoundMode(rm);
+    end;
+  end;
+
+  Result := res;
+end;
+
 class function TMath.__CharToNum(c: UChar): integer;
 var
   res: integer;
@@ -107,4 +142,3 @@ begin
 end;
 
 {$EndIf}
-
