@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="Source\Utils"/>
-        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils"/>
+        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\SDL2_ADV"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
@@ -159,8 +159,27 @@
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>
+      <Item>
+        <Filename Value="Source\SDL2_ADV\DeepStar.SDL2_ADV.Texture.pas"/>
+        <UnitName Value="DeepStar.SDL2_ADV.Texture"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2_ADV\DeepStar.SDL2_ADV.Timer.pas"/>
+        <UnitName Value="DeepStar.SDL2_ADV.Timer"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2_ADV\DeepStar.SDL2_ADV.Utils.pas"/>
+        <UnitName Value="DeepStar.SDL2_ADV.Utils"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2_ADV\DeepStar.SDL2_ADV.Windows.pas"/>
+        <UnitName Value="DeepStar.SDL2_ADV.Windows"/>
+      </Item>
     </Files>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="pl_sdl"/>
+      </Item>
       <Item>
         <PackageName Value="bs_Utils"/>
       </Item>

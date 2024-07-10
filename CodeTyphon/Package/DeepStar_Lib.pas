@@ -1,4 +1,4 @@
-﻿{ This file was automatically created by Typhon IDE. Do not edit!
+{ This file was automatically created by Typhon IDE. Do not edit!
   This source is only used to compile and install the package.
  }
 
@@ -12,7 +12,8 @@ uses
   DeepStar.DSA.Linear.Stack, DeepStar.DSA.Strings.RabinKarp, DeepStar.DSA.Hash.HashSet, DeepStar.DSA.Tree.BalanceBinarySearchTree, 
   DeepStar.DSA.Tree.BinarySearchTree, DeepStar.DSA.Tree.BinaryTree, DeepStar.DSA.Tree.Heap, DeepStar.DSA.Tree.PriorityQueue, 
   DeepStar.DSA.Tree.RBTree, DeepStar.DSA.Tree.TreeMap, DeepStar.DSA.Tree.TreeSet, DeepStar.DSA.Tree.Trie, DeepStar.DSA.Tree.AVLTree, 
-  DeepStar.DSA.Strings.KMP, DeepStar.Utils, DeepStar.DSA.Hash.HashMap, DeepStar.DSA.Linear.ArrayList, TyphonPackageIntf;
+  DeepStar.DSA.Strings.KMP, DeepStar.Utils, DeepStar.DSA.Hash.HashMap, DeepStar.DSA.Linear.ArrayList, DeepStar.SDL2_ADV.Texture, 
+  DeepStar.SDL2_ADV.Timer, DeepStar.SDL2_ADV.Utils, DeepStar.SDL2_ADV.Windows, TyphonPackageIntf;
 
 implementation
 
