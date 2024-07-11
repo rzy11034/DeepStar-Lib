@@ -11,6 +11,7 @@ uses
   Classes,
   SysUtils,
   Types,
+  System.UITypes,
   DeepStar.Utils,
   DeepStar.DSA.Linear.ArrayList,
   libSDL2,
@@ -21,7 +22,8 @@ const
   SDL_COLOR_WHITE: TSDL_Color = (r: $FF; g: $FF; b: $FF; a: $FF);
 
 type
-  float = Single;
+  float = single;
+  TColors = System.UITypes.TAlphaColorRec;
 
   TList_TTexture = specialize TArrayList<TTexture>;
   TList_TPoint = specialize TArrayList<TPoint>;
@@ -46,14 +48,23 @@ type
     function ToPtr: PSDL_Rect;
   end;
 
+operator := (AColor: TAlphaColor): TSDL_Color; inline;
+
 function SDL_Point(aX, aY: integer): TSDL_Point;
 function SDL_Point(p: TPoint): TSDL_Point;
 function SDL_Rect(aX, aY, aW, aH: integer): TSDL_Rect;
 function SDL_Rect(rc: TRect): TSDL_Rect;
 function SDL_Color(r, g, b, a: byte): TSDL_Color;
 
-
 implementation
+
+operator := (AColor: TAlphaColor): TSDL_Color;
+var
+  temp: TColors;
+begin
+  temp := TColors.Create(AColor);
+  Result := SDL_Color(temp.R, temp.G, temp.B, temp.A);
+end;
 
 function SDL_Point(aX, aY: integer): TSDL_Point;
 var
@@ -98,7 +109,7 @@ function SDL_Color(r, g, b, a: byte): TSDL_Color;
 begin
   Result := Default(TSDL_Color);
 
-  Result.a := a;
+  Result.r := r;
   Result.b := b;
   Result.g := g;
   Result.a := a;

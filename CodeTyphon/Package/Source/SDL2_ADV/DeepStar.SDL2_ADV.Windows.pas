@@ -50,7 +50,7 @@ type
     procedure __SDL_Init;
     procedure __IMG_Init;
     procedure __TTF_Init;
-    procedure __SDL_SetHint;
+    procedure __SetHint;
     procedure __SetCaption(const Value: string);
 
   public
@@ -177,7 +177,7 @@ end;
 procedure TWindow.Init(Caption: string; winPosX, winPosY, Width, Height: int32; flags: uint32);
 begin
   __SDL_Init;
-  __SDL_SetHint;
+  __SetHint;
   __IMG_Init;
   __TTF_Init;
 
@@ -303,16 +303,18 @@ begin
   end;
 end;
 
-procedure TWindow.__SDL_SetHint;
+procedure TWindow.__SetHint;
 var
   errStr: string;
 begin
-  // Set texture filtering to linear
-  if not SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, '1') then
-  begin
-    errStr := 'Warning: Linear texture filtering not enabled!';
-    raise Exception.Create(errStr.ToAnsiString);
-  end;
+  //// Set texture filtering to linear
+  //if not SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, '1') then
+  //begin
+  //  errStr := 'Warning: Linear texture filtering not enabled!';
+  //  raise Exception.Create(errStr.ToAnsiString);
+  //end;
+
+  SDL_SetHint(SDL_HINT_RENDER_OPENGL_SHADERS,'opengl');
 end;
 
 procedure TWindow.__SetCaption(const Value: string);

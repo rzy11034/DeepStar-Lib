@@ -9,8 +9,8 @@ interface
 uses
   Classes,
   SysUtils,LazUTF8,
-  DeepStar.Utils,
   System.UITypes,
+  DeepStar.Utils,
   libSDL2,
   libSDL2_image,
   libSDL2_ttf;
@@ -18,6 +18,10 @@ uses
 type
   PTexture = ^TTexture;
   TTexture = object
+  private type
+    float = single;
+    TColors = System.UITypes.TAlphaColorRec;
+
   public type
     TScale = record
       x, y: single;
@@ -117,7 +121,7 @@ begin
 
   textSurface := PSDL_Surface(nil);
   try
-    textSurface := TTF_RenderUTF8_Solid(font, Text.ToPAnsiChar, color);
+    textSurface := TTF_RenderUTF8_Blended(font, Text.ToPAnsiChar, color);
 
     if textSurface = nil then
     begin
