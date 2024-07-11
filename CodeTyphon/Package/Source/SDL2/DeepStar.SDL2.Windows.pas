@@ -1,4 +1,4 @@
-﻿unit DeepStar.SDL2_ADV.Windows;
+﻿unit DeepStar.SDL2.Windows;
 
 {$mode ObjFPC}{$H+}
 {$ModeSwitch unicodestrings}{$J-}
@@ -8,7 +8,7 @@ interface
 uses
   Classes,
   SysUtils,
-  DeepStar.SDL2_ADV.Texture,
+  DeepStar.SDL2.Texture,
   DeepStar.Utils,
   libSDL2,
   libSDL2_image,
@@ -82,7 +82,7 @@ type
 implementation
 
 uses
-  DeepStar.SDL2_ADV.Utils;
+  DeepStar.SDL2.Utils;
 
   { TWindow }
 
@@ -307,14 +307,12 @@ procedure TWindow.__SetHint;
 var
   errStr: string;
 begin
-  //// Set texture filtering to linear
-  //if not SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, '1') then
-  //begin
-  //  errStr := 'Warning: Linear texture filtering not enabled!';
-  //  raise Exception.Create(errStr.ToAnsiString);
-  //end;
-
-  SDL_SetHint(SDL_HINT_RENDER_OPENGL_SHADERS,'opengl');
+  // Set texture filtering to linear
+  if not SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, '1') then
+  begin
+    errStr := 'Warning: Linear texture filtering not enabled!';
+    raise Exception.Create(errStr.ToAnsiString);
+  end;
 end;
 
 procedure TWindow.__SetCaption(const Value: string);

@@ -1,4 +1,4 @@
-﻿unit DeepStar.SDL2_ADV.Timer;
+﻿unit DeepStar.SDL2.Timer;
 
 {$mode ObjFPC}{$H+}
 

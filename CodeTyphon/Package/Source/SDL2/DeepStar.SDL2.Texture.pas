@@ -1,4 +1,4 @@
-﻿unit DeepStar.SDL2_ADV.Texture;
+﻿unit DeepStar.SDL2.Texture;
 
 {$mode ObjFPC}{$H+}
 {$ModeSwitch unicodestrings}{$J-}

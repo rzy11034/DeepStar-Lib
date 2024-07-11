@@ -60,7 +60,7 @@
     class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer);
     // 初始化二维数组并填充初始值
     class procedure SetLengthAndFill(var arr: TArr2D_T; n, m: integer; f: T);
-    // 返回一维数组内存区大小
+    // 返回一维数组内存区占用大小
     class function MemorySize(const dynArray: TArr_T): integer;
   end;
 
