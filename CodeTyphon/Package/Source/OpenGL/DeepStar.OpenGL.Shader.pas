@@ -64,7 +64,7 @@ begin
   sl := TStringList.Create();
   try
     try
-      sl.LoadFromFile(vertexFile.ToAnsiString);
+      sl.LoadFromFile(CrossFixFileName(vertexFile).ToAnsiString);
     except
       raise Exception.Create('Vertex File load Error!');
     end;
@@ -74,7 +74,7 @@ begin
     sl.Clear;
 
     try
-      sl.LoadFromFile(fragmentFile.ToAnsiString);
+      sl.LoadFromFile(CrossFixFileName(fragmentFile).ToAnsiString);
     except
       raise Exception.Create('Fragment File load Error!');
     end;

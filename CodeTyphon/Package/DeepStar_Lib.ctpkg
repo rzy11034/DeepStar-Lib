@@ -12,6 +12,11 @@
         <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\SDL2;Source\OpenGL"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
+      <CodeGeneration>
+        <Optimizations>
+          <OptimizationLevel Value="0"/>
+        </Optimizations>
+      </CodeGeneration>
       <Linking>
         <Debugging>
           <DebugInfoType Value="dsDwarf3"/>

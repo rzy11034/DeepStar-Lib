@@ -9,9 +9,9 @@ interface
 
 uses
   Classes,
-  SysUtils,
-  DeepStar.Utils,
+  SysUtils, 
   Math,
+  DeepStar.Utils,
   DeepStar.OpenGL.Vector,
   DeepStar.OpenGL.Matrix;
 
@@ -25,21 +25,26 @@ type
   TMat3 = DeepStar.OpenGL.Matrix.TMat3;
   TMat4 = DeepStar.OpenGL.Matrix.TMat4;
 
-  TArr_Single16 = array[0..15] of single;
-
 type
   TMat4_Helper = type Helper for TMat4
-    //按列优先返回一个一维数组
-    function ToArray: TArr_Single16;
+    // 返回按列优先一维数组的指针
+    function ToPtr: PSingle;
   end;
 
 type
   // 线性代数辅助类
   TGLM = class(TObject)
   public
+    class function Vec2(x: single): TVec2;
     class function Vec2(x, y: single): TVec2;
+
+    class function Vec3(x: single): TVec3;
     class function Vec3(x, y, z: single): TVec3;
+
+    class function Vec4(x: single): TVec4;
     class function Vec4(x, y, z, w: single): TVec4;
+
+    //═════════════════════════════════════════════════════════════════════════
 
     // 返回一个单位矩阵(Identity Matrix)
     class function Mat3_Identity: TMat3;
@@ -88,20 +93,27 @@ type
 
     // 返回位移矩阵
     class function Translate(m: TMat4; vec: TVec3): TMat4;
-    // 返回旋转矩阵
+    
+	// 返回旋转矩阵
     class function Rotate(m: TMat4; deg: single; vec: TVec3): TMat4;
-    // 返回缩放矩阵
+    
+	// 返回缩放矩阵
     class function Scale(m: TMat4; vec: TVec3): TMat4;
-    // 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。这
+    
+	// 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。这
     // 方法类似于现在已弃用的gluPerspective方法。
     class function Perspective(fovy, aspect, znear, zfar: single): TMat4;
-    // 正交矩阵
+    
+	// 正交矩阵
     class function Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
-    // 平截头体
+    
+	// 平截头体
     class function Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
-    // 视点转换
+    
+	// 视点转换
     class function LookAt(const eyes, center, up: TVec3): TMat4;
-    // 创建一个2D正交投影矩阵。这种方法类似现在已弃用的 gluOrtho2D 方法。
+    
+	// 创建一个2D正交投影矩阵。这种方法类似现在已弃用的 gluOrtho2D 方法。
     class function Ortho2d(left, right, bottom, top: single): TMat4;
 
     //═════════════════════════════════════════════════════════════════════════
@@ -115,11 +127,13 @@ type
 
 implementation
 
+var
+  arrSingle16: array[0..15] of single;
+
 { TMat4_Helper }
 
-function TMat4_Helper.ToArray: TArr_Single16;
+function TMat4_Helper.ToPtr: PSingle;
 var
-  res: TArr_Single16;
   i, j: integer;
   temp: TMat4;
 begin
@@ -127,9 +141,9 @@ begin
 
   for i := 0 to High(temp.Data) do
     for j := 0 to High(temp.Data[0]) do
-      res[j + i * Length(temp.Data[i])] := temp.Data[i, j];
+      arrSingle16[j + i * Length(temp.Data[i])] := temp.Data[i, j];
 
-  Result := res;
+  Result := @arrSingle16;
 end;
 
 { TGLM }
@@ -517,6 +531,11 @@ begin
   Result.Create(x, y);
 end;
 
+class function TGLM.Vec2(x: single): TVec2;
+begin
+  Result := Vec2(x, x);
+end;
+
 class function TGLM.Vec2ToString(VecName: string; v: TVec2): string;
 var
   sb: TStringBuilder;
@@ -547,6 +566,11 @@ begin
   Result.Create(x, y, z);
 end;
 
+class function TGLM.Vec3(x: single): TVec3;
+begin
+  Result := Vec3(x, x, x);
+end;
+
 class function TGLM.Vec3ToString(VecName: string; v: TVec3): string;
 var
   sb: TStringBuilder;
@@ -575,6 +599,11 @@ end;
 class function TGLM.Vec4(x, y, z, w: single): TVec4;
 begin
   Result.Create(x, y, z, w);
+end;
+
+class function TGLM.Vec4(x: single): TVec4;
+begin
+  Result := Vec4(x, x, x, x);
 end;
 
 end.
