@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="Source\Utils"/>
-        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\SDL2;Source\OpenGL"/>
+        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
       <CodeGeneration>
@@ -92,12 +92,10 @@
       <Item>
         <Filename Value="Source\Utils\DeepStar.ArrayUtils.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Math.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.AVLTree.pas"/>
@@ -122,68 +120,42 @@
       <Item>
         <Filename Value="Source\Utils\DeepStar.Common.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Arrays.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Heaps.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Lists.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Maps.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.PriorityQueues.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Queues.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Sets.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.Stacks.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\DeepStar.UnicodeStringHelper.inc"/>
         <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2\DeepStar.SDL2.Timer.pas"/>
-        <UnitName Value="DeepStar.SDL2.Timer"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2\DeepStar.SDL2.Utils.pas"/>
-        <UnitName Value="DeepStar.SDL2.Utils"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2\DeepStar.SDL2.Windows.pas"/>
-        <UnitName Value="DeepStar.SDL2.Windows"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
-        <UnitName Value="DeepStar.SDL2.Texture"/>
       </Item>
       <Item>
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.GLAD_GL.pas"/>
@@ -220,6 +192,22 @@
       <Item>
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.Utils.pas"/>
         <UnitName Value="DeepStar.OpenGL.Utils"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\DeepStar.SDL2.Timer.pas"/>
+        <UnitName Value="DeepStar.SDL2.Timer"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\DeepStar.SDL2.Utils.pas"/>
+        <UnitName Value="DeepStar.SDL2.Utils"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\DeepStar.SDL2.Windows.pas"/>
+        <UnitName Value="DeepStar.SDL2.Windows"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
+        <UnitName Value="DeepStar.SDL2.Texture"/>
       </Item>
     </Files>
     <RequiredPkgs>

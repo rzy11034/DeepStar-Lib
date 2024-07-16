@@ -26,6 +26,9 @@ generic procedure Swap<T>(var a, b: T); inline;
 // 交换零基字符串中字符
 procedure Swap(var str: string; indexA, indexB: integer);
 
+// 释放一个 Object 对象，并设置为 nil
+procedure FreeObjAndNil(var p);
+
 {$Else}
 
 procedure DrawLineBlockEnd;
@@ -128,6 +131,12 @@ begin
   temp := str.Chars[indexA];
   str.Chars[indexA] := str.Chars[indexB];
   str.Chars[indexB] := temp;
+end;
+
+procedure FreeObjAndNil(var p);
+begin
+  Dispose(p, Done);
+  p := nil;
 end;
 
 procedure WriteF(const Fmt: string; const Args: array of const);

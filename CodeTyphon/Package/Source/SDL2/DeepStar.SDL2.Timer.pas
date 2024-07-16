@@ -35,6 +35,9 @@ type
     constructor Init;
     destructor Done;
 
+    class function Create: TClock; static;
+    class function CreatePtr: PClock; static;
+
     procedure Restart;
     procedure Tick;
 
@@ -84,8 +87,20 @@ begin
   _StartTime := __GetTicks;
 end;
 
+class function TClock.Create: TClock;
+begin
+  Result.Init;
+end;
+
+class function TClock.CreatePtr: PClock;
+begin
+  New(Result, Init);
+end;
+
 destructor TClock.Done;
 begin
+  _timer := 0;
+
   inherited;
 end;
 

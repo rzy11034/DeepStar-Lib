@@ -8,7 +8,8 @@ interface
 
 uses
   Classes,
-  SysUtils,LazUTF8,
+  SysUtils,
+  LazUTF8,
   System.UITypes,
   DeepStar.Utils,
   libSDL2,

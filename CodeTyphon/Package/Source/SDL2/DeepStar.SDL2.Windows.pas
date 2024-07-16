@@ -8,19 +8,19 @@ interface
 uses
   Classes,
   SysUtils,
-  DeepStar.SDL2.Texture,
-  DeepStar.Utils,
   libSDL2,
   libSDL2_image,
-  libSDL2_ttf;
+  libSDL2_ttf,
+  DeepStar.Utils,
+  DeepStar.SDL2.Texture;
 
 type
   TMessageBoxType = type int32;
 
 const
-  MESSAGEBOX_ERROR = SDL_MESSAGEBOX_ERROR;
-  MESSAGEBOX_WARNING = SDL_MESSAGEBOX_WARNING;
-  MESSAGEBOX_INFORMATION = SDL_MESSAGEBOX_INFORMATION;
+  MESSAGEBOX_ERROR = libSDL2.SDL_MESSAGEBOX_ERROR;
+  MESSAGEBOX_WARNING = libSDL2.SDL_MESSAGEBOX_WARNING;
+  MESSAGEBOX_INFORMATION = libSDL2.SDL_MESSAGEBOX_INFORMATION;
 
   SDL_COLOR_WHITE: TSDL_Color = (r: $FF; g: $FF; b: $FF; a: $FF);
 
@@ -339,7 +339,7 @@ procedure TWindow.__SDL_Init;
 var
   errStr: string;
 begin
-  if SDL_Init(SDL_INIT_VIDEO) < 0 then
+  if SDL_Init(SDL_INIT_EVERYTHING) < 0 then
   begin
     errStr := 'SDL could not initialize! SDL_Error：%s';
     errStr.Format([SDL_GetError()]);
