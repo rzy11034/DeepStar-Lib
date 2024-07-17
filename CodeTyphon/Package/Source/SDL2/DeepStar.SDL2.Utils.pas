@@ -11,10 +11,10 @@ uses
   Classes,
   SysUtils,
   Types,
+  libSDL2,
   System.UITypes,
   DeepStar.Utils,
   DeepStar.DSA.Linear.ArrayList,
-  libSDL2,
   DeepStar.SDL2.Texture;
 
 const

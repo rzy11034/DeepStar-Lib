@@ -7,11 +7,12 @@ interface
 uses
   Classes,
   SysUtils,
+  DeepStar.Utils,
   libSDL2;
 
 type
   PClock = ^TClock;
-  TClock = object
+  TClock = object(TObj)
   private type
     TEventProc = procedure of object;
 
@@ -33,8 +34,7 @@ type
 
   public
     constructor Init;
-    destructor Done;
-
+    destructor Done; virtual;
     class function Create: TClock; static;
     class function CreatePtr: PClock; static;
 
@@ -54,7 +54,7 @@ type
 
   PFrames = ^TFrames;
   // 获取程序每秒帧率的 Object
-  TFrames  = object
+  TFrames  = object(TObj)
   private
     _FpsTimer: TClock;
     _CapTimer: TClock;
@@ -66,8 +66,7 @@ type
 
   public
     constructor Init;
-    destructor Done;
-
+    destructor Done; virtual;
     class function Create: TFrames; static;
     class function CreatePtr: PFrames; static;
 

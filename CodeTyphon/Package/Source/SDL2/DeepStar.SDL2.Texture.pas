@@ -18,15 +18,17 @@ uses
 
 type
   PTexture = ^TTexture;
-  TTexture = object
+  TTexture = object(TObj)
   private type
     float = single;
     TColors = System.UITypes.TAlphaColorRec;
 
   public type
     TScale = record
+    public
       x, y: single;
-      constructor Create(aX, aY: single);
+      class function Create: TScale; static;
+      class operator initialize(var obj: TScale);
     end;
 
   private
@@ -46,9 +48,10 @@ type
 
   public
     constructor Init;
-    destructor Done;
+    destructor Done; virtual;
 
     class function Create: TTexture; static;
+    class function CreatePtr: PTexture; static;
 
     function GetScale: TTexture.TScale;
 
@@ -77,22 +80,24 @@ implementation
 
 constructor TTexture.Init();
 begin
-  _Scale := TScale.Create(1, 1);
+  _Scale := TScale.Create;
 end;
 
 class function TTexture.Create: TTexture;
-var
-  res: TTexture;
 begin
-  res := Default(TTexture);
-  res.Init;
+  Result.Init;
+end;
 
-  Result := res;
+class function TTexture.CreatePtr: PTexture;
+begin
+  New(Result, Init);
 end;
 
 destructor TTexture.Done;
 begin
   Self.__Free;
+
+  inherited;
 end;
 
 function TTexture.GetScale: TTexture.TScale;
@@ -257,10 +262,15 @@ end;
 
 { TTexture.TScale }
 
-constructor TTexture.TScale.Create(aX, aY: single);
+class operator TTexture.TScale.initialize(var obj: TScale);
 begin
-  Self.x := aX;
-  Self.y := aY;
+  obj.x := 1;
+  obj.y := 1;
+end;
+
+class function TTexture.TScale.Create: TScale;
+begin
+  initialize(Result);
 end;
 
 end.
