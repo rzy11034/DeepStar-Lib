@@ -68,6 +68,9 @@ type
     constructor Init;
     destructor Done;
 
+    class function Create: TFrames; static;
+    class function CreatePtr: PFrames; static;
+
     // 获取当前平均帧率
     property AvgFPS: single read __GetAvgFPS;
 
@@ -164,6 +167,16 @@ constructor TFrames.Init();
 begin
   _FpsTimer.Init;
   _CapTimer.Init;
+end;
+
+class function TFrames.Create: TFrames;
+begin
+  Result.Init;
+end;
+
+class function TFrames.CreatePtr: PFrames;
+begin
+  New(Result, Init);
 end;
 
 destructor TFrames.Done;

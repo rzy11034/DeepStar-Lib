@@ -90,14 +90,6 @@
         <UnitName Value="DeepStar.DSA.Tree.Trie"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.ArrayUtils.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Math.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
         <Filename Value="Source\DSA\Tree\DeepStar.DSA.Tree.AVLTree.pas"/>
         <UnitName Value="DeepStar.DSA.Tree.AVLTree"/>
       </Item>
@@ -116,46 +108,6 @@
       <Item>
         <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList.pas"/>
         <UnitName Value="DeepStar.DSA.Linear.ArrayList"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Common.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Arrays.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Heaps.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Lists.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Maps.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.PriorityQueues.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Queues.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Sets.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Stacks.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.UnicodeStringHelper.inc"/>
-        <Type Value="Include"/>
       </Item>
       <Item>
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.GLAD_GL.pas"/>
@@ -208,6 +160,59 @@
       <Item>
         <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
         <UnitName Value="DeepStar.SDL2.Texture"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Arrays.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.ArrayUtils.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Common.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Heaps.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Lists.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Maps.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Math.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Object.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.PriorityQueues.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Queues.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Sets.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.Stacks.inc"/>
+        <Type Value="Include"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\DeepStar.UnicodeStringHelper.inc"/>
+        <Type Value="Include"/>
       </Item>
     </Files>
     <RequiredPkgs>

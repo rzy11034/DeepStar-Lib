@@ -29,6 +29,9 @@ uses
   DeepStar.DSA.Tree.Heap,
   DeepStar.DSA.Tree.PriorityQueue;
 
+  // object 根节点
+  {$Include DeepStar.Object.inc}
+
   // 常用数组定义
   {$Include DeepStar.Arrays.inc}
 
@@ -56,5 +59,7 @@ implementation
 {$Include DeepStar.Math.inc}
 {$Include DeepStar.ArrayUtils.inc}
 {$Include DeepStar.UnicodeStringHelper.inc}
+
+{$Include DeepStar.Object.inc}
 
 end.
