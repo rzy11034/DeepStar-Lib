@@ -32,11 +32,11 @@ type
     end;
 
   private
-    _Height: integer;
-    _Width: integer;
-    _Data: PSDL_Texture;
-    _Position: TPoint;
-    _Scale: TScale;
+    _height: integer;
+    _width: integer;
+    _data: PSDL_Texture;
+    _position: TPoint;
+    _scale: TScale;
 
     function __GetBoundsRect: TRect;
     function __GetData: PSDL_Texture;
@@ -80,7 +80,7 @@ implementation
 
 constructor TTexture.Init();
 begin
-  _Scale := TScale.Create;
+  _scale := TScale.Create;
 end;
 
 class function TTexture.Create: TTexture;
@@ -102,8 +102,8 @@ end;
 
 function TTexture.GetScale: TTexture.TScale;
 begin
-  Result.x := _Scale.x;
-  Result.y := _Scale.y;
+  Result.x := _scale.x;
+  Result.y := _scale.y;
 end;
 
 procedure TTexture.LoadFormString(renderer: PSDL_Renderer; ttfName: string;
@@ -147,9 +147,9 @@ begin
     end;
 
     // Get image dimensions
-    _Width := textSurface^.w;
-    _Height := textSurface^.h;
-    _Data := newTexture;
+    _width := textSurface^.w;
+    _height := textSurface^.h;
+    _data := newTexture;
   finally
     TTF_CloseFont(font);
     SDL_FreeSurface(textSurface);
@@ -188,9 +188,9 @@ begin
         raise Exception.Create(errStr.ToAnsiString);
       end;
 
-      _Width := loadedSurface^.w;
-      _Height := loadedSurface^.h;
-      _Data := newTexture;
+      _width := loadedSurface^.w;
+      _height := loadedSurface^.h;
+      _data := newTexture;
     finally
       // Get rid of old loaded surface
       SDL_FreeSurface(loadedSurface);
@@ -200,64 +200,64 @@ end;
 
 procedure TTexture.SetColor(color: TColors);
 begin
-  SDL_SetTextureColorMod(_Data, color.R, color.G, color.B);
+  SDL_SetTextureColorMod(_data, color.R, color.G, color.B);
 end;
 
 procedure TTexture.SetPosition(ax, ay: integer);
 begin
-  _Position := TPoint.Create(ax, ay);
+  _position := TPoint.Create(ax, ay);
 end;
 
 procedure TTexture.SetPosition(ap: TPoint);
 begin
-  _Position := ap;
+  _position := ap;
 end;
 
 procedure TTexture.SetScale(x, y: float);
 begin
-  _Scale.x := x;
-  _Scale.y := y;
+  _scale.x := x;
+  _scale.y := y;
 end;
 
 procedure TTexture.__Free;
 begin
-  if _Data <> nil then
+  if _data <> nil then
   begin
-    SDL_DestroyTexture(_Data);
-    _Data := nil;
+    SDL_DestroyTexture(_data);
+    _data := nil;
 
-    _Height := 0;
-    _Width := 0;
+    _height := 0;
+    _width := 0;
   end;
 end;
 
 function TTexture.__GetBoundsRect: TRect;
 begin
   Result := Rect(
-    _Position.x,
-    _Position.y,
-    _Position.x + _Width,
-    _Position.y + _Height);
+    _position.x,
+    _position.y,
+    _position.x + _width,
+    _position.y + _height);
 end;
 
 function TTexture.__GetData: PSDL_Texture;
 begin
-  Result := _Data;
+  Result := _data;
 end;
 
 function TTexture.__GetHeight: integer;
 begin
-  Result := _Height;
+  Result := _height;
 end;
 
 function TTexture.__GetPosition: TPoint;
 begin
-  Result := _Position;
+  Result := _position;
 end;
 
 function TTexture.__GetWidth: integer;
 begin
-  Result := _Width;
+  Result := _width;
 end;
 
 { TTexture.TScale }

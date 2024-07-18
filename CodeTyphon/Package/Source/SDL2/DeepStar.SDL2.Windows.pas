@@ -28,14 +28,14 @@ type
   TWindow = class(TObject)
   private
     //Window data
-    _PWindow: PSDL_Window;
-    _PRenderer: PSDL_Renderer;
-    _WindowID: uint32;
+    _window: PSDL_Window;
+    _renderer: PSDL_Renderer;
+    _windowID: uint32;
 
     //Window dimensions
-    _Width: int32;
-    _Height: int32;
-    _Caption: string;
+    _width: int32;
+    _height: int32;
+    _caption: string;
 
     function __CreateRenderer: PSDL_Renderer;
     function __CreateWindow(Caption: string; winPosX, winPosY, Width, Height: int32;
@@ -43,9 +43,9 @@ type
     function __GetCaption: string;
     function __GetClientBounds: TRect;
     function __GetHeight: int32;
-    function __GetPRenderer: PSDL_Renderer;
-    function __GetPWindow: PSDL_Window;
+    function __GetRenderer: PSDL_Renderer;
     function __GetWidth: int32;
+    function __GetWindow: PSDL_Window;
 
     procedure __SDL_Init;
     procedure __IMG_Init;
@@ -71,8 +71,8 @@ type
     procedure SetRenderDrawColorAndClear;
     procedure SetRenderDrawColorAndClear(color: TSDL_Color);
 
-    property PWindow: PSDL_Window read __GetPWindow;
-    property PRenderer: PSDL_Renderer read __GetPRenderer;
+    property Window: PSDL_Window read __GetWindow;
+    property Renderer: PSDL_Renderer read __GetRenderer;
     property Width: int32 read __GetWidth;
     property Height: int32 read __GetHeight;
     property Caption: string read __GetCaption write __SetCaption;
@@ -90,25 +90,25 @@ constructor TWindow.Create;
 begin
   inherited Create;
 
-  _PWindow := PSDL_Window(nil);
-  _PRenderer := PSDL_Renderer(nil);
-  _WindowID := 0;
-  _Width := 0;
+  _window := PSDL_Window(nil);
+  _renderer := PSDL_Renderer(nil);
+  _windowID := 0;
+  _width := 0;
   _Height := 0;
 end;
 
 destructor TWindow.Destroy;
 begin
-  if _PRenderer <> nil then
+  if _renderer <> nil then
   begin
-    SDL_DestroyRenderer(_PRenderer);
-    _PRenderer := nil;
+    SDL_DestroyRenderer(_renderer);
+    _renderer := nil;
   end;
 
-  if _PWindow <> nil then
+  if _window <> nil then
   begin
-    SDL_DestroyWindow(_PWindow);
-    _PWindow := nil;
+    SDL_DestroyWindow(_window);
+    _window := nil;
   end;
 
   TTF_Quit;
@@ -120,7 +120,7 @@ end;
 
 procedure TWindow.Display;
 begin
-  SDL_RenderPresent(_PRenderer);
+  SDL_RenderPresent(_renderer);
 end;
 
 procedure TWindow.Draw(const texture: TTexture);
@@ -135,9 +135,9 @@ begin
     texture.Height);
 
   scale := texture.GetScale;
-  SDL_RenderSetScale(_PRenderer, scale.x, scale.y);
+  SDL_RenderSetScale(_renderer, scale.x, scale.y);
 
-  SDL_RenderCopy(_PRenderer, texture.Data, nil, SDL_Rect(destRect).ToPtr);
+  SDL_RenderCopy(_renderer, texture.Data, nil, SDL_Rect(destRect).ToPtr);
 end;
 
 procedure TWindow.Draw(const texture: TTexture; srcRect, destRect: TRect);
@@ -146,11 +146,11 @@ var
   scale: TTexture.TScale;
 begin
   scale := texture.GetScale;
-  SDL_RenderSetScale(_PRenderer, scale.x, scale.y);
+  SDL_RenderSetScale(_renderer, scale.x, scale.y);
 
   srcP := SDL_Rect(srcRect).ToPtr;
   destP := SDL_Rect(destRect).ToPtr;
-  SDL_RenderCopy(_PRenderer, texture.Data, srcP, destP);
+  SDL_RenderCopy(_renderer, texture.Data, srcP, destP);
 end;
 
 procedure TWindow.Draw(const texture: TTexture; destRect: TRect);
@@ -158,9 +158,9 @@ var
   scale: TTexture.TScale;
 begin
   scale := texture.GetScale;
-  SDL_RenderSetScale(_PRenderer, scale.x, scale.y);
+  SDL_RenderSetScale(_renderer, scale.x, scale.y);
 
-  SDL_RenderCopy(_PRenderer, texture.Data, nil, SDL_Rect(destRect).ToPtr);
+  SDL_RenderCopy(_renderer, texture.Data, nil, SDL_Rect(destRect).ToPtr);
 end;
 
 function TWindow.GetMousePos: TPoint;
@@ -181,13 +181,13 @@ begin
   __IMG_Init;
   __TTF_Init;
 
-  _Caption := Caption;
+  _caption := Caption;
 
-  _PWindow := __CreateWindow(Caption, winPosX, winPosY, Width, Height, flags);
-  _Width := Width;
+  _window := __CreateWindow(Caption, winPosX, winPosY, Width, Height, flags);
+  _width := Width;
   _Height := Height;
 
-  _PRenderer := __CreateRenderer;
+  _renderer := __CreateRenderer;
 end;
 
 procedure TWindow.Init(Caption: string; Width, Height: uint32);
@@ -214,8 +214,8 @@ end;
 
 procedure TWindow.SetRenderDrawColorAndClear(color: TSDL_Color);
 begin
-  SDL_SetRenderDrawColor(PRenderer, color.r, color.g, color.b, color.a);
-  SDL_RenderClear(PRenderer);
+  SDL_SetRenderDrawColor(_renderer, color.r, color.g, color.b, color.a);
+  SDL_RenderClear(_renderer);
 end;
 
 procedure TWindow.SetRenderDrawColorAndClear;
@@ -279,7 +279,7 @@ begin
   mbd.flags := flag;
   mbd.title := title.ToPAnsiChar;
   mbd._message := message.ToPAnsiChar;
-  mbd.window := Self.PWindow;
+  mbd.window := Self.Window;
   mbd.numbuttons := 2;
   mbd.Buttons := @mbts[0];
   mbd.colorScheme := nil;//@colorScheme;
@@ -317,10 +317,10 @@ end;
 
 procedure TWindow.__SetCaption(const Value: string);
 begin
-  if _Caption = Value then Exit;
+  if _caption = Value then Exit;
 
-  _Caption := Value;
-  SDL_SetWindowTitle(_PWindow, Value.ToPAnsiChar);
+  _caption := Value;
+  SDL_SetWindowTitle(_window, Value.ToPAnsiChar);
 end;
 
 procedure TWindow.__TTF_Init;
@@ -355,7 +355,7 @@ begin
   res := PSDL_Renderer(nil);
 
   // Create renderer for window
-  res := SDL_CreateRenderer(_PWindow, -1, SDL_RENDERER_ACCELERATED);
+  res := SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
   if res = nil then
   begin
     errStr := 'Renderer could not be created! SDL Error:';
@@ -387,19 +387,19 @@ begin
   end;
 
   // 获取窗口标识符
-  _WindowID := SDL_GetWindowID(res);
+  _windowID := SDL_GetWindowID(res);
 
   Result := res;
 end;
 
 function TWindow.__GetCaption: string;
 begin
-  Result := _Caption;
+  Result := _caption;
 end;
 
 function TWindow.__GetClientBounds: TRect;
 begin
-  Result := TRect.Create(0, 0, _Width, _Height);
+  Result := TRect.Create(0, 0, _width, _Height);
 end;
 
 function TWindow.__GetHeight: int32;
@@ -407,19 +407,19 @@ begin
   Result := _Height;
 end;
 
-function TWindow.__GetPRenderer: PSDL_Renderer;
+function TWindow.__GetRenderer: PSDL_Renderer;
 begin
-  Result := _PRenderer;
-end;
-
-function TWindow.__GetPWindow: PSDL_Window;
-begin
-  Result := _PWindow;
+  Result := _renderer;
 end;
 
 function TWindow.__GetWidth: int32;
 begin
-  Result := _Width;
+  Result := _width;
+end;
+
+function TWindow.__GetWindow: PSDL_Window;
+begin
+  Result := _window;
 end;
 
 end.

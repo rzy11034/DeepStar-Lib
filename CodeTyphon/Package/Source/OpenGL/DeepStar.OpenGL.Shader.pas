@@ -17,7 +17,7 @@ type
 
   TShaderProgram = class(TObject)
   private
-    _Id: GLuint;
+    _id: GLuint;
 
     procedure __CheckShader(shaderID: GLubyte; shaderType: TShaderTypes);
     function __GetId: GLuint;
@@ -50,7 +50,7 @@ end;
 
 destructor TShaderProgram.Destroy;
 begin
-  glDeleteProgram(_Id);
+  glDeleteProgram(_id);
 
   inherited Destroy;
 end;
@@ -107,7 +107,7 @@ begin
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
 
-  _Id := shaderProgram;
+  _id := shaderProgram;
 end;
 
 procedure TShaderProgram.SetUniformFloat(uniform: PGLchar; Value: TArr_GLfloat);
@@ -115,7 +115,7 @@ var
   uniformLocation, len: GLint;
 begin
   uniformLocation := GLint(0);
-  uniformLocation := glGetUniformLocation(_Id, uniform);
+  uniformLocation := glGetUniformLocation(_id, uniform);
 
   len := GLint(0);
   len := Length(Value);
@@ -135,7 +135,7 @@ var
   uniformLocation, len: GLint;
 begin
   uniformLocation := GLint(0);
-  uniformLocation := glGetUniformLocation(_Id, uniform);
+  uniformLocation := glGetUniformLocation(_id, uniform);
 
   len := GLint(0);
   len := Length(Value);
@@ -155,13 +155,13 @@ var
   uniformLocation: GLint;
 begin
   uniformLocation := GLint(0);
-  uniformLocation := glGetUniformLocation(_Id, uniform);
+  uniformLocation := glGetUniformLocation(_id, uniform);
   glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, Value);
 end;
 
 procedure TShaderProgram.UseProgram;
 begin
-  glUseProgram(_Id);
+  glUseProgram(_id);
 end;
 
 procedure TShaderProgram.__CheckShader(shaderID: GLubyte; shaderType: TShaderTypes);
@@ -205,7 +205,7 @@ end;
 
 function TShaderProgram.__GetId: GLuint;
 begin
-  Result := _Id;
+  Result := _id;
 end;
 
 end.

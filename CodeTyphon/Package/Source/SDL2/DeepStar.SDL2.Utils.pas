@@ -48,15 +48,24 @@ type
     function ToPtr: PSDL_Rect;
   end;
 
-operator := (AColor: TAlphaColor): TSDL_Color; inline;
+operator := (AColor: TAlphaColor): TColors;
+operator := (AColor: TAlphaColor): TSDL_Color;
 
 function SDL_Point(aX, aY: integer): TSDL_Point;
 function SDL_Point(p: TPoint): TSDL_Point;
+
 function SDL_Rect(aX, aY, aW, aH: integer): TSDL_Rect;
 function SDL_Rect(rc: TRect): TSDL_Rect;
+
 function SDL_Color(r, g, b, a: byte): TSDL_Color;
+function SDL_Color(rgb: TAlphaColor; alpha: byte = $FF): TSDL_Color;
 
 implementation
+
+operator := (AColor: TAlphaColor): TColors;
+begin
+  Result := TColors.Create(AColor);
+end;
 
 operator := (AColor: TAlphaColor): TSDL_Color;
 var
@@ -113,6 +122,14 @@ begin
   Result.b := b;
   Result.g := g;
   Result.a := a;
+end;
+
+function SDL_Color(rgb: TAlphaColor; alpha: byte): TSDL_Color;
+var
+  temp: TColors;
+begin
+  temp := TColors(rgb);
+  Result := SDL_Color(temp.R, temp.G, temp.B, alpha);
 end;
 
 { TRectHelper }

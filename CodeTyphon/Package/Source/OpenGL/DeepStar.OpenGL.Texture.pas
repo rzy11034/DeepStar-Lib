@@ -17,12 +17,12 @@ uses
 type
   TTexture = class(TObject)
   private
-    _Pixels: array of GLuint;
-    _Width: GLint;
-    _Height: GLint;
+    _pixels: array of GLuint;
+    _width: GLint;
+    _height: GLint;
 
-    function __GetDate: Pointer;
     function __FPColorToColor(const Value: TFPColor): GLuint;
+    function __GetDate: Pointer;
     function __GetHeight: GLint;
     function __GetWidth: GLint;
 
@@ -57,17 +57,17 @@ begin
   try
     img.LoadFromFile(fileName.ToAnsiString, reader);
 
-    _Width := img.Width;
-    _Height := img.Height;
+    _width := img.Width;
+    _height := img.Height;
 
-    SetLength(_Pixels, Width * Height);
+    SetLength(_pixels, Width * Height);
 
     for y := Height - 1 downto 0 do
       for x := 0 to Width - 1 do
       begin
         c := img.Colors[x, y];
 
-        _Pixels[x + ((Height - y - 1) * Width)] := __FPColorToColor(c);
+        _pixels[x + ((Height - y - 1) * Width)] := __FPColorToColor(c);
       end;
   finally
     reader.Free;
@@ -89,17 +89,17 @@ end;
 
 function TTexture.__GetDate: Pointer;
 begin
-  Result := @_Pixels[0];
+  Result := @_pixels[0];
 end;
 
 function TTexture.__GetHeight: GLint;
 begin
-  Result := _Height;
+  Result := _height;
 end;
 
 function TTexture.__GetWidth: GLint;
 begin
-  Result := _Width;
+  Result := _width;
 end;
 
 end.
