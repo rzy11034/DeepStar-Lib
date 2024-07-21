@@ -16,18 +16,19 @@ type
 
   TCamera = class(TObject)
   private
-    _Yaw: GLfloat;
-    _Pitch: GLfloat;
-    _MovementSpeed: GLfloat;
-    _MouseSensitivity: GLfloat;
-    _Zoom: GLfloat;
+    _yaw: GLfloat;
+    _pitch: GLfloat;
+    _movementSpeed: GLfloat;
+    _mouseSensitivity: GLfloat;
+    _zoom: GLfloat;
+    _position: TVec3;
+    _front: TVec3;
+    _up: TVec3;
+    _right: TVec3;
+    _worldUp: TVec3;
 
-    _Position: TVec3;
-    _Front: TVec3;
-    _Up: TVec3;
-    _Right: TVec3;
-    _WorldUp: TVec3;
-
+    function __GetZoom: GLfloat;
+    procedure __SetZoom(const value: GLfloat);
     procedure __UpdateCameraVectors;
 
   public
@@ -43,7 +44,7 @@ type
       constrainPitch: GLboolean = GLboolean(true));
     procedure ProcessMouseScroll(yoffset: GLfloat);
 
-    property Zoom: GLfloat read _Zoom write _Zoom;
+    property Zoom: GLfloat read __GetZoom write __SetZoom;
   end;
 
 
@@ -53,30 +54,30 @@ implementation
 
 constructor TCamera.Create(posX, posY, posZ, upX, upY, upZ, aYaw, aPitch: GLfloat);
 begin
-  _Yaw := aYaw;
-  _Pitch := aPitch;
-  _MovementSpeed := 2.5;
-  _MouseSensitivity := 0.1;
-  _Zoom := 45;
+  _yaw := aYaw;
+  _pitch := aPitch;
+  _movementSpeed := 2.5;
+  _mouseSensitivity := 0.1;
+  _zoom := 45;
 
-  _Position := TGLM.Vec3(posX, posY, posZ);
-  _WorldUp := TGLM.Vec3(upX, upY, upZ);
-  _Front := TGLM.Vec3(0, 0, -1);
+  _position := TGLM.Vec3(posX, posY, posZ);
+  _worldUp := TGLM.Vec3(upX, upY, upZ);
+  _front := TGLM.Vec3(0, 0, -1);
 
   __UpdateCameraVectors;
 end;
 
 constructor TCamera.Create(aposition, aup: TVec3);
 begin
-  _Yaw := -90.0;
-  _Pitch := 0.0;
-  _MovementSpeed := 2.5;
-  _MouseSensitivity := 0.1;
-  _Zoom := 45;
+  _yaw := -90.0;
+  _pitch := 0.0;
+  _movementSpeed := 2.5;
+  _mouseSensitivity := 0.1;
+  _zoom := 45;
 
-  _Position := aposition;
-  _WorldUp := aup;
-  _Front := TGLM.Vec3(0, 0, -1);
+  _position := aposition;
+  _worldUp := aup;
+  _front := TGLM.Vec3(0, 0, -1);
 
   __UpdateCameraVectors;
 end;
@@ -98,36 +99,36 @@ end;
 
 function TCamera.GetViewMatrix: TMat4;
 begin
-  Result := TGLM.LookAt(_Position, _Position + _Front, _Up);
+  Result := TGLM.LookAtRH(_position, _position + _front, _up);
 end;
 
 procedure TCamera.ProcessKeyboard(direction: TCamera_Movement; deltaTime: GLfloat);
 var
   velocity: GLfloat;
 begin
-  velocity := _MovementSpeed * deltaTime;
+  velocity := _movementSpeed * deltaTime;
 
   case direction of
-    FORWARD: _Position += _Front * velocity;
-    BACKWARD: _Position -= _Front * velocity;
-    LEFT: _Position -= _Right * velocity;
-    RIGHT: _Position += _Right * velocity;
+    FORWARD: _position += _front * velocity;
+    BACKWARD: _position -= _front * velocity;
+    LEFT: _position -= _right * velocity;
+    RIGHT: _position += _right * velocity;
   end;
 end;
 
 procedure TCamera.ProcessMouseMovement(xoffset, yoffset: GLfloat; constrainPitch: GLboolean);
 begin
-  xoffset *= _MouseSensitivity;
-  yoffset *= _MouseSensitivity;
+  xoffset *= _mouseSensitivity;
+  yoffset *= _mouseSensitivity;
 
-  _Yaw += xoffset;
-  _Pitch += yoffset;
+  _yaw += xoffset;
+  _pitch += yoffset;
 
-  // make sure that when _Pitch is out of bounds, screen doesn't get flipped
+  // make sure that when _pitch is out of bounds, screen doesn't get flipped
   if constrainPitch.ToBoolean then
   begin
-    if _Pitch > 89 then _Pitch := 89;
-    if _Pitch < -89 then _Pitch := -89;
+    if _pitch > 89 then _pitch := 89;
+    if _pitch < -89 then _pitch := -89;
   end;
 
   // update Front, Right and Up Vectors using the updated Euler angles
@@ -136,11 +137,21 @@ end;
 
 procedure TCamera.ProcessMouseScroll(yoffset: GLfloat);
 begin
-  _Zoom -= yoffset;
-  if _Zoom < 1 then
-    _Zoom := 1;
-  if _Zoom > 45 then
-    _Zoom := 45;
+  _zoom -= yoffset;
+  if _zoom < 1 then
+    _zoom := 1;
+  if _zoom > 45 then
+    _zoom := 45;
+end;
+
+function TCamera.__GetZoom: GLfloat;
+begin
+  Result := _zoom;
+end;
+
+procedure TCamera.__SetZoom(const value: GLfloat);
+begin
+  _zoom := value;
 end;
 
 procedure TCamera.__UpdateCameraVectors;
@@ -148,16 +159,16 @@ var
   f: TVec3;
 begin
   f := TGLM.Vec3(0, 0, 0);
-  f.x := Cos(TGLM.Radians(_Yaw)) * Cos(TGLM.Radians(_Pitch));
-  f.y := Sin(TGLM.Radians(_Pitch));
-  f.z := Sin(TGLM.Radians(_Yaw)) * Cos(TGLM.Radians(_Pitch));
-  _Front := TGLM.Normalize(f);
+  f.x := Cos(TGLM.Radians(_yaw)) * Cos(TGLM.Radians(_pitch));
+  f.y := Sin(TGLM.Radians(_pitch));
+  f.z := Sin(TGLM.Radians(_yaw)) * Cos(TGLM.Radians(_pitch));
+  _front := TGLM.Normalize(f);
 
   // also re-calculate the Right and Up vector
   // normalize the vectors, because their length gets closer to 0 the more you
   // look up or down which results in slower movement.
-  _Right := TGLM.Normalize(TGLM.Cross(_Front, _WorldUp));
-  _Up := TGLM.Normalize(TGLM.Cross(_Right, _Front));
+  _right := TGLM.Normalize(TGLM.Cross(_front, _worldUp));
+  _up := TGLM.Normalize(TGLM.Cross(_right, _front));
 end;
 
 end.

@@ -91,7 +91,6 @@ type
       3: (s, t, p, q: single);
   end;
 
-
 implementation
 
 { TVec2 }

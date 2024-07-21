@@ -71,7 +71,7 @@ type
 
     //═════════════════════════════════════════════════════════════════════════
 
-    // 向量归一化
+    // TVec3 向量归一化
     class function Normalize(vec: TVec3): TVec3;
 
     // 向量点乘：（内积）
@@ -82,10 +82,10 @@ type
 
     //═════════════════════════════════════════════════════════════════════════
 
-    // 返回弧度值
+    // 角度转弧度值
     class function Radians(deg: single): single;
 
-    // 返回角度值
+    // 弧度转角度值
     class function Degrees(Rad: single): single;
 
     //═════════════════════════════════════════════════════════════════════════
@@ -93,28 +93,43 @@ type
 
     // 返回位移矩阵
     class function Translate(m: TMat4; vec: TVec3): TMat4;
-    
-	// 返回旋转矩阵
+
+    // 返回旋转矩阵
     class function Rotate(m: TMat4; deg: single; vec: TVec3): TMat4;
-    
-	// 返回缩放矩阵
+
+    // 返回缩放矩阵
     class function Scale(m: TMat4; vec: TVec3): TMat4;
+
+    // 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。
+    // 这方法类似于现在已弃用的gluPerspective方法。
+    // NO（负一对一）：深度值在 -1 和 1 之间归一化。
+    class function PerspectiveRH_NO(fovy, aspect, znear, zfar: single): TMat4;
+    // 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。
+    // 这方法类似于现在已弃用的gluPerspective方法。
+    // ZO（从零到一）：深度值在 0 和 1 之间归一化。
+    class function PerspectiveRH_ZO(fovy, aspect, znear, zfar: single): TMat4;
     
-	// 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。这
-    // 方法类似于现在已弃用的gluPerspective方法。
-    class function Perspective(fovy, aspect, znear, zfar: single): TMat4;
-    
-	// 正交矩阵
-    class function Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
-    
-	// 平截头体
-    class function Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
-    
-	// 视点转换
-    class function LookAt(const eyes, center, up: TVec3): TMat4;
-    
-	// 创建一个2D正交投影矩阵。这种方法类似现在已弃用的 gluOrtho2D 方法。
-    class function Ortho2d(left, right, bottom, top: single): TMat4;
+    // 创建一个2D正交投影矩阵。这种方法类似现在已弃用的 gluOrtho2D 方法。
+    class function Ortho2D(left, right, bottom, top: single): TMat4;
+    // 正交矩阵
+    // NO（负一对一）：深度值在 -1 和 1 之间归一化。
+    class function OrthoRH_NO(left, right, bottom, top, znear, zfar: single): TMat4;
+    // 正交矩阵
+    // ZO（从零到一）：深度值在 0 和 1 之间归一化。
+    class function OrthoRH_ZO(left, right, bottom, top, znear, zfar: single): TMat4;
+
+
+    // 平截头体 右手系
+    // NO（负一对一）：深度值在 -1 和 1 之间归一化。
+    function FrustumRH_NO(left, right, bottom, top, znear, zfar: single): TMat4;
+    // 平截头体 右手系
+    // ZO（从零到一）：深度值在 0 和 1 之间归一化。
+    function FrustumRH_ZO(left, right, bottom, top, znear, zfar: single): TMat4;
+
+    // 视点转换 左手系
+    class function LookAtLH(const eyes, center, up: TVec3): TMat4;
+    // 视点转换 右手系
+    class function LookAtRH(const eyes, center, up: TVec3): TMat4;
 
     //═════════════════════════════════════════════════════════════════════════
 
@@ -137,7 +152,7 @@ var
   i, j: integer;
   temp: TMat4;
 begin
-  temp := self.Transpose;
+  temp := self;
 
   for i := 0 to High(temp.Data) do
     for j := 0 to High(temp.Data[0]) do
@@ -163,96 +178,74 @@ begin
   Result := a ** b;
 end;
 
-class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
+function TGLM.FrustumRH_NO(left, right, bottom, top, znear, zfar: single): TMat4;
 begin
   Result.Init_Zero;
-  Result.Data[0, 0] := 2 * znear / (right - left);
-  Result.Data[1, 1] := 2 * znear / (top - bottom);
+  Result.Data[0, 0] := (2 * znear) / (right - left);
+  Result.Data[1, 1] := (2 * znear) / (top - bottom);
   Result.Data[2, 0] := (right + left) / (right - left);
   Result.Data[2, 1] := (top + bottom) / (top - bottom);
   Result.Data[2, 2] := -(zfar + znear) / (zfar - znear);
-  Result.Data[2, 3] := -1.0;
+  Result.Data[2, 3] := -1;
   Result.Data[3, 2] := -2 * zfar * znear / (zfar - znear);
-  Result.Data[3, 3] := 0.0;
 end;
 
-class function TGLM.LookAt(const eyes, center, up: TVec3): TMat4;
-  function __LookAt1__(eye, center, up: TVec3): TMat4;
-  var
-    f, s, u: TVec3;
-  begin
-    f := Normalize(center - eye);
-    s := Normalize(Cross(f, up));
-    u := Cross(s, f);
-
-    Result.Create(
-       s.Data[0],  s.Data[1],  s.Data[2], -Dot(s, eyes),
-       u.Data[0],  u.Data[1],  u.Data[2], -Dot(u, eyes),
-      -f.Data[0], -f.Data[1], -f.Data[2],  Dot(f, eyes),
-               0,          0,          0,            1);
-  end;
-
-  //function __LookAt2__(eyes, center, up: TVec3): TMat4;
-  //var
-  //  translation, rotation: TMat4;
-  //  position, target, worldUp, zaxis, xaxis, yaxis: TVec3;
-  //begin
-  //  position := eyes;
-  //  target := center;
-  //  worldUp := up;
-  //
-  //  zaxis := Normalize(position - target);
-  //  xaxis := Normalize(Cross(Normalize(worldUp), zaxis));
-  //  yaxis := Cross(zaxis, xaxis);
-  //
-  //  translation := Mat4_Identity; // Identity matrix by default
-  //  translation.Data[3][0] := -position.x; // Third column, first row
-  //  translation.Data[3][1] := -position.y;
-  //  translation.Data[3][2] := -position.z;
-  //
-  //  rotation := Mat4_Identity;
-  //  rotation.Data[0][0] := xaxis.x; // First column, first row
-  //  rotation.Data[1][0] := xaxis.y;
-  //  rotation.Data[2][0] := xaxis.z;
-  //  rotation.Data[0][1] := yaxis.x; // First column, second row
-  //  rotation.Data[1][1] := yaxis.y;
-  //  rotation.Data[2][1] := yaxis.z;
-  //  rotation.Data[0][2] := zaxis.x; // First column, third row
-  //  rotation.Data[1][2] := zaxis.y;
-  //  rotation.Data[2][2] := zaxis.z;
-  //
-  //  // Return lookAt matrix as combination of translation and rotation matrix
-  //  Result := (rotation * translation).Transpose;
-  //end;
-  //
-  //function __LookAt3__(eye, center, up: TVec3): TMat4;
-  //var
-  //  f, s, u: TVec3;
-  //begin
-  //  f := Normalize(center - eye);
-  //  s := Normalize(Cross(f, up));
-  //  u := Cross(s, f);
-  //
-  //
-  //  Result := Mat4_Identity;
-  //  Result.Data[0, 0] := s.x;
-  //  Result.Data[1, 0] := s.y;
-  //  Result.Data[2, 0] := s.z;
-  //  Result.Data[0, 1] := u.x;
-  //  Result.Data[1, 1] := u.y;
-  //  Result.Data[2, 1] := u.z;
-  //  Result.Data[0, 2] := -f.x;
-  //  Result.Data[1, 2] := -f.y;
-  //  Result.Data[2, 2] := -f.z;
-  //  Result.Data[3, 0] := -Dot(s, eye);
-  //  Result.Data[3, 1] := -Dot(u, eye);
-  //  Result.Data[3, 2] := Dot(f, eye);
-  //
-  //  Result := Result.Transpose;
-  //end;
-
+function TGLM.FrustumRH_ZO(left, right, bottom, top, znear, zfar: single): TMat4;
 begin
-  Result := __LookAt1__(eyes, center, up);
+  Result.Init_Zero;
+  Result.Data[0, 0] := (2 * znear) / (right - left);
+  Result.Data[1, 1] := (2 * znear) / (top - bottom);
+  Result.Data[2, 0] := (right + left) / (right - left);
+  Result.Data[2, 1] := (top + bottom) / (top - bottom);
+  Result.Data[2, 2] := zfar / (znear - zfar);
+  Result.Data[2, 3] := -1;
+  Result.Data[3, 2] := -(zfar * znear) / (zfar - znear);
+end;
+
+class function TGLM.LookAtLH(const eyes, center, up: TVec3): TMat4;
+var
+  f, s, u: TVec3;
+begin
+  f := Normalize(center - eyes);
+  s := Normalize(Cross(f, up));
+  u := Cross(s, f);
+
+  Result := Mat4_Identity;
+  Result.Data[0, 0] := s.x;
+  Result.Data[1, 0] := s.y;
+  Result.Data[2, 0] := s.z;
+  Result.Data[0, 1] := u.x;
+  Result.Data[1, 1] := u.y;
+  Result.Data[2, 1] := u.z;
+  Result.Data[0, 2] := f.x;
+  Result.Data[1, 2] := f.y;
+  Result.Data[2, 2] := f.z;
+  Result.Data[3, 0] := -Dot(s, eyes);
+  Result.Data[3, 1] := -Dot(u, eyes);
+  Result.Data[3, 2] := -Dot(f, eyes);
+end;
+
+class function TGLM.LookAtRH(const eyes, center, up: TVec3): TMat4;
+var
+  f, s, u: TVec3;
+begin
+  f := Normalize(center - eyes);
+  s := Normalize(Cross(f, up));
+  u := Cross(s, f);
+
+  Result := Mat4_Identity;
+  Result.Data[0, 0] := s.x;
+  Result.Data[1, 0] := s.y;
+  Result.Data[2, 0] := s.z;
+  Result.Data[0, 1] := u.x;
+  Result.Data[1, 1] := u.y;
+  Result.Data[2, 1] := u.z;
+  Result.Data[0, 2] := -f.x;
+  Result.Data[1, 2] := -f.y;
+  Result.Data[2, 2] := -f.z;
+  Result.Data[3, 0] := -Dot(s, eyes);
+  Result.Data[3, 1] := -Dot(u, eyes);
+  Result.Data[3, 2] := Dot(f, eyes);
 end;
 
 class function TGLM.Mat3(x: single): TMat3;
@@ -376,58 +369,75 @@ var
   res: TVec3;
 begin
   len := vec.length;
+  res := vec;
 
   if len <= 0 then
-    res.Create(1, 0, 0);
+    len := 1;
 
   oneOverLen := 1 / len;
-  res.Create(vec.Data[0] * oneOverLen, vec.Data[1] * oneOverLen, vec.Data[2] * oneOverLen);
+  res *= oneOverLen;
 
   Result := res;
 end;
 
-class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
-var
-  m00, m11, m22, m30, m31, m32: single;
+class function TGLM.Ortho2D(left, right, bottom, top: single): TMat4;
 begin
-  m00 := single(2 / (right - left));
-  m11 := single(2 / (top - bottom));
-  m22 := single(-2 / (zFar - zNear));
-  m30 := single(-(right + left) / (right - left));
-  m31 := single(-(top + bottom) / (top - bottom));
-  m32 := single(-(zFar + zNear) / (zFar - zNear));
-
-  Result := Mat4_Init(
-    m00,  0,    0,    m30,
-    0,    m11,  0,    m31,
-    0,    0,    m22,  m32,
-    0,    0,    0,    1);
+  Result.Init_Identity;
+  Result.Data[0,0] := 2 / (right - left);
+  Result.Data[1,1] := 2 / (top - bottom);
+  Result.Data[2,2] := -1;
+  Result.Data[3,0] := -(right + left) / (right - left);
+  Result.Data[3,1] := -(top + bottom) / (top - bottom);
 end;
 
-class function TGLM.Ortho2d(left, right, bottom, top: single): TMat4;
-var
-  m00, m11, m22, m30, m31: single;
+class function TGLM.OrthoRH_NO(left, right, bottom, top, znear, zfar: single): TMat4;
 begin
-  m00 := single(2 / (right - left));
-  m11 := single(2 / (top - bottom));
-  m22 := single(-1);
-  m30 := single(-(right + left) / (right - left));
-  m31 := single(-(top + bottom) / (top - bottom));
-
-  Result.Create(
-    m00,  0,    0,    m30,
-    0,    m11,  0,    m31,
-    0,    0,    m22,  0,
-    0,    0,    0,    1);
+  Result.Init_Identity;
+  Result.Data[0, 0] := 2 / (right - left);
+  Result.Data[1, 1] := 2 / (top - bottom);
+  Result.Data[2, 2] := -2 / (zFar - zNear);
+  Result.Data[3, 0] := -(right + left) / (right - left);
+  Result.Data[3, 1] := -(top + bottom) / (top - bottom);
+  Result.Data[3, 2] := -(zFar + zNear) / (zFar - zNear);
 end;
 
-class function TGLM.Perspective(fovy, aspect, znear, zfar: single): TMat4;
-var
-  right, top: single;
+class function TGLM.OrthoRH_ZO(left, right, bottom, top, znear, zfar: single): TMat4;
 begin
-  top := znear * Tan(fovy / 2);
-  right := top * aspect;
-  Result := Frustum(-right, right, -top, top, znear, zfar).transpose;
+  Result.Init_Identity;
+  Result.Data[0, 0] := 2 / (right - left);
+  Result.Data[1, 1] := 2 / (top - bottom);
+  Result.Data[2, 2] := -1 / (zFar - zNear);
+  Result.Data[3, 0] := -(right + left) / (right - left);
+  Result.Data[3, 1] := -(top + bottom) / (top - bottom);
+  Result.Data[3, 2] := -zNear / (zFar - zNear);
+end;
+
+class function TGLM.PerspectiveRH_NO(fovy, aspect, znear, zfar: single): TMat4;
+var
+  tanHalfFovy: single;
+begin
+  tanHalfFovy := Tan(fovy / 2);
+
+  Result.Init_Zero;
+  Result.Data[0, 0] := 1 / (aspect * tanHalfFovy);
+  Result.Data[1, 1] := 1 / (tanHalfFovy);
+  Result.Data[2, 2] := -(zFar + zNear) / (zFar - zNear);
+  Result.Data[2, 3] := -1;
+  Result.Data[3, 2] := -(2 * zFar * zNear) / (zFar - zNear);
+end;
+
+class function TGLM.PerspectiveRH_ZO(fovy, aspect, znear, zfar: single): TMat4;
+var
+  tanHalfFovy: single;
+begin
+  tanHalfFovy := tan(fovy / 2);
+
+  Result.Init_Zero;
+  Result.Data[0, 0] := 1 / (aspect * tanHalfFovy);
+  Result.Data[1, 1] := 1 / (tanHalfFovy);
+  Result.Data[2, 2] := zFar / (zFar - zNear);
+  Result.Data[2, 3] := 1;
+  Result.Data[3, 2] := -(zFar * zNear) / (zFar - zNear);
 end;
 
 class function TGLM.Radians(deg: single): single;
@@ -440,21 +450,9 @@ var
   c, s, x, y, z: single;
   res: Tmat4;
 begin
-  //Mat4_Init rotationMatrix(vec3 axis, float angle)
-  //{
-  //    axis = normalize(axis);
-  //    float s = sin(angle);
-  //    float c = cos(angle);
-  //    float oc = 1.0 - c;
-  //
-  //    return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
-  //                oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
-  //                oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-  //                0.0,                                0.0,                                0.0,                                1.0);
-
   res.Init_Identity;
-  c := Cos(deg);
-  s := Sin(deg);
+  c := Cos(-deg);
+  s := Sin(-deg);
 
   vec := Normalize(vec);
   x := vec.Data[0];
@@ -480,25 +478,37 @@ class function TGLM.Scale(m: TMat4; vec: TVec3): TMat4;
 var
   res: TMat4;
 begin
-  res.init_identity;
-  res.Data[0, 0] := vec.Data[0];
-  res.Data[1, 1] := vec.Data[1];
-  res.Data[2, 2] := vec.Data[2];
+  //res.init_identity;
+  //res.Data[0, 0] := vec.Data[0];
+  //res.Data[1, 1] := vec.Data[1];
+  //res.Data[2, 2] := vec.Data[2];
+  //
+  //Result := m * res;
 
-  Result := m * res;
+
+		Result.vecArr[0] := m.vecArr[0] * vec.Data[0];
+		Result.vecArr[1] := m.vecArr[1] * vec.Data[1];
+		Result.vecArr[2] := m.vecArr[2] * vec.Data[2];
+		Result.vecArr[3] := m.vecArr[3];
 end;
 
 class function TGLM.Translate(m: TMat4; vec: TVec3): TMat4;
 var
   res: TMat4;
 begin
-  res.Init_Identity;
+  //res.Init_Identity;
+  //
+  //res.Data[3, 0] += vec.Data[0];
+  //res.Data[3, 1] += vec.Data[1];
+  //res.Data[3, 2] += vec.Data[2];
+  //
+  //Result := m * res;
 
-  res.Data[0, 3] += vec.Data[0];
-  res.Data[1, 3] += vec.Data[1];
-  res.Data[2, 3] += vec.Data[2];
-
-  Result := m * res;
+  Result := m;
+  Result.vecArr[3] := m.vecArr[0] * vec.Data[0]
+    + m.vecArr[1] * vec.Data[1]
+    + m.vecArr[2] * vec.Data[2]
+    + m.vecArr[3];
 end;
 
 class function TGLM.Vec4ToString(VecName: string; v: TVec4): string;

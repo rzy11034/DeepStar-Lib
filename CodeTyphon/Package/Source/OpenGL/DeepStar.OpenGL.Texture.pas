@@ -55,7 +55,7 @@ begin
   reader := readerClass.Create;
 
   try
-    img.LoadFromFile(fileName.ToAnsiString, reader);
+    img.LoadFromFile(CrossFixFileName(fileName).ToAnsiString, reader);
 
     _width := img.Width;
     _height := img.Height;

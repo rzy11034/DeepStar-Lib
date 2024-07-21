@@ -35,7 +35,10 @@ type
 
     case integer of
       0: (Data: array[0..2, 0..2] of single);
-      1: (m00, m01, m02, m10, m11, m12, m20, m21, m22: single);
+      1: (vecArr: array[0..2] of TVec3);
+      2: (m00, m01, m02,
+          m10, m11, m12,
+          m20, m21, m22: single);
   end;
 
   TMat4 = packed record
@@ -62,8 +65,11 @@ type
 
     case integer of
       0: (Data: array[0..3, 0..3] of single);
-      1: (m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30,
-        m31, m32, m33: single);
+      1: (vecArr: array[0..3] of TVec4);
+      1: (m00, m01, m02, m03,
+          m10, m11, m12, m13,
+          m20, m21, m22, m23,
+          m30, m31, m32, m33: single);
   end;
 
 
