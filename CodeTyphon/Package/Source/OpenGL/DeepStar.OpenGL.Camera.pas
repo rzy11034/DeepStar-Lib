@@ -14,7 +14,18 @@ uses
 type
   TCamera_Movement = (FORWARD, BACKWARD, LEFT, RIGHT);
 
+
+
+type
   TCamera = class(TObject)
+  private const
+    // Default camera values
+    YAW = -90.0;
+    PITCH = 0.0;
+    SPEED = 2.5;
+    SENSITIVITY = 0.1;
+    ZOOM_ = 45.0;
+
   private
     _yaw: GLfloat;
     _pitch: GLfloat;
@@ -33,9 +44,10 @@ type
 
   public
     constructor Create;
-    constructor Create(aposition: TVec3);
-    constructor Create(aposition, aup: TVec3);
-    constructor Create(posX, posY, posZ, upX, upY, upZ, aYaw, aPitch: GLfloat);
+    constructor Create(aPosition: TVec3);
+    constructor Create(aPosition, aUp: TVec3);
+    constructor Create(posX, posY, posZ, upX, upY, upZ: GLfloat; aYaw: GLfloat = YAW;
+      aPitch: GLfloat = PITCH);
     destructor Destroy; override;
 
     function GetViewMatrix: TMat4;
@@ -52,13 +64,14 @@ implementation
 
 { TCamera }
 
-constructor TCamera.Create(posX, posY, posZ, upX, upY, upZ, aYaw, aPitch: GLfloat);
+constructor TCamera.Create(posX, posY, posZ, upX, upY, upZ: GLfloat;
+  aYaw: GLfloat; aPitch: GLfloat);
 begin
   _yaw := aYaw;
   _pitch := aPitch;
-  _movementSpeed := 2.5;
-  _mouseSensitivity := 0.1;
-  _zoom := 45;
+  _movementSpeed := SPEED;
+  _mouseSensitivity := SENSITIVITY;
+  _zoom := ZOOM_;
 
   _position := TGLM.Vec3(posX, posY, posZ);
   _worldUp := TGLM.Vec3(upX, upY, upZ);
@@ -67,24 +80,14 @@ begin
   __UpdateCameraVectors;
 end;
 
-constructor TCamera.Create(aposition, aup: TVec3);
+constructor TCamera.Create(aPosition, aUp: TVec3);
 begin
-  _yaw := -90.0;
-  _pitch := 0.0;
-  _movementSpeed := 2.5;
-  _mouseSensitivity := 0.1;
-  _zoom := 45;
-
-  _position := aposition;
-  _worldUp := aup;
-  _front := TGLM.Vec3(0, 0, -1);
-
-  __UpdateCameraVectors;
+  Create(aPosition.x, aPosition.y, aPosition.z, aUp.x, aUp.y, aUp.z);
 end;
 
-constructor TCamera.Create(aposition: TVec3);
+constructor TCamera.Create(aPosition: TVec3);
 begin
-  Create(aposition, TGLM.Vec3(0, 1, 0));
+  Create(aPosition, TGLM.Vec3(0, 1, 0));
 end;
 
 constructor TCamera.Create;
@@ -99,7 +102,7 @@ end;
 
 function TCamera.GetViewMatrix: TMat4;
 begin
-  Result := TGLM.LookAtRH(_position, _position + _front, _up);
+  Result := TGLM.LookAt(_position, _position + _front, _up);
 end;
 
 procedure TCamera.ProcessKeyboard(direction: TCamera_Movement; deltaTime: GLfloat);

@@ -51,7 +51,7 @@ begin
   inherited Create;
 
   img := TFPMemoryImage.Create(0, 0);
-  readerClass := img.FindReaderFromFileName(fileName.ToAnsiString);
+  readerClass := img.FindReaderFromFileName(CrossFixFileName(fileName).ToAnsiString);
   reader := readerClass.Create;
 
   try

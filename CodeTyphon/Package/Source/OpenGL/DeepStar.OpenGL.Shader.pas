@@ -9,6 +9,7 @@ uses
   Classes,
   SysUtils,
   DeepStar.Utils,
+  DeepStar.OpenGL.GLM,
   DeepStar.OpenGL.GLAD_GL,
   DeepStar.OpenGL.Utils;
 
@@ -33,7 +34,10 @@ type
 
     // uniform工具函数
     procedure SetUniformInt(uniform: PGLchar; Value: TArr_GLint);
+
     procedure SetUniformFloat(uniform: PGLchar; Value: TArr_GLfloat);
+    procedure SetUniformFloat(uniform: PGLchar; Value: TVec3);
+
     procedure SetUniformMatrix4fv(uniform: PGLchar; Value: PGLfloat);
 
     property ID: GLuint read __GetId;
@@ -128,6 +132,11 @@ begin
     3: glUniform3f(uniformLocation, Value[0], Value[1], Value[2]);
     4: glUniform4f(uniformLocation, Value[0], Value[1], Value[2], Value[3]);
   end;
+end;
+
+procedure TShaderProgram.SetUniformFloat(uniform: PGLchar; Value: TVec3);
+begin
+  SetUniformFloat(uniform, [Value.x, Value.y, Value.z]);
 end;
 
 procedure TShaderProgram.SetUniformInt(uniform: PGLchar; Value: TArr_GLint);

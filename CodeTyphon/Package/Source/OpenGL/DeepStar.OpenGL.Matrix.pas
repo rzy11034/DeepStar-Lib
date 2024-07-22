@@ -34,8 +34,8 @@ type
     class operator / (const m: TMat3; x: single): TMat3;
 
     case integer of
-      0: (Data: array[0..2, 0..2] of single);
-      1: (vecArr: array[0..2] of TVec3);
+      0: (m: array[0..2, 0..2] of single);
+      1: (v: array[0..2] of TVec3);
       2: (m00, m01, m02,
           m10, m11, m12,
           m20, m21, m22: single);
@@ -64,8 +64,8 @@ type
     class operator / (const m: TMat4; x: single): TMat4;
 
     case integer of
-      0: (Data: array[0..3, 0..3] of single);
-      1: (vecArr: array[0..3] of TVec4);
+      0: (m: array[0..3, 0..3] of single);
+      1: (v: array[0..3] of TVec4);
       1: (m00, m01, m02, m03,
           m10, m11, m12, m13,
           m20, m21, m22, m23,
@@ -88,109 +88,109 @@ var
 begin
   for i := 0 to 2 do
   begin
-    r := m1.Data[i];
-    Result.Data[i, 0] := r[0] * m2.Data[0, 0] + r[1] * m2.Data[1, 0] + r[2] * m2.Data[2, 0];
-    Result.Data[i, 1] := r[0] * m2.Data[0, 1] + r[1] * m2.Data[1, 1] + r[2] * m2.Data[2, 1];
-    Result.Data[i, 2] := r[0] * m2.Data[0, 2] + r[1] * m2.Data[1, 2] + r[2] * m2.Data[2, 2];
+    r := m1.m[i];
+    Result.m[i, 0] := r[0] * m2.m[0, 0] + r[1] * m2.m[1, 0] + r[2] * m2.m[2, 0];
+    Result.m[i, 1] := r[0] * m2.m[0, 1] + r[1] * m2.m[1, 1] + r[2] * m2.m[2, 1];
+    Result.m[i, 2] := r[0] * m2.m[0, 2] + r[1] * m2.m[1, 2] + r[2] * m2.m[2, 2];
   end;
 end;
 
 class operator TMat3. * (const m: TMat3; x: single): TMat3;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] * x;
-  Result.Data[0, 1] := m.Data[0, 1] * x;
-  Result.Data[0, 2] := m.Data[0, 2] * x;
-  Result.Data[1, 0] := m.Data[1, 0] * x;
-  Result.Data[1, 1] := m.Data[1, 1] * x;
-  Result.Data[1, 2] := m.Data[1, 2] * x;
-  Result.Data[2, 0] := m.Data[2, 0] * x;
-  Result.Data[2, 1] := m.Data[2, 1] * x;
-  Result.Data[2, 2] := m.Data[2, 2] * x;
+  Result.m[0, 0] := m.m[0, 0] * x;
+  Result.m[0, 1] := m.m[0, 1] * x;
+  Result.m[0, 2] := m.m[0, 2] * x;
+  Result.m[1, 0] := m.m[1, 0] * x;
+  Result.m[1, 1] := m.m[1, 1] * x;
+  Result.m[1, 2] := m.m[1, 2] * x;
+  Result.m[2, 0] := m.m[2, 0] * x;
+  Result.m[2, 1] := m.m[2, 1] * x;
+  Result.m[2, 2] := m.m[2, 2] * x;
 end;
 
 class operator TMat3. * (const m: TMat3; v: TVec3): TVec3;
 begin
-  Result.Data[0] := m.Data[0, 0] * v.Data[0] + m.Data[0, 1] * v.Data[1] + m.Data[0, 2] * v.Data[2];
-  Result.Data[1] := m.Data[1, 0] * v.Data[0] + m.Data[1, 1] * v.Data[1] + m.Data[1, 2] * v.Data[2];
-  Result.Data[2] := m.Data[2, 0] * v.Data[0] + m.Data[2, 1] * v.Data[1] + m.Data[2, 2] * v.Data[2];
+  Result.v[0] := m.m[0, 0] * v.v[0] + m.m[0, 1] * v.v[1] + m.m[0, 2] * v.v[2];
+  Result.v[1] := m.m[1, 0] * v.v[0] + m.m[1, 1] * v.v[1] + m.m[1, 2] * v.v[2];
+  Result.v[2] := m.m[2, 0] * v.v[0] + m.m[2, 1] * v.v[1] + m.m[2, 2] * v.v[2];
 end;
 
 class operator TMat3. +(const m1, m2: TMat3): TMat3;
 begin
-  Result.Data[0, 0] := m1.Data[0, 0] + m2.Data[0, 0];
-  Result.Data[0, 1] := m1.Data[0, 1] + m2.Data[0, 1];
-  Result.Data[0, 2] := m1.Data[0, 2] + m2.Data[0, 2];
-  Result.Data[1, 0] := m1.Data[1, 0] + m2.Data[1, 0];
-  Result.Data[1, 1] := m1.Data[1, 1] + m2.Data[1, 1];
-  Result.Data[1, 2] := m1.Data[1, 2] + m2.Data[1, 2];
-  Result.Data[2, 0] := m1.Data[2, 0] + m2.Data[2, 0];
-  Result.Data[2, 1] := m1.Data[2, 1] + m2.Data[2, 1];
-  Result.Data[2, 2] := m1.Data[2, 2] + m2.Data[2, 2];
+  Result.m[0, 0] := m1.m[0, 0] + m2.m[0, 0];
+  Result.m[0, 1] := m1.m[0, 1] + m2.m[0, 1];
+  Result.m[0, 2] := m1.m[0, 2] + m2.m[0, 2];
+  Result.m[1, 0] := m1.m[1, 0] + m2.m[1, 0];
+  Result.m[1, 1] := m1.m[1, 1] + m2.m[1, 1];
+  Result.m[1, 2] := m1.m[1, 2] + m2.m[1, 2];
+  Result.m[2, 0] := m1.m[2, 0] + m2.m[2, 0];
+  Result.m[2, 1] := m1.m[2, 1] + m2.m[2, 1];
+  Result.m[2, 2] := m1.m[2, 2] + m2.m[2, 2];
 end;
 
 class operator TMat3. +(const m: TMat3; x: single): TMat3;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] + x;
-  Result.Data[0, 1] := m.Data[0, 1] + x;
-  Result.Data[0, 2] := m.Data[0, 2] + x;
-  Result.Data[1, 0] := m.Data[1, 0] + x;
-  Result.Data[1, 1] := m.Data[1, 1] + x;
-  Result.Data[1, 2] := m.Data[1, 2] + x;
-  Result.Data[2, 0] := m.Data[2, 0] + x;
-  Result.Data[2, 1] := m.Data[2, 1] + x;
-  Result.Data[2, 2] := m.Data[2, 2] + x;
+  Result.m[0, 0] := m.m[0, 0] + x;
+  Result.m[0, 1] := m.m[0, 1] + x;
+  Result.m[0, 2] := m.m[0, 2] + x;
+  Result.m[1, 0] := m.m[1, 0] + x;
+  Result.m[1, 1] := m.m[1, 1] + x;
+  Result.m[1, 2] := m.m[1, 2] + x;
+  Result.m[2, 0] := m.m[2, 0] + x;
+  Result.m[2, 1] := m.m[2, 1] + x;
+  Result.m[2, 2] := m.m[2, 2] + x;
 end;
 
 class operator TMat3. -(const m1, m2: TMat3): TMat3;
 begin
-  Result.Data[0, 0] := m1.Data[0, 0] - m2.Data[0, 0];
-  Result.Data[0, 1] := m1.Data[0, 1] - m2.Data[0, 1];
-  Result.Data[0, 2] := m1.Data[0, 2] - m2.Data[0, 2];
-  Result.Data[1, 0] := m1.Data[1, 0] - m2.Data[1, 0];
-  Result.Data[1, 1] := m1.Data[1, 1] - m2.Data[1, 1];
-  Result.Data[1, 2] := m1.Data[1, 2] - m2.Data[1, 2];
-  Result.Data[2, 0] := m1.Data[2, 0] - m2.Data[2, 0];
-  Result.Data[2, 1] := m1.Data[2, 1] - m2.Data[2, 1];
-  Result.Data[2, 2] := m1.Data[2, 2] - m2.Data[2, 2];
+  Result.m[0, 0] := m1.m[0, 0] - m2.m[0, 0];
+  Result.m[0, 1] := m1.m[0, 1] - m2.m[0, 1];
+  Result.m[0, 2] := m1.m[0, 2] - m2.m[0, 2];
+  Result.m[1, 0] := m1.m[1, 0] - m2.m[1, 0];
+  Result.m[1, 1] := m1.m[1, 1] - m2.m[1, 1];
+  Result.m[1, 2] := m1.m[1, 2] - m2.m[1, 2];
+  Result.m[2, 0] := m1.m[2, 0] - m2.m[2, 0];
+  Result.m[2, 1] := m1.m[2, 1] - m2.m[2, 1];
+  Result.m[2, 2] := m1.m[2, 2] - m2.m[2, 2];
 end;
 
 class operator TMat3. -(const m: TMat3): TMat3;
 begin
-  Result.Data[0, 0] := -m.Data[0, 0];
-  Result.Data[0, 1] := -m.Data[0, 1];
-  Result.Data[0, 2] := -m.Data[0, 2];
-  Result.Data[1, 0] := -m.Data[1, 0];
-  Result.Data[1, 1] := -m.Data[1, 1];
-  Result.Data[1, 2] := -m.Data[1, 2];
-  Result.Data[2, 0] := -m.Data[2, 0];
-  Result.Data[2, 1] := -m.Data[2, 1];
-  Result.Data[2, 2] := -m.Data[2, 2];
+  Result.m[0, 0] := -m.m[0, 0];
+  Result.m[0, 1] := -m.m[0, 1];
+  Result.m[0, 2] := -m.m[0, 2];
+  Result.m[1, 0] := -m.m[1, 0];
+  Result.m[1, 1] := -m.m[1, 1];
+  Result.m[1, 2] := -m.m[1, 2];
+  Result.m[2, 0] := -m.m[2, 0];
+  Result.m[2, 1] := -m.m[2, 1];
+  Result.m[2, 2] := -m.m[2, 2];
 end;
 
 class operator TMat3. -(const m: TMat3; x: single): TMat3;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] - x;
-  Result.Data[0, 1] := m.Data[0, 1] - x;
-  Result.Data[0, 2] := m.Data[0, 2] - x;
-  Result.Data[1, 0] := m.Data[1, 0] - x;
-  Result.Data[1, 1] := m.Data[1, 1] - x;
-  Result.Data[1, 2] := m.Data[1, 2] - x;
-  Result.Data[2, 0] := m.Data[2, 0] - x;
-  Result.Data[2, 1] := m.Data[2, 1] - x;
-  Result.Data[2, 2] := m.Data[2, 2] - x;
+  Result.m[0, 0] := m.m[0, 0] - x;
+  Result.m[0, 1] := m.m[0, 1] - x;
+  Result.m[0, 2] := m.m[0, 2] - x;
+  Result.m[1, 0] := m.m[1, 0] - x;
+  Result.m[1, 1] := m.m[1, 1] - x;
+  Result.m[1, 2] := m.m[1, 2] - x;
+  Result.m[2, 0] := m.m[2, 0] - x;
+  Result.m[2, 1] := m.m[2, 1] - x;
+  Result.m[2, 2] := m.m[2, 2] - x;
 end;
 
 class operator TMat3. / (const m: TMat3; x: single): TMat3;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] / x;
-  Result.Data[0, 1] := m.Data[0, 1] / x;
-  Result.Data[0, 2] := m.Data[0, 2] / x;
-  Result.Data[1, 0] := m.Data[1, 0] / x;
-  Result.Data[1, 1] := m.Data[1, 1] / x;
-  Result.Data[1, 2] := m.Data[1, 2] / x;
-  Result.Data[2, 0] := m.Data[2, 0] / x;
-  Result.Data[2, 1] := m.Data[2, 1] / x;
-  Result.Data[2, 2] := m.Data[2, 2] / x;
+  Result.m[0, 0] := m.m[0, 0] / x;
+  Result.m[0, 1] := m.m[0, 1] / x;
+  Result.m[0, 2] := m.m[0, 2] / x;
+  Result.m[1, 0] := m.m[1, 0] / x;
+  Result.m[1, 1] := m.m[1, 1] / x;
+  Result.m[1, 2] := m.m[1, 2] / x;
+  Result.m[2, 0] := m.m[2, 0] / x;
+  Result.m[2, 1] := m.m[2, 1] / x;
+  Result.m[2, 2] := m.m[2, 2] / x;
 end;
 
 constructor TMat3.Create(x00, x01, x02, x10, x11, x12, x20, x21, x22: single);
@@ -217,9 +217,9 @@ end;
 function TMat3.GetDeterminant: single;
 begin
   Result :=
-    Data[0, 0] * (Data[1, 1] * Data[2, 2] - Data[1, 2] * Data[2, 1]) -
-    Data[0, 1] * (Data[1, 0] * Data[2, 2] - Data[1, 2] * Data[2, 0]) +
-    Data[0, 2] * (Data[1, 0] * Data[2, 1] - Data[1, 1] * Data[2, 0]);
+    m[0, 0] * (m[1, 1] * m[2, 2] - m[1, 2] * m[2, 1]) -
+    m[0, 1] * (m[1, 0] * m[2, 2] - m[1, 2] * m[2, 0]) +
+    m[0, 2] * (m[1, 0] * m[2, 1] - m[1, 1] * m[2, 0]);
 end;
 
 function TMat3.GetRow(index: byte): TVec3;
@@ -238,7 +238,7 @@ end;
 
 procedure TMat3.Init_Identity;
 begin
-  Self.Data := [
+  Self.m := [
     [1, 0, 0],
     [0, 1, 0],
     [0, 0, 1]];
@@ -246,7 +246,7 @@ end;
 
 procedure TMat3.Init_Zero;
 begin
-  Self.Data := [
+  Self.m := [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0]];
@@ -255,15 +255,15 @@ end;
 function TMat3.inverse(determinant: single): TMat3;
 begin
   determinant := 1 / determinant;
-  Result.Data[0, 0] := (Data[1, 1] * Data[2, 2] - Data[2, 1] * Data[1, 2]) * determinant;
-  Result.Data[0, 1] := -(Data[0, 1] * Data[2, 2] - Data[2, 1] * Data[0, 2]) * determinant;
-  Result.Data[0, 2] := (Data[0, 1] * Data[1, 2] - Data[1, 1] * Data[0, 2]) * determinant;
-  Result.Data[1, 0] := -(Data[1, 0] * Data[2, 2] - Data[2, 0] * Data[1, 2]) * determinant;
-  Result.Data[1, 1] := (Data[0, 0] * Data[2, 2] - Data[2, 0] * Data[0, 2]) * determinant;
-  Result.Data[1, 2] := -(Data[0, 0] * Data[1, 2] - Data[1, 0] * Data[0, 2]) * determinant;
-  Result.Data[2, 0] := (Data[1, 0] * Data[2, 1] - Data[2, 0] * Data[1, 1]) * determinant;
-  Result.Data[2, 1] := -(Data[0, 0] * Data[2, 1] - Data[2, 0] * Data[0, 1]) * determinant;
-  Result.Data[2, 2] := (Data[0, 0] * Data[1, 1] - Data[1, 0] * Data[0, 1]) * determinant;
+  Result.m[0, 0] := (m[1, 1] * m[2, 2] - m[2, 1] * m[1, 2]) * determinant;
+  Result.m[0, 1] := -(m[0, 1] * m[2, 2] - m[2, 1] * m[0, 2]) * determinant;
+  Result.m[0, 2] := (m[0, 1] * m[1, 2] - m[1, 1] * m[0, 2]) * determinant;
+  Result.m[1, 0] := -(m[1, 0] * m[2, 2] - m[2, 0] * m[1, 2]) * determinant;
+  Result.m[1, 1] := (m[0, 0] * m[2, 2] - m[2, 0] * m[0, 2]) * determinant;
+  Result.m[1, 2] := -(m[0, 0] * m[1, 2] - m[1, 0] * m[0, 2]) * determinant;
+  Result.m[2, 0] := (m[1, 0] * m[2, 1] - m[2, 0] * m[1, 1]) * determinant;
+  Result.m[2, 1] := -(m[0, 0] * m[2, 1] - m[2, 0] * m[0, 1]) * determinant;
+  Result.m[2, 2] := (m[0, 0] * m[1, 1] - m[1, 0] * m[0, 1]) * determinant;
 end;
 
 procedure TMat3.SetColumn(index: byte; const vec: TVec3);
@@ -324,175 +324,175 @@ var
 begin
   for i := 0 to 3 do
   begin
-    r := m1.Data[i];
+    r := m1.m[i];
 
-    Result.Data[i, 0] :=
-      r[0] * m2.Data[0, 0] + r[1] * m2.Data[1, 0] + r[2] * m2.Data[2, 0] + r[3] * m2.Data[3, 0];
+    Result.m[i, 0] :=
+      r[0] * m2.m[0, 0] + r[1] * m2.m[1, 0] + r[2] * m2.m[2, 0] + r[3] * m2.m[3, 0];
 
-    Result.Data[i, 1] :=
-      r[0] * m2.Data[0, 1] + r[1] * m2.Data[1, 1] + r[2] * m2.Data[2, 1] + r[3] * m2.Data[3, 1];
+    Result.m[i, 1] :=
+      r[0] * m2.m[0, 1] + r[1] * m2.m[1, 1] + r[2] * m2.m[2, 1] + r[3] * m2.m[3, 1];
 
-    Result.Data[i, 2] :=
-      r[0] * m2.Data[0, 2] + r[1] * m2.Data[1, 2] + r[2] * m2.Data[2, 2] + r[3] * m2.Data[3, 2];
+    Result.m[i, 2] :=
+      r[0] * m2.m[0, 2] + r[1] * m2.m[1, 2] + r[2] * m2.m[2, 2] + r[3] * m2.m[3, 2];
 
-    Result.Data[i, 3] :=
-      r[0] * m2.Data[0, 3] + r[1] * m2.Data[1, 3] + r[2] * m2.Data[2, 3] + r[3] * m2.Data[3, 3];
+    Result.m[i, 3] :=
+      r[0] * m2.m[0, 3] + r[1] * m2.m[1, 3] + r[2] * m2.m[2, 3] + r[3] * m2.m[3, 3];
   end;
 end;
 
 class operator TMat4. * (const m: TMat4; x: single): TMat4;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] * x;
-  Result.Data[0, 1] := m.Data[0, 1] * x;
-  Result.Data[0, 2] := m.Data[0, 2] * x;
-  Result.Data[0, 3] := m.Data[0, 3] * x;
-  Result.Data[1, 0] := m.Data[1, 0] * x;
-  Result.Data[1, 1] := m.Data[1, 1] * x;
-  Result.Data[1, 2] := m.Data[1, 2] * x;
-  Result.Data[1, 3] := m.Data[1, 3] * x;
-  Result.Data[2, 0] := m.Data[2, 0] * x;
-  Result.Data[2, 1] := m.Data[2, 1] * x;
-  Result.Data[2, 2] := m.Data[2, 2] * x;
-  Result.Data[2, 3] := m.Data[2, 3] * x;
-  Result.Data[3, 0] := m.Data[3, 0] * x;
-  Result.Data[3, 1] := m.Data[3, 1] * x;
-  Result.Data[3, 2] := m.Data[3, 2] * x;
-  Result.Data[3, 3] := m.Data[3, 3] * x;
+  Result.m[0, 0] := m.m[0, 0] * x;
+  Result.m[0, 1] := m.m[0, 1] * x;
+  Result.m[0, 2] := m.m[0, 2] * x;
+  Result.m[0, 3] := m.m[0, 3] * x;
+  Result.m[1, 0] := m.m[1, 0] * x;
+  Result.m[1, 1] := m.m[1, 1] * x;
+  Result.m[1, 2] := m.m[1, 2] * x;
+  Result.m[1, 3] := m.m[1, 3] * x;
+  Result.m[2, 0] := m.m[2, 0] * x;
+  Result.m[2, 1] := m.m[2, 1] * x;
+  Result.m[2, 2] := m.m[2, 2] * x;
+  Result.m[2, 3] := m.m[2, 3] * x;
+  Result.m[3, 0] := m.m[3, 0] * x;
+  Result.m[3, 1] := m.m[3, 1] * x;
+  Result.m[3, 2] := m.m[3, 2] * x;
+  Result.m[3, 3] := m.m[3, 3] * x;
 end;
 
 class operator TMat4. * (const m: TMat4; v: TVec4): TVec4;
 begin
-  Result.Data[0] := m.Data[0, 0] * v.Data[0] + m.Data[0, 1] * v.Data[1]
-    + m.Data[0, 2] * v.Data[2] + m.Data[0, 3] * v.Data[3];
+  Result.v[0] := m.m[0, 0] * v.v[0] + m.m[0, 1] * v.v[1]
+    + m.m[0, 2] * v.v[2] + m.m[0, 3] * v.v[3];
 
-  Result.Data[1] := m.Data[1, 0] * v.Data[0] + m.Data[1, 1] * v.Data[1]
-    + m.Data[1, 2] * v.Data[2] + m.Data[1, 3] * v.Data[3];
+  Result.v[1] := m.m[1, 0] * v.v[0] + m.m[1, 1] * v.v[1]
+    + m.m[1, 2] * v.v[2] + m.m[1, 3] * v.v[3];
 
-  Result.Data[2] := m.Data[2, 0] * v.Data[0] + m.Data[2, 1] * v.Data[1]
-    + m.Data[2, 2] * v.Data[2] + m.Data[2, 3] * v.Data[3];
+  Result.v[2] := m.m[2, 0] * v.v[0] + m.m[2, 1] * v.v[1]
+    + m.m[2, 2] * v.v[2] + m.m[2, 3] * v.v[3];
 
-  Result.Data[3] := m.Data[3, 0] * v.Data[0] + m.Data[3, 1] * v.Data[1]
-    + m.Data[3, 2] * v.Data[2] + m.Data[3, 3] * v.Data[3];
+  Result.v[3] := m.m[3, 0] * v.v[0] + m.m[3, 1] * v.v[1]
+    + m.m[3, 2] * v.v[2] + m.m[3, 3] * v.v[3];
 end;
 
 class operator TMat4. +(const m1, m2: TMat4): TMat4;
 begin
-  Result.Data[0, 0] := m1.Data[0, 0] + m2.Data[0, 0];
-  Result.Data[0, 1] := m1.Data[0, 1] + m2.Data[0, 1];
-  Result.Data[0, 2] := m1.Data[0, 2] + m2.Data[0, 2];
-  Result.Data[0, 3] := m1.Data[0, 3] + m2.Data[0, 3];
-  Result.Data[1, 0] := m1.Data[1, 0] + m2.Data[1, 0];
-  Result.Data[1, 1] := m1.Data[1, 1] + m2.Data[1, 1];
-  Result.Data[1, 2] := m1.Data[1, 2] + m2.Data[1, 2];
-  Result.Data[1, 3] := m1.Data[1, 3] + m2.Data[1, 3];
-  Result.Data[2, 0] := m1.Data[2, 0] + m2.Data[2, 0];
-  Result.Data[2, 1] := m1.Data[2, 1] + m2.Data[2, 1];
-  Result.Data[2, 2] := m1.Data[2, 2] + m2.Data[2, 2];
-  Result.Data[2, 3] := m1.Data[2, 3] + m2.Data[2, 3];
-  Result.Data[3, 0] := m1.Data[3, 0] + m2.Data[3, 0];
-  Result.Data[3, 1] := m1.Data[3, 1] + m2.Data[3, 1];
-  Result.Data[3, 2] := m1.Data[3, 2] + m2.Data[3, 2];
-  Result.Data[3, 3] := m1.Data[3, 3] + m2.Data[3, 3];
+  Result.m[0, 0] := m1.m[0, 0] + m2.m[0, 0];
+  Result.m[0, 1] := m1.m[0, 1] + m2.m[0, 1];
+  Result.m[0, 2] := m1.m[0, 2] + m2.m[0, 2];
+  Result.m[0, 3] := m1.m[0, 3] + m2.m[0, 3];
+  Result.m[1, 0] := m1.m[1, 0] + m2.m[1, 0];
+  Result.m[1, 1] := m1.m[1, 1] + m2.m[1, 1];
+  Result.m[1, 2] := m1.m[1, 2] + m2.m[1, 2];
+  Result.m[1, 3] := m1.m[1, 3] + m2.m[1, 3];
+  Result.m[2, 0] := m1.m[2, 0] + m2.m[2, 0];
+  Result.m[2, 1] := m1.m[2, 1] + m2.m[2, 1];
+  Result.m[2, 2] := m1.m[2, 2] + m2.m[2, 2];
+  Result.m[2, 3] := m1.m[2, 3] + m2.m[2, 3];
+  Result.m[3, 0] := m1.m[3, 0] + m2.m[3, 0];
+  Result.m[3, 1] := m1.m[3, 1] + m2.m[3, 1];
+  Result.m[3, 2] := m1.m[3, 2] + m2.m[3, 2];
+  Result.m[3, 3] := m1.m[3, 3] + m2.m[3, 3];
 end;
 
 class operator TMat4. +(const m: TMat4; x: single): TMat4;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] + x;
-  Result.Data[0, 1] := m.Data[0, 1] + x;
-  Result.Data[0, 2] := m.Data[0, 2] + x;
-  Result.Data[0, 3] := m.Data[0, 3] + x;
-  Result.Data[1, 0] := m.Data[1, 0] + x;
-  Result.Data[1, 1] := m.Data[1, 1] + x;
-  Result.Data[1, 2] := m.Data[1, 2] + x;
-  Result.Data[1, 3] := m.Data[1, 3] + x;
-  Result.Data[2, 0] := m.Data[2, 0] + x;
-  Result.Data[2, 1] := m.Data[2, 1] + x;
-  Result.Data[2, 2] := m.Data[2, 2] + x;
-  Result.Data[2, 3] := m.Data[2, 3] + x;
-  Result.Data[3, 0] := m.Data[3, 0] + x;
-  Result.Data[3, 1] := m.Data[3, 1] + x;
-  Result.Data[3, 2] := m.Data[3, 2] + x;
-  Result.Data[3, 3] := m.Data[3, 3] + x;
+  Result.m[0, 0] := m.m[0, 0] + x;
+  Result.m[0, 1] := m.m[0, 1] + x;
+  Result.m[0, 2] := m.m[0, 2] + x;
+  Result.m[0, 3] := m.m[0, 3] + x;
+  Result.m[1, 0] := m.m[1, 0] + x;
+  Result.m[1, 1] := m.m[1, 1] + x;
+  Result.m[1, 2] := m.m[1, 2] + x;
+  Result.m[1, 3] := m.m[1, 3] + x;
+  Result.m[2, 0] := m.m[2, 0] + x;
+  Result.m[2, 1] := m.m[2, 1] + x;
+  Result.m[2, 2] := m.m[2, 2] + x;
+  Result.m[2, 3] := m.m[2, 3] + x;
+  Result.m[3, 0] := m.m[3, 0] + x;
+  Result.m[3, 1] := m.m[3, 1] + x;
+  Result.m[3, 2] := m.m[3, 2] + x;
+  Result.m[3, 3] := m.m[3, 3] + x;
 end;
 
 class operator TMat4. -(const m1, m2: TMat4): TMat4;
 begin
-  Result.Data[0, 0] := m1.Data[0, 0] - m2.Data[0, 0];
-  Result.Data[0, 1] := m1.Data[0, 1] - m2.Data[0, 1];
-  Result.Data[0, 2] := m1.Data[0, 2] - m2.Data[0, 2];
-  Result.Data[0, 3] := m1.Data[0, 3] - m2.Data[0, 3];
-  Result.Data[1, 0] := m1.Data[1, 0] - m2.Data[1, 0];
-  Result.Data[1, 1] := m1.Data[1, 1] - m2.Data[1, 1];
-  Result.Data[1, 2] := m1.Data[1, 2] - m2.Data[1, 2];
-  Result.Data[1, 3] := m1.Data[1, 3] - m2.Data[1, 3];
-  Result.Data[2, 0] := m1.Data[2, 0] - m2.Data[2, 0];
-  Result.Data[2, 1] := m1.Data[2, 1] - m2.Data[2, 1];
-  Result.Data[2, 2] := m1.Data[2, 2] - m2.Data[2, 2];
-  Result.Data[2, 3] := m1.Data[2, 3] - m2.Data[2, 3];
-  Result.Data[3, 0] := m1.Data[3, 0] - m2.Data[3, 0];
-  Result.Data[3, 1] := m1.Data[3, 1] - m2.Data[3, 1];
-  Result.Data[3, 2] := m1.Data[3, 2] - m2.Data[3, 2];
-  Result.Data[3, 3] := m1.Data[3, 3] - m2.Data[3, 3];
+  Result.m[0, 0] := m1.m[0, 0] - m2.m[0, 0];
+  Result.m[0, 1] := m1.m[0, 1] - m2.m[0, 1];
+  Result.m[0, 2] := m1.m[0, 2] - m2.m[0, 2];
+  Result.m[0, 3] := m1.m[0, 3] - m2.m[0, 3];
+  Result.m[1, 0] := m1.m[1, 0] - m2.m[1, 0];
+  Result.m[1, 1] := m1.m[1, 1] - m2.m[1, 1];
+  Result.m[1, 2] := m1.m[1, 2] - m2.m[1, 2];
+  Result.m[1, 3] := m1.m[1, 3] - m2.m[1, 3];
+  Result.m[2, 0] := m1.m[2, 0] - m2.m[2, 0];
+  Result.m[2, 1] := m1.m[2, 1] - m2.m[2, 1];
+  Result.m[2, 2] := m1.m[2, 2] - m2.m[2, 2];
+  Result.m[2, 3] := m1.m[2, 3] - m2.m[2, 3];
+  Result.m[3, 0] := m1.m[3, 0] - m2.m[3, 0];
+  Result.m[3, 1] := m1.m[3, 1] - m2.m[3, 1];
+  Result.m[3, 2] := m1.m[3, 2] - m2.m[3, 2];
+  Result.m[3, 3] := m1.m[3, 3] - m2.m[3, 3];
 end;
 
 class operator TMat4. -(const m: TMat4): TMat4;
 begin
-  Result.Data[0, 0] := -m.Data[0, 0];
-  Result.Data[0, 1] := -m.Data[0, 1];
-  Result.Data[0, 2] := -m.Data[0, 2];
-  Result.Data[0, 3] := -m.Data[0, 3];
-  Result.Data[1, 0] := -m.Data[1, 0];
-  Result.Data[1, 1] := -m.Data[1, 1];
-  Result.Data[1, 2] := -m.Data[1, 2];
-  Result.Data[1, 3] := -m.Data[1, 3];
-  Result.Data[2, 0] := -m.Data[2, 0];
-  Result.Data[2, 1] := -m.Data[2, 1];
-  Result.Data[2, 2] := -m.Data[2, 2];
-  Result.Data[2, 3] := -m.Data[2, 3];
-  Result.Data[3, 0] := -m.Data[3, 0];
-  Result.Data[3, 1] := -m.Data[3, 1];
-  Result.Data[3, 2] := -m.Data[3, 2];
-  Result.Data[3, 3] := -m.Data[3, 3];
+  Result.m[0, 0] := -m.m[0, 0];
+  Result.m[0, 1] := -m.m[0, 1];
+  Result.m[0, 2] := -m.m[0, 2];
+  Result.m[0, 3] := -m.m[0, 3];
+  Result.m[1, 0] := -m.m[1, 0];
+  Result.m[1, 1] := -m.m[1, 1];
+  Result.m[1, 2] := -m.m[1, 2];
+  Result.m[1, 3] := -m.m[1, 3];
+  Result.m[2, 0] := -m.m[2, 0];
+  Result.m[2, 1] := -m.m[2, 1];
+  Result.m[2, 2] := -m.m[2, 2];
+  Result.m[2, 3] := -m.m[2, 3];
+  Result.m[3, 0] := -m.m[3, 0];
+  Result.m[3, 1] := -m.m[3, 1];
+  Result.m[3, 2] := -m.m[3, 2];
+  Result.m[3, 3] := -m.m[3, 3];
 end;
 
 class operator TMat4. -(const m: TMat4; x: single): TMat4;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] - x;
-  Result.Data[0, 1] := m.Data[0, 1] - x;
-  Result.Data[0, 2] := m.Data[0, 2] - x;
-  Result.Data[0, 3] := m.Data[0, 3] - x;
-  Result.Data[1, 0] := m.Data[1, 0] - x;
-  Result.Data[1, 1] := m.Data[1, 1] - x;
-  Result.Data[1, 2] := m.Data[1, 2] - x;
-  Result.Data[1, 3] := m.Data[1, 3] - x;
-  Result.Data[2, 0] := m.Data[2, 0] - x;
-  Result.Data[2, 1] := m.Data[2, 1] - x;
-  Result.Data[2, 2] := m.Data[2, 2] - x;
-  Result.Data[2, 3] := m.Data[2, 3] - x;
-  Result.Data[3, 0] := m.Data[3, 0] - x;
-  Result.Data[3, 1] := m.Data[3, 1] - x;
-  Result.Data[3, 2] := m.Data[3, 2] - x;
-  Result.Data[3, 3] := m.Data[3, 3] - x;
+  Result.m[0, 0] := m.m[0, 0] - x;
+  Result.m[0, 1] := m.m[0, 1] - x;
+  Result.m[0, 2] := m.m[0, 2] - x;
+  Result.m[0, 3] := m.m[0, 3] - x;
+  Result.m[1, 0] := m.m[1, 0] - x;
+  Result.m[1, 1] := m.m[1, 1] - x;
+  Result.m[1, 2] := m.m[1, 2] - x;
+  Result.m[1, 3] := m.m[1, 3] - x;
+  Result.m[2, 0] := m.m[2, 0] - x;
+  Result.m[2, 1] := m.m[2, 1] - x;
+  Result.m[2, 2] := m.m[2, 2] - x;
+  Result.m[2, 3] := m.m[2, 3] - x;
+  Result.m[3, 0] := m.m[3, 0] - x;
+  Result.m[3, 1] := m.m[3, 1] - x;
+  Result.m[3, 2] := m.m[3, 2] - x;
+  Result.m[3, 3] := m.m[3, 3] - x;
 end;
 
 class operator TMat4. / (const m: TMat4; x: single): TMat4;
 begin
-  Result.Data[0, 0] := m.Data[0, 0] / x;
-  Result.Data[0, 1] := m.Data[0, 1] / x;
-  Result.Data[0, 2] := m.Data[0, 2] / x;
-  Result.Data[0, 3] := m.Data[0, 3] / x;
-  Result.Data[1, 0] := m.Data[1, 0] / x;
-  Result.Data[1, 1] := m.Data[1, 1] / x;
-  Result.Data[1, 2] := m.Data[1, 2] / x;
-  Result.Data[1, 3] := m.Data[1, 3] / x;
-  Result.Data[2, 0] := m.Data[2, 0] / x;
-  Result.Data[2, 1] := m.Data[2, 1] / x;
-  Result.Data[2, 2] := m.Data[2, 2] / x;
-  Result.Data[2, 3] := m.Data[2, 3] / x;
-  Result.Data[3, 0] := m.Data[3, 0] / x;
-  Result.Data[3, 1] := m.Data[3, 1] / x;
-  Result.Data[3, 2] := m.Data[3, 2] / x;
-  Result.Data[3, 3] := m.Data[3, 3] / x;
+  Result.m[0, 0] := m.m[0, 0] / x;
+  Result.m[0, 1] := m.m[0, 1] / x;
+  Result.m[0, 2] := m.m[0, 2] / x;
+  Result.m[0, 3] := m.m[0, 3] / x;
+  Result.m[1, 0] := m.m[1, 0] / x;
+  Result.m[1, 1] := m.m[1, 1] / x;
+  Result.m[1, 2] := m.m[1, 2] / x;
+  Result.m[1, 3] := m.m[1, 3] / x;
+  Result.m[2, 0] := m.m[2, 0] / x;
+  Result.m[2, 1] := m.m[2, 1] / x;
+  Result.m[2, 2] := m.m[2, 2] / x;
+  Result.m[2, 3] := m.m[2, 3] / x;
+  Result.m[3, 0] := m.m[3, 0] / x;
+  Result.m[3, 1] := m.m[3, 1] / x;
+  Result.m[3, 2] := m.m[3, 2] / x;
+  Result.m[3, 3] := m.m[3, 3] / x;
 end;
 
 constructor TMat4.Create(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22,
@@ -507,12 +507,12 @@ end;
 function TMat4.GetDeterminant: single;
 begin
   Result :=
-    (Data[0, 0] * Data[1, 1] - Data[0, 1] * Data[1, 0]) * (Data[2, 2] * Data[3, 3] - Data[2, 3] * Data[3, 2]) -
-    (Data[0, 0] * Data[1, 2] - Data[0, 2] * Data[1, 0]) * (Data[2, 1] * Data[3, 3] - Data[2, 3] * Data[3, 1]) +
-    (Data[0, 0] * Data[1, 3] - Data[0, 3] * Data[1, 0]) * (Data[2, 1] * Data[3, 2] - Data[2, 2] * Data[3, 1]) +
-    (Data[0, 1] * Data[1, 2] - Data[0, 2] * Data[1, 1]) * (Data[2, 0] * Data[3, 3] - Data[2, 3] * Data[3, 0]) -
-    (Data[0, 1] * Data[1, 3] - Data[0, 3] * Data[1, 1]) * (Data[2, 0] * Data[3, 2] - Data[2, 2] * Data[3, 0]) +
-    (Data[0, 2] * Data[1, 3] - Data[0, 3] * Data[1, 2]) * (Data[2, 0] * Data[3, 1] - Data[2, 1] * Data[3, 0]);
+    (m[0, 0] * m[1, 1] - m[0, 1] * m[1, 0]) * (m[2, 2] * m[3, 3] - m[2, 3] * m[3, 2]) -
+    (m[0, 0] * m[1, 2] - m[0, 2] * m[1, 0]) * (m[2, 1] * m[3, 3] - m[2, 3] * m[3, 1]) +
+    (m[0, 0] * m[1, 3] - m[0, 3] * m[1, 0]) * (m[2, 1] * m[3, 2] - m[2, 2] * m[3, 1]) +
+    (m[0, 1] * m[1, 2] - m[0, 2] * m[1, 1]) * (m[2, 0] * m[3, 3] - m[2, 3] * m[3, 0]) -
+    (m[0, 1] * m[1, 3] - m[0, 3] * m[1, 1]) * (m[2, 0] * m[3, 2] - m[2, 2] * m[3, 0]) +
+    (m[0, 2] * m[1, 3] - m[0, 3] * m[1, 2]) * (m[2, 0] * m[3, 1] - m[2, 1] * m[3, 0]);
 end;
 
 function TMat4.GetColumn(index: byte): TVec4;
@@ -547,7 +547,7 @@ end;
 
 procedure TMat4.Init_Identity;
 begin
-  Self.Data := [
+  Self.m := [
     [1, 0, 0, 0],
     [0, 1, 0, 0],
     [0, 0, 1, 0],
@@ -556,7 +556,7 @@ end;
 
 procedure TMat4.Init_Zero;
 begin
-  Self.Data := [
+  Self.m := [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -571,85 +571,69 @@ begin
 
   determinant := 1 / determinant;
 
-  res.Data[0, 0] := determinant * (
-    Data[1, 1] * (Data[2, 2] * Data[3, 3] - Data[2, 3] * Data[3, 2]) +
-    Data[1, 2] * (Data[2, 3] * Data[3, 1] - Data[2, 1] * Data[3, 3]) +
-    Data[1, 3] * (Data[2, 1] * Data[3, 2] - Data[2, 2] * Data[3, 1]));
+  res.m[0, 0] := determinant * (m[1, 1] * (m[2, 2] * m[3, 3] - m[2, 3] * m[3, 2])
+    + m[1, 2] * (m[2, 3] * m[3, 1] - m[2, 1] * m[3, 3])
+    + m[1, 3] * (m[2, 1] * m[3, 2] - m[2, 2] * m[3, 1]));
 
-  res.Data[0, 1] := determinant * (Data[2, 1] * (
-    Data[0, 2] * Data[3, 3] - Data[0, 3] * Data[3, 2]) +
-    Data[2, 2] * (Data[0, 3] * Data[3, 1] - Data[0, 1] * Data[3, 3]) +
-    Data[2, 3] * (Data[0, 1] * Data[3, 2] - Data[0, 2] * Data[3, 1]));
+  res.m[0, 1] := determinant * (m[2, 1] * (m[0, 2] * m[3, 3] - m[0, 3] * m[3, 2])
+    + m[2, 2] * (m[0, 3] * m[3, 1] - m[0, 1] * m[3, 3])
+    + m[2, 3] * (m[0, 1] * m[3, 2] - m[0, 2] * m[3, 1]));
 
-  res.Data[0, 2] := determinant * (Data[3, 1] * (
-    Data[0, 2] * Data[1, 3] - Data[0, 3] * Data[1, 2]) +
-    Data[3, 2] * (Data[0, 3] * Data[1, 1] - Data[0, 1] * Data[1, 3]) +
-    Data[3, 3] * (Data[0, 1] * Data[1, 2] - Data[0, 2] * Data[1, 1]));
+  res.m[0, 2] := determinant * (m[3, 1] * (m[0, 2] * m[1, 3] - m[0, 3] * m[1, 2])
+    + m[3, 2] * (m[0, 3] * m[1, 1] - m[0, 1] * m[1, 3])
+    + m[3, 3] * (m[0, 1] * m[1, 2] - m[0, 2] * m[1, 1]));
 
-  res.Data[0, 3] := determinant * (Data[0, 1] * (
-    Data[1, 3] * Data[2, 2] - Data[1, 2] * Data[2, 3]) +
-    Data[0, 2] * (Data[1, 1] * Data[2, 3] - Data[1, 3] * Data[2, 1]) +
-    Data[0, 3] * (Data[1, 2] * Data[2, 1] - Data[1, 1] * Data[2, 2]));
+  res.m[0, 3] := determinant * (m[0, 1] * (m[1, 3] * m[2, 2] - m[1, 2] * m[2, 3])
+    + m[0, 2] * (m[1, 1] * m[2, 3] - m[1, 3] * m[2, 1])
+    + m[0, 3] * (m[1, 2] * m[2, 1] - m[1, 1] * m[2, 2]));
 
-  res.Data[1, 0] := determinant * (Data[1, 2] * (
-    Data[2, 0] * Data[3, 3] - Data[2, 3] * Data[3, 0]) +
-    Data[1, 3] * (Data[2, 2] * Data[3, 0] - Data[2, 0] * Data[3, 2]) +
-    Data[1, 0] * (Data[2, 3] * Data[3, 2] - Data[2, 2] * Data[3, 3]));
+  res.m[1, 0] := determinant * (m[1, 2] * (m[2, 0] * m[3, 3] - m[2, 3] * m[3, 0])
+    + m[1, 3] * (m[2, 2] * m[3, 0] - m[2, 0] * m[3, 2])
+    + m[1, 0] * (m[2, 3] * m[3, 2] - m[2, 2] * m[3, 3]));
 
-  res.Data[1, 1] := determinant * (Data[2, 2] * (
-    Data[0, 0] * Data[3, 3] - Data[0, 3] * Data[3, 0]) +
-    Data[2, 3] * (Data[0, 2] * Data[3, 0] - Data[0, 0] * Data[3, 2]) +
-    Data[2, 0] * (Data[0, 3] * Data[3, 2] - Data[0, 2] * Data[3, 3]));
+  res.m[1, 1] := determinant * (m[2, 2] * (m[0, 0] * m[3, 3] - m[0, 3] * m[3, 0])
+    + m[2, 3] * (m[0, 2] * m[3, 0] - m[0, 0] * m[3, 2])
+    + m[2, 0] * (m[0, 3] * m[3, 2] - m[0, 2] * m[3, 3]));
 
-  res.Data[1, 2] := determinant * (Data[3, 2] * (
-    Data[0, 0] * Data[1, 3] - Data[0, 3] * Data[1, 0]) +
-    Data[3, 3] * (Data[0, 2] * Data[1, 0] - Data[0, 0] * Data[1, 2]) +
-    Data[3, 0] * (Data[0, 3] * Data[1, 2] - Data[0, 2] * Data[1, 3]));
+  res.m[1, 2] := determinant * (m[3, 2] * (m[0, 0] * m[1, 3] - m[0, 3] * m[1, 0])
+    + m[3, 3] * (m[0, 2] * m[1, 0] - m[0, 0] * m[1, 2])
+    + m[3, 0] * (m[0, 3] * m[1, 2] - m[0, 2] * m[1, 3]));
 
-  res.Data[1, 3] := determinant * (Data[0, 2] * (
-    Data[1, 3] * Data[2, 0] - Data[1, 0] * Data[2, 3]) +
-    Data[0, 3] * (Data[1, 0] * Data[2, 2] - Data[1, 2] * Data[2, 0]) +
-    Data[0, 0] * (Data[1, 2] * Data[2, 3] - Data[1, 3] * Data[2, 2]));
+  res.m[1, 3] := determinant * (m[0, 2] * (m[1, 3] * m[2, 0] - m[1, 0] * m[2, 3])
+    + m[0, 3] * (m[1, 0] * m[2, 2] - m[1, 2] * m[2, 0])
+    + m[0, 0] * (m[1, 2] * m[2, 3] - m[1, 3] * m[2, 2]));
 
-  res.Data[2, 0] := determinant * (Data[1, 3] * (
-    Data[2, 0] * Data[3, 1] - Data[2, 1] * Data[3, 0]) +
-    Data[1, 0] * (Data[2, 1] * Data[3, 3] - Data[2, 3] * Data[3, 1]) +
-    Data[1, 1] * (Data[2, 3] * Data[3, 0] - Data[2, 0] * Data[3, 3]));
+  res.m[2, 0] := determinant * (m[1, 3] * (m[2, 0] * m[3, 1] - m[2, 1] * m[3, 0])
+    + m[1, 0] * (m[2, 1] * m[3, 3] - m[2, 3] * m[3, 1])
+    + m[1, 1] * (m[2, 3] * m[3, 0] - m[2, 0] * m[3, 3]));
 
-  res.Data[2, 1] := determinant * (Data[2, 3] * (
-    Data[0, 0] * Data[3, 1] - Data[0, 1] * Data[3, 0]) +
-    Data[2, 0] * (Data[0, 1] * Data[3, 3] - Data[0, 3] * Data[3, 1]) +
-    Data[2, 1] * (Data[0, 3] * Data[3, 0] - Data[0, 0] * Data[3, 3]));
+  res.m[2, 1] := determinant * (m[2, 3] * (m[0, 0] * m[3, 1] - m[0, 1] * m[3, 0])
+    + m[2, 0] * (m[0, 1] * m[3, 3] - m[0, 3] * m[3, 1])
+    + m[2, 1] * (m[0, 3] * m[3, 0] - m[0, 0] * m[3, 3]));
 
-  res.Data[2, 2] := determinant * (Data[3, 3] * (
-    Data[0, 0] * Data[1, 1] - Data[0, 1] * Data[1, 0]) +
-    Data[3, 0] * (Data[0, 1] * Data[1, 3] - Data[0, 3] * Data[1, 1]) +
-    Data[3, 1] * (Data[0, 3] * Data[1, 0] - Data[0, 0] * Data[1, 3]));
+  res.m[2, 2] := determinant * (m[3, 3] * (m[0, 0] * m[1, 1] - m[0, 1] * m[1, 0])
+    + m[3, 0] * (m[0, 1] * m[1, 3] - m[0, 3] * m[1, 1])
+    + m[3, 1] * (m[0, 3] * m[1, 0] - m[0, 0] * m[1, 3]));
 
-  res.Data[2, 3] := determinant * (Data[0, 3] * (
-    Data[1, 1] * Data[2, 0] - Data[1, 0] * Data[2, 1]) +
-    Data[0, 0] * (Data[1, 3] * Data[2, 1] - Data[1, 1] * Data[2, 3]) +
-    Data[0, 1] * (Data[1, 0] * Data[2, 3] - Data[1, 3] * Data[2, 0]));
+  res.m[2, 3] := determinant * (m[0, 3] * (m[1, 1] * m[2, 0] - m[1, 0] * m[2, 1])
+    + m[0, 0] * (m[1, 3] * m[2, 1] - m[1, 1] * m[2, 3])
+    + m[0, 1] * (m[1, 0] * m[2, 3] - m[1, 3] * m[2, 0]));
 
-  res.Data[3, 0] := determinant * (Data[1, 0] * (
-    Data[2, 2] * Data[3, 1] - Data[2, 1] * Data[3, 2]) +
-    Data[1, 1] * (Data[2, 0] * Data[3, 2] - Data[2, 2] * Data[3, 0]) +
-    Data[1, 2] * (Data[2, 1] * Data[3, 0] - Data[2, 0] * Data[3, 1]));
+  res.m[3, 0] := determinant * (m[1, 0] * (m[2, 2] * m[3, 1] - m[2, 1] * m[3, 2])
+    + m[1, 1] * (m[2, 0] * m[3, 2] - m[2, 2] * m[3, 0])
+    + m[1, 2] * (m[2, 1] * m[3, 0] - m[2, 0] * m[3, 1]));
 
-  res.Data[3, 1] := determinant * (
-    Data[2, 0] * (Data[0, 2] * Data[3, 1] - Data[0, 1] * Data[3, 2]) +
-    Data[2, 1] * (Data[0, 0] * Data[3, 2] - Data[0, 2] * Data[3, 0]) +
-    Data[2, 2] * (Data[0, 1] * Data[3, 0] - Data[0, 0] * Data[3, 1]));
+  res.m[3, 1] := determinant * (m[2, 0] * (m[0, 2] * m[3, 1] - m[0, 1] * m[3, 2])
+    + m[2, 1] * (m[0, 0] * m[3, 2] - m[0, 2] * m[3, 0])
+    + m[2, 2] * (m[0, 1] * m[3, 0] - m[0, 0] * m[3, 1]));
 
-  res.Data[3, 2] := determinant * (Data[3, 0] * (
-    Data[0, 2] * Data[1, 1] - Data[0, 1] * Data[1, 2]) +
-    Data[3, 1] * (Data[0, 0] * Data[1, 2] - Data[0, 2] * Data[1, 0]) +
-    Data[3, 2] * (Data[0, 1] * Data[1, 0] - Data[0, 0] * Data[1, 1]));
+  res.m[3, 2] := determinant * (m[3, 0] * (m[0, 2] * m[1, 1] - m[0, 1] * m[1, 2])
+    + m[3, 1] * (m[0, 0] * m[1, 2] - m[0, 2] * m[1, 0])
+    + m[3, 2] * (m[0, 1] * m[1, 0] - m[0, 0] * m[1, 1]));
 
-  res.Data[3, 3] := determinant * (Data[0, 0] * (
-    Data[1, 1] * Data[2, 2] - Data[1, 2] * Data[2, 1]) +
-    Data[0, 1] * (Data[1, 2] * Data[2, 0] - Data[1, 0] * Data[2, 2]) +
-    Data[0, 2] * (Data[1, 0] * Data[2, 1] - Data[1, 1] * Data[2, 0]));
+  res.m[3, 3] := determinant * (m[0, 0] * (m[1, 1] * m[2, 2] - m[1, 2] * m[2, 1])
+    + m[0, 1] * (m[1, 2] * m[2, 0] - m[1, 0] * m[2, 2])
+    + m[0, 2] * (m[1, 0] * m[2, 1] - m[1, 1] * m[2, 0]));
 
   Result := res;
 end;
