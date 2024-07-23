@@ -17,6 +17,9 @@ uses
 const
   LE = LineEnding;
 
+  SIZE_F = Sizeof(GLfloat);
+  SIZE_I = SizeOf(GLint);
+
 type
   TArr_GLboolean = array of GLboolean;
   TArr_GLfloat = array of GLfloat;

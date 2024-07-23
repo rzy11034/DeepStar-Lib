@@ -86,13 +86,13 @@ type
     // TMat4
 
     // 返回位移矩阵
-    class function Translate(m: TMat4; vec: TVec3): TMat4;
+    class function Translate(mat: TMat4; vec: TVec3): TMat4;
 
     // 返回旋转矩阵
-    class function Rotate(m: TMat4; angle: single; vec: TVec3): TMat4;
+    class function Rotate(mat: TMat4; angle: single; vec: TVec3): TMat4;
 
     // 返回缩放矩阵
-    class function Scale(m: TMat4; vec: TVec3): TMat4;
+    class function Scale(mat: TMat4; vec: TVec3): TMat4;
 
     // 使用视场和创建透视图投影矩阵纵横比，以确定左，右，上，下平面。
     // 这方法类似于现在已弃用的gluPerspective方法。
@@ -434,12 +434,12 @@ begin
   Result := DegToRad(deg);
 end;
 
-class function TGLM.Rotate(m: TMat4; angle: single; vec: TVec3): TMat4;
+class function TGLM.Rotate(mat: TMat4; angle: single; vec: TVec3): TMat4;
   function __rotate__: TMat4;
   var
     a, c, s: single;
     axis, temp: TVec3;
-    R: TMat4;
+    matR: TMat4;
   begin
     a := angle;
     c := Cos(a);
@@ -448,24 +448,24 @@ class function TGLM.Rotate(m: TMat4; angle: single; vec: TVec3): TMat4;
     axis := Normalize(vec);
     temp := TVec3((1 - c) * axis);
 
-    R := Mat4_Zero;
-    R.m[0,0] := c + temp.v[0] * axis.v[0];
-    R.m[0,1] := temp.v[0] * axis.v[1] + s * axis.v[2];
-    R.m[0,2] := temp.v[0] * axis.v[2] - s * axis.v[1];
+    matR := Mat4_Zero;
+    matR.m[0,0] := c + temp.v[0] * axis.v[0];
+    matR.m[0,1] := temp.v[0] * axis.v[1] + s * axis.v[2];
+    matR.m[0,2] := temp.v[0] * axis.v[2] - s * axis.v[1];
 
-    R.m[1,0] := temp.v[1] * axis.v[0] - s * axis.v[2];
-    R.m[1,1] := c + temp.v[1] * axis.v[1];
-    R.m[1,2] := temp.v[1] * axis.v[2] + s * axis.v[0];
+    matR.m[1,0] := temp.v[1] * axis.v[0] - s * axis.v[2];
+    matR.m[1,1] := c + temp.v[1] * axis.v[1];
+    matR.m[1,2] := temp.v[1] * axis.v[2] + s * axis.v[0];
 
-    R.m[2,0] := temp.v[2] * axis.v[0] + s * axis.v[1];
-    R.m[2,1] := temp.v[2] * axis.v[1] - s * axis.v[0];
-    R.m[2,2] := c + temp.v[2] * axis.v[2];
+    matR.m[2,0] := temp.v[2] * axis.v[0] + s * axis.v[1];
+    matR.m[2,1] := temp.v[2] * axis.v[1] - s * axis.v[0];
+    matR.m[2,2] := c + temp.v[2] * axis.v[2];
 
     Result.Init_Zero;
-    Result.v[0] := m.v[0] * R.m[0][0] + m.v[1] * R.m[0][1] + m.v[2] * R.m[0][2];
-    Result.v[1] := m.v[0] * R.m[1][0] + m.v[1] * R.m[1][1] + m.v[2] * R.m[1][2];
-    Result.v[2] := m.v[0] * R.m[2][0] + m.v[1] * R.m[2][1] + m.v[2] * R.m[2][2];
-    Result.v[3] := m.v[3];
+    Result.v[0] := mat.v[0] * matR.m[0][0] + mat.v[1] * matR.m[0][1] + mat.v[2] * matR.m[0][2];
+    Result.v[1] := mat.v[0] * matR.m[1][0] + mat.v[1] * matR.m[1][1] + mat.v[2] * matR.m[1][2];
+    Result.v[2] := mat.v[0] * matR.m[2][0] + mat.v[1] * matR.m[2][1] + mat.v[2] * matR.m[2][2];
+    Result.v[3] := mat.v[3];
   end;
 
   function __rotate_slow__: TMat4;
@@ -496,28 +496,28 @@ class function TGLM.Rotate(m: TMat4; angle: single; vec: TVec3): TMat4;
 
     Result.v[3] := Vec4(0, 0, 0, 1);
 
-    Result := m * Result;
+    Result := mat * Result;
   end;
 
 begin
   Result := __rotate__;
 end;
 
-class function TGLM.Scale(m: TMat4; vec: TVec3): TMat4;
+class function TGLM.Scale(mat: TMat4; vec: TVec3): TMat4;
 begin
-  Result.v[0] := m.v[0] * vec.v[0];
-  Result.v[1] := m.v[1] * vec.v[1];
-  Result.v[2] := m.v[2] * vec.v[2];
-  Result.v[3] := m.v[3];
+  Result.v[0] := mat.v[0] * vec.v[0];
+  Result.v[1] := mat.v[1] * vec.v[1];
+  Result.v[2] := mat.v[2] * vec.v[2];
+  Result.v[3] := mat.v[3];
 end;
 
-class function TGLM.Translate(m: TMat4; vec: TVec3): TMat4;
+class function TGLM.Translate(mat: TMat4; vec: TVec3): TMat4;
 begin
-  Result := m;
-  Result.v[3] := m.v[0] * vec.v[0]
-    + m.v[1] * vec.v[1]
-    + m.v[2] * vec.v[2]
-    + m.v[3];
+  Result := mat;
+  Result.v[3] := mat.v[0] * vec.v[0]
+    + mat.v[1] * vec.v[1]
+    + mat.v[2] * vec.v[2]
+    + mat.v[3];
 end;
 
 class function TGLM.Vec4ToString(VecName: string; vec: TVec4): string;
