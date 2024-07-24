@@ -23,14 +23,18 @@ type
     function GetDeterminant: single;
     function inverse(determinant: single): TMat3;
     function Transpose: TMat3;
+
     class operator +(const mat1, mat2: TMat3): TMat3;
     class operator +(const mat: TMat3; x: single): TMat3;
+
     class operator -(const mat1, mat2: TMat3): TMat3;
     class operator -(const mat: TMat3): TMat3;
     class operator -(const mat: TMat3; x: single): TMat3;
+
     class operator * (const mat1, mat2: TMat3): TMat3;
-    class operator * (const mat: TMat3; v: TVec3): TVec3;
+    class operator * (const mat: TMat3; vec: TVec3): TVec3;
     class operator * (const mat: TMat3; x: single): TMat3;
+
     class operator / (const mat: TMat3; x: single): TMat3;
 
     case integer of
@@ -53,14 +57,18 @@ type
     function GetDeterminant: single;
     function inverse(determinant: single): TMat4;
     function Transpose: TMat4;
+
     class operator +(const mat1, mat2: TMat4): TMat4;
     class operator +(const mat: TMat4; x: single): TMat4;
+
     class operator -(const mat1, mat2: TMat4): TMat4;
     class operator -(const mat: TMat4): TMat4;
     class operator -(const mat: TMat4; x: single): TMat4;
+
     class operator * (const mat1, mat2: TMat4): TMat4;
-    class operator * (const mat: TMat4; v: TVec4): TVec4;
+    class operator * (const mat: TMat4; vec: TVec4): TVec4;
     class operator * (const mat: TMat4; x: single): TMat4;
+
     class operator / (const mat: TMat4; x: single): TMat4;
 
     case integer of
@@ -99,101 +107,103 @@ begin
 end;
 
 class operator TMat3. * (const mat: TMat3; x: single): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] * x;
-  Result.m[0, 1] := mat.m[0, 1] * x;
-  Result.m[0, 2] := mat.m[0, 2] * x;
-  Result.m[1, 0] := mat.m[1, 0] * x;
-  Result.m[1, 1] := mat.m[1, 1] * x;
-  Result.m[1, 2] := mat.m[1, 2] * x;
-  Result.m[2, 0] := mat.m[2, 0] * x;
-  Result.m[2, 1] := mat.m[2, 1] * x;
-  Result.m[2, 2] := mat.m[2, 2] * x;
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+        Result.m[i, j] := mat.m[i, j] * x;
+    end;
+  end;
 end;
 
-class operator TMat3. * (const mat: TMat3; v: TVec3): TVec3;
+class operator TMat3. * (const mat: TMat3; vec: TVec3): TVec3;
+var
+  i: integer;
 begin
-  Result.v[0] := mat.m[0, 0] * v.v[0] + mat.m[0, 1] * v.v[1] + mat.m[0, 2] * v.v[2];
-  Result.v[1] := mat.m[1, 0] * v.v[0] + mat.m[1, 1] * v.v[1] + mat.m[1, 2] * v.v[2];
-  Result.v[2] := mat.m[2, 0] * v.v[0] + mat.m[2, 1] * v.v[1] + mat.m[2, 2] * v.v[2];
+  for i := 0 to 2 do begin
+    Result.v[i] := mat.m[0, i] * vec.v[0] + mat.m[1, i] * vec.v[1] + mat.m[2, i] * vec.v[2];
+  end;
 end;
 
 class operator TMat3. +(const mat1, mat2: TMat3): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat1.m[0, 0] + mat2.m[0, 0];
-  Result.m[0, 1] := mat1.m[0, 1] + mat2.m[0, 1];
-  Result.m[0, 2] := mat1.m[0, 2] + mat2.m[0, 2];
-  Result.m[1, 0] := mat1.m[1, 0] + mat2.m[1, 0];
-  Result.m[1, 1] := mat1.m[1, 1] + mat2.m[1, 1];
-  Result.m[1, 2] := mat1.m[1, 2] + mat2.m[1, 2];
-  Result.m[2, 0] := mat1.m[2, 0] + mat2.m[2, 0];
-  Result.m[2, 1] := mat1.m[2, 1] + mat2.m[2, 1];
-  Result.m[2, 2] := mat1.m[2, 2] + mat2.m[2, 2];
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+      Result.m[i, j] := mat1.m[i, j] + mat2.m[i, j];
+    end;
+  end;
 end;
 
 class operator TMat3. +(const mat: TMat3; x: single): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] + x;
-  Result.m[0, 1] := mat.m[0, 1] + x;
-  Result.m[0, 2] := mat.m[0, 2] + x;
-  Result.m[1, 0] := mat.m[1, 0] + x;
-  Result.m[1, 1] := mat.m[1, 1] + x;
-  Result.m[1, 2] := mat.m[1, 2] + x;
-  Result.m[2, 0] := mat.m[2, 0] + x;
-  Result.m[2, 1] := mat.m[2, 1] + x;
-  Result.m[2, 2] := mat.m[2, 2] + x;
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+      Result.m[i, j] := mat.m[i, j] + x;
+    end;
+  end;
 end;
 
 class operator TMat3. -(const mat1, mat2: TMat3): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat1.m[0, 0] - mat2.m[0, 0];
-  Result.m[0, 1] := mat1.m[0, 1] - mat2.m[0, 1];
-  Result.m[0, 2] := mat1.m[0, 2] - mat2.m[0, 2];
-  Result.m[1, 0] := mat1.m[1, 0] - mat2.m[1, 0];
-  Result.m[1, 1] := mat1.m[1, 1] - mat2.m[1, 1];
-  Result.m[1, 2] := mat1.m[1, 2] - mat2.m[1, 2];
-  Result.m[2, 0] := mat1.m[2, 0] - mat2.m[2, 0];
-  Result.m[2, 1] := mat1.m[2, 1] - mat2.m[2, 1];
-  Result.m[2, 2] := mat1.m[2, 2] - mat2.m[2, 2];
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+      Result.m[i, j] := mat1.m[i, j] - mat2.m[i, j];
+    end;
+  end;
 end;
 
 class operator TMat3. -(const mat: TMat3): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := -mat.m[0, 0];
-  Result.m[0, 1] := -mat.m[0, 1];
-  Result.m[0, 2] := -mat.m[0, 2];
-  Result.m[1, 0] := -mat.m[1, 0];
-  Result.m[1, 1] := -mat.m[1, 1];
-  Result.m[1, 2] := -mat.m[1, 2];
-  Result.m[2, 0] := -mat.m[2, 0];
-  Result.m[2, 1] := -mat.m[2, 1];
-  Result.m[2, 2] := -mat.m[2, 2];
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+      Result.m[i, j] := -mat.m[i, j];
+    end;
+  end;
 end;
 
 class operator TMat3. -(const mat: TMat3; x: single): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] - x;
-  Result.m[0, 1] := mat.m[0, 1] - x;
-  Result.m[0, 2] := mat.m[0, 2] - x;
-  Result.m[1, 0] := mat.m[1, 0] - x;
-  Result.m[1, 1] := mat.m[1, 1] - x;
-  Result.m[1, 2] := mat.m[1, 2] - x;
-  Result.m[2, 0] := mat.m[2, 0] - x;
-  Result.m[2, 1] := mat.m[2, 1] - x;
-  Result.m[2, 2] := mat.m[2, 2] - x;
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+      Result.m[i, j] := mat.m[i, j] - x;
+    end;
+  end;
 end;
 
 class operator TMat3. / (const mat: TMat3; x: single): TMat3;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] / x;
-  Result.m[0, 1] := mat.m[0, 1] / x;
-  Result.m[0, 2] := mat.m[0, 2] / x;
-  Result.m[1, 0] := mat.m[1, 0] / x;
-  Result.m[1, 1] := mat.m[1, 1] / x;
-  Result.m[1, 2] := mat.m[1, 2] / x;
-  Result.m[2, 0] := mat.m[2, 0] / x;
-  Result.m[2, 1] := mat.m[2, 1] / x;
-  Result.m[2, 2] := mat.m[2, 2] / x;
+  for i := 0 to 2 do
+  begin
+    for j := 0 to 2 do
+    begin
+      Result.m[i, j] := mat.m[i, j] / x;
+    end;
+  end;
 end;
 
 constructor TMat3.Create(x00, x01, x02, x10, x11, x12, x20, x21, x22: single);
@@ -338,158 +348,105 @@ begin
 end;
 
 class operator TMat4. * (const mat: TMat4; x: single): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] * x;
-  Result.m[0, 1] := mat.m[0, 1] * x;
-  Result.m[0, 2] := mat.m[0, 2] * x;
-  Result.m[0, 3] := mat.m[0, 3] * x;
-  Result.m[1, 0] := mat.m[1, 0] * x;
-  Result.m[1, 1] := mat.m[1, 1] * x;
-  Result.m[1, 2] := mat.m[1, 2] * x;
-  Result.m[1, 3] := mat.m[1, 3] * x;
-  Result.m[2, 0] := mat.m[2, 0] * x;
-  Result.m[2, 1] := mat.m[2, 1] * x;
-  Result.m[2, 2] := mat.m[2, 2] * x;
-  Result.m[2, 3] := mat.m[2, 3] * x;
-  Result.m[3, 0] := mat.m[3, 0] * x;
-  Result.m[3, 1] := mat.m[3, 1] * x;
-  Result.m[3, 2] := mat.m[3, 2] * x;
-  Result.m[3, 3] := mat.m[3, 3] * x;
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := mat.m[i, j] * x;
+    end;
+  end;
 end;
 
-class operator TMat4. * (const mat: TMat4; v: TVec4): TVec4;
+class operator TMat4. * (const mat: TMat4; vec: TVec4): TVec4;
+var
+  i: integer;
 begin
-  Result.v[0] := mat.m[0, 0] * v.v[0] + mat.m[0, 1] * v.v[1]
-    + mat.m[0, 2] * v.v[2] + mat.m[0, 3] * v.v[3];
-
-  Result.v[1] := mat.m[1, 0] * v.v[0] + mat.m[1, 1] * v.v[1]
-    + mat.m[1, 2] * v.v[2] + mat.m[1, 3] * v.v[3];
-
-  Result.v[2] := mat.m[2, 0] * v.v[0] + mat.m[2, 1] * v.v[1]
-    + mat.m[2, 2] * v.v[2] + mat.m[2, 3] * v.v[3];
-
-  Result.v[3] := mat.m[3, 0] * v.v[0] + mat.m[3, 1] * v.v[1]
-    + mat.m[3, 2] * v.v[2] + mat.m[3, 3] * v.v[3];
+  for i := 0 to 3 do
+  begin
+    Result.v[i] := mat.m[0, i] * vec.v[0] + mat.m[1, i] * vec.v[1] +
+      mat.m[2, i] * vec.v[2] + mat.m[3, i] * vec.v[3];
+  end;
 end;
 
 class operator TMat4. +(const mat1, mat2: TMat4): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat1.m[0, 0] + mat2.m[0, 0];
-  Result.m[0, 1] := mat1.m[0, 1] + mat2.m[0, 1];
-  Result.m[0, 2] := mat1.m[0, 2] + mat2.m[0, 2];
-  Result.m[0, 3] := mat1.m[0, 3] + mat2.m[0, 3];
-  Result.m[1, 0] := mat1.m[1, 0] + mat2.m[1, 0];
-  Result.m[1, 1] := mat1.m[1, 1] + mat2.m[1, 1];
-  Result.m[1, 2] := mat1.m[1, 2] + mat2.m[1, 2];
-  Result.m[1, 3] := mat1.m[1, 3] + mat2.m[1, 3];
-  Result.m[2, 0] := mat1.m[2, 0] + mat2.m[2, 0];
-  Result.m[2, 1] := mat1.m[2, 1] + mat2.m[2, 1];
-  Result.m[2, 2] := mat1.m[2, 2] + mat2.m[2, 2];
-  Result.m[2, 3] := mat1.m[2, 3] + mat2.m[2, 3];
-  Result.m[3, 0] := mat1.m[3, 0] + mat2.m[3, 0];
-  Result.m[3, 1] := mat1.m[3, 1] + mat2.m[3, 1];
-  Result.m[3, 2] := mat1.m[3, 2] + mat2.m[3, 2];
-  Result.m[3, 3] := mat1.m[3, 3] + mat2.m[3, 3];
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := mat1.m[i, j] + mat2.m[i, j];
+    end;
+  end;
 end;
 
 class operator TMat4. +(const mat: TMat4; x: single): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] + x;
-  Result.m[0, 1] := mat.m[0, 1] + x;
-  Result.m[0, 2] := mat.m[0, 2] + x;
-  Result.m[0, 3] := mat.m[0, 3] + x;
-  Result.m[1, 0] := mat.m[1, 0] + x;
-  Result.m[1, 1] := mat.m[1, 1] + x;
-  Result.m[1, 2] := mat.m[1, 2] + x;
-  Result.m[1, 3] := mat.m[1, 3] + x;
-  Result.m[2, 0] := mat.m[2, 0] + x;
-  Result.m[2, 1] := mat.m[2, 1] + x;
-  Result.m[2, 2] := mat.m[2, 2] + x;
-  Result.m[2, 3] := mat.m[2, 3] + x;
-  Result.m[3, 0] := mat.m[3, 0] + x;
-  Result.m[3, 1] := mat.m[3, 1] + x;
-  Result.m[3, 2] := mat.m[3, 2] + x;
-  Result.m[3, 3] := mat.m[3, 3] + x;
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := mat.m[i, j] + x;
+    end;
+  end;
 end;
 
 class operator TMat4. -(const mat1, mat2: TMat4): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat1.m[0, 0] - mat2.m[0, 0];
-  Result.m[0, 1] := mat1.m[0, 1] - mat2.m[0, 1];
-  Result.m[0, 2] := mat1.m[0, 2] - mat2.m[0, 2];
-  Result.m[0, 3] := mat1.m[0, 3] - mat2.m[0, 3];
-  Result.m[1, 0] := mat1.m[1, 0] - mat2.m[1, 0];
-  Result.m[1, 1] := mat1.m[1, 1] - mat2.m[1, 1];
-  Result.m[1, 2] := mat1.m[1, 2] - mat2.m[1, 2];
-  Result.m[1, 3] := mat1.m[1, 3] - mat2.m[1, 3];
-  Result.m[2, 0] := mat1.m[2, 0] - mat2.m[2, 0];
-  Result.m[2, 1] := mat1.m[2, 1] - mat2.m[2, 1];
-  Result.m[2, 2] := mat1.m[2, 2] - mat2.m[2, 2];
-  Result.m[2, 3] := mat1.m[2, 3] - mat2.m[2, 3];
-  Result.m[3, 0] := mat1.m[3, 0] - mat2.m[3, 0];
-  Result.m[3, 1] := mat1.m[3, 1] - mat2.m[3, 1];
-  Result.m[3, 2] := mat1.m[3, 2] - mat2.m[3, 2];
-  Result.m[3, 3] := mat1.m[3, 3] - mat2.m[3, 3];
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := mat1.m[i, j] + mat2.m[i, j];
+    end;
+  end;
 end;
 
 class operator TMat4. -(const mat: TMat4): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := -mat.m[0, 0];
-  Result.m[0, 1] := -mat.m[0, 1];
-  Result.m[0, 2] := -mat.m[0, 2];
-  Result.m[0, 3] := -mat.m[0, 3];
-  Result.m[1, 0] := -mat.m[1, 0];
-  Result.m[1, 1] := -mat.m[1, 1];
-  Result.m[1, 2] := -mat.m[1, 2];
-  Result.m[1, 3] := -mat.m[1, 3];
-  Result.m[2, 0] := -mat.m[2, 0];
-  Result.m[2, 1] := -mat.m[2, 1];
-  Result.m[2, 2] := -mat.m[2, 2];
-  Result.m[2, 3] := -mat.m[2, 3];
-  Result.m[3, 0] := -mat.m[3, 0];
-  Result.m[3, 1] := -mat.m[3, 1];
-  Result.m[3, 2] := -mat.m[3, 2];
-  Result.m[3, 3] := -mat.m[3, 3];
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := -mat.m[i, j];
+    end;
+  end;
 end;
 
 class operator TMat4. -(const mat: TMat4; x: single): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] - x;
-  Result.m[0, 1] := mat.m[0, 1] - x;
-  Result.m[0, 2] := mat.m[0, 2] - x;
-  Result.m[0, 3] := mat.m[0, 3] - x;
-  Result.m[1, 0] := mat.m[1, 0] - x;
-  Result.m[1, 1] := mat.m[1, 1] - x;
-  Result.m[1, 2] := mat.m[1, 2] - x;
-  Result.m[1, 3] := mat.m[1, 3] - x;
-  Result.m[2, 0] := mat.m[2, 0] - x;
-  Result.m[2, 1] := mat.m[2, 1] - x;
-  Result.m[2, 2] := mat.m[2, 2] - x;
-  Result.m[2, 3] := mat.m[2, 3] - x;
-  Result.m[3, 0] := mat.m[3, 0] - x;
-  Result.m[3, 1] := mat.m[3, 1] - x;
-  Result.m[3, 2] := mat.m[3, 2] - x;
-  Result.m[3, 3] := mat.m[3, 3] - x;
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := mat.m[i, j] - x;
+    end;
+  end;
 end;
 
 class operator TMat4. / (const mat: TMat4; x: single): TMat4;
+var
+  i, j: integer;
 begin
-  Result.m[0, 0] := mat.m[0, 0] / x;
-  Result.m[0, 1] := mat.m[0, 1] / x;
-  Result.m[0, 2] := mat.m[0, 2] / x;
-  Result.m[0, 3] := mat.m[0, 3] / x;
-  Result.m[1, 0] := mat.m[1, 0] / x;
-  Result.m[1, 1] := mat.m[1, 1] / x;
-  Result.m[1, 2] := mat.m[1, 2] / x;
-  Result.m[1, 3] := mat.m[1, 3] / x;
-  Result.m[2, 0] := mat.m[2, 0] / x;
-  Result.m[2, 1] := mat.m[2, 1] / x;
-  Result.m[2, 2] := mat.m[2, 2] / x;
-  Result.m[2, 3] := mat.m[2, 3] / x;
-  Result.m[3, 0] := mat.m[3, 0] / x;
-  Result.m[3, 1] := mat.m[3, 1] / x;
-  Result.m[3, 2] := mat.m[3, 2] / x;
-  Result.m[3, 3] := mat.m[3, 3] / x;
+  for i := 0 to 3 do
+  begin
+    for j := 0 to 3 do
+    begin
+      Result.m[i, j] := mat.m[i, j] / x;
+    end;
+  end;
 end;
 
 constructor TMat4.Create(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22,

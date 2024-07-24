@@ -112,12 +112,18 @@ type
 
     //═════════════════════════════════════════════════════════════════════════
 
-    class function Vec2ToString(VecName: string; vec: TVec2): string;
-    class function Vec3ToString(VecName: string; vec: TVec3): string;
-    class function Vec4ToString(VecName: string; vec: TVec4): string;
-    class function Mat3ToString(matName: string; mat: TMat3): string;
-    class function Mat4ToString(matName: string; mat: TMat4): string;
+    class function ValuePtr(const mat: TMat3): PSingle;
+    class function ValuePtr(const mat: TMat4): PSingle;
 
+    //═════════════════════════════════════════════════════════════════════════
+
+    class function ToString(vecName: string; vec: TVec2): string;
+    class function ToString(vecName: string; vec: TVec3): string;
+    class function ToString(vecName: string; vec: TVec4): string;
+    class function ToString(matName: string; mat: TMat3): string;
+    class function ToString(matName: string; mat: TMat4): string;
+
+    function ToString: String; reintroduce;
   end;
 
 implementation
@@ -231,7 +237,7 @@ begin
     0, 0, x);
 end;
 
-class function TGLM.Mat3ToString(matName: string; mat: TMat3): string;
+class function TGLM.ToString(matName: string; mat: TMat3): string;
 var
   sb: TStringBuilder;
   i, j: integer;
@@ -288,7 +294,7 @@ begin
     0, 0, 0, x);
 end;
 
-class function TGLM.Mat4ToString(matName: string; mat: TMat4): string;
+class function TGLM.ToString(matName: string; mat: TMat4): string;
 var
   sb: TStringBuilder;
   i, j: integer;
@@ -520,7 +526,17 @@ begin
     + mat.v[3];
 end;
 
-class function TGLM.Vec4ToString(VecName: string; vec: TVec4): string;
+class function TGLM.ValuePtr(const mat: TMat3): PSingle;
+begin
+  Result := @mat.m;
+end;
+
+class function TGLM.ValuePtr(const mat: TMat4): PSingle;
+begin
+  Result := @mat.m;
+end;
+
+class function TGLM.ToString(vecName: string; vec: TVec4): string;
 var
   sb: TStringBuilder;
   i: integer;
@@ -545,6 +561,14 @@ begin
   end;
 end;
 
+function TGLM.ToString: String;
+var
+  res: AnsiString;
+begin
+  res := inherited ToString;
+  Result := string(res);
+end;
+
 class function TGLM.Vec2(x, y: single): TVec2;
 begin
   Result.Create(x, y);
@@ -555,7 +579,7 @@ begin
   Result := Vec2(x, x);
 end;
 
-class function TGLM.Vec2ToString(VecName: string; vec: TVec2): string;
+class function TGLM.ToString(vecName: string; vec: TVec2): string;
 var
   sb: TStringBuilder;
   i: integer;
@@ -590,7 +614,7 @@ begin
   Result := Vec3(x, x, x);
 end;
 
-class function TGLM.Vec3ToString(VecName: string; vec: TVec3): string;
+class function TGLM.ToString(vecName: string; vec: TVec3): string;
 var
   sb: TStringBuilder;
   i: integer;

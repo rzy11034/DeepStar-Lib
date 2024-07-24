@@ -23,17 +23,17 @@ type
 
     class operator -(const vec: TVec2): TVec2;
     class operator -(const vec: TVec2; const scalar: single): TVec2;
-    class operator -(const av, bv: TVec2): TVec2;
+    class operator -(const vec1, vec2: TVec2): TVec2;
 
     class operator * (const vec: TVec2; const scalar: single): TVec2;
     class operator * (const scalar: single; const vec: TVec2): TVec2;
     class operator * (const vec1, vec2: TVec2): TVec2;
 
-    class operator / (const av: TVec2; const scalar: single): TVec2;
-    class operator / (const av, bv: TVec2): TVec2;
+    class operator / (const vec: TVec2; const scalar: single): TVec2;
+    class operator / (const vec1, vec2: TVec2): TVec2;
 
     // 向量点乘：（内积）
-    class operator ** (const av, bv: TVec2): single;
+    class operator ** (const vec1, vec2: TVec2): single;
 
     case integer of
       0: (v: array[0..1] of single);
@@ -46,21 +46,21 @@ type
     procedure Init_One;
     function Length: single;
     function SquaredLength: single;
-    class operator +(const  av: TVec3; const scalar: single): TVec3;
-    class operator +(const scalar: single; const av: TVec3): TVec3;
-    class operator +(const av, bv: TVec3): TVec3;
-    class operator -(const av: TVec3): TVec3;
-    class operator -(const av: TVec3; const scalar: single): TVec3;
-    class operator -(const av, bv: TVec3): TVec3;
-    class operator * (const av: TVec3; const scalar: single): TVec3;
-    class operator * (const scalar: single; const av: TVec3): TVec3;
-    class operator * (const av, bv: TVec3): TVec3;
-    class operator / (const av: TVec3; const scalar: single): TVec3;
-    class operator / (const av, bv: TVec3): TVec3;
+    class operator +(const  vec: TVec3; const scalar: single): TVec3;
+    class operator +(const scalar: single; const vec: TVec3): TVec3;
+    class operator +(const vec1, vec2: TVec3): TVec3;
+    class operator -(const vec: TVec3): TVec3;
+    class operator -(const vec: TVec3; const scalar: single): TVec3;
+    class operator -(const vec1, vec2: TVec3): TVec3;
+    class operator * (const vec: TVec3; const scalar: single): TVec3;
+    class operator * (const scalar: single; const vec: TVec3): TVec3;
+    class operator * (const vec1, vec2: TVec3): TVec3;
+    class operator / (const vec: TVec3; const scalar: single): TVec3;
+    class operator / (const vec1, vec2: TVec3): TVec3;
     // 向量点乘：（内积）
-    class operator ** (const av, bv: TVec3): single;
+    class operator ** (const vec1, vec2: TVec3): single;
     // 向量叉乘：（外积）
-    class operator >< (const av, bv: TVec3): TVec3;
+    class operator >< (const vec1, vec2: TVec3): TVec3;
 
     case integer of
       0: (v: array[0..2] of single);
@@ -76,23 +76,23 @@ type
     function Length: single;
     function SquaredLength: single;
 
-    class operator +(const av: TVec4; const scalar: single): TVec4;
-    class operator +(const scalar: single; const av: TVec4): TVec4;
-    class operator +(const av, bv: TVec4): TVec4;
+    class operator +(const vec: TVec4; const scalar: single): TVec4;
+    class operator +(const scalar: single; const vec: TVec4): TVec4;
+    class operator +(const vec1, vec2: TVec4): TVec4;
 
-    class operator -(const av: TVec4): TVec4;
-    class operator -(const av: TVec4; const scalar: single): TVec4;
-    class operator -(const av, bv: TVec4): TVec4;
+    class operator -(const vec: TVec4): TVec4;
+    class operator -(const vec: TVec4; const scalar: single): TVec4;
+    class operator -(const vec1, vec2: TVec4): TVec4;
 
-    class operator * (const av: TVec4; const scalar: single): TVec4;
-    class operator * (const scalar: single; const av: TVec4): TVec4;
-    class operator * (const av, bv: TVec4): TVec4;
+    class operator * (const vec: TVec4; const scalar: single): TVec4;
+    class operator * (const scalar: single; const vec: TVec4): TVec4;
+    class operator * (const vec1, vec2: TVec4): TVec4;
 
-    class operator / (const av: TVec4; const scalar: single): TVec4;
-    class operator / (const av, bv: TVec4): TVec4;
+    class operator / (const vec: TVec4; const scalar: single): TVec4;
+    class operator / (const vec1, vec2: TVec4): TVec4;
 
     // 向量点乘：（内积）
-    class operator ** (const av, bv: TVec4): single;
+    class operator ** (const vec1, vec2: TVec4): single;
 
     case integer of
       0: (v: array[0..3] of single);
@@ -128,9 +128,9 @@ begin
   end;
 end;
 
-class operator TVec2. ** (const av, bv: TVec2): single;
+class operator TVec2. ** (const vec1, vec2: TVec2): single;
 begin
-  Result := av.x * bv.x + av.y * bv.y;
+  Result := vec1.x * vec2.x + vec1.y * vec2.y;
 end;
 
 class operator TVec2. +(const vec1, vec2: TVec2): TVec2;
@@ -156,9 +156,9 @@ begin
   end;
 end;
 
-class operator TVec2. -(const av, bv: TVec2): TVec2;
+class operator TVec2. -(const vec1, vec2: TVec2): TVec2;
 begin
-  Result := av + -bv;
+  Result := vec1 + -vec2;
 end;
 
 class operator TVec2.-(const vec: TVec2): TVec2;
@@ -179,21 +179,21 @@ begin
   end;
 end;
 
-class operator TVec2. / (const av, bv: TVec2): TVec2;
+class operator TVec2. / (const vec1, vec2: TVec2): TVec2;
 begin
   with Result do
   begin
-    x := av.x / bv.x;
-    y := av.y / bv.y;
+    x := vec1.x / vec2.x;
+    y := vec1.y / vec2.y;
   end;
 end;
 
-class operator TVec2./(const av: TVec2; const scalar: single): TVec2;
+class operator TVec2./(const vec: TVec2; const scalar: single): TVec2;
 begin
   with Result do
   begin
-    x := av.x / scalar;
-    y := av.y / scalar;
+    x := vec.x / scalar;
+    y := vec.y / scalar;
   end;
 end;
 
@@ -225,113 +225,113 @@ end;
 
 { TVec3 }
 
-class operator TVec3. * (const av, bv: TVec3): TVec3;
+class operator TVec3. * (const vec1, vec2: TVec3): TVec3;
 begin
   with Result do
   begin
-    x := av.x * bv.x;
-    y := av.y * bv.y;
-    z := av.z * bv.z;
+    x := vec1.x * vec2.x;
+    y := vec1.y * vec2.y;
+    z := vec1.z * vec2.z;
   end;
 end;
 
-class operator TVec3.*(const scalar: single; const av: TVec3): TVec3;
+class operator TVec3.*(const scalar: single; const vec: TVec3): TVec3;
 begin
-  Result := av * scalar;
+  Result := vec * scalar;
 end;
 
-class operator TVec3.*(const av: TVec3; const scalar: single): TVec3;
+class operator TVec3.*(const vec: TVec3; const scalar: single): TVec3;
 begin
   with Result do
   begin
-    x := av.x * scalar;
-    y := av.y * scalar;
-    z := av.z * scalar;
+    x := vec.x * scalar;
+    y := vec.y * scalar;
+    z := vec.z * scalar;
   end;
 end;
 
-class operator TVec3. ** (const av, bv: TVec3): single;
+class operator TVec3. ** (const vec1, vec2: TVec3): single;
 begin
-  Result := av.x * bv.x + av.y * bv.y + av.z * bv.z;
+  Result := vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
 end;
 
-class operator TVec3. +(const av, bv: TVec3): TVec3;
+class operator TVec3. +(const vec1, vec2: TVec3): TVec3;
 begin
   with Result do
   begin
-    x := av.x + bv.x;
-    y := av.y + bv.y;
-    z := av.z + bv.z;
+    x := vec1.x + vec2.x;
+    y := vec1.y + vec2.y;
+    z := vec1.z + vec2.z;
   end;
 end;
 
-class operator TVec3.+(const scalar: single; const av: TVec3): TVec3;
+class operator TVec3.+(const scalar: single; const vec: TVec3): TVec3;
 begin
-  Result := av + scalar;
+  Result := vec + scalar;
 end;
 
-class operator TVec3.+(const av: TVec3; const scalar: single): TVec3;
+class operator TVec3.+(const vec: TVec3; const scalar: single): TVec3;
 begin
   with Result do
   begin
-    x := av.x + scalar;
-    y := av.y + scalar;
-    z := av.z + scalar;
+    x := vec.x + scalar;
+    y := vec.y + scalar;
+    z := vec.z + scalar;
   end;
 end;
 
-class operator TVec3. -(const av, bv: TVec3): TVec3;
+class operator TVec3. -(const vec1, vec2: TVec3): TVec3;
 begin
-  Result := av + -bv;
+  Result := vec1 + -vec2;
 end;
 
-class operator TVec3.-(const av: TVec3): TVec3;
+class operator TVec3.-(const vec: TVec3): TVec3;
 begin
   with Result do
   begin
-    x := -av.x;
-    y := -av.y;
-    z := -av.z;
+    x := -vec.x;
+    y := -vec.y;
+    z := -vec.z;
   end;
 end;
 
-class operator TVec3.-(const av: TVec3; const scalar: single): TVec3;
+class operator TVec3.-(const vec: TVec3; const scalar: single): TVec3;
 begin
   with Result do
   begin
-    x := av.x - scalar;
-    y := av.y - scalar;
-    z := av.z - scalar;
+    x := vec.x - scalar;
+    y := vec.y - scalar;
+    z := vec.z - scalar;
   end;
 end;
 
-class operator TVec3. / (const av, bv: TVec3): TVec3;
+class operator TVec3. / (const vec1, vec2: TVec3): TVec3;
 begin
   with Result do
   begin
-    x := av.x / bv.x;
-    y := av.y / bv.y;
-    z := av.z / bv.z;
+    x := vec1.x / vec2.x;
+    y := vec1.y / vec2.y;
+    z := vec1.z / vec2.z;
   end;
 end;
 
-class operator TVec3./(const av: TVec3; const scalar: single): TVec3;
+class operator TVec3./(const vec: TVec3; const scalar: single): TVec3;
 begin
   with Result do
   begin
-    x := av.x / scalar;
-    y := av.y / scalar;
-    z := av.z / scalar;
+    x := vec.x / scalar;
+    y := vec.y / scalar;
+    z := vec.z / scalar;
   end;
 end;
 
-class operator TVec3. >< (const av, bv: TVec3): TVec3;
+class operator TVec3. >< (const vec1, vec2: TVec3): TVec3;
 begin
   with Result do
   begin
-    x := av.y * bv.z - av.z * bv.y;
-    y := av.z * bv.x - av.x * bv.z;
-    z := av.x * bv.y - av.y * bv.x;
+    x := vec1.y * vec2.z - vec1.z * vec2.y;
+    y := vec1.z * vec2.x - vec1.x * vec2.z;
+    z := vec1.x * vec2.y - vec1.y * vec2.x;
   end;
 end;
 
@@ -364,117 +364,117 @@ end;
 
 { TVec4 }
 
-class operator TVec4. * (const av, bv: TVec4): TVec4;
+class operator TVec4. * (const vec1, vec2: TVec4): TVec4;
 begin
   with Result do
   begin
-    x := av.x * bv.x;
-    y := av.y * bv.y;
-    z := av.z * bv.z;
-    w := av.w * bv.w;
+    x := vec1.x * vec2.x;
+    y := vec1.y * vec2.y;
+    z := vec1.z * vec2.z;
+    w := vec1.w * vec2.w;
   end;
 end;
 
-class operator TVec4.*(const scalar: single; const av: TVec4): TVec4;
+class operator TVec4.*(const scalar: single; const vec: TVec4): TVec4;
 begin
-  Result := av * scalar;
+  Result := vec * scalar;
 end;
 
-class operator TVec4.*(const av: TVec4; const scalar: single): TVec4;
+class operator TVec4.*(const vec: TVec4; const scalar: single): TVec4;
 begin
   with Result do
   begin
-    x := av.x * scalar;
-    y := av.y * scalar;
-    z := av.z * scalar;
-    w := av.w * scalar;
+    x := vec.x * scalar;
+    y := vec.y * scalar;
+    z := vec.z * scalar;
+    w := vec.w * scalar;
   end;
 end;
 
-class operator TVec4. ** (const av, bv: TVec4): single;
+class operator TVec4. ** (const vec1, vec2: TVec4): single;
 begin
-  Result := av.x * bv.x + av.y * bv.y + av.z * bv.z + av.w * bv.w;
+  Result := vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z + vec1.w * vec2.w;
 end;
 
-class operator TVec4. +(const av, bv: TVec4): TVec4;
+class operator TVec4. +(const vec1, vec2: TVec4): TVec4;
 begin
   with Result do
   begin
-    x := av.x + bv.x;
-    y := av.y + bv.y;
-    z := av.z + bv.z;
-    w := av.w + bv.w;
+    x := vec1.x + vec2.x;
+    y := vec1.y + vec2.y;
+    z := vec1.z + vec2.z;
+    w := vec1.w + vec2.w;
   end;
 end;
 
-class operator TVec4.+(const scalar: single; const av: TVec4): TVec4;
+class operator TVec4.+(const scalar: single; const vec: TVec4): TVec4;
 begin
-  Result := av + scalar;
+  Result := vec + scalar;
 end;
 
-class operator TVec4.+(const av: TVec4; const scalar: single): TVec4;
+class operator TVec4.+(const vec: TVec4; const scalar: single): TVec4;
 begin
   with Result do
   begin
-    x := av.x + scalar;
-    y := av.y + scalar;
-    z := av.z + scalar;
-    w := av.w + scalar;
+    x := vec.x + scalar;
+    y := vec.y + scalar;
+    z := vec.z + scalar;
+    w := vec.w + scalar;
   end;
 end;
 
-class operator TVec4. -(const av, bv: TVec4): TVec4;
+class operator TVec4. -(const vec1, vec2: TVec4): TVec4;
 begin
   with Result do
   begin
-    x := av.x - bv.x;
-    y := av.y - bv.y;
-    z := av.z - bv.z;
-    w := av.w - bv.w;
+    x := vec1.x - vec2.x;
+    y := vec1.y - vec2.y;
+    z := vec1.z - vec2.z;
+    w := vec1.w - vec2.w;
   end;
 end;
 
-class operator TVec4.-(const av: TVec4): TVec4;
+class operator TVec4.-(const vec: TVec4): TVec4;
 begin
   with Result do
   begin
-    x := -av.x;
-    y := -av.y;
-    z := -av.z;
-    w := -av.w;
+    x := -vec.x;
+    y := -vec.y;
+    z := -vec.z;
+    w := -vec.w;
   end;
 end;
 
-class operator TVec4.-(const av: TVec4; const scalar: single): TVec4;
+class operator TVec4.-(const vec: TVec4; const scalar: single): TVec4;
 begin
   with Result do
   begin
-    x := av.x - scalar;
-    y := av.y - scalar;
-    z := av.z - scalar;
-    w := av.w - scalar;
+    x := vec.x - scalar;
+    y := vec.y - scalar;
+    z := vec.z - scalar;
+    w := vec.w - scalar;
   end;
 end;
 
-class operator TVec4. / (const av, bv: TVec4): TVec4;
+class operator TVec4. / (const vec1, vec2: TVec4): TVec4;
 begin
   with Result do
   begin
-    x := av.x / bv.x;
-    y := av.y / bv.y;
-    z := av.z / bv.z;
-    w := av.w / bv.w;
+    x := vec1.x / vec2.x;
+    y := vec1.y / vec2.y;
+    z := vec1.z / vec2.z;
+    w := vec1.w / vec2.w;
   end;
 end;
 
-class operator TVec4./(const av: TVec4; const scalar: single): TVec4;
+class operator TVec4./(const vec: TVec4; const scalar: single): TVec4;
 begin
   with Result do
   begin
-    x := av.x / scalar;
-    y := av.y / scalar;
-    z := av.z / scalar;
-    w := av.w / scalar;
+    x := vec.x / scalar;
+    y := vec.y / scalar;
+    z := vec.z / scalar;
+    w := vec.w / scalar;
   end;
 end;
 
