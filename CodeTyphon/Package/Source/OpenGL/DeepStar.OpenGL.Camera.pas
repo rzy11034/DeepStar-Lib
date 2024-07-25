@@ -14,8 +14,6 @@ uses
 type
   TCamera_Movement = (FORWARD, BACKWARD, LEFT, RIGHT);
 
-
-
 type
   TCamera = class(TObject)
   private const
@@ -51,6 +49,7 @@ type
     destructor Destroy; override;
 
     function GetViewMatrix: TMat4;
+
     procedure ProcessKeyboard(direction: TCamera_Movement; deltaTime: GLfloat);
     procedure ProcessMouseMovement(xoffset, yoffset: GLfloat;
       constrainPitch: GLboolean = GLboolean(true));

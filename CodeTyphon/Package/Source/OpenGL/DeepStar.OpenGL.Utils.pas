@@ -10,6 +10,7 @@ interface
 uses
   Classes,
   SysUtils,
+  System.UITypes,
   DeepStar.Utils,
   DeepStar.OpenGL.GLM,
   DeepStar.OpenGL.GLAD_GL;
@@ -55,34 +56,43 @@ type
   end;
 
 
-function RGBAToOpenGLColor(red, green, blue: GLubyte; alpha: GLubyte = 0): TArr_GLfloat4;
-function HtmlRGBToOpenGLColor(HtmlColor: GLuint): TArr_GLfloat4;
+function OpenGLColor(red, green, blue: GLubyte): TVec3;
+function RGBToOpenGLColor(c: TAlphaColor): TVec3;
+
+function OpenGLColorAlpha(red, green, blue: GLubyte; alpha: GLubyte = $FF): TVec4;
+function RGBAToOpenGLColor(c: TAlphaColor): TVec4;
 
 implementation
 
-function RGBAToOpenGLColor(red, green, blue: GLubyte; alpha: GLubyte): TArr_GLfloat4;
-var
-  res: TArr_GLfloat4;
+function OpenGLColor(red, green, blue: GLubyte): TVec3;
 begin
-  res[0] := red / 255;
-  res[1] := green / 255;
-  res[2] := blue / 255;
-  res[3] := alpha / 255;
-  Result := res;
+  Result.r := red / 255;
+  Result.g := green / 255;
+  Result.b := blue / 255;
 end;
 
-function HtmlRGBToOpenGLColor(HtmlColor: GLuint): TArr_GLfloat4;
+function RGBToOpenGLColor(c: TAlphaColor): TVec3;
 var
-  r, g, b, a: GLubyte;
-  p: PGLubyte;
+  temp: TAlphaColors;
 begin
-  p := @HtmlColor;
-  b := p[0];
-  g := p[1]; //Inc(p);
-  r := p[2]; //Inc(p);
-  a := p[3];
+  temp := TAlphaColors.Create(c);
+  Result := OpenGLColor(temp.R, temp.G, temp.B);
+end;
 
-  Result := RGBAToOpenGLColor(r, g, b, a);
+function OpenGLColorAlpha(red, green, blue: GLubyte; alpha: GLubyte): TVec4;
+begin
+  Result.r := red / 255;
+  Result.g := green / 255;
+  Result.b := blue / 255;
+  Result.a := alpha / 255;
+end;
+
+function RGBAToOpenGLColor(c: TAlphaColor): TVec4;
+var
+  temp: TAlphaColors;
+begin
+  temp := TAlphaColors.Create(c);
+  Result := OpenGLColorAlpha(temp.R, temp.G, temp.B, temp.A);
 end;
 
 { TArr_GLfloat_Helper }

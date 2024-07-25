@@ -147,7 +147,7 @@ end;
 
 class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat4;
   // NO（负一对一）：深度值在 -1 和 1 之间归一化。
-  function __frustumRH_NO__: TMat4;
+  function __FrustumRH_NO__: TMat4;
   begin
     Result.Init_Zero;
     Result.m[0, 0] := (2 * znear) / (right - left);
@@ -160,7 +160,7 @@ class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat
   end;
 
   // ZO（从零到一）：深度值在 0 和 1 之间归一化。
-  function __frustumRH_ZO__: TMat4;
+  function __FrustumRH_ZO__: TMat4;
   begin
     Result.Init_Zero;
     Result.m[0, 0] := (2 * znear) / (right - left);
@@ -173,12 +173,12 @@ class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat
   end;
 
 begin
-  Result := __frustumRH_NO__;
+  Result := __FrustumRH_NO__;
 end;
 
 class function TGLM.LookAt(const eyes, center, up: TVec3): TMat4;
   // 左手系
-  function __lookAtLH__: TMat4;
+  function __LookAtLH__: TMat4;
   var
     f, s, u: TVec3;
   begin
@@ -202,7 +202,7 @@ class function TGLM.LookAt(const eyes, center, up: TVec3): TMat4;
   end;
 
   // 右手系
-  function __lookAtRH__: TMat4;
+  function __LookAtRH__: TMat4;
   var
     f, s, u: TVec3;
   begin
@@ -226,7 +226,7 @@ class function TGLM.LookAt(const eyes, center, up: TVec3): TMat4;
   end;
 
 begin
-  Result := __lookAtRH__;
+  Result := __LookAtRH__;
 end;
 
 class function TGLM.Mat3(x: single): TMat3;
@@ -363,7 +363,7 @@ end;
 
 class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
   // NO（负一对一）：深度值在 -1 和 1 之间归一化。
-  function __orthoRH_NO__: TMat4;
+  function __OrthoRH_NO__: TMat4;
   begin
     Result.Init_Identity;
     Result.m[0, 0] := 2 / (right - left);
@@ -375,7 +375,7 @@ class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
   end;
 
   // ZO（从零到一）：深度值在 0 和 1 之间归一化。
-  function __orthoRH_ZO__: TMat4;
+  function __OrthoRH_ZO__: TMat4;
   begin
     Result.Init_Identity;
     Result.m[0, 0] := 2 / (right - left);
@@ -387,7 +387,7 @@ class function TGLM.Ortho(left, right, bottom, top, znear, zfar: single): TMat4;
   end;
 
 begin
-  Result := __orthoRH_NO__;
+  Result := __OrthoRH_NO__;
 end;
 
 class function TGLM.Ortho2D(left, right, bottom, top: single): TMat4;
@@ -402,7 +402,7 @@ end;
 
 class function TGLM.Perspective(fovy, aspect, znear, zfar: single): TMat4;
   // NO（负一对一）：深度值在 -1 和 1 之间归一化。
-  function __perspectiveRH_NO__: TMat4;
+  function __PerspectiveRH_NO__: TMat4;
   var
     tanHalfFovy: single;
   begin
@@ -417,7 +417,7 @@ class function TGLM.Perspective(fovy, aspect, znear, zfar: single): TMat4;
   end;
 
   // ZO（从零到一）：深度值在 0 和 1 之间归一化。
-  function __perspectiveRH_ZO__: TMat4;
+  function __PerspectiveRH_ZO__: TMat4;
   var
     tanHalfFovy: single;
   begin
@@ -432,7 +432,7 @@ class function TGLM.Perspective(fovy, aspect, znear, zfar: single): TMat4;
   end;
 
 begin
-  Result := __perspectiveRH_NO__;
+  Result := __PerspectiveRH_NO__;
 end;
 
 class function TGLM.Radians(deg: single): single;
@@ -441,7 +441,7 @@ begin
 end;
 
 class function TGLM.Rotate(mat: TMat4; angle: single; vec: TVec3): TMat4;
-  function __rotate__: TMat4;
+  function __Rotate__: TMat4;
   var
     a, c, s: single;
     axis, temp: TVec3;
@@ -474,7 +474,7 @@ class function TGLM.Rotate(mat: TMat4; angle: single; vec: TVec3): TMat4;
     Result.v[3] := mat.v[3];
   end;
 
-  function __rotate_slow__: TMat4;
+  function __Rotate_slow__: TMat4;
   var
     a, c, s: single;
     axis: TVec3;
@@ -506,7 +506,7 @@ class function TGLM.Rotate(mat: TMat4; angle: single; vec: TVec3): TMat4;
   end;
 
 begin
-  Result := __rotate__;
+  Result := __Rotate__;
 end;
 
 class function TGLM.Scale(mat: TMat4; vec: TVec3): TMat4;

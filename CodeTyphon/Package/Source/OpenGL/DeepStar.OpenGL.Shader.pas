@@ -40,7 +40,6 @@ type
     procedure SetUniformFloat(uniform: PGLchar; Value: TVec4);
 
     procedure SetUniformMatrix4fv(uniform: PGLchar; const mat: TMat4);
-    procedure SetUniformMatrix4fv(uniform: PGLchar; ptr: PSingle);
 
     property ID: GLuint read __GetId;
   end;
@@ -166,18 +165,13 @@ begin
   end;
 end;
 
-procedure TShaderProgram.SetUniformMatrix4fv(uniform: PGLchar; ptr: PSingle);
+procedure TShaderProgram.SetUniformMatrix4fv(uniform: PGLchar; const mat: TMat4);
 var
   uniformLocation: GLint;
 begin
   uniformLocation := GLint(0);
   uniformLocation := glGetUniformLocation(_id, uniform);
-  glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, ptr);
-end;
-
-procedure TShaderProgram.SetUniformMatrix4fv(uniform: PGLchar; const mat: TMat4);
-begin
-  Self.SetUniformMatrix4fv(uniform, TGLM.ValuePtr(mat));
+  glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, TGLM.ValuePtr(mat));
 end;
 
 procedure TShaderProgram.UseProgram;
