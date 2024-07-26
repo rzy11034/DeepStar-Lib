@@ -36,7 +36,9 @@ type
     _right: TVec3;
     _worldUp: TVec3;
 
+    function __GetPosition: TVec3;
     function __GetZoom: GLfloat;
+    procedure __SetPosition(const value: TVec3);
     procedure __SetZoom(const value: GLfloat);
     procedure __UpdateCameraVectors;
 
@@ -56,6 +58,7 @@ type
     procedure ProcessMouseScroll(yoffset: GLfloat);
 
     property Zoom: GLfloat read __GetZoom write __SetZoom;
+    property Position: TVec3 read __GetPosition write __SetPosition;
   end;
 
 
@@ -146,9 +149,19 @@ begin
     _zoom := 45;
 end;
 
+function TCamera.__GetPosition: TVec3;
+begin
+  Result := _position;
+end;
+
 function TCamera.__GetZoom: GLfloat;
 begin
   Result := _zoom;
+end;
+
+procedure TCamera.__SetPosition(const value: TVec3);
+begin
+  _position := value;
 end;
 
 procedure TCamera.__SetZoom(const value: GLfloat);
