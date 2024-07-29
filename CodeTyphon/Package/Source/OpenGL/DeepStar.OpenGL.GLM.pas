@@ -64,6 +64,19 @@ type
       x30, x31, x32, x33: single): TMat4;
 
     //═════════════════════════════════════════════════════════════════════════
+    // Math
+
+    // 角度转弧度值
+    class function Radians(deg: single): single;
+
+    // 弧度转角度值
+    class function Degrees(Rad: single): single;
+
+    //═════════════════════════════════════════════════════════════════════════
+    // TVec2
+
+    //═════════════════════════════════════════════════════════════════════════
+    // TVec3
 
     // TVec3 向量归一化
     class function Normalize(vec: TVec3): TVec3;
@@ -74,20 +87,17 @@ type
     // 向量叉乘：（外积）
     class function Cross(a, b: TVec3): TVec3;
 
+    // 绕X轴旋转一个三维向量。
+    class function RotateX(vec: TVec3; angle: single): TVec3;
+    // 绕Y轴旋转一个三维向量。
+    class function RotateY(vec: TVec3; angle: single): TVec3;
+    // 绕Z轴旋转一个三维向量。
+    class function RotateZ(vec: TVec3; angle: single): TVec3;
+
     //═════════════════════════════════════════════════════════════════════════
+    // TMat3
 
-    // 角度转弧度值
-    class function Radians(deg: single): single;
-
-    // 弧度转角度值
-    class function Degrees(Rad: single): single;
-
-    //═════════════════════════════════════════════════════════════════════════
-    // TVec3
-
-    class function RataleX(vec: TVec3; angle: single): TVec3;
-    class function RataleY(vec: TVec3; angle: single): TVec3;
-    class function RataleZ(vec: TVec3; angle: single): TVec3;
+     //class function Rotate(mat: TMat3; angle: single): TMat3;
 
     //═════════════════════════════════════════════════════════════════════════
     // TMat4
@@ -119,7 +129,9 @@ type
 
     //═════════════════════════════════════════════════════════════════════════
 
+    // 返回 mat3x3 的指针
     class function ValuePtr(const mat: TMat3): PSingle;
+    // 返回 mat4x4 的指针
     class function ValuePtr(const mat: TMat4): PSingle;
 
     //═════════════════════════════════════════════════════════════════════════
@@ -447,7 +459,7 @@ begin
   Result := DegToRad(deg);
 end;
 
-class function TGLM.RataleX(vec: TVec3; angle: single): TVec3;
+class function TGLM.RotateX(vec: TVec3; angle: single): TVec3;
 var
   sin_, cos_: single;
 begin
@@ -460,20 +472,20 @@ begin
   Result.z := vec.y * sin_ + vec.z * cos_;
 end;
 
-class function TGLM.RataleY(vec: TVec3; angle: single): TVec3;
+class function TGLM.RotateY(vec: TVec3; angle: single): TVec3;
 var
-  Cos_, Sin_: single;
+  cos_, sin_: single;
 begin
   Result := vec;
 
-  Cos_ := single(cos_(angle));
-  Sin_ := single(sin_(angle));
+  cos_ := single(Cos(angle));
+  sin_ := single(Sin(angle));
 
   Result.x := vec.x * cos_ + vec.z * sin_;
   Result.z := -vec.x * sin_ + vec.z * cos_;
 end;
 
-class function TGLM.RataleZ(vec: TVec3; angle: single): TVec3;
+class function TGLM.RotateZ(vec: TVec3; angle: single): TVec3;
 var
   cos_, sin_: single;
 begin
