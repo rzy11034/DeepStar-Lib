@@ -142,7 +142,7 @@ end;
 
 procedure TShaderProgram.SetUniformFloat(uniform: PGLchar; Value: TVec4);
 begin
-  SetUniformFloat(uniform, [Value.x, Value.y, Value.z, Value.w]);
+  Self.SetUniformFloat(uniform, [Value.x, Value.y, Value.z, Value.w]);
 end;
 
 procedure TShaderProgram.SetUniformInt(uniform: PGLchar; Value: TArr_GLint);

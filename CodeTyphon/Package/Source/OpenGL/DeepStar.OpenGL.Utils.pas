@@ -22,6 +22,8 @@ const
   SIZE_I = SizeOf(GLint);
 
 type
+  float = single;
+
   TArr_GLboolean = array of GLboolean;
   TArr_GLfloat = array of GLfloat;
   TArr_GLint = array of GLint;

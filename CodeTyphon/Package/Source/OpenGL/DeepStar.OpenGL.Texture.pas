@@ -8,6 +8,7 @@ interface
 uses
   Classes,
   SysUtils,
+  System.UITypes,
   FpImage,
   FPReadJPEG,
   FPReadPNG,
@@ -44,9 +45,8 @@ var
   img: TFPMemoryImage;
   readerClass: TFPCustomImageReaderClass;
   reader: TFPCustomImageReader;
-  y: GLint;
-  x: integer;
   c: TFPColor;
+  y, x: integer;
 begin
   inherited Create;
 
