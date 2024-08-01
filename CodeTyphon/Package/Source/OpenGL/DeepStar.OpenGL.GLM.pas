@@ -75,6 +75,8 @@ type
     //═════════════════════════════════════════════════════════════════════════
     // TVec2
 
+    class function Rotate(vec: TVec2; angle:single; r: single): TVec2;
+
     //═════════════════════════════════════════════════════════════════════════
     // TVec3
 
@@ -565,6 +567,12 @@ class function TGLM.Rotate(mat: TMat4; angle: single; vec: TVec3): TMat4;
 
 begin
   Result := __Rotate__;
+end;
+
+class function TGLM.Rotate(vec: TVec2; angle: single; r: single): TVec2;
+begin
+  Result.X := Round(r * cos(angle) + vec.X);
+  Result.Y := Round(r * sin(angle) + vec.Y);;
 end;
 
 class function TGLM.Scale(mat: TMat4; vec: TVec3): TMat4;
