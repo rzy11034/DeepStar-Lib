@@ -12465,7 +12465,7 @@ begin
               exit(true);
       extensions := terminator;
   end;
-end;  
+end;
 
 procedure load_GL_VERSION_1_0(load: TLoadProc);
 begin
@@ -18382,7 +18382,7 @@ function gladLoadGL(load: TLoadProc): boolean;
 var
   glVersion: PAnsiChar;
 begin
-  glGetString := load('glGetString');  
+  glGetString := load('glGetString');
   if not Assigned(glGetString) then exit(false);
   glVersion := PAnsiChar( glGetString(GL_VERSION) );
   if glVersion = nil then exit(false);
@@ -19188,7 +19188,7 @@ function gladLoadGLES1(load: TLoadProc): boolean;
 var
   glVersion: PAnsiChar;
 begin
-  glGetString := load('glGetString');  
+  glGetString := load('glGetString');
   if not Assigned(glGetString) then exit(false);
   glVersion := PAnsiChar( glGetString(GL_VERSION) );
   if glVersion = nil then exit(false);
@@ -20257,7 +20257,7 @@ function gladLoadGLES2(load: TLoadProc): boolean;
 var
   glVersion: PAnsiChar;
 begin
-  glGetString := load('glGetString');  
+  glGetString := load('glGetString');
   if not Assigned(glGetString) then exit(false);
   glVersion := PAnsiChar( glGetString(GL_VERSION) );
   if glVersion = nil then exit(false);
@@ -20560,7 +20560,7 @@ function gladLoadGLSC2(load: TLoadProc): boolean;
 var
   glVersion: PAnsiChar;
 begin
-  glGetString := load('glGetString');  
+  glGetString := load('glGetString');
   if not Assigned(glGetString) then exit(false);
   glVersion := PAnsiChar( glGetString(GL_VERSION) );
   if glVersion = nil then exit(false);

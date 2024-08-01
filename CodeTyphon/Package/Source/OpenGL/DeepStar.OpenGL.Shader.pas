@@ -33,13 +33,13 @@ type
     procedure UseProgram;
 
     // uniform工具函数
-    procedure SetUniformInt(uniform: PGLchar; Value: TArr_GLint);
+    procedure SetUniformInt(uniform: string; Value: TArr_GLint);
 
-    procedure SetUniformFloat(uniform: PGLchar; Value: TArr_GLfloat);
-    procedure SetUniformFloat(uniform: PGLchar; Value: TVec3);
-    procedure SetUniformFloat(uniform: PGLchar; Value: TVec4);
+    procedure SetUniformFloat(uniform: string; Value: TArr_GLfloat);
+    procedure SetUniformFloat(uniform: string; Value: TVec3);
+    procedure SetUniformFloat(uniform: string; Value: TVec4);
 
-    procedure SetUniformMatrix4fv(uniform: PGLchar; const mat: TMat4);
+    procedure SetUniformMatrix4fv(uniform: string; const mat: TMat4);
 
     property ID: GLuint read __GetId;
   end;
@@ -73,8 +73,8 @@ begin
     except
       raise Exception.Create('Vertex File load Error!');
     end;
-    vertexStr := PGLchar('');
-    vertexStr := PGLchar(sl.Text);
+    vertexStr := string('');
+    vertexStr := string(sl.Text).ToPAnsiChar;
 
     sl.Clear;
 
@@ -83,8 +83,8 @@ begin
     except
       raise Exception.Create('Fragment File load Error!');
     end;
-    fragmentStr := PGLchar('');
-    fragmentStr := PGLchar(sl.Text);
+    fragmentStr := string('');
+    fragmentStr := string(sl.Text).ToPAnsiChar;
   finally
     sl.Free;
   end;
@@ -115,12 +115,12 @@ begin
   _id := shaderProgram;
 end;
 
-procedure TShaderProgram.SetUniformFloat(uniform: PGLchar; Value: TArr_GLfloat);
+procedure TShaderProgram.SetUniformFloat(uniform: string; Value: TArr_GLfloat);
 var
   uniformLocation, len: GLint;
 begin
   uniformLocation := GLint(0);
-  uniformLocation := glGetUniformLocation(_id, uniform);
+  uniformLocation := glGetUniformLocation(_id, uniform.ToPAnsiChar);
 
   len := GLint(0);
   len := Length(Value);
@@ -135,22 +135,22 @@ begin
   end;
 end;
 
-procedure TShaderProgram.SetUniformFloat(uniform: PGLchar; Value: TVec3);
+procedure TShaderProgram.SetUniformFloat(uniform: string; Value: TVec3);
 begin
   SetUniformFloat(uniform, [Value.x, Value.y, Value.z]);
 end;
 
-procedure TShaderProgram.SetUniformFloat(uniform: PGLchar; Value: TVec4);
+procedure TShaderProgram.SetUniformFloat(uniform: string; Value: TVec4);
 begin
   Self.SetUniformFloat(uniform, [Value.x, Value.y, Value.z, Value.w]);
 end;
 
-procedure TShaderProgram.SetUniformInt(uniform: PGLchar; Value: TArr_GLint);
+procedure TShaderProgram.SetUniformInt(uniform: string; Value: TArr_GLint);
 var
   uniformLocation, len: GLint;
 begin
   uniformLocation := GLint(0);
-  uniformLocation := glGetUniformLocation(_id, uniform);
+  uniformLocation := glGetUniformLocation(_id, uniform.ToPAnsiChar);
 
   len := GLint(0);
   len := Length(Value);
@@ -165,12 +165,12 @@ begin
   end;
 end;
 
-procedure TShaderProgram.SetUniformMatrix4fv(uniform: PGLchar; const mat: TMat4);
+procedure TShaderProgram.SetUniformMatrix4fv(uniform: string; const mat: TMat4);
 var
   uniformLocation: GLint;
 begin
   uniformLocation := GLint(0);
-  uniformLocation := glGetUniformLocation(_id, uniform);
+  uniformLocation := glGetUniformLocation(_id, uniform.ToPAnsiChar);
   glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, TGLM.ValuePtr(mat));
 end;
 
@@ -200,7 +200,7 @@ begin
       if not success.ToBoolean then
       begin
         glGetShaderInfoLog(shaderID, 512, nil, @infoLog[0]);
-        WriteLn('ERROR::SHADER::' + s + '::COMPILATION_FAILED' + LE, PGLchar(infoLog));
+        WriteLn('ERROR::SHADER::' + s + '::COMPILATION_FAILED' + LE, string(infoLog));
       end;
     end;
 
