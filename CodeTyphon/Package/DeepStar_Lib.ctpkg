@@ -160,6 +160,7 @@
       </Item>
       <Item>
         <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
+        <Type Value="Virtual Unit"/>
         <UnitName Value="DeepStar.SDL2.Texture"/>
       </Item>
       <Item>
@@ -340,6 +341,10 @@
         <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiversion.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.Mesh.pas"/>
+        <UnitName Value="DeepStar.OpenGL.Mesh"/>
       </Item>
     </Files>
     <RequiredPkgs>

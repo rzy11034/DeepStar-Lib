@@ -8,7 +8,7 @@ type
   PChar = ^UChar;
   UChar = unicodechar;
 
-  TUStringHelper = type Helper(TUnicodeStringHelper) for UString
+  TUnicodeStringHelper = type Helper(SysUtils.TUnicodeStringHelper) for UString
   private type
     TArr_chr = array of UChar;
     TArr_str = array of UString;
@@ -38,27 +38,32 @@ type
     property Length: integer read __getLength;
   end;
 
+  TStringHelper = type Helper(SysUtils.TStringHelper) for AnsiString
+  public
+    function ToUString: UnicodeString;
+  end;
+
   TStringBuilder = TUnicodeStringBuilder;
 
   {$Else}
 
-constructor TUStringHelper.Create(const chrArr: TArr_chr);
+constructor TUnicodeStringHelper.Create(const chrArr: TArr_chr);
 begin
   Create(chrArr, 0, System.Length(chrArr));
 end;
 
-constructor TUStringHelper.Create(const chrArr: TArr_chr; startIndex, len: integer);
+constructor TUnicodeStringHelper.Create(const chrArr: TArr_chr; startIndex, len: integer);
 begin
   SetLength(Self, Len);
   Move(chrArr[StartIndex], PChar(PChar(Self))^, Len * SizeOf(UChar));
 end;
 
-procedure TUStringHelper.Format(const args: array of const);
+procedure TUnicodeStringHelper.Format(const args: array of const);
 begin
   Self := string(SysUtils.Format(Self.ToAnsiString, Args));
 end;
 
-function TUStringHelper.PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
+function TUnicodeStringHelper.PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
 var
   left: TArr_chr;
   l, i: integer;
@@ -77,7 +82,7 @@ begin
   end;
 end;
 
-function TUStringHelper.ReverseString: UString;
+function TUnicodeStringHelper.ReverseString: UString;
 var
   i, j: integer;
 begin
@@ -92,27 +97,27 @@ begin
   end;
 end;
 
-function TUStringHelper.Split(const Separators: TArr_chr): TArr_str;
+function TUnicodeStringHelper.Split(const Separators: TArr_chr): TArr_str;
 begin
   Result := inherited Split(Separators);
 end;
 
-function TUStringHelper.Substring(index: integer): UString;
+function TUnicodeStringHelper.Substring(index: integer): UString;
 begin
   Result := System.Copy(Self, index + 1, Self.Length - index);
 end;
 
-function TUStringHelper.Substring(index: integer; len: integer): UString;
+function TUnicodeStringHelper.Substring(index: integer; len: integer): UString;
 begin
   Result := System.Copy(Self, index + 1, len);
 end;
 
-function TUStringHelper.ToAnsiString: AnsiString;
+function TUnicodeStringHelper.ToAnsiString: AnsiString;
 begin
   Result := AnsiString(Self);
 end;
 
-function TUStringHelper.ToCharArray: TArr_chr;
+function TUnicodeStringHelper.ToCharArray: TArr_chr;
 var
   chrArr: TArr_chr;
   c: UChar;
@@ -130,34 +135,41 @@ begin
   Result := chrArr;
 end;
 
-function TUStringHelper.ToInteger: integer;
+function TUnicodeStringHelper.ToInteger: integer;
 begin
   Result := inherited ToInteger;
 end;
 
-function TUStringHelper.ToPAnsiChar: PAnsiChar;
+function TUnicodeStringHelper.ToPAnsiChar: PAnsiChar;
 begin
   Result := PAnsiChar(AnsiString(Self));
 end;
 
-function TUStringHelper.Trim: UString;
+function TUnicodeStringHelper.Trim: UString;
 begin
   Result := SysUtils.Trim(Self);
 end;
 
-function TUStringHelper.__getChar(index: integer): UChar;
+function TUnicodeStringHelper.__getChar(index: integer): UChar;
 begin
   Result := Self[index + 1];
 end;
 
-function TUStringHelper.__getLength: integer;
+function TUnicodeStringHelper.__getLength: integer;
 begin
   Result := System.Length(Self);
 end;
 
-procedure TUStringHelper.__setChar(index: integer; const newChars: UChar);
+procedure TUnicodeStringHelper.__setChar(index: integer; const newChars: UChar);
 begin
   Self[index + 1] := newChars;
+end;
+
+{ TStringHelper }
+
+function TStringHelper.ToUString: UnicodeString;
+begin
+  Result := UnicodeString(Self);
 end;
 
 {$EndIf}

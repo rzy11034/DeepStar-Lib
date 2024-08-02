@@ -58,7 +58,7 @@ implementation
 {$Include Utils.Common.inc}
 {$Include Utils.Math.inc}
 {$Include Utils.ArrayUtils.inc}
-{$Include Utils.UnicodeStringHelper.inc}
+{$Include Utils.StringHelper.inc}
 
 {$Include Utils.Object.inc}
 

@@ -1,4 +1,4 @@
-//from light.h
+﻿//from light.h
 
 // ---------------------------------------------------------------------------
   {** Enumerates all supported types of light sources. *}

@@ -28,8 +28,10 @@ type
     function __GetWidth: GLint;
 
   public
-    constructor Create(const fileName: string);
+    constructor Create;
     destructor Destroy; override;
+
+    procedure LoadFormFile(const fileName: string);
 
     property Width: GLint read __GetWidth;
     property Height: GLint read __GetHeight;
@@ -40,22 +42,33 @@ implementation
 
 { TTexture }
 
-constructor TTexture.Create(const fileName: string);
+constructor TTexture.Create;
+begin
+  inherited Create;
+end;
+
+destructor TTexture.Destroy;
+begin
+  inherited Destroy;
+end;
+
+procedure TTexture.LoadFormFile(const fileName: string);
 var
   img: TFPMemoryImage;
   readerClass: TFPCustomImageReaderClass;
   reader: TFPCustomImageReader;
   c: TFPColor;
   y, x: integer;
+  fn: AnsiString;
 begin
-  inherited Create;
+  fn := CrossFixFileName(fileName).ToAnsiString;
 
   img := TFPMemoryImage.Create(0, 0);
-  readerClass := img.FindReaderFromFileName(CrossFixFileName(fileName).ToAnsiString);
-  reader := readerClass.Create;
+  readerClass := img.FindReaderFromFileName(fn);
 
+  reader := readerClass.Create;
   try
-    img.LoadFromFile(CrossFixFileName(fileName).ToAnsiString, reader);
+    img.LoadFromFile(fn, reader);
 
     _width := img.Width;
     _height := img.Height;
@@ -73,11 +86,6 @@ begin
     reader.Free;
     img.Free;
   end;
-end;
-
-destructor TTexture.Destroy;
-begin
-  inherited Destroy;
 end;
 
 function TTexture.__FPColorToColor(const Value: TFPColor): GLuint;

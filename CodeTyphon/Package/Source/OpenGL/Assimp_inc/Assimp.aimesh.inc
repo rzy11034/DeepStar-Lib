@@ -1,4 +1,4 @@
-//from mesh.h
+﻿//from mesh.h
 
 // ---------------------------------------------------------------------------
 // Limits. These values are required to match the settings Assimp was

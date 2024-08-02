@@ -1,4 +1,4 @@
-//from anim.h
+﻿//from anim.h
 
 // ---------------------------------------------------------------------------
   {** A time-value pair specifying a certain 3D vector for the given time. *}

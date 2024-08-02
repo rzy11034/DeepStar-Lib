@@ -1,4 +1,4 @@
-//from material.h
+﻿//from material.h
 
 // Name for default materials (2nd is used if meshes have UV coords)
 const

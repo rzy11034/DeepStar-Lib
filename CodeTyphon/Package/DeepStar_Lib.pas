@@ -15,7 +15,7 @@ uses
   DeepStar.DSA.Strings.KMP, DeepStar.Utils, DeepStar.DSA.Hash.HashMap, DeepStar.DSA.Linear.ArrayList, DeepStar.OpenGL.GLAD_GL, DeepStar.OpenGL.GLFW, 
   DeepStar.OpenGL.GLM, DeepStar.OpenGL.Matrix, DeepStar.OpenGL.Vector, DeepStar.OpenGL.Camera, DeepStar.OpenGL.Shader, DeepStar.OpenGL.Texture, 
   DeepStar.OpenGL.Utils, DeepStar.SDL2.Timer, DeepStar.SDL2.Utils, DeepStar.SDL2.Windows, DeepStar.SDL2.Texture, DeepStar.OpenGL.Assimp, 
-  TyphonPackageIntf;
+  DeepStar.OpenGL.Mesh, TyphonPackageIntf;
 
 implementation
 

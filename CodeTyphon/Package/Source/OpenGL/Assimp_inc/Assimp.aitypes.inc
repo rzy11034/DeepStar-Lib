@@ -1,4 +1,4 @@
-//from types.h
+﻿//from types.h
 
 {** Maximum dimension for strings, ASSIMP strings are zero terminated. *}
 const

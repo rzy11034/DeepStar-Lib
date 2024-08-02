@@ -1,4 +1,4 @@
-//from cimport.h
+﻿//from cimport.h
 
 type
   TaiLogStreamCallback = procedure(const a: PChar {* message *}; b: PChar {* user *});

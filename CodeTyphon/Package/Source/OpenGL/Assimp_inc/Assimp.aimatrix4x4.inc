@@ -1,4 +1,4 @@
-//from matrix4x4.h
+﻿//from matrix4x4.h
 type
   TaiMatrix4x4 = packed record
 	a1, a2, a3, a4: Single;

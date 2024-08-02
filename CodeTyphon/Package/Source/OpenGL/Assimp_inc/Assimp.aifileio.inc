@@ -1,4 +1,4 @@
-//from fileio.inc
+﻿//from fileio.inc
 
 type
   PaiFileIO = ^TaiFileIO;

@@ -1,4 +1,4 @@
-//from importerdesc.h
+﻿//from importerdesc.h
 
   {** Mixed set of flags for #aiImporterDesc, indicating some features
     *  common to many importers*}

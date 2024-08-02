@@ -1,4 +1,4 @@
-//from vector2.h
+﻿//from vector2.h
 type
   TaiVector2D = packed record
     x,y: Single;

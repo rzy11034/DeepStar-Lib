@@ -1,4 +1,4 @@
-//from vector3.h
+﻿//from vector3.h
 
 type
   TaiVector3D = packed record

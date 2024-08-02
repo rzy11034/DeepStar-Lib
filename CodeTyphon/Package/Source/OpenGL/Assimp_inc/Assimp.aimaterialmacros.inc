@@ -1,4 +1,4 @@
-//The macros are now a big enumeration
+﻿//The macros are now a big enumeration
 //handled by the implementation of aiGetMaterial*
 
 const

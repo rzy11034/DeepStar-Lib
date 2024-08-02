@@ -1,4 +1,4 @@
-unit DeepStar.OpenGL.Assimp;
+﻿unit DeepStar.OpenGL.Assimp;
 
 {*
   ---------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-//from color4.h
+﻿//from color4.h
 type
   TaiColor4D = packed record
     r, g, b, a: Single;

@@ -1,4 +1,4 @@
-//from version.h
+﻿//from version.h
 // ---------------------------------------------------------------------------
   {** @brief Returns a string with legal copyright and licensing information 
    *  about Assimp. The string may include multiple lines.
