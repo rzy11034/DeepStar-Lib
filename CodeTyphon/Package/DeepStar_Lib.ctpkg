@@ -4,11 +4,12 @@
     <PathDelim Value="\"/>
     <Name Value="DeepStar_Lib"/>
     <Type Value="RunAndDesignTime"/>
+    <Author Value="Rzy11034"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="Source\Utils"/>
+        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp;Source\OpenGL\Assimp_inc;Source\Utils\Utils_inc"/>
         <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
@@ -23,7 +24,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
-    <Version Major="1" Minor="1"/>
+    <Version Major="1" Minor="2"/>
     <Files>
       <Item>
         <Filename Value="Source\DSA\DeepStar.DSA.Interfaces.pas"/>
@@ -162,57 +163,183 @@
         <UnitName Value="DeepStar.SDL2.Texture"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Arrays.inc"/>
-        <Type Value="Include"/>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.Assimp.pas"/>
+        <UnitName Value="DeepStar.OpenGL.Assimp"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.ArrayUtils.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Common.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Heaps.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Lists.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Maps.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Math.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\DeepStar.Object.inc"/>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Arrays.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.PriorityQueues.inc"/>
+        <Filename Value="Source\Utils\Utils_inc\Utils.ArrayUtils.inc"/>
         <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Queues.inc"/>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Common.inc"/>
         <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Sets.inc"/>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Heaps.inc"/>
         <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.Stacks.inc"/>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Lists.inc"/>
         <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\DeepStar.UnicodeStringHelper.inc"/>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Maps.inc"/>
         <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Math.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Object.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.PriorityQueues.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Queues.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Sets.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Stacks.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.StringHelper.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aianim.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aicamera.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aicolor4.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiexport.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aifileio.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiimport.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiimporterdesc.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.ailight.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aimaterial.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aimaterialmacros.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aimatrix3x3.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aimatrix4x4.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aimesh.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aimetadata.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aipostprocess.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiquaternion.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiscene.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aitexture.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aitypes.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aivector2.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aivector3.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aiversion.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
     </Files>
     <RequiredPkgs>

@@ -30,36 +30,36 @@ uses
   DeepStar.DSA.Tree.PriorityQueue;
 
   // object 根节点
-  {$Include DeepStar.Object.inc}
+  {$Include Utils.Object.inc}
 
   // 常用数组定义
-  {$Include DeepStar.Arrays.inc}
+  {$Include Utils.Arrays.inc}
 
   //═════════════════════════════════════════════════════════════════════════
-  {$Include DeepStar.UnicodeStringHelper.inc}
-  {$Include DeepStar.ArrayUtils.inc}
-  {$Include DeepStar.Math.inc}
-  {$Include DeepStar.Common.inc}
+  {$Include Utils.StringHelper.inc}
+  {$Include Utils.ArrayUtils.inc}
+  {$Include Utils.Math.inc}
+  {$Include Utils.Common.inc}
 
   //════════════════════ 常用容器类特例化定义 ═══════════════════════════════
-  {$Include DeepStar.Lists.inc}
-  {$Include DeepStar.Stacks.inc}
-  {$Include DeepStar.Queues.inc}
-  {$Include DeepStar.Maps.inc}
-  {$Include DeepStar.Sets.inc}
-  {$Include DeepStar.Heaps.inc}
-  {$Include DeepStar.PriorityQueues.inc}
+  {$Include Utils.Lists.inc}
+  {$Include Utils.Stacks.inc}
+  {$Include Utils.Queues.inc}
+  {$Include Utils.Maps.inc}
+  {$Include Utils.Sets.inc}
+  {$Include Utils.Heaps.inc}
+  {$Include Utils.PriorityQueues.inc}
   //═════════════════════════════════════════════════════════════════════════
 
   {$undef InterfacePart}
 
 implementation
 
-{$Include DeepStar.Common.inc}
-{$Include DeepStar.Math.inc}
-{$Include DeepStar.ArrayUtils.inc}
-{$Include DeepStar.UnicodeStringHelper.inc}
+{$Include Utils.Common.inc}
+{$Include Utils.Math.inc}
+{$Include Utils.ArrayUtils.inc}
+{$Include Utils.UnicodeStringHelper.inc}
 
-{$Include DeepStar.Object.inc}
+{$Include Utils.Object.inc}
 
 end.
