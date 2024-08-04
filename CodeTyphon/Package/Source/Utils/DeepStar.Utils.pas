@@ -29,6 +29,9 @@ uses
   DeepStar.DSA.Tree.Heap,
   DeepStar.DSA.Tree.PriorityQueue;
 
+  // 常用基础类型定义
+  {$Include Utils.Types.inc}
+
   // object 根节点
   {$Include Utils.Object.inc}
 

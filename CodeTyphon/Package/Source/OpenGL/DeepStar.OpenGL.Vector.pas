@@ -69,6 +69,7 @@ type
       3: (s, t, p: single);
   end;
 
+  PVec4 = ^TVec4;
   TVec4 = packed record
     constructor Create(v0, v1, v2, v3: single);
     procedure Init_Zero;

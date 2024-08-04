@@ -17,12 +17,20 @@ uses
 
 type
   // 向量
+  PVec2 = ^TVec2;
   TVec2 = DeepStar.OpenGL.Vector.TVec2;
+
+  PVec3 = ^TVec3;
   TVec3 = DeepStar.OpenGL.Vector.TVec3;
+
+  PVec4 = ^TVec4;
   TVec4 = DeepStar.OpenGL.Vector.TVec4;
 
   // 矩阵
+  PMat3 = ^TMat3;
   TMat3 = DeepStar.OpenGL.Matrix.TMat3;
+
+  PMat4 = ^TMat4;
   TMat4 = DeepStar.OpenGL.Matrix.TMat4;
 
 type

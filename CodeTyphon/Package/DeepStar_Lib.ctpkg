@@ -346,6 +346,11 @@
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.Mesh.pas"/>
         <UnitName Value="DeepStar.OpenGL.Mesh"/>
       </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.Types.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

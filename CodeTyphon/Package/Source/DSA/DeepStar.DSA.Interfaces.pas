@@ -102,7 +102,7 @@ type
     function IsEmpty: boolean;
     function Keys: specialize TImpl<K>.TArr;
     function Remove(key: K): specialize IPtrValue<V>;
-    function Values: specialize  TImpl<V>.TArr;
+    function Values: specialize TImpl<V>.TArr;
     procedure Clear;
     procedure SetItem(key: K; Value: V);
     property Item[key: K]: V read GetItem write SetItem; default;

@@ -55,7 +55,7 @@ type
   PGLFWwindow = ^GLFWwindow;
   GLFWmonitor = integer;
   PGLFWmonitor = ^GLFWmonitor;
-  PFloat = ^longint;
+  PFloat = ^Single;
 
 
 type

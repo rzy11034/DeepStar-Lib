@@ -29,6 +29,9 @@ procedure Swap(var str: string; indexA, indexB: integer);
 // 释放一个 object 对象，并设置为 nil
 procedure FreeObjAndNil(var obj: PObj);
 
+// 返回 packed record 字段列表的偏移量
+function OffsetOf(const Base; const Field): integer;
+
 {$Else}
 
 procedure DrawLineBlockEnd;
@@ -140,6 +143,11 @@ begin
   temp := obj;
   obj := nil;
   Dispose(temp, Done);
+end;
+
+function OffsetOf(const Base; const Field): integer;
+begin
+  Result := integer({%H-}UIntPtr(@Field) - {%H-}UIntPtr(@Base));
 end;
 
 procedure WriteF(const Fmt: string; const Args: array of const);
