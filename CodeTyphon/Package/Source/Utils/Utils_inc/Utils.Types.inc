@@ -3,6 +3,9 @@
   {$IfDef InterfacePart}
 
 type
+  // 字符类型
+  AChar = AnsiChar;
+
   // 有序类型
   uint = Cardinal;
 

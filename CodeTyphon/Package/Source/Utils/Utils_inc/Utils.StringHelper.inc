@@ -3,10 +3,10 @@
   {$ifdef InterfacePart}
 
 type
+  UChar = unicodechar;
+  PChar = ^UChar;
   PString = ^UString;
   UString = unicodestring;
-  PChar = ^UChar;
-  UChar = unicodechar;
 
   TUnicodeStringHelper = type Helper(SysUtils.TUnicodeStringHelper) for UString
   private type
@@ -53,14 +53,27 @@ begin
 end;
 
 constructor TUnicodeStringHelper.Create(const chrArr: TArr_chr; startIndex, len: integer);
+var
+  i: Integer;
 begin
-  SetLength(Self, Len);
-  Move(chrArr[StartIndex], PChar(PChar(Self))^, Len * SizeOf(UChar));
+  if len > 0 then
+  begin
+    if len + startIndex > System.Length(chrArr) then
+      len := System.Length(chrArr) - startIndex;
+
+    Self := '';
+    SetLength(Self, len);
+
+    for i := 0 to len - 1 do
+    begin
+      Self.Chars[i] := chrArr[i + startIndex];
+    end;
+  end;
 end;
 
 procedure TUnicodeStringHelper.Format(const args: array of const);
 begin
-  Self := string(SysUtils.Format(Self.ToAnsiString, Args));
+  Self := inherited Format(args);
 end;
 
 function TUnicodeStringHelper.PadLeft(toltaWidth: integer; PaddingChar: UChar): UString;
