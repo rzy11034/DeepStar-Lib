@@ -18,7 +18,7 @@ uses
 
 type
   PTexture = ^TTexture;
-  TTexture = object(TObj)
+  TTexture = object(TObj_Base)
   private type
     float = single;
     TColors = System.UITypes.TAlphaColorRec;

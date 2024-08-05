@@ -12,7 +12,7 @@ uses
 
 type
   PClock = ^TClock;
-  TClock = object(TObj)
+  TClock = object(TObj_Base)
   private type
     TEventProc = procedure of object;
 
@@ -54,7 +54,7 @@ type
 
   PFrames = ^TFrames;
   // 获取程序每秒帧率的 Object
-  TFrames  = object(TObj)
+  TFrames  = object(TObj_Base)
   private
     _fpsTimer: TClock;
     _capTimer: TClock;

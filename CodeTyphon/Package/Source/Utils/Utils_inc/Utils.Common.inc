@@ -26,9 +26,6 @@ generic procedure Swap<T>(var a, b: T); inline;
 // 交换零基字符串中字符
 procedure Swap(var str: string; indexA, indexB: integer);
 
-// 释放一个 object 对象，并设置为 nil
-procedure FreeObjAndNil(var obj: PObj);
-
 // 返回 packed record 字段列表的偏移量
 function OffsetOf(const Base; const Field): integer;
 
@@ -134,15 +131,6 @@ begin
   temp := str.Chars[indexA];
   str.Chars[indexA] := str.Chars[indexB];
   str.Chars[indexB] := temp;
-end;
-
-procedure FreeObjAndNil(var obj: PObj);
-var
-  temp: PObj;
-begin
-  temp := obj;
-  obj := nil;
-  Dispose(temp, Done);
 end;
 
 function OffsetOf(const Base; const Field): integer;
