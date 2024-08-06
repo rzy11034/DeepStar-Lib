@@ -90,13 +90,17 @@ end;
 
 destructor TMesh.Destroy;
 begin
+  Self._vertices.Free;
+  Self._indices.Free;
+  Self._textures.Free;
+
   inherited Destroy;
 end;
 
 procedure TMesh.Draw(shader: TShaderProgram);
 var
   diffuseNr, specularNr, normalNr, heightNr: GLuint;
-  i: cardinal;
+  i: integer;
   name, number: string;
 begin
   // bind appropriate textures
@@ -105,7 +109,7 @@ begin
   normalNr   := GLuint(1);
   heightNr   := GLuint(1);
 
-  for i := cardinal(0) to _textures.Count - 1 do
+  for i := 0 to _textures.Count - 1 do
   begin
     // active proper texture unit before binding
     glActiveTexture(GL_TEXTURE0 + i);

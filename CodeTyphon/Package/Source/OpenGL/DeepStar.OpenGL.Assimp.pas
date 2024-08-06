@@ -82,7 +82,7 @@ uses
   ctypes, Classes, SysUtils;
 const
 //  {$IFDEF WINDOWS}
-    ASSIMP_LibName = 'assimp-vc142-mt.dll';
+    ASSIMP_LibName = 'assimp-vc143-mt.dll';
 //  {$ENDIF}
   {$IFDEF UNIX}
     {$IFDEF DARWIN}
