@@ -535,7 +535,7 @@ const
   aiProcessPreset_TargetRealtime_Quality = aiProcess_CalcTangentSpace or
                                            aiProcess_GenSmoothNormals or
                                            aiProcess_JoinIdenticalVertices or
-	                                   aiProcess_ImproveCacheLocality or
+	                                         aiProcess_ImproveCacheLocality or
                                            aiProcess_LimitBoneWeights or
                                            aiProcess_RemoveRedundantMaterials or
                                            aiProcess_SplitLargeMeshes or
