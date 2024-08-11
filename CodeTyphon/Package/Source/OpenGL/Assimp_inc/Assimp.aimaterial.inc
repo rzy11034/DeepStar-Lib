@@ -670,7 +670,7 @@ function aiGetMaterialString(const pMat: PaiMaterial;
 //helper for the macro type
 function aiGetMaterialString(const pMat: PaiMaterial;
                              const matkey: TaiMatKey;
-                             pOut: PaiString): TaiReturn; inline; overload;
+                             pOut: PaiString): TaiReturn; overload;
 
 // ---------------------------------------------------------------------------
   {** Get the number of textures for a particular texture type.

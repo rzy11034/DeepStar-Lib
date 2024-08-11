@@ -1,4 +1,4 @@
-﻿{ This file was automatically created by Typhon IDE. Do not edit!
+{ This file was automatically created by Typhon IDE. Do not edit!
   This source is only used to compile and install the package.
  }
 
@@ -15,7 +15,7 @@ uses
   DeepStar.DSA.Strings.KMP, DeepStar.Utils, DeepStar.DSA.Hash.HashMap, DeepStar.DSA.Linear.ArrayList, DeepStar.OpenGL.GLAD_GL, DeepStar.OpenGL.GLFW, 
   DeepStar.OpenGL.GLM, DeepStar.OpenGL.Matrix, DeepStar.OpenGL.Vector, DeepStar.OpenGL.Camera, DeepStar.OpenGL.Shader, DeepStar.OpenGL.Texture, 
   DeepStar.OpenGL.Utils, DeepStar.SDL2.Timer, DeepStar.SDL2.Utils, DeepStar.SDL2.Windows, DeepStar.SDL2.Texture, DeepStar.OpenGL.Assimp, 
-  DeepStar.OpenGL.Mesh, TyphonPackageIntf;
+  DeepStar.OpenGL.Mesh, DeepStar.OpenGL.Model, TyphonPackageIntf;
 
 implementation
 

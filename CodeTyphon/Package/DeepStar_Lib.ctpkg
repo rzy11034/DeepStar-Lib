@@ -15,7 +15,7 @@
       </SearchPaths>
       <CodeGeneration>
         <Optimizations>
-          <OptimizationLevel Value="0"/>
+          <OptimizationLevel Value="2"/>
         </Optimizations>
       </CodeGeneration>
       <Linking>
@@ -350,6 +350,10 @@
         <Filename Value="Source\Utils\Utils_inc\Utils.Types.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\OpenGL\DeepStar.OpenGL.Model.pas"/>
+        <UnitName Value="DeepStar.OpenGL.Model"/>
       </Item>
     </Files>
     <RequiredPkgs>
