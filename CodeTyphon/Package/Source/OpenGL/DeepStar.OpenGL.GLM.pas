@@ -88,6 +88,9 @@ type
     //═════════════════════════════════════════════════════════════════════════
     // TVec3
 
+    // 返回向量长度
+    class function Length(vec: TVec3): single;
+
     // TVec3 向量归一化
     class function Normalize(vec: TVec3): TVec3;
 
@@ -203,6 +206,11 @@ class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat
 
 begin
   Result := __FrustumRH_NO__;
+end;
+
+class function TGLM.Length(vec: TVec3): single;
+begin
+  Result := vec.Length;
 end;
 
 class function TGLM.LookAt(const eyes, center, up: TVec3): TMat4;
