@@ -18,11 +18,11 @@ type
   TCamera = class(TObject)
   private const
     // Default camera values
-    YAW = -90.0;
-    PITCH = 0.0;
-    SPEED = 2.5;
-    SENSITIVITY = 0.1;
-    ZOOM_ = 45.0;
+    CONST_YAW = -90.0;
+    CONST_PITCH = 0.0;
+    CONST_SPEED = 2.5;
+    CONST_SENSITIVITY = 0.1;
+    CONST_ZOOM = 45.0;
 
   private
     _yaw: GLfloat;
@@ -38,9 +38,11 @@ type
 
     function __GetFront: TVec3;
     function __GetPosition: TVec3;
+    function __GetYaw: GLfloat;
     function __GetZoom: GLfloat;
     procedure __SetFront(const value: TVec3);
     procedure __SetPosition(const value: TVec3);
+    procedure __SetYaw(const value: GLfloat);
     procedure __SetZoom(const value: GLfloat);
     procedure __UpdateCameraVectors;
 
@@ -48,8 +50,8 @@ type
     constructor Create;
     constructor Create(aPosition: TVec3);
     constructor Create(aPosition, aUp: TVec3);
-    constructor Create(posX, posY, posZ, upX, upY, upZ: GLfloat; aYaw: GLfloat = YAW;
-      aPitch: GLfloat = PITCH);
+    constructor Create(posX, posY, posZ, upX, upY, upZ: GLfloat; aYaw: GLfloat = CONST_YAW;
+      aPitch: GLfloat = CONST_PITCH);
     destructor Destroy; override;
 
     function GetViewMatrix: TMat4;
@@ -62,6 +64,7 @@ type
     property Zoom: GLfloat read __GetZoom write __SetZoom;
     property Position: TVec3 read __GetPosition write __SetPosition;
     property Front: TVec3 read __GetFront write __SetFront;
+    property Yaw: GLfloat read __GetYaw write __SetYaw;
   end;
 
 
@@ -74,9 +77,9 @@ constructor TCamera.Create(posX, posY, posZ, upX, upY, upZ: GLfloat;
 begin
   _yaw := aYaw;
   _pitch := aPitch;
-  _movementSpeed := SPEED;
-  _mouseSensitivity := SENSITIVITY;
-  _zoom := ZOOM_;
+  _movementSpeed := CONST_SPEED;
+  _mouseSensitivity := CONST_SENSITIVITY;
+  _zoom := CONST_ZOOM;
 
   _position := TGLM.Vec3(posX, posY, posZ);
   _worldUp := TGLM.Vec3(upX, upY, upZ);
@@ -162,6 +165,11 @@ begin
   Result := _position;
 end;
 
+function TCamera.__GetYaw: GLfloat;
+begin
+  Result := _yaw;
+end;
+
 function TCamera.__GetZoom: GLfloat;
 begin
   Result := _zoom;
@@ -175,6 +183,11 @@ end;
 procedure TCamera.__SetPosition(const value: TVec3);
 begin
   _position := value;
+end;
+
+procedure TCamera.__SetYaw(const value: GLfloat);
+begin
+  _yaw := value;
 end;
 
 procedure TCamera.__SetZoom(const value: GLfloat);

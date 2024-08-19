@@ -184,6 +184,7 @@ var
   success: GLint;
   infoLog: TArr_GLchar;
   s: string;
+  strInfoLog: string;
 begin
   success := GLint(false.ToInteger);
   infoLog := TArr_GLchar(nil);
@@ -200,7 +201,8 @@ begin
       if not success.ToBoolean then
       begin
         glGetShaderInfoLog(shaderID, 512, nil, @infoLog[0]);
-        WriteLn('ERROR::SHADER::' + s + '::COMPILATION_FAILED' + LE, string(infoLog));
+        strInfoLog := string(PAnsiChar(infoLog));
+        WriteLn('ERROR::SHADER::' + s + '::COMPILATION_FAILED' + LE, strInfoLog);
       end;
     end;
 
@@ -212,7 +214,8 @@ begin
       if not success.ToBoolean then
       begin
         glGetProgramInfoLog(shaderID, 512, nil, @infoLog[0]);
-        WriteLn('ERROR::SHADER::' + s + '::COMPILATION_FAILED' + LE, PAnsiChar(infoLog));
+        strInfoLog := string(PAnsiChar(infoLog));
+        WriteLn('ERROR::SHADER::' + s + '::COMPILATION_FAILED' + LE, strInfoLog);
       end;
     end;
   end;
