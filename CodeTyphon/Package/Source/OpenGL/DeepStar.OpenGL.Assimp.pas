@@ -81,9 +81,9 @@ uses
  // {$ELSE} ctypes, {$ENDIF}
   ctypes, Classes, SysUtils;
 const
-//  {$IFDEF WINDOWS}
+  {$IFDEF WINDOWS}
     ASSIMP_LibName = 'assimp-vc140-mt.dll';
-//  {$ENDIF}
+ {$ENDIF}
   {$IFDEF UNIX}
     {$IFDEF DARWIN}
       ASSIMP_LibName = 'libassimp.dylib';

@@ -85,7 +85,7 @@ begin
     _height := img.Height;
 
     SetLength(_pixels, Width * Height);
-     k := 0;
+    k := 0;
 
     if inverse then
     begin
@@ -100,7 +100,7 @@ begin
     end
     else
     begin
-      for y := 0 downto Height - 1 do
+      for y := 0 to Height - 1 do
         for x := 0 to Width - 1 do
         begin
           c := img.Colors[x, y];

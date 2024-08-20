@@ -57,6 +57,8 @@ type
     // 使用给定值沿对角线创建一个 3X3 矩阵
     class function Mat3(x: single): TMat3;
 
+    class function Mat3(mat: TMat4): TMat3;
+
     class function Mat3_Init(x00, x01, x02, x10, x11, x12, x20, x21, x22: single): TMat3;
 
     // 返回一个4X4单位矩阵(Identity Matrix)
@@ -67,6 +69,8 @@ type
 
     // 使用给定值沿对角线创建一个4X4矩阵
     class function Mat4(x: single): TMat4;
+
+    class function Mat4(mat: TMat3): TMat4;
 
     class function Mat4_Init(x00, x01, x02, x03, x10, x11, x12, x13, x20, x21, x22, x23,
       x30, x31, x32, x33: single): TMat4;
@@ -274,6 +278,14 @@ begin
     0, 0, x);
 end;
 
+class function TGLM.Mat3(mat: TMat4): TMat3;
+begin
+  Result.Create(
+    mat.m00, mat.m01, mat.m02,
+    mat.m10, mat.m11, mat.m12,
+    mat.m20, mat.m21, mat.m22);
+end;
+
 class function TGLM.ToString(matName: string; mat: TMat3): string;
 var
   sb: TStringBuilder;
@@ -329,6 +341,15 @@ begin
     0, x, 0, 0,
     0, 0, x, 0,
     0, 0, 0, x);
+end;
+
+class function TGLM.Mat4(mat: TMat3): TMat4;
+begin
+  Result.Create(
+    mat.m00, mat.m01, mat.m02, 0,
+    mat.m10, mat.m11, mat.m12, 0,
+    mat.m20, mat.m21, mat.m22, 0,
+    0,       0,       0,       1);
 end;
 
 class function TGLM.ToString(matName: string; mat: TMat4): string;
