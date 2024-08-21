@@ -14,7 +14,7 @@ uses
   DeepStar.OpenGL.Utils;
 
 type
-  TShaderTypes = (vertexObj, fragmentObj, programObj);
+  TShaderTypes = (vertexObj, fragmentObj, geometryObj, programObj);
 
   TShaderProgram = class(TObject)
   private
@@ -27,7 +27,10 @@ type
     constructor Create();
     destructor Destroy; override;
 
-    procedure LoadShaderFile(const vertexFile, fragmentFile: string);
+    procedure LoadShaderFile(
+      const vertexFile: string = '';
+      const fragmentFile: string = '';
+      const geometryFile: string = '');
 
     // 使用/激活程序
     procedure UseProgram;
@@ -60,57 +63,99 @@ begin
   inherited Destroy;
 end;
 
-procedure TShaderProgram.LoadShaderFile(const vertexFile, fragmentFile: string);
+procedure TShaderProgram.LoadShaderFile(const vertexFile: string;
+  const fragmentFile: string; const geometryFile: string);
 var
   sl: TStringList;
-  vertexStr, fragmentStr: PGLchar;
-  vertexShader, fragmentShader, shaderProgram: GLuint;
+  vertexStr, fragmentStr, geometryStr: PGLchar;
+  vertexShader, geometryShader, fragmentShader, shaderProgram: GLuint;
 begin
   sl := TStringList.Create();
   try
-    try
-      sl.LoadFromFile(CrossFixFileName(vertexFile).ToAnsiString);
-    except
-      raise Exception.Create('Vertex File load Error!');
+    // 加载顶点着色器
+    if vertexFile <> '' then
+    begin
+      try
+        sl.LoadFromFile(CrossFixFileName(vertexFile).ToAnsiString);
+      except
+        raise Exception.Create('Vertex File load Error!');
+      end;
+      vertexStr := string('');
+      vertexStr := string(sl.Text).ToPAnsiChar;
     end;
-    vertexStr := string('');
-    vertexStr := string(sl.Text).ToPAnsiChar;
 
-    sl.Clear;
+    // 加载片断着色器
+    if fragmentFile <> '' then
+    begin
+      sl.Clear;
 
-    try
-      sl.LoadFromFile(CrossFixFileName(fragmentFile).ToAnsiString);
-    except
-      raise Exception.Create('Fragment File load Error!');
+      try
+        sl.LoadFromFile(CrossFixFileName(fragmentFile).ToAnsiString);
+      except
+        raise Exception.Create('Fragment File load Error!');
+      end;
+      fragmentStr := string('');
+      fragmentStr := string(sl.Text).ToPAnsiChar;
     end;
-    fragmentStr := string('');
-    fragmentStr := string(sl.Text).ToPAnsiChar;
+
+    // 加载几何着色器
+    if geometryFile <> '' then
+    begin
+      sl.Clear;
+
+      try
+        sl.LoadFromFile(CrossFixFileName(geometryFile).ToAnsiString);
+      except
+        raise Exception.Create('Geometry File load Error!');
+      end;
+      geometryStr := string('');
+      geometryStr := string(sl.Text).ToPAnsiChar;
+    end;
   finally
     sl.Free;
   end;
 
   vertexShader := GLuint(0);
   fragmentShader := GLuint(0);
+  geometryShader := GLuint(0);
   shaderProgram := GLuint(0);
 
-  vertexShader := glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertexShader, 1, @vertexStr, nil);
-  glCompileShader(vertexShader);
-  __CheckShader(vertexShader, TShaderTypes.vertexObj);
+  if vertexFile <> '' then
+  begin
+    vertexShader := glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, @vertexStr, nil);
+    glCompileShader(vertexShader);
+    __CheckShader(vertexShader, TShaderTypes.vertexObj);
+  end;
 
-  fragmentShader := glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragmentShader, 1, @fragmentStr, nil);
-  glCompileShader(fragmentShader);
-  __CheckShader(fragmentShader, TShaderTypes.fragmentObj);
+  if fragmentFile <> '' then
+  begin
+    fragmentShader := glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, @fragmentStr, nil);
+    glCompileShader(fragmentShader);
+    __CheckShader(fragmentShader, TShaderTypes.fragmentObj);
+  end;
+
+  if geometryFile <> '' then
+  begin
+    geometryShader := glCreateShader(GL_GEOMETRY_SHADER);
+    glShaderSource(geometryShader, 1, @geometryStr, nil);
+    glCompileShader(geometryShader);
+    __CheckShader(geometryShader, TShaderTypes.geometryObj);
+  end;
 
   shaderProgram := glCreateProgram();
-  glAttachShader(shaderProgram, vertexShader);
-  glAttachShader(shaderProgram, fragmentShader);
+
+  if vertexFile <> '' then glAttachShader(shaderProgram, vertexShader);
+  if fragmentFile <> '' then glAttachShader(shaderProgram, fragmentShader);
+  if geometryFile <> '' then glAttachShader(shaderProgram, geometryShader);
+
   glLinkProgram(shaderProgram);
   __CheckShader(shaderProgram, TShaderTypes.programObj);
 
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
+  if vertexFile <> '' then glDeleteShader(vertexShader);
+  if fragmentFile <> '' then glDeleteShader(fragmentShader);
+  if geometryFile <> '' then glDeleteShader(geometryShader);
 
   _id := shaderProgram;
 end;
@@ -190,12 +235,14 @@ begin
   infoLog := TArr_GLchar(nil);
   SetLength(infoLog, 512);
   case shaderType of
-    vertexObj, fragmentObj:
+    vertexObj, fragmentObj, geometryObj:
     begin
       if shaderType = TShaderTypes.vertexObj then
         s := 'VERTEX'
+      else if shaderType = TShaderTypes.fragmentObj then
+        s := 'FRAGMENT'
       else
-        s := 'FRAGMENT';
+        s := 'GEOMETRY';
 
       glGetShaderiv(shaderID, GL_COMPILE_STATUS, @success);
       if not success.ToBoolean then
