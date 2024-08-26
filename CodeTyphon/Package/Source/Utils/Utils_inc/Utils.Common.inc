@@ -27,7 +27,7 @@ generic procedure Swap<T>(var a, b: T); inline;
 procedure Swap(var str: string; indexA, indexB: integer);
 
 // 返回 packed record 字段列表的偏移量
-function OffsetOf(const Base; const Field): integer;
+function OffsetOf(const Base; const Field): Cardinal;
 
 {$Else}
 
@@ -133,9 +133,9 @@ begin
   str.Chars[indexB] := temp;
 end;
 
-function OffsetOf(const Base; const Field): integer;
+function OffsetOf(const Base; const Field): Cardinal;
 begin
-  Result := integer({%H-}UIntPtr(@Field) - {%H-}UIntPtr(@Base));
+  Result := Cardinal({%H-}UIntPtr(@Field) - {%H-}UIntPtr(@Base));
 end;
 
 procedure WriteF(const Fmt: string; const Args: array of const);

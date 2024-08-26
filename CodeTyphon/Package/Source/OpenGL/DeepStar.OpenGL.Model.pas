@@ -28,6 +28,8 @@ type
     _textures_loaded: TList_TTexture;
     _meshes: TList_TMesh;
 
+    function __GetMeshes: TList_TMesh;
+    function __GetTextures_loaded: TList_TTexture;
     function __ProcessMesh(mesh: PaiMesh; const scene: PaiScene): TMesh;
 
     //检查给定类型的所有材质纹理，并加载尚未加载的纹理。
@@ -43,13 +45,15 @@ type
     // 并在其子节点上重复此过程(如果有的话)
     procedure __ProcessNode(node: PaiNode; const scene: PaiScene);
 
-public
+  public
     constructor Create(fileName: string; gammaCorrection: boolean = false);
     destructor Destroy; override;
 
     // 绘制模型，从而绘制其所有网格
     procedure Draw(shader: TShaderProgram);
 
+    property Meshes: TList_TMesh read __GetMeshes;
+    property Textures_loaded: TList_TTexture read __GetTextures_loaded;
   end;
 
 implementation
@@ -91,6 +95,16 @@ begin
   begin
     _meshes[i].Draw(shader)
   end;
+end;
+
+function TModel.__GetMeshes: TList_TMesh;
+begin
+  Result := _meshes;
+end;
+
+function TModel.__GetTextures_loaded: TList_TTexture;
+begin
+  Result := _textures_loaded;
 end;
 
 function TModel.__LoadMaterialTextures(mat: PaiMaterial; type_: TaiTextureType;
