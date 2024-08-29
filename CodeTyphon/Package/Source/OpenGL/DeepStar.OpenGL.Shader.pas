@@ -16,7 +16,7 @@ uses
 type
   TShaderTypes = (vertexObj, fragmentObj, geometryObj, programObj);
 
-  TShaderProgram = class(TObject)
+  TShaderProgram = class(TInterfacedObject)
   private
     _id: GLuint;
 

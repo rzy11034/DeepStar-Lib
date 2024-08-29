@@ -159,11 +159,6 @@
         <UnitName Value="DeepStar.SDL2.Windows"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
-        <Type Value="Virtual Unit"/>
-        <UnitName Value="DeepStar.SDL2.Texture"/>
-      </Item>
-      <Item>
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.Assimp.pas"/>
         <UnitName Value="DeepStar.OpenGL.Assimp"/>
       </Item>
@@ -354,6 +349,10 @@
       <Item>
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.Model.pas"/>
         <UnitName Value="DeepStar.OpenGL.Model"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
+        <UnitName Value="DeepStar.SDL2.Texture"/>
       </Item>
     </Files>
     <RequiredPkgs>

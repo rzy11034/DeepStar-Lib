@@ -3,7 +3,7 @@
   {$IfDef InterfacePart}
 
 type
-  TMath = class(TObject)
+  TMath = class(TInterfacedObject)
   private
     class function __CharToNum(c: UChar): integer;
     class function __NumToChar(n: integer): char;

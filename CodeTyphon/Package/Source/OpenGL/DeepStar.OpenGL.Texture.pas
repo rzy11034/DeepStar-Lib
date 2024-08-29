@@ -17,7 +17,7 @@ uses
   DeepStar.OpenGL.GLAD_GL;
 
 type
-  TTexture = class(TObject)
+  TTexture = class(TInterfacedObject)
   private
     _pixels: array of GLuint;
     _width: GLint;

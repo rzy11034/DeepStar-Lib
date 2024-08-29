@@ -35,7 +35,7 @@ type
 
 type
   // 线性代数辅助类
-  TGLM = class(TObject)
+  TGLM = class(TInterfacedObject)
   public
     class function Vec2(x: single): TVec2;
     class function Vec2(x, y: single): TVec2;

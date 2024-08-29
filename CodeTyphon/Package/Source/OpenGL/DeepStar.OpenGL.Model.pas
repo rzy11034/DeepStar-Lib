@@ -21,7 +21,7 @@ uses
 type
   TList_TMesh = specialize TArrayList<TMesh>;
 
-  TModel = class(TObject)
+  TModel = class(TInterfacedObject)
   private
     _directory: string;
     _gammaCorrection: boolean;

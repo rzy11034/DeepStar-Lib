@@ -39,7 +39,7 @@ type
   TList_TTexture = specialize TArrayList<TTexture>;
 
 type
-  TMesh = class(TObject)
+  TMesh = class(TInterfacedObject)
   private
     _ebo: GLuint;
     _vao: GLuint;

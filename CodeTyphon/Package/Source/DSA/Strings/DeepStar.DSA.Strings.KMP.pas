@@ -11,7 +11,7 @@ uses
   DeepStar.Utils;
 
 type
-  TKMP = class(TObject)
+  TKMP = class(TInterfacedObject)
   public
     /// <summary> 暴力匹配 </summary>
     class function IndexOf_Simplicity(s, p: string): TArr_int;

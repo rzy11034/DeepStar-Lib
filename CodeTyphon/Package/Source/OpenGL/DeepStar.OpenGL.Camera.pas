@@ -15,7 +15,7 @@ type
   TCamera_Movement = (FORWARD, BACKWARD, LEFT, RIGHT);
 
 type
-  TCamera = class(TObject)
+  TCamera = class(TInterfacedObject)
   private const
     // Default camera values
     CONST_YAW = -90.0;

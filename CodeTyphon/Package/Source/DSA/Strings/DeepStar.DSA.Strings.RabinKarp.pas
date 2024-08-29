@@ -19,7 +19,7 @@ type
  * 对源串,依次求出m个字符的hash,保存在数组中(滚动计算)
  * 匹配时,只需比对目标串的hash值和预存的源串的hash值表
  *}
-  TRabinKarp = class(TObject)
+  TRabinKarp = class(TInterfacedObject)
   private const
     SEED = 31;
 

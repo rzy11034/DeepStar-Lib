@@ -25,7 +25,7 @@ const
   SDL_COLOR_WHITE: TSDL_Color = (r: $FF; g: $FF; b: $FF; a: $FF);
 
 type
-  TWindow = class(TObject)
+  TWindow = class(TInterfacedObject)
   private
     //Window data
     _window: PSDL_Window;
