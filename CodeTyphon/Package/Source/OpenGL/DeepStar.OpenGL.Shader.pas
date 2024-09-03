@@ -36,11 +36,20 @@ type
     procedure UseProgram;
 
     // uniform工具函数
-    procedure SetUniformInt(uniform: string; Value: TArr_GLint);
+    procedure SetUniformInt_v(uniform: string; Value: TArr_GLint);
+    procedure SetUniformInt(uniform: string; a0: GLint);
+    procedure SetUniformInt(uniform: string; a0, a1: GLint);
+    procedure SetUniformInt(uniform: string; a0, a1, a2: GLint);
+    procedure SetUniformInt(uniform: string; a0, a1, a2, a3: GLint);
 
-    procedure SetUniformFloat(uniform: string; Value: TArr_GLfloat);
-    procedure SetUniformFloat(uniform: string; Value: TVec3);
-    procedure SetUniformFloat(uniform: string; Value: TVec4);
+    procedure SetUniformFloat_v(uniform: string; Value: TArr_GLfloat);
+    procedure SetUniformFloat(uniform: string; a0: GLfloat);
+    procedure SetUniformFloat(uniform: string; a0, a1: GLfloat);
+    procedure SetUniformFloat(uniform: string; a0, a1, a2: GLfloat);
+    procedure SetUniformFloat(uniform: string; a0, a1, a2, a3: GLfloat);
+
+    procedure SetUniformVec3(uniform: string; Value: TVec3);
+    procedure SetUniformVec4(uniform: string; Value: TVec4);
 
     procedure SetUniformMatrix4fv(uniform: string; const mat: TMat4);
 
@@ -160,7 +169,27 @@ begin
   _id := shaderProgram;
 end;
 
-procedure TShaderProgram.SetUniformFloat(uniform: string; Value: TArr_GLfloat);
+procedure TShaderProgram.SetUniformFloat(uniform: string; a0, a1, a2, a3: GLfloat);
+begin
+  Self.SetUniformFloat_v(uniform, [a0, a1, a2, a3]);
+end;
+
+procedure TShaderProgram.SetUniformFloat(uniform: string; a0, a1, a2: GLfloat);
+begin
+  Self.SetUniformFloat_v(uniform, [a0, a1, a2]);
+end;
+
+procedure TShaderProgram.SetUniformFloat(uniform: string; a0, a1: GLfloat);
+begin
+  Self.SetUniformFloat_v(uniform, [a0, a1]);
+end;
+
+procedure TShaderProgram.SetUniformFloat(uniform: string; a0: GLfloat);
+begin
+  Self.SetUniformFloat_v(uniform, [a0]);
+end;
+
+procedure TShaderProgram.SetUniformFloat_v(uniform: string; Value: TArr_GLfloat);
 var
   uniformLocation, len: GLint;
 begin
@@ -180,17 +209,37 @@ begin
   end;
 end;
 
-procedure TShaderProgram.SetUniformFloat(uniform: string; Value: TVec3);
+procedure TShaderProgram.SetUniformVec3(uniform: string; Value: TVec3);
 begin
-  SetUniformFloat(uniform, [Value.x, Value.y, Value.z]);
+  Self.SetUniformFloat_v(uniform, [Value.x, Value.y, Value.z]);
 end;
 
-procedure TShaderProgram.SetUniformFloat(uniform: string; Value: TVec4);
+procedure TShaderProgram.SetUniformVec4(uniform: string; Value: TVec4);
 begin
-  Self.SetUniformFloat(uniform, [Value.x, Value.y, Value.z, Value.w]);
+  Self.SetUniformFloat_v(uniform, [Value.x, Value.y, Value.z, Value.w]);
 end;
 
-procedure TShaderProgram.SetUniformInt(uniform: string; Value: TArr_GLint);
+procedure TShaderProgram.SetUniformInt(uniform: string; a0, a1, a2, a3: GLint);
+begin
+  Self.SetUniformInt_v(uniform, [a0, a1, a2, a3]);
+end;
+
+procedure TShaderProgram.SetUniformInt(uniform: string; a0, a1, a2: GLint);
+begin
+  Self.SetUniformInt_v(uniform, [a0, a1, a2]);
+end;
+
+procedure TShaderProgram.SetUniformInt(uniform: string; a0, a1: GLint);
+begin
+  Self.SetUniformInt_v(uniform, [a0, a1]);
+end;
+
+procedure TShaderProgram.SetUniformInt(uniform: string; a0: GLint);
+begin
+  Self.SetUniformInt_v(uniform, [a0]);
+end;
+
+procedure TShaderProgram.SetUniformInt_v(uniform: string; Value: TArr_GLint);
 var
   uniformLocation, len: GLint;
 begin

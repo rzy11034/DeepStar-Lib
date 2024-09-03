@@ -12,6 +12,7 @@ uses
   SysUtils,
   System.UITypes,
   DeepStar.Utils,
+  DeepStar.DSA.Linear.ArrayList,
   DeepStar.OpenGL.GLM,
   DeepStar.OpenGL.GLAD_GL;
 
@@ -37,6 +38,10 @@ type
 
   TArr_GLfloat4 = array[0..3] of GLfloat;
   TArr_GLfloat16 = array[0..15] of GLfloat;
+
+  TArrayList_TVec3 = specialize TArrayList<TVec3>;
+  TArrayList_TVec4 = specialize TArrayList<TVec4>;
+  TArrayList_TMat4 = specialize TArrayList<TMat4>;
 
 type
   TArr_GLfloat_Helper = type Helper for TArr_GLfloat
