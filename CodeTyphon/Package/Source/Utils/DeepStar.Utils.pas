@@ -39,12 +39,14 @@ uses
   {$Include Utils.Arrays.inc}
 
   //═════════════════════════════════════════════════════════════════════════
-  {$Include Utils.StringHelper.inc}
+
+  {$Include Utils.SysHelper.inc}
   {$Include Utils.ArrayUtils.inc}
   {$Include Utils.Math.inc}
   {$Include Utils.Common.inc}
 
   //════════════════════ 常用容器类特例化定义 ═══════════════════════════════
+
   {$Include Utils.Lists.inc}
   {$Include Utils.Stacks.inc}
   {$Include Utils.Queues.inc}
@@ -52,6 +54,7 @@ uses
   {$Include Utils.Sets.inc}
   {$Include Utils.Heaps.inc}
   {$Include Utils.PriorityQueues.inc}
+
   //═════════════════════════════════════════════════════════════════════════
 
   {$undef InterfacePart}
@@ -61,7 +64,7 @@ implementation
 {$Include Utils.Common.inc}
 {$Include Utils.Math.inc}
 {$Include Utils.ArrayUtils.inc}
-{$Include Utils.StringHelper.inc}
+{$Include Utils.SysHelper.inc}
 
 {$Include Utils.Object.inc}
 

@@ -223,11 +223,6 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.StringHelper.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
         <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aianim.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
@@ -353,6 +348,11 @@
       <Item>
         <Filename Value="Source\SDL2\DeepStar.SDL2.Texture.pas"/>
         <UnitName Value="DeepStar.SDL2.Texture"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\Utils_inc\Utils.SysHelper.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
     </Files>
     <RequiredPkgs>
