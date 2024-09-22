@@ -42,9 +42,11 @@ type
 
     class function Vec3(x: single): TVec3;
     class function Vec3(x, y, z: single): TVec3;
+    class function Vec3(vec: TVec4): TVec3;
 
     class function Vec4(x: single): TVec4;
     class function Vec4(x, y, z, w: single): TVec4;
+    class function Vec4(vec: TVec3; w: single): TVec4;
 
     //═════════════════════════════════════════════════════════════════════════
 
@@ -83,6 +85,10 @@ type
 
     // 弧度转角度值
     class function Degrees(Rad: single): single;
+
+    // 返回x中每个分量的 min(max(x, minVal), maxVal)
+    // 使用浮点数 minVal和 maxVal
+    class function Clamp(x, minVal, maxVal: single): single;
 
     //═════════════════════════════════════════════════════════════════════════
     // TVec2
@@ -165,6 +171,11 @@ type
 implementation
 
 { TGLM }
+
+class function TGLM.Clamp(x, minVal, maxVal: single): single;
+begin
+  Result := Min(Max(x, minVal), maxVal);
+end;
 
 class function TGLM.Cross(a, b: TVec3): TVec3;
 begin
@@ -714,7 +725,12 @@ end;
 
 class function TGLM.Vec3(x: single): TVec3;
 begin
-  Result := Vec3(x, x, x);
+  Result.Create(x, x, x);
+end;
+
+class function TGLM.Vec3(vec: TVec4): TVec3;
+begin
+  Result.Create(vec.x, vec.y, vec.z);
 end;
 
 class function TGLM.ToString(vecName: string; vec: TVec3): string;
@@ -750,6 +766,11 @@ end;
 class function TGLM.Vec4(x: single): TVec4;
 begin
   Result := Vec4(x, x, x, x);
+end;
+
+class function TGLM.Vec4(vec: TVec3; w: single): TVec4;
+begin
+  Result.Create(vec.x, vec.y, vec.z, w);
 end;
 
 end.

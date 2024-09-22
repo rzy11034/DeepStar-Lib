@@ -39,6 +39,7 @@ type
   TArr_GLfloat4 = array[0..3] of GLfloat;
   TArr_GLfloat16 = array[0..15] of GLfloat;
 
+  TArrayList_TVec2 = specialize TArrayList<TVec2>;
   TArrayList_TVec3 = specialize TArrayList<TVec3>;
   TArrayList_TVec4 = specialize TArrayList<TVec4>;
   TArrayList_TMat4 = specialize TArrayList<TMat4>;
@@ -55,6 +56,14 @@ type
   TArr_GLint_Helper = type Helper for TArr_GLint
   private type
     TArrayUtils_GLint = specialize TArrayUtils<GLint>;
+  public
+    // 返回数组内存区占用大小
+    function MemSize: integer;
+  end;
+
+  TArr_GLuint_Helper = type Helper for TArr_GLuint
+  private type
+    TArrayUtils_GLuint = specialize TArrayUtils<GLuint>;
   public
     // 返回数组内存区占用大小
     function MemSize: integer;
@@ -112,6 +121,13 @@ end;
 function TArr_GLint_Helper.MemSize: integer;
 begin
   Result := TArrayUtils_GLint.MemorySize(Self);
+end;
+
+{ TArr_GLuint_Helper }
+
+function TArr_GLuint_Helper.MemSize: integer;
+begin
+  Result := TArrayUtils_GLuint.MemorySize(Self);
 end;
 
 end.
