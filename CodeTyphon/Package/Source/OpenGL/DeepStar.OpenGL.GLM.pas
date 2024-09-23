@@ -120,7 +120,10 @@ type
     //═════════════════════════════════════════════════════════════════════════
     // TMat3
 
-     //class function Rotate(mat: TMat3; angle: single): TMat3;
+    //class function Rotate(mat: TMat3; angle: single): TMat3;
+
+
+
 
     //═════════════════════════════════════════════════════════════════════════
     // TMat4
