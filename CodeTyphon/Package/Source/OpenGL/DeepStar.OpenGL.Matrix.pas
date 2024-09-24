@@ -21,7 +21,7 @@ type
     procedure SetColumn(index: byte; const vec: TVec3);
     procedure SetRow(index: byte; const vec: TVec3);
     function GetDeterminant: single;
-    function inverse(determinant: single): TMat3;
+    function Inverse(determinant: single): TMat3;
     function Transpose: TMat3;
 
     class operator +(const mat1, mat2: TMat3): TMat3;
@@ -55,7 +55,7 @@ type
     procedure SetColumn(index: byte; const vec: TVec4);
     procedure SetRow(index: byte; const vec: TVec4);
     function GetDeterminant: single;
-    function inverse(determinant: single): TMat4;
+    function Inverse(determinant: single): TMat4;
     function Transpose: TMat4;
 
     class operator +(const mat1, mat2: TMat4): TMat4;
@@ -265,7 +265,7 @@ begin
     [0, 0, 0]];
 end;
 
-function TMat3.inverse(determinant: single): TMat3;
+function TMat3.Inverse(determinant: single): TMat3;
 begin
   determinant := 1 / determinant;
   Result.m[0, 0] := (m[1, 1] * m[2, 2] - m[2, 1] * m[1, 2]) * determinant;
@@ -517,7 +517,7 @@ begin
     [0, 0, 0, 0]];
 end;
 
-function TMat4.inverse(determinant: single): TMat4;
+function TMat4.Inverse(determinant: single): TMat4;
 var
   res: TMat4;
 begin

@@ -122,8 +122,10 @@ type
 
     //class function Rotate(mat: TMat3; angle: single): TMat3;
 
+    class function Inverse(mat: TMat3): TMat3;
+    class function Inverse(mat: TMat4): TMat3;
 
-
+    class function Transpose(mat: TMat3): TMat3;
 
     //═════════════════════════════════════════════════════════════════════════
     // TMat4
@@ -224,6 +226,16 @@ class function TGLM.Frustum(left, right, bottom, top, znear, zfar: single): TMat
 
 begin
   Result := __FrustumRH_NO__;
+end;
+
+class function TGLM.Inverse(mat: TMat3): TMat3;
+begin
+  Result := mat.Inverse(mat.GetDeterminant);
+end;
+
+class function TGLM.Inverse(mat: TMat4): TMat3;
+begin
+  Result := Inverse(Mat3(mat));
 end;
 
 class function TGLM.Length(vec: TVec3): single;
@@ -641,6 +653,11 @@ begin
     + mat.v[1] * vec.v[1]
     + mat.v[2] * vec.v[2]
     + mat.v[3];
+end;
+
+class function TGLM.Transpose(mat: TMat3): TMat3;
+begin
+  Result := mat.Transpose;
 end;
 
 class function TGLM.ValuePtr(const mat: TMat3): PSingle;

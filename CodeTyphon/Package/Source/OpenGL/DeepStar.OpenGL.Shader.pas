@@ -51,6 +51,7 @@ type
     procedure SetUniformVec3(uniform: string; Value: TVec3);
     procedure SetUniformVec4(uniform: string; Value: TVec4);
 
+    procedure SetUniformMatrix3fv(uniform: string; const mat: TMat3);
     procedure SetUniformMatrix4fv(uniform: string; const mat: TMat4);
 
     property ID: GLuint read __GetId;
@@ -257,6 +258,15 @@ begin
     3: glUniform3i(uniformLocation, Value[0], Value[1], Value[2]);
     4: glUniform4i(uniformLocation, Value[0], Value[1], Value[2], Value[3]);
   end;
+end;
+
+procedure TShaderProgram.SetUniformMatrix3fv(uniform: string; const mat: TMat3);
+var
+  uniformLocation: GLint;
+begin
+  uniformLocation := GLint(0);
+  uniformLocation := glGetUniformLocation(_id, uniform.ToPAnsiChar);
+  glUniformMatrix3fv(uniformLocation, 1, GL_FALSE, TGLM.ValuePtr(mat));
 end;
 
 procedure TShaderProgram.SetUniformMatrix4fv(uniform: string; const mat: TMat4);
