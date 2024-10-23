@@ -24,7 +24,7 @@ type
     function __GetId: GLuint;
 
   public
-    constructor Create();
+    constructor Create;
     destructor Destroy; override;
 
     procedure LoadShaderFile(
