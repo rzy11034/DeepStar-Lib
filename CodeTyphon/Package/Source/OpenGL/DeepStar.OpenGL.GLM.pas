@@ -2,8 +2,11 @@
 
 {$mode ObjFPC}{$H+}
 {$ModeSwitch unicodestrings}{$J-}
-{$ModeSwitch advancedrecords}{$J-}
-{$modeswitch typehelpers}
+{$ModeSwitch advancedrecords}
+{$ModeSwitch implicitfunctionspecialization}
+{$ModeSwitch anonymousfunctions}
+{$ModeSwitch functionreferences}
+{$ModeSwitch duplicatelocals}
 
 interface
 
@@ -86,14 +89,35 @@ type
     // 弧度转角度值
     class function Degrees(Rad: single): single;
 
-    // 返回x中每个分量的 min(max(x, minVal), maxVal)
+    // 返回x中每个分量的 min(max(val, minVal), maxVal)
     // 使用浮点数 minVal和 maxVal
-    class function Clamp(x, minVal, maxVal: single): single;
+    class function Clamp(val, minVal, maxVal: single): single;
+
+    // 返回x中每个矢量的 min(max(val, minVal), maxVal)
+    // 限制一个2D的矢量表示将其x, y分量都限制在给定的范围内
+    class function Clamp(val, minVal, maxVal: TVec2): TVec2;
+
+    // 返回x中每个矢量的 min(max(val, minVal), maxVal)
+    // 限制一个3D的矢量表示将其x, y分量都限制在给定的范围内
+    class function Clamp(val, minVal, maxVal: TVec3): TVec3;
+
+    // 返回x中每个矢量的 min(max(val, minVal), maxVal)
+    // 限制一个4D的矢量表示将其x, y分量都限制在给定的范围内
+    class function Clamp(val, minVal, maxVal: TVec4): TVec4;
 
     //═════════════════════════════════════════════════════════════════════════
     // TVec2
 
     class function Rotate(vec: TVec2; angle:single; r: single): TVec2;
+
+    // 返回向量长度
+    class function Length(vec: TVec2): single;
+
+    // TVec3 向量归一化
+    class function Normalize(vec: TVec2): TVec2;
+
+    // 向量点乘：（内积）
+    class function Dot(a, b: TVec2): single;
 
     //═════════════════════════════════════════════════════════════════════════
     // TVec3
@@ -177,9 +201,30 @@ implementation
 
 { TGLM }
 
-class function TGLM.Clamp(x, minVal, maxVal: single): single;
+class function TGLM.Clamp(val, minVal, maxVal: single): single;
 begin
-  Result := Min(Max(x, minVal), maxVal);
+  Result := Min(Max(val, minVal), maxVal);
+end;
+
+class function TGLM.Clamp(val, minVal, maxVal: TVec2): TVec2;
+begin
+  Result.x := Clamp(val.x, minVal.x, maxVal.x);
+  Result.y := Clamp(val.y, minVal.y, maxVal.y);
+end;
+
+class function TGLM.Clamp(val, minVal, maxVal: TVec3): TVec3;
+begin
+  Result.x := Clamp(val.x, minVal.x, maxVal.x);
+  Result.y := Clamp(val.y, minVal.y, maxVal.y);
+  Result.z := Clamp(val.z, minVal.z, maxVal.z);
+end;
+
+class function TGLM.Clamp(val, minVal, maxVal: TVec4): TVec4;
+begin
+  Result.x := Clamp(val.x, minVal.x, maxVal.x);
+  Result.y := Clamp(val.y, minVal.y, maxVal.y);
+  Result.z := Clamp(val.z, minVal.z, maxVal.z);
+  Result.w := Clamp(val.w, minVal.w, maxVal.w);
 end;
 
 class function TGLM.Cross(a, b: TVec3): TVec3;
@@ -190,6 +235,11 @@ end;
 class function TGLM.Degrees(Rad: single): single;
 begin
   Result := RadToDeg(Rad);
+end;
+
+class function TGLM.Dot(a, b: TVec2): single;
+begin
+  Result := a ** b;
 end;
 
 class function TGLM.Dot(a, b: TVec3): single;
@@ -236,6 +286,11 @@ end;
 class function TGLM.InverseMat3(mat: TMat4): TMat3;
 begin
   Result := InverseMat3(Mat3(mat));
+end;
+
+class function TGLM.Length(vec: TVec2): single;
+begin
+  Result := vec.Length;
 end;
 
 class function TGLM.Length(vec: TVec3): single;
@@ -426,6 +481,23 @@ end;
 class function TGLM.Mat4_Zero: TMat4;
 begin
   Result.Init_Zero;
+end;
+
+class function TGLM.Normalize(vec: TVec2): TVec2;
+var
+  len, oneOverLen: Single;
+  res: TVec2;
+begin
+  len := vec.length;
+  res := vec;
+
+  if len <= 0 then
+    len := 1;
+
+  oneOverLen := 1 / len;
+  res *= oneOverLen;
+
+  Result := res;
 end;
 
 class function TGLM.Normalize(vec: TVec3): TVec3;
