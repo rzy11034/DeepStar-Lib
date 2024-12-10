@@ -39,6 +39,8 @@ type
   TArr_GLfloat4 = array[0..3] of GLfloat;
   TArr_GLfloat16 = array[0..15] of GLfloat;
 
+  TArr2D_GLfloat = array of array of GLfloat;
+
   TArrayList_TVec2 = specialize TArrayList<TVec2>;
   TArrayList_TVec3 = specialize TArrayList<TVec3>;
   TArrayList_TVec4 = specialize TArrayList<TVec4>;
