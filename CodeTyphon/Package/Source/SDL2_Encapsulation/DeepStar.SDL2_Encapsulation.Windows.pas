@@ -1,4 +1,4 @@
-﻿unit DeepStar.SDL2.Windows;
+﻿unit DeepStar.SDL2_Encapsulation.Windows;
 
 {$mode ObjFPC}{$H+}
 {$ModeSwitch unicodestrings}{$J-}
@@ -12,7 +12,7 @@ uses
   libSDL2_image,
   libSDL2_ttf,
   DeepStar.Utils,
-  DeepStar.SDL2.Texture;
+  DeepStar.SDL2_Lib.Texture;
 
 type
   TMessageBoxType = type int32;
@@ -82,7 +82,7 @@ type
 implementation
 
 uses
-  DeepStar.SDL2.Utils;
+  DeepStar.SDL2_Lib.Utils;
 
   { TWindow }
 

@@ -1,4 +1,4 @@
-﻿unit DeepStar.SDL2.Utils;
+﻿unit DeepStar.SDL2_Encapsulation.Utils;
 
 {$mode ObjFPC}{$H+}
 {$ModeSwitch unicodestrings}{$J-}
@@ -15,7 +15,7 @@ uses
   System.UITypes,
   DeepStar.Utils,
   DeepStar.DSA.Linear.ArrayList,
-  DeepStar.SDL2.Texture;
+  DeepStar.SDL2_Lib.Texture;
 
 const
   SDL_COLOR_BLACK: TSDL_Color = (r: 0; g: 0; b: 0; a: $FF);

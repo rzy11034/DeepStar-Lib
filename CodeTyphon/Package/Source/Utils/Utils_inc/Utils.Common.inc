@@ -18,7 +18,7 @@ procedure WriteLnF(const Fmt: string; const Args: array of const);
 
 function CrossFixFileName(const FileName: string): string;
 
-generic function IfThen<T>(Condition: boolean; const TrueResult: T; const FalseResult: T): T; inline;
+generic function IfThen<T>(Condition: boolean; const TrueResult: T; const FalseResult: T): T;
 generic procedure Swap<T>(var a, b: T); inline;
 
 // 交换零基字符串中字符
