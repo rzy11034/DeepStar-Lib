@@ -338,27 +338,8 @@
         <Type Value="Include"/>
         <FRMtype Value="0"/>
       </Item>
-      <Item>
-        <Filename Value="Source\SDL2_Encapsulation\DeepStar.SDL2_Encapsulation.Texture.pas"/>
-        <UnitName Value="DeepStar.SDL2_Encapsulation.Texture"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2_Encapsulation\DeepStar.SDL2_Encapsulation.Timer.pas"/>
-        <UnitName Value="DeepStar.SDL2_Encapsulation.Timer"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2_Encapsulation\DeepStar.SDL2_Encapsulation.Utils.pas"/>
-        <UnitName Value="DeepStar.SDL2_Encapsulation.Utils"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\SDL2_Encapsulation\DeepStar.SDL2_Encapsulation.Windows.pas"/>
-        <UnitName Value="DeepStar.SDL2_Encapsulation.Windows"/>
-      </Item>
     </Files>
     <RequiredPkgs>
-      <Item>
-        <PackageName Value="pl_sdl"/>
-      </Item>
       <Item>
         <PackageName Value="bs_Utils"/>
       </Item>
