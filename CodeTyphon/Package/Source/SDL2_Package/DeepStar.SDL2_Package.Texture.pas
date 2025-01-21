@@ -109,6 +109,7 @@ type
     procedure SetPosition(ax, ay: integer);
     procedure SetPosition(ap: TPoint);
     procedure SetColorMod(color: TSDL_Color);
+    procedure SetScale(scale: TScale);
     procedure SetScale(x, y: float);
 
     property Width: integer read __GetWidth;
@@ -209,7 +210,7 @@ end;
 
 function TTexture.CreateBlank(width, Height: integer): Boolean;
 var
-  errString: String;
+  errStr: String;
 begin
   __Free;
 
@@ -224,12 +225,9 @@ begin
 
   if _Texture = nil then
   begin
-    errString := Format
-    (
-      'Unable to create streamable blank texture! SDL Error: %s',
-      [SDL_GetError()]
-    ).ToUString;
-    raise Exception.Create(errString.ToAnsiString);
+    errStr := 'Unable to create streamable blank texture! SDL Error: %s';
+    errStr.Format([SDL_GetError()]);
+    raise Exception.Create(errStr.ToAnsiString);
   end
   else
   begin
@@ -555,6 +553,11 @@ procedure TTexture.SetScale(x, y: float);
 begin
   _Scale.x := x;
   _Scale.y := y;
+end;
+
+procedure TTexture.SetScale(scale: TScale);
+begin
+  SetScale(scale.x, scale.y);
 end;
 
 function TTexture.ToPSDL_Texture: PSDL_Texture;
