@@ -50,7 +50,7 @@ type
     property OnStopTick: TEventProc read _OnStopTicks write _OnStopTicks;
   end;
 
-  // 获取程序每秒帧率的 Object
+  // 获取程序每秒帧率
   TFrames  = class(TInterfacedObject)
   private
     _fpsTimer: TClock;

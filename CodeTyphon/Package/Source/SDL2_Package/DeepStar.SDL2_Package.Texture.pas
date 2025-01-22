@@ -87,6 +87,7 @@ type
     procedure Render(p: TPoint);
     procedure Render(x, y: integer; clip: PSDL_Rect = nil; angle: double = 0;
       center: PSDL_Point = nil; flip: TSDL_RendererFlags = SDL_FLIP_NONE);
+    procedure RenderByPosition;
 
     procedure SetRenderer(renderer: PSDL_Renderer);
 
@@ -430,7 +431,6 @@ begin
 
   err := SDL_RenderCopyEx(_Renderer, _Texture, clip, @renderQuad, angle, center,
     flip);
-
   if err <> 0 then
   begin
     errStr := 'Render failure! SDL Error: %s';
@@ -468,6 +468,11 @@ end;
 procedure TTexture.Render(p: TPoint);
 begin
   Self.Render(p.X, p.Y);
+end;
+
+procedure TTexture.RenderByPosition;
+begin
+  Self.Render(Position.X, Position.Y);
 end;
 
 procedure TTexture.SetTarget;

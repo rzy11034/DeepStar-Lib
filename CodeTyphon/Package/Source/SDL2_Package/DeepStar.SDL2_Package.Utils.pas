@@ -60,6 +60,8 @@ function SDL_Point(p: TPoint): TSDL_Point;
 function SDL_Rect(aX, aY, aW, aH: integer): TSDL_Rect;
 function SDL_Rect(rc: TRect): TSDL_Rect;
 
+function SDL_Color(r, g, b, a: byte): TSDL_Color;
+
 procedure CostomLibarayLoad;
 
 implementation
@@ -147,6 +149,14 @@ begin rc.NormalizeRect;
   end;
 
   Result := res;
+end;
+
+function SDL_Color(r, g, b, a: byte): TSDL_Color;
+begin
+  Result.r := r;
+  Result.g := g;
+  Result.b := b;
+  Result.a := a;
 end;
 
 procedure CostomLibarayLoad;
