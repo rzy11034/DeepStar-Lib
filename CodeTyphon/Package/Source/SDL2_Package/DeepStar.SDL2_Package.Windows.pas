@@ -2,6 +2,7 @@
 
 {$mode ObjFPC}{$H+}
 {$ModeSwitch unicodestrings}{$J-}
+{$ModeSwitch implicitfunctionspecialization}
 
 interface
 
@@ -58,9 +59,11 @@ type
     function __GetClientBounds: TRect;
     function __GetHeight: int32;
     function __GetRenderer: PSDL_Renderer;
+    function __GetResizable: Boolean;
     function __GetWidth: int32;
 
     procedure __SetCaption(const Value: string);
+    procedure __SetResizable(const value: Boolean);
 
   public
     constructor Create; override;
@@ -85,6 +88,7 @@ type
     property Height: int32 read __GetHeight;
     property caption: string read __GetCaption write __SetCaption;
     property ClientBounds: TRect read __GetClientBounds;
+    property Resizable: Boolean read __GetResizable write __SetResizable;
   end;
 
 implementation
@@ -333,6 +337,15 @@ begin
   SDL_SetWindowTitle(_Window, Value.ToPAnsiChar);
 end;
 
+procedure TWindow.__SetResizable(const value: Boolean);
+var
+  bool: TSDL_Bool;
+begin
+  bool := SDL_FALSE;
+  bool := IfThen(value, SDL_TRUE, SDL_FALSE);
+  SDL_SetWindowResizable(_Window, bool);
+end;
+
 function TWindow.__CreateRenderer: PSDL_Renderer;
 var
   errStr: string;
@@ -397,6 +410,20 @@ end;
 function TWindow.__GetRenderer: PSDL_Renderer;
 begin
   Result := _Renderer;
+end;
+
+function TWindow.__GetResizable: Boolean;
+var
+  flag: Cardinal;
+  res: Boolean;
+begin
+  flag := SDL_GetWindowFlags(_Window);
+  res := false;
+
+  If (flag and SDL_WINDOW_RESIZABLE) = SDL_WINDOW_RESIZABLE then
+    res := true;
+
+  Result := res;
 end;
 
 function TWindow.__GetWidth: int32;
