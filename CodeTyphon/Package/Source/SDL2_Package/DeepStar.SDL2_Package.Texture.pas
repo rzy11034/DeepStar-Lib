@@ -73,23 +73,25 @@ type
     procedure LoadFromFile(path: string);
 
     // 从字符串创建纹理
-    procedure LoadFormString(ttfName: string; ttfSize: integer; Text: string;
-      color: TSDL_Color);
-
-    // 将当前纹理设置为渲染目标
-    procedure SetTarget;
-    // 取消当前纹理设置为渲染目标
-    procedure UnsetTarget;
+    procedure LoadFormString(ttfName: string; ttfSize: integer;
+                Text: string; color: TSDL_Color);
 
     // 渲染纹理
     procedure Render(srcRect: PSDL_Rect = nil; destRect: PSDL_Rect = nil);
     // 在给定点渲染纹理
     procedure Render(p: TPoint);
     procedure Render(x, y: integer; clip: PSDL_Rect = nil; angle: double = 0;
-      center: PSDL_Point = nil; flip: TSDL_RendererFlags = SDL_FLIP_NONE);
+                center: PSDL_Point = nil; flip: TSDL_RendererFlags = SDL_FLIP_NONE);
     procedure RenderByPosition;
 
     procedure SetRenderer(renderer: PSDL_Renderer);
+    procedure SetPosition(ax, ay: integer);
+    procedure SetPosition(ap: TPoint);
+    procedure SetColorMod(color: TSDL_Color);
+    procedure SetScale(scale: TScale);
+    procedure SetScale(x, y: float);
+    procedure SetTarget;
+    procedure UnsetTarget;
 
     //(*═══════════════════════════════════════════════════════════════════════
     // 绘图函数
@@ -100,18 +102,11 @@ type
     procedure SetDrawColor(color: TSDL_Color);
     procedure SetDrawColor(r, g, b, a: Byte);
 
-
     procedure DrawCircle(x, y, rad: integer);
     procedure DrawCircleA(x, y, rad: integer);
     procedure DrawCircleAndFilled(x, y, rad: integer);
 
     //═══════════════════════════════════════════════════════════════════════*)
-
-    procedure SetPosition(ax, ay: integer);
-    procedure SetPosition(ap: TPoint);
-    procedure SetColorMod(color: TSDL_Color);
-    procedure SetScale(scale: TScale);
-    procedure SetScale(x, y: float);
 
     property Width: integer read __GetWidth;
     property Height: integer read __GetHeight;
