@@ -30,6 +30,9 @@ type
   TArr_TPoint = array of TPoint;
   TArr_TRect = array of TRect;
 
+  TArr_TSDL_Color = array of TSDL_Color;
+  TArr_TSDL_Rect = array of TSDL_Rect;
+
 type
   TSDL_PointHelper = type Helper for TSDL_Point
   public

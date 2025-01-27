@@ -85,8 +85,9 @@ type
     procedure RenderByPosition;
 
     procedure SetRenderer(renderer: PSDL_Renderer);
-    procedure SetPosition(ax, ay: integer);
-    procedure SetPosition(ap: TPoint);
+    procedure SetPosition(x, y: integer);
+    procedure SetPosition(p: TPoint);
+    procedure SetPosition(p: TSDL_Point);
     procedure SetColorMod(color: TSDL_Color);
     procedure SetScale(scale: TScale);
     procedure SetScale(x, y: float);
@@ -113,6 +114,9 @@ type
     property Position: TPoint read __GetPosition;
     property BoundsRect: TRect read __GetBoundsRect;
   end;
+
+type
+  TArr_TTexture = array of TTexture;
 
 implementation
 
@@ -534,14 +538,21 @@ begin
   _Color := TSDL_Color(TAlphaColors.White);
 end;
 
-procedure TTexture.SetPosition(ax, ay: integer);
+procedure TTexture.SetPosition(x, y: integer);
 begin
-  _Position := TPoint.Create(ax, ay);
+  _Position.x := x;
+  _Position.y := y;
 end;
 
-procedure TTexture.SetPosition(ap: TPoint);
+procedure TTexture.SetPosition(p: TPoint);
 begin
-  _Position := ap;
+  _Position := p;
+end;
+
+procedure TTexture.SetPosition(p: TSDL_Point);
+begin
+  _Position.x := p.X;
+  _Position.y := p.Y;
 end;
 
 procedure TTexture.SetRenderer(renderer: PSDL_Renderer);
