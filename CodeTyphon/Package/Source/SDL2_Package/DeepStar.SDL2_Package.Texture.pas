@@ -47,6 +47,10 @@ type
     _Position: TPoint;
     _Scale: TScale;
     _Color: TSDL_Color;
+    _Clip: PSDL_Rect;
+    _Center: PSDL_Point;
+    _Angle: float;
+    _RendererFlag: TSDL_RendererFlags;
 
     function __GetBoundsRect: TRect;
     function __GetData: PSDL_Texture;
@@ -77,12 +81,12 @@ type
                 Text: string; color: TSDL_Color);
 
     // 渲染纹理
-    procedure Render(srcRect: PSDL_Rect = nil; destRect: PSDL_Rect = nil);
+    procedure Render;
+    procedure Render(srcRect: PSDL_Rect; destRect: PSDL_Rect);
     // 在给定点渲染纹理
     procedure Render(p: TPoint);
-    procedure Render(x, y: integer; clip: PSDL_Rect = nil; angle: double = 0;
-                center: PSDL_Point = nil; flip: TSDL_RendererFlags = SDL_FLIP_NONE);
-    procedure RenderByPosition;
+    procedure Render(x, y: integer; clip: PSDL_Rect; angle: double;
+                center: PSDL_Point; flip: TSDL_RendererFlags);
 
     procedure SetRenderer(renderer: PSDL_Renderer);
     procedure SetPosition(x, y: integer);
@@ -91,6 +95,10 @@ type
     procedure SetColorMod(color: TSDL_Color);
     procedure SetScale(scale: TScale);
     procedure SetScale(x, y: float);
+    procedure SetClip(clip: PSDL_Rect);
+    procedure SetCenter(center: PSDL_Point);
+    procedure SetRotation(angle: float);
+    procedure SetRendererFlag(rendererFlag: TSDL_RendererFlags);
     procedure SetTarget;
     procedure UnsetTarget;
 
@@ -466,12 +474,27 @@ end;
 
 procedure TTexture.Render(p: TPoint);
 begin
-  Self.Render(p.X, p.Y);
+  Self.Render(p.X, p.Y, _Clip, _Angle, _Center, _RendererFlag);
 end;
 
-procedure TTexture.RenderByPosition;
+procedure TTexture.Render;
 begin
-  Self.Render(Position.X, Position.Y);
+  Self.Render(Position.X, Position.Y, _Clip, _Angle, _Center, _RendererFlag);
+end;
+
+procedure TTexture.SetRotation(angle: float);
+begin
+  _Angle := angle;
+end;
+
+procedure TTexture.SetCenter(center: PSDL_Point);
+begin
+  _Center := center;
+end;
+
+procedure TTexture.SetClip(clip: PSDL_Rect);
+begin
+  _Clip := clip;
 end;
 
 procedure TTexture.SetTarget;
@@ -558,6 +581,11 @@ end;
 procedure TTexture.SetRenderer(renderer: PSDL_Renderer);
 begin
   _Renderer := renderer;
+end;
+
+procedure TTexture.SetRendererFlag(rendererFlag: TSDL_RendererFlags);
+begin
+  _RendererFlag := rendererFlag;
 end;
 
 procedure TTexture.SetScale(x, y: float);
