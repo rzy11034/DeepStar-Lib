@@ -86,7 +86,7 @@ type
     property Renderer: PSDL_Renderer read __GetRenderer;
     property Width: int32 read __GetWidth;
     property Height: int32 read __GetHeight;
-    property caption: string read __GetCaption write __SetCaption;
+    property Caption: string read __GetCaption write __SetCaption;
     property ClientBounds: TRect read __GetClientBounds;
     property Resizable: Boolean read __GetResizable write __SetResizable;
   end;

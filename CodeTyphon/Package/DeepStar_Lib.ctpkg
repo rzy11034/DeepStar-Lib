@@ -9,8 +9,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp;Source\OpenGL\Assimp_inc;Source\Utils\Utils_inc"/>
-        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2_Package"/>
+        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp_inc;Source\Utils\Utils_inc"/>
+        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2_Package;Source\SDL3_Package"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
       <CodeGeneration>
@@ -24,7 +24,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
-    <Version Major="1" Minor="2"/>
+    <Version Major="1" Minor="3"/>
     <Files>
       <Item>
         <Filename Value="Source\DSA\DeepStar.DSA.Interfaces.pas"/>
@@ -358,13 +358,22 @@
         <Filename Value="Source\SDL2_Package\DeepStar.SDL2_Package.Windows.pas"/>
         <UnitName Value="DeepStar.SDL2_Package.Windows"/>
       </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Utils.pas"/>
+        <UnitName Value="DeepStar.SDL3_Package.Utils"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Windows.pas"/>
+        <UnitName Value="DeepStar.SDL3_Package.Windows"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Texture.pas"/>
+        <UnitName Value="DeepStar.SDL3_Package.Texture"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
         <PackageName Value="pl_sdl"/>
-      </Item>
-      <Item>
-        <PackageName Value="bs_Utils"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>
