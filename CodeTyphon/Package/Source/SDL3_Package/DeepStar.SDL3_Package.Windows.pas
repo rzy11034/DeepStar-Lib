@@ -39,7 +39,6 @@ type
     _Window: PSDL_Window;
     _WindowID: Cardinal;
     _Context: TSDL_GLContext;
-    _Renderer: PSDL_Renderer;
 
     //Window dimensions
     _Width: Integer;
@@ -51,7 +50,6 @@ type
     function __CreateRenderer: PSDL_Renderer;
     function __GetCaption: string;
     function __GetHeight: integer;
-    function __GetRenderer: PSDL_Renderer;
     function __GetResizable: Boolean;
     function __GetWidth: Integer;
 
@@ -73,7 +71,6 @@ type
     property Caption: string read __GetCaption write __SetCaption;
     property Width: Integer read __GetWidth;
     property Height: integer read __GetHeight;
-    property Renderer: PSDL_Renderer read __GetRenderer;
     property Resizable: Boolean read __GetResizable write __SetResizable;
   end;
 
@@ -122,7 +119,6 @@ begin
   inherited Create;
 
   _Window := PSDL_Window(nil);
-  _Renderer := PSDL_Renderer(nil);
   _WindowID := 0;
   _Width := 0;
   _Height := 0;
@@ -130,12 +126,6 @@ end;
 
 destructor TWindow.Destroy;
 begin
-  if _Renderer <> nil then
-  begin
-    SDL_DestroyRenderer(_Renderer);
-    _Renderer := nil;
-  end;
-
   if _Window <> nil then
   begin
     SDL_DestroyWindow(_Window);
@@ -150,13 +140,12 @@ var
   x, y: Single;
 begin
   SDL_GetMouseState(@x, @y);
-  Result := PointF(x, y);
+  Result := TPointF.Create(x, y);
 end;
 
 procedure TWindow.Init(caption: string; w, h: integer; flags: TSDL_WindowFlags);
 begin
   _Window := __CreateWindow(caption, w, h, flags);
-  _Renderer := __CreateRenderer;
 end;
 
 procedure TWindow.Show;
@@ -165,7 +154,7 @@ var
 begin
   if not SDL_ShowWindow(_Window) then
   begin
-    errStr := 'Failed to show the window! SDL Error: %s! SDL_Error: %s';
+    errStr := 'Failed to show the window! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
@@ -233,11 +222,6 @@ end;
 function TWindow.__GetHeight: integer;
 begin
   Result := _Height;
-end;
-
-function TWindow.__GetRenderer: PSDL_Renderer;
-begin
-  Result := _Renderer;
 end;
 
 function TWindow.__GetResizable: Boolean;

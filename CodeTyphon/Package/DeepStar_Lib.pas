@@ -16,7 +16,7 @@ uses
   DeepStar.OpenGL.GLM, DeepStar.OpenGL.Matrix, DeepStar.OpenGL.Vector, DeepStar.OpenGL.Camera, DeepStar.OpenGL.Shader, DeepStar.OpenGL.Texture, 
   DeepStar.OpenGL.Utils, DeepStar.OpenGL.Assimp, DeepStar.OpenGL.Mesh, DeepStar.OpenGL.Model, DeepStar.SDL2_Package.Mixer, 
   DeepStar.SDL2_Package.Texture, DeepStar.SDL2_Package.Timer, DeepStar.SDL2_Package.Utils, DeepStar.SDL2_Package.Windows, 
-  DeepStar.SDL3_Package.Utils, DeepStar.SDL3_Package.Windows, DeepStar.SDL3_Package.Texture, TyphonPackageIntf;
+  DeepStar.SDL3_Package.Utils, DeepStar.SDL3_Package.Windows, DeepStar.SDL3_Package.Texture, DeepStar.SDL3_Package.Renderer, TyphonPackageIntf;
 
 implementation
 

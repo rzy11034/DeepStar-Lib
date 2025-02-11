@@ -50,6 +50,10 @@ type
     _Angle: Single;
 
     procedure __Free;
+    function __GetBoundsRect: TRect;
+    function __GetHeight: integer;
+    function __GetPosition: TPoint;
+    function __GetWidth: integer;
 
   public
     constructor Create; override;
@@ -69,13 +73,6 @@ type
     procedure LoadFormString(ttfName: string; ttfSize: integer;
                 Text: string; color: TSDL_Color);
 
-    // 渲染纹理
-    procedure Render;
-    procedure Render(srcRect: PSDL_FRect; destRect: PSDL_FRect);
-    // 在给定点渲染纹理
-    procedure Render(p: TPointF);
-
-    procedure SetRenderer(renderer: PSDL_Renderer);
     procedure SetPosition(x, y: integer);
     procedure SetPosition(p: TPoint);
     procedure SetPosition(p: TSDL_Point);
@@ -149,6 +146,128 @@ begin
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
+end;
+
+{ TTexture }
+
+constructor TTexture.Create(renderer: PSDL_Renderer);
+begin
+
+end;
+
+constructor TTexture.Create;
+begin
+  inherited Create;
+end;
+
+function TTexture.CreateBlank(width, Height: integer): Boolean;
+begin
+
+end;
+
+destructor TTexture.Destroy;
+begin
+  inherited Destroy;
+end;
+
+function TTexture.GetScale: TTexture.TScale;
+begin
+
+end;
+
+procedure TTexture.LoadFormString(ttfName: string; ttfSize: integer; Text: string; color: TSDL_Color);
+begin
+
+end;
+
+procedure TTexture.LoadFromFile(path: string);
+begin
+
+end;
+
+procedure TTexture.SetCenter(center: PSDL_FPoint);
+begin
+
+end;
+
+procedure TTexture.SetClip(clip: PSDL_FRect);
+begin
+
+end;
+
+procedure TTexture.SetColorMod(color: TSDL_Color);
+begin
+
+end;
+
+procedure TTexture.SetPosition(x, y: integer);
+begin
+
+end;
+
+procedure TTexture.SetPosition(p: TPoint);
+begin
+
+end;
+
+procedure TTexture.SetPosition(p: TSDL_Point);
+begin
+
+end;
+
+procedure TTexture.SetRotation(angle: Single);
+begin
+
+end;
+
+procedure TTexture.SetScale(x, y: Single);
+begin
+
+end;
+
+procedure TTexture.SetScale(scale: TScale);
+begin
+
+end;
+
+procedure TTexture.SetTarget;
+begin
+
+end;
+
+function TTexture.ToPSDL_Texture: PSDL_Texture;
+begin
+
+end;
+
+procedure TTexture.UnsetTarget;
+begin
+
+end;
+
+procedure TTexture.__Free;
+begin
+
+end;
+
+function TTexture.__GetBoundsRect: TRect;
+begin
+
+end;
+
+function TTexture.__GetHeight: integer;
+begin
+
+end;
+
+function TTexture.__GetPosition: TPoint;
+begin
+
+end;
+
+function TTexture.__GetWidth: integer;
+begin
+
 end;
 
 { TTexture.TScale }

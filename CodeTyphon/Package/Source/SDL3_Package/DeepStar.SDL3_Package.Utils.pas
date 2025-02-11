@@ -64,6 +64,7 @@ function SDL_FRect(x, y, w, h: float): TSDL_FRect;
 function SDL_FRect(rect: TRect): TSDL_FRect;
 
 function SDL_Color(r, g, b, a: byte): TSDL_Color;
+function SDL_ColorF(r, g, b, a: single): TSDL_FColor;
 
 
 implementation
@@ -167,6 +168,20 @@ var
   res: TSDL_Color;
 begin
   res := Default(TSDL_Color);
+
+  res.r := r;
+  res.g := g;
+  res.b := b;
+  res.a := a;
+
+  Result := res;
+end;
+
+function SDL_ColorF(r, g, b, a: single): TSDL_FColor;
+var
+  res: TSDL_FColor;
+begin
+  res := Default(TSDL_FColor);
 
   res.r := r;
   res.g := g;

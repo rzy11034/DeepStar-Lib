@@ -370,6 +370,10 @@
         <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Texture.pas"/>
         <UnitName Value="DeepStar.SDL3_Package.Texture"/>
       </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Renderer.pas"/>
+        <UnitName Value="DeepStar.SDL3_Package.Renderer"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
