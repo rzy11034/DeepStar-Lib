@@ -9,7 +9,7 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp_inc;Source\Utils\Utils_inc"/>
+        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp_inc;Source\Utils\Utils_inc;Source\SDL3_Package\inc"/>
         <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2_Package;Source\SDL3_Package"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
@@ -359,20 +359,68 @@
         <UnitName Value="DeepStar.SDL2_Package.Windows"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Utils.pas"/>
-        <UnitName Value="DeepStar.SDL3_Package.Utils"/>
+        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.pas"/>
+        <UnitName Value="DeepStar.SDL3_Package"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Windows.pas"/>
-        <UnitName Value="DeepStar.SDL3_Package.Windows"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Texture_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Texture.pas"/>
-        <UnitName Value="DeepStar.SDL3_Package.Texture"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Utils.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\DeepStar.SDL3_Package.Renderer.pas"/>
-        <UnitName Value="DeepStar.SDL3_Package.Renderer"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Utils_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Windows.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Windows_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Texture.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Renderer.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Renderer_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Mixer.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Mixer_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Timer.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Timer_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
     </Files>
     <RequiredPkgs>

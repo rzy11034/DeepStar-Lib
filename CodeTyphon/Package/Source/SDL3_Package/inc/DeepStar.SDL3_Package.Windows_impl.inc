@@ -1,82 +1,4 @@
-﻿unit DeepStar.SDL3_Package.Windows;
-
-{$mode ObjFPC}{$H+}
-{$ModeSwitch unicodestrings}{$J-}
-
-interface
-
-uses
-  Classes,
-  SysUtils,
-  libSDL3,
-  DeepStar.Utils,
-  DeepStar.SDL3_Package.Utils;
-
-type
-  TMessageBoxType = type int32;
-
-const
-  MESSAGEBOX_ERROR = libSDL3.SDL_MESSAGEBOX_ERROR;
-  MESSAGEBOX_WARNING = libSDL3.SDL_MESSAGEBOX_WARNING;
-  MESSAGEBOX_INFORMATION = libSDL3.SDL_MESSAGEBOX_INFORMATION;
-
-type
-  TCustomWindow = class abstract(TInterfacedObject)
-  protected class var
-    _WindowRefCount: integer;
-
-  private
-    procedure __SDL_Init;
-
-  public
-    constructor Create; virtual;
-    destructor Destroy; override;
-  end;
-
-  TWindow = class(TCustomWindow)
-  private
-    //Window data
-    _Window: PSDL_Window;
-    _WindowID: Cardinal;
-    _Context: TSDL_GLContext;
-
-    //Window dimensions
-    _Width: Integer;
-    _Height: Integer;
-    _Caption: string;
-
-    function __CreateWindow(caption: string; w, h: integer;
-                 flags: TSDL_WindowFlags): PSDL_Window;
-    function __CreateRenderer: PSDL_Renderer;
-    function __GetCaption: string;
-    function __GetHeight: integer;
-    function __GetResizable: Boolean;
-    function __GetWidth: Integer;
-
-    procedure __SetCaption(const value: string);
-    procedure __SetResizable(const value: Boolean);
-
-  public
-    constructor Create; override;
-    destructor Destroy; override;
-
-    // 获取鼠标相对窗口的坐标
-    function GetMousePos: TPointF;
-
-    function ToPSDL_Window: PSDL_Window;
-
-    procedure Init(caption: string; w, h: integer; flags: TSDL_WindowFlags = 2);
-    procedure Show;
-
-    property Caption: string read __GetCaption write __SetCaption;
-    property Width: Integer read __GetWidth;
-    property Height: integer read __GetHeight;
-    property Resizable: Boolean read __GetResizable write __SetResizable;
-  end;
-
-implementation
-
-{ TCustomWindow }
+﻿{ TCustomWindow }
 
 constructor TCustomWindow.Create;
 begin
@@ -158,6 +80,75 @@ begin
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
+end;
+
+function TWindow.ShowMessageBox(flag: TMessageBoxType; title, message: string): Integer;
+  function __SDL_MessageBoxColor__(r, g, b: uint8): TSDL_MessageBoxColor;
+  var
+    res: TSDL_MessageBoxColor;
+  begin
+    res := Default(TSDL_MessageBoxColor);
+
+    res.r := r;
+    res.b := b;
+    res.g := g;
+
+    Result := res;
+  end;
+
+var
+  mbd: TSDL_MessageBoxData;
+  mbts: array of TSDL_MessageBoxButtonData;
+  i, buttonID, res: integer;
+  // colorScheme: TSDL_MessageBoxColorScheme;
+begin
+  mbd := Default(TSDL_MessageBoxData);
+
+  SetLength(mbts, 2);
+  for i := 0 to High(mbts) do
+    mbts[i] := Default(TSDL_MessageBoxButtonData);
+
+  //// [SDL_MESSAGEBOX_COLOR_BACKGROUND] */
+  //colorScheme.colors[0] := __SDL_MessageBoxColor__(200, 200, 200);
+  //// [SDL_MESSAGEBOX_COLOR_TEXT] */
+  //colorScheme.colors[0] := __SDL_MessageBoxColor__(0, 0, 0);
+  //// [SDL_MESSAGEBOX_COLOR_BUTTON_BORDER] */
+  //colorScheme.colors[0] := __SDL_MessageBoxColor__(255, 255, 255);
+  //// [SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND] */
+  //colorScheme.colors[0] := __SDL_MessageBoxColor__(150, 150, 150);
+  //// [SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED] */
+  //colorScheme.colors[0] := __SDL_MessageBoxColor__(255, 255, 255);
+
+  //////////////////////////////////
+
+  with mbts[0] do
+  begin
+    flags := SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT;
+    buttonid := 2; {**< User defined button id (value returned via SDL_ShowMessageBox) *}
+    Text := PAnsiChar('否(Esc)');
+  end;
+
+  with mbts[1] do
+  begin
+    flags := SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT;
+    buttonid := 1; {**< User defined button id (value returned via SDL_ShowMessageBox) *}
+    Text := '是(Enter)';
+  end;
+
+  mbd.flags := flag;
+  mbd.title := title.ToPAnsiChar;
+  mbd.message := message.ToPAnsiChar;
+  mbd.window := Self.ToPSDL_Window;
+  mbd.numbuttons := 2;
+  mbd.Buttons := @mbts[0];
+  mbd.colorScheme := nil;//@colorScheme;
+
+  if SDL_ShowMessageBox(@mbd, @buttonID) then
+    res := buttonID
+  else
+    res := -1;
+
+  Result := res;
 end;
 
 function TWindow.ToPSDL_Window: PSDL_Window;
@@ -253,6 +244,4 @@ procedure TWindow.__SetResizable(const value: Boolean);
 begin
   SDL_SetWindowResizable(_Window, value);
 end;
-
-end.
 
