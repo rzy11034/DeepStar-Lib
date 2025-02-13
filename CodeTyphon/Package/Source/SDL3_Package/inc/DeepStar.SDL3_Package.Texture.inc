@@ -50,10 +50,11 @@ type
     procedure LoadFormString(ttfName: string; ttfSize: integer;
                 Text: string; color: TSDL_Color);
 
+    procedure SetColorMod(color: TSDL_Color);
     procedure SetPosition(x, y: Single);
     procedure SetPosition(p: TPointF);
     procedure SetPosition(p: TSDL_FPoint);
-    procedure SetColorMod(color: TSDL_Color);
+    procedure SetRenderer(renderer: PSDL_Renderer);
     procedure SetScale(scale: TScale);
     procedure SetScale(x, y: Single);
 

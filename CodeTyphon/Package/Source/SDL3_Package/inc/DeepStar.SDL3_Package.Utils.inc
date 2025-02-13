@@ -12,6 +12,9 @@
   TList_TPointF = specialize TArrayList<TPointF>;
   TList_TRectF = specialize TArrayList<TRectF>;
 
+  TArr_TPoint = array of TPoint;
+  TArr_TRect = array of TRect;
+
   TArr_TPointF = array of TPointF;
   TArr_TRectF = array of TRectF;
 
@@ -38,6 +41,8 @@ operator := (AColor: TColor): TSDL_Color;
 operator := (AColor: TAlphaColor): TSDL_Color;
 operator := (AColor: TColor): TColors;
 operator := (AColor: TAlphaColor): TAlphaColors;
+
+function Rect(p: TPoint; w, h: integer): TRect;
 
 function PointF(x, y: Single): TPointF;
 function RectF(p: TPointF; w, h: Single): TRectF;

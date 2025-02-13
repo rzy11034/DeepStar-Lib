@@ -34,6 +34,11 @@ begin
   Result := TAlphaColors.Create(AColor);
 end;
 
+function Rect(p: TPoint; w, h: integer): TRect;
+begin
+  Result := TRect.Create(p, w, h);
+end;
+
 function PointF(x, y: Single): TPointF;
 begin
   Result := TPointF.Create(x, y);

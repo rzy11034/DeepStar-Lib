@@ -181,6 +181,11 @@ begin
   Self.SetPosition(p.x, p.y);
 end;
 
+procedure TTexture.SetRenderer(renderer: PSDL_Renderer);
+begin
+  _Renderer := renderer;
+end;
+
 procedure TTexture.SetScale(x, y: Single);
 begin
   _Scale.x := x;
