@@ -67,7 +67,14 @@ end;
 
 procedure TWindow.Init(caption: string; w, h: integer; flags: TSDL_WindowFlags);
 begin
-  _Window := __CreateWindow(caption, w, h, flags);
+  _Window := __CreateWindow(caption, w, h, flags, false);
+end;
+
+procedure TWindow.InitWithOpenGL(caption: string; w, h: integer;
+  flags: TSDL_WindowFlags);
+begin
+  flags := flags or SDL_WINDOW_OPENGL;
+  _Window := __CreateWindow(caption, w, h, flags, true);
 end;
 
 procedure TWindow.Show;
@@ -167,15 +174,19 @@ begin
   Result := res;
 end;
 
-function TWindow.__CreateWindow(caption: string; w, h: integer;
-  flags: TSDL_WindowFlags): PSDL_Window;
+function TWindow.__CreateWindow(Caption: string; w, h: integer; flags: TSDL_WindowFlags;
+  enableOpenGL: boolean): PSDL_Window;
 var
   winFlags: Integer;
   res: PSDL_Window;
   errStr: String;
 begin
-  winFlags := SDL_WINDOW_HIDDEN or SDL_WINDOW_OPENGL;
-  winFlags := winFlags or flags;
+  winFlags := 0;
+
+  if enableOpenGL then
+    winFlags := winFlags or SDL_WINDOW_OPENGL;
+
+  winFlags := flags or SDL_WINDOW_HIDDEN;
 
   res := PSDL_Window(nil);
 
@@ -192,15 +203,19 @@ begin
   _Width := w;
   _Height := h;
   _Caption := caption;
+  _EnableOpenGL := enableOpenGL;
 
-  // 设置 OpenGL 属性
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-  SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+  if enableOpenGL then
+  begin
+    // 设置 OpenGL 属性
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-  _Context := SDL_GL_CreateContext(res);
+    _Context := SDL_GL_CreateContext(res);
+  end;
 
   Result := res;
 end;
@@ -208,6 +223,19 @@ end;
 function TWindow.__GetCaption: string;
 begin
   Result := _Caption;
+end;
+
+function TWindow.__GetGL_Context: TSDL_GLContext;
+var
+  errStr: String;
+begin
+  if not _EnableOpenGL then
+  begin
+    errStr := 'Windows don''t specify OpenGL!';
+    raise Exception.Create(errStr.ToAnsiString);
+  end;
+
+  Result := _Context;
 end;
 
 function TWindow.__GetHeight: integer;

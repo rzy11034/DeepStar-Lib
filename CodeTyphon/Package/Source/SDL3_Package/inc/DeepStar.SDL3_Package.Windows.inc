@@ -21,6 +21,7 @@ type
 
   TWindow = class(TCustomWindow)
   private
+    _EnableOpenGL: Boolean;
     //Window data
     _Window: PSDL_Window;
     _WindowID: Cardinal;
@@ -31,10 +32,12 @@ type
     _Height: Integer;
     _Caption: string;
 
-    function __CreateWindow(caption: string; w, h: integer;
-                 flags: TSDL_WindowFlags): PSDL_Window;
+    function __CreateWindow(Caption: string; w, h: integer; flags: TSDL_WindowFlags;
+              enableOpenGL: boolean): PSDL_Window;
+
     function __CreateRenderer: PSDL_Renderer;
     function __GetCaption: string;
+    function __GetGL_Context: TSDL_GLContext;
     function __GetHeight: integer;
     function __GetResizable: Boolean;
     function __GetWidth: Integer;
@@ -53,12 +56,26 @@ type
 
     function ToPSDL_Window: PSDL_Window;
 
-    procedure Init(caption: string; w, h: integer; flags: TSDL_WindowFlags = 2);
+    procedure Init
+              (
+                caption: string;
+                w, h: integer;
+                flags: TSDL_WindowFlags = SDL_WINDOW_HIDDEN
+              );
+
+    procedure InitWithOpenGL
+              (
+                caption: string;
+                w, h: integer;
+                flags: TSDL_WindowFlags = SDL_WINDOW_HIDDEN
+              );
+
     procedure Show;
 
     property Caption: string read __GetCaption write __SetCaption;
     property Width: Integer read __GetWidth;
     property Height: integer read __GetHeight;
     property Resizable: Boolean read __GetResizable write __SetResizable;
+    property GL_Context: TSDL_GLContext read __GetGL_Context;
   end;
 
