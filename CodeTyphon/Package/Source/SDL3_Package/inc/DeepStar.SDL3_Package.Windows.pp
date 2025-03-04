@@ -9,10 +9,10 @@ const
 type
   TCustomWindow = class abstract(TInterfacedObject)
   protected class var
-    _WindowRefCount: integer;
+    fWindowRefCount: integer;
 
   private
-    procedure __SDL_Init;
+    procedure SDL_Initiate;
 
   public
     constructor Create; virtual;
@@ -21,29 +21,28 @@ type
 
   TWindow = class(TCustomWindow)
   private
-    _EnableOpenGL: Boolean;
+    fEnableOpenGL: Boolean;
     //Window data
-    _Window: PSDL_Window;
-    _WindowID: Cardinal;
-    _Context: TSDL_GLContext;
+    fWindow: PSDL_Window;
+    fWindowID: Cardinal;
+    fContext: TSDL_GLContext;
 
     //Window dimensions
-    _Width: Integer;
-    _Height: Integer;
-    _Caption: string;
+    fWidth: Integer;
+    fHeight: Integer;
+    fCaption: string;
 
-    function __CreateWindow(Caption: string; w, h: integer; flags: TSDL_WindowFlags;
+    function CreateWindow(Caption: string; w, h: integer; flags: TSDL_WindowFlags;
               enableOpenGL: boolean): PSDL_Window;
 
-    function __CreateRenderer: PSDL_Renderer;
-    function __GetCaption: string;
-    function __GetGL_Context: TSDL_GLContext;
-    function __GetHeight: integer;
-    function __GetResizable: Boolean;
-    function __GetWidth: Integer;
-
-    procedure __SetCaption(const value: string);
-    procedure __SetResizable(const value: Boolean);
+    function CreateRenderer: PSDL_Renderer;
+    function GetCaption: string;
+    function GetGL_Context: TSDL_GLContext;
+    function GetHeight: integer;
+    function GetResizable: Boolean;
+    function GetWidth: Integer;
+    procedure SetCaption(const value: string);
+    procedure SetResizable(const value: Boolean);
 
   public
     constructor Create; override;
@@ -72,10 +71,10 @@ type
 
     procedure Show;
 
-    property Caption: string read __GetCaption write __SetCaption;
-    property Width: Integer read __GetWidth;
-    property Height: integer read __GetHeight;
-    property Resizable: Boolean read __GetResizable write __SetResizable;
-    property GL_Context: TSDL_GLContext read __GetGL_Context;
+    property Caption: string read GetCaption write SetCaption;
+    property Width: Integer read GetWidth;
+    property Height: integer read GetHeight;
+    property Resizable: Boolean read GetResizable write SetResizable;
+    property GL_Context: TSDL_GLContext read GetGL_Context;
   end;
 

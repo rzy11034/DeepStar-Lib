@@ -4,25 +4,25 @@ constructor TCustomWindow.Create;
 begin
   inherited Create;
 
-  if _WindowRefCount = 0 then
+  if fWindowRefCount = 0 then
   begin
-    __SDL_Init;
+    SDL_Initiate;
   end;
 
-  _WindowRefCount += 1;
+  fWindowRefCount += 1;
 end;
 
 destructor TCustomWindow.Destroy;
 begin
-  _WindowRefCount -= 0;
+  fWindowRefCount -= 0;
 
-  if _WindowRefCount <= 0 then
+  if fWindowRefCount <= 0 then
     SDL_Quit;
 
   inherited Destroy;
 end;
 
-procedure TCustomWindow.__SDL_Init;
+procedure TCustomWindow.SDL_Initiate;
 var
   errStr: string;
 begin
@@ -40,18 +40,18 @@ constructor TWindow.Create();
 begin
   inherited Create;
 
-  _Window := PSDL_Window(nil);
-  _WindowID := 0;
-  _Width := 0;
-  _Height := 0;
+  fWindow := PSDL_Window(nil);
+  fWindowID := 0;
+  fWidth := 0;
+  fHeight := 0;
 end;
 
 destructor TWindow.Destroy;
 begin
-  if _Window <> nil then
+  if fWindow <> nil then
   begin
-    SDL_DestroyWindow(_Window);
-    _Window := nil;
+    SDL_DestroyWindow(fWindow);
+    fWindow := nil;
   end;
 
   inherited Destroy;
@@ -67,21 +67,21 @@ end;
 
 procedure TWindow.Init(caption: string; w, h: integer; flags: TSDL_WindowFlags);
 begin
-  _Window := __CreateWindow(caption, w, h, flags, false);
+  fWindow := CreateWindow(caption, w, h, flags, false);
 end;
 
 procedure TWindow.InitWithOpenGL(caption: string; w, h: integer;
   flags: TSDL_WindowFlags);
 begin
   flags := flags or SDL_WINDOW_OPENGL;
-  _Window := __CreateWindow(caption, w, h, flags, true);
+  fWindow := CreateWindow(caption, w, h, flags, true);
 end;
 
 procedure TWindow.Show;
 var
   errStr: String;
 begin
-  if not SDL_ShowWindow(_Window) then
+  if not SDL_ShowWindow(fWindow) then
   begin
     errStr := 'Failed to show the window! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
@@ -160,21 +160,21 @@ end;
 
 function TWindow.ToPSDL_Window: PSDL_Window;
 begin
-  Result := _Window;
+  Result := fWindow;
 end;
 
-function TWindow.__CreateRenderer: PSDL_Renderer;
+function TWindow.CreateRenderer: PSDL_Renderer;
 var
   res: PSDL_Renderer;
 begin
   res := PSDL_Renderer(nil);
 
-  res := SDL_CreateRenderer(_Window, nil);
+  res := SDL_CreateRenderer(fWindow, nil);
 
   Result := res;
 end;
 
-function TWindow.__CreateWindow(Caption: string; w, h: integer; flags: TSDL_WindowFlags;
+function TWindow.CreateWindow(Caption: string; w, h: integer; flags: TSDL_WindowFlags;
   enableOpenGL: boolean): PSDL_Window;
 var
   winFlags: Integer;
@@ -199,11 +199,11 @@ begin
   end;
 
   // 获取窗口标识符
-  _WindowID := SDL_GetWindowID(res);
-  _Width := w;
-  _Height := h;
-  _Caption := caption;
-  _EnableOpenGL := enableOpenGL;
+  fWindowID := SDL_GetWindowID(res);
+  fWidth := w;
+  fHeight := h;
+  fCaption := caption;
+  fEnableOpenGL := enableOpenGL;
 
   if enableOpenGL then
   begin
@@ -214,41 +214,41 @@ begin
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-    _Context := SDL_GL_CreateContext(res);
+    fContext := SDL_GL_CreateContext(res);
   end;
 
   Result := res;
 end;
 
-function TWindow.__GetCaption: string;
+function TWindow.GetCaption: string;
 begin
-  Result := _Caption;
+  Result := fCaption;
 end;
 
-function TWindow.__GetGL_Context: TSDL_GLContext;
+function TWindow.GetGL_Context: TSDL_GLContext;
 var
   errStr: String;
 begin
-  if not _EnableOpenGL then
+  if not fEnableOpenGL then
   begin
     errStr := 'Windows don''t specify OpenGL!';
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  Result := _Context;
+  Result := fContext;
 end;
 
-function TWindow.__GetHeight: integer;
+function TWindow.GetHeight: integer;
 begin
-  Result := _Height;
+  Result := fHeight;
 end;
 
-function TWindow.__GetResizable: Boolean;
+function TWindow.GetResizable: Boolean;
 var
   flag: TSDL_WindowFlags;
   res: Boolean;
 begin
-  flag := SDL_GetWindowFlags(_Window);
+  flag := SDL_GetWindowFlags(fWindow);
   res := false;
 
   If (flag and SDL_WINDOW_RESIZABLE) = SDL_WINDOW_RESIZABLE then
@@ -257,19 +257,19 @@ begin
   Result := res;
 end;
 
-function TWindow.__GetWidth: Integer;
+function TWindow.GetWidth: Integer;
 begin
-  Result := _Width;
+  Result := fWidth;
 end;
 
-procedure TWindow.__SetCaption(const value: string);
+procedure TWindow.SetCaption(const value: string);
 begin
-  SDL_SetWindowTitle(_Window, value.ToPAnsiChar);
-  _Caption := value;
+  SDL_SetWindowTitle(fWindow, value.ToPAnsiChar);
+  fCaption := value;
 end;
 
-procedure TWindow.__SetResizable(const value: Boolean);
+procedure TWindow.SetResizable(const value: Boolean);
 begin
-  SDL_SetWindowResizable(_Window, value);
+  SDL_SetWindowResizable(fWindow, value);
 end;
 

@@ -25,7 +25,7 @@ uses
 
 {$I DeepStar.SDL3_Package.Utils}
 {$I DeepStar.SDL3_Package.Windows}
-{$I DeepStar.SDL3_Package.Renderer.inc}
+{$I DeepStar.SDL3_Package.Renderer}
 {$I DeepStar.SDL3_Package.Texture}
 {$I DeepStar.SDL3_Package.Mixer}
 {$I DeepStar.SDL3_Package.Timer}

@@ -2,19 +2,19 @@
 
 constructor TCustomMixer.Create;
 begin
-  if _MixerRefCount <= 0 then
+  if fMixerRefCount <= 0 then
   begin
-    __MixerOpenAudio;
+    MixerOpenAudio;
   end;
 
-  _MixerRefCount += 1;
+  fMixerRefCount += 1;
 end;
 
 destructor TCustomMixer.Destroy;
 begin
-  _MixerRefCount -= 1;
+  fMixerRefCount -= 1;
 
-  if _MixerRefCount <= 0 then
+  if fMixerRefCount <= 0 then
   begin
     Mix_CloseAudio;
     Mix_Quit;
@@ -23,7 +23,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TCustomMixer.__MixerOpenAudio;
+procedure TCustomMixer.MixerOpenAudio;
 var
   errStr: String;
   spec: TSDL_AudioSpec;
@@ -46,15 +46,15 @@ end;
 constructor TMusic.Create;
 begin
   inherited Create;
-  _Music := PMix_Music(nil);
+  fMusic := PMix_Music(nil);
 end;
 
 destructor TMusic.Destroy;
 begin
-  if _Music <> nil then
+  if fMusic <> nil then
   begin
-    Mix_FreeMusic(_Music);
-    _Music := nil;
+    Mix_FreeMusic(fMusic);
+    fMusic := nil;
   end;
 
   inherited Destroy;
@@ -64,8 +64,8 @@ procedure TMusic.LoadFromFile(fileName: string);
 var
   errStr: String;
 begin
-  _Music := Mix_LoadMUS(CrossFixFileName(fileName).ToPAnsiChar);
-  if _Music = nil then
+  fMusic := Mix_LoadMUS(CrossFixFileName(fileName).ToPAnsiChar);
+  if fMusic = nil then
   begin
     errStr := string('Failed to load ' + fileName);
     raise Exception.Create(errStr.ToAnsiString);
@@ -74,7 +74,7 @@ end;
 
 procedure TMusic.Play;
 begin
-  Mix_PlayMusic(_Music, -1);
+  Mix_PlayMusic(fMusic, -1);
 end;
 
 { TChunk }
@@ -82,15 +82,15 @@ end;
 constructor TChunk.Create;
 begin
   inherited Create;
-  _Chunk := PMix_Chunk(nil);
+  fChunk := PMix_Chunk(nil);
 end;
 
 destructor TChunk.Destroy;
 begin
-  if _Chunk <> nil then
+  if fChunk <> nil then
   begin
-    Mix_FreeChunk(_Chunk);
-    _Chunk := nil;
+    Mix_FreeChunk(fChunk);
+    fChunk := nil;
   end;
 
   inherited Destroy;
@@ -100,8 +100,8 @@ procedure TChunk.LoadFromFile(fileName: string);
 var
   errStr: String;
 begin
-  _Chunk := Mix_LoadWAV(CrossFixFileName(fileName).ToPAnsiChar);
-  if _Chunk = nil then
+  fChunk := Mix_LoadWAV(CrossFixFileName(fileName).ToPAnsiChar);
+  if fChunk = nil then
   begin
     errStr := string('Failed to load ' + fileName);
     raise Exception.Create(errStr.ToAnsiString);
@@ -110,7 +110,7 @@ end;
 
 procedure TChunk.Play;
 begin
-  Mix_PlayChannel(-1, _Chunk, 0);
+  Mix_PlayChannel(-1, fChunk, 0);
 end;
 
 

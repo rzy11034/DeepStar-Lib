@@ -1,17 +1,18 @@
-﻿type
+﻿
+type
   TTexture = Class;
 
   TRenderer = class(TInterfacedObject)
   private
-    _Renderer: PSDL_Renderer;
-    _Color: TSDL_Color;
-    _ColorF: TSDL_FColor;
+    fRenderer: PSDL_Renderer;
+    fColor: TSDL_Color;
+    fColorF: TSDL_FColor;
 
-    procedure __SetDrawColor;
-    procedure __GetDrawColor;
+    procedure SetDrawColor;
+    procedure GetDrawColor;
 
-    procedure __SetDrawColorF;
-    procedure __GetDrawColorF;
+    procedure SetDrawColorF;
+    procedure GetDrawColorF;
 
   public
     constructor Create(win: PSDL_Window; name: string = '');

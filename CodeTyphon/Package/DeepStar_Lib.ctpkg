@@ -368,9 +368,9 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Utils.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Utils.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="DeepStar.SDL3_Package.Utils"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Utils_impl.inc"/>
@@ -378,9 +378,9 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Windows.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Windows.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="DeepStar.SDL3_Package.Windows"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Windows_impl.inc"/>
@@ -388,14 +388,14 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Texture.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Texture.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="DeepStar.SDL3_Package.Texture"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Renderer.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Renderer.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="DeepStar.SDL3_Package.Renderer"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Renderer_impl.inc"/>
@@ -403,9 +403,9 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Mixer.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Mixer.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="DeepStar.SDL3_Package.Mixer"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Mixer_impl.inc"/>
@@ -413,9 +413,9 @@
         <FRMtype Value="0"/>
       </Item>
       <Item>
-        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Timer.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
+        <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Timer.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="DeepStar.SDL3_Package.Timer"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Timer_impl.inc"/>

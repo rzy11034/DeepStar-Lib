@@ -1,10 +1,11 @@
+
 type
   TCustomImage = class (TInterfacedObject)
   protected class var
-    _ImageRefCount: integer;
+    fImageRefCount: integer;
 
   private
-    procedure __TTF_Init;
+    procedure TTF_Initiate;
 
   public
     constructor Create; virtual;
@@ -21,16 +22,17 @@ type
     end;
 
   private
-    _Renderer: PSDL_Renderer;
-    _Texture: PSDL_Texture;
-    _Position: TPointF;
-    _Scale: TScale;
+    fRenderer: PSDL_Renderer;
+    fTexture: PSDL_Texture;
+    fPosition: TPointF;
+    fScale: TScale;
 
-    procedure __Free;
-    function __GetBoundsRect: TRectF;
-    function __GetHeight: integer;
-    function __GetPosition: TPointF;
-    function __GetWidth: integer;
+    procedure _Free;
+
+    function GetBoundsRect: TRectF;
+    function GetHeight: integer;
+    function GetPosition: TPointF;
+    function GetWidth: integer;
 
   public
     constructor Create; override;
@@ -61,10 +63,10 @@ type
     procedure SetTarget;
     procedure UnsetTarget;
 
-    property Width: integer read __GetWidth;
-    property Height: integer read __GetHeight;
-    property Position: TPointF read __GetPosition;
-    property BoundsRect: TRectF read __GetBoundsRect;
+    property Width: integer read GetWidth;
+    property Height: integer read GetHeight;
+    property Position: TPointF read GetPosition;
+    property BoundsRect: TRectF read GetBoundsRect;
   end;
 
 type

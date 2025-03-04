@@ -2,19 +2,19 @@
 
 constructor TCustomImage.Create;
 begin
-  if _ImageRefCount = 0 then
+  if fImageRefCount = 0 then
   begin
-    __TTF_Init;
+    TTF_Initiate;
   end;
 
-  _ImageRefCount += 1;
+  fImageRefCount += 1;
 end;
 
 destructor TCustomImage.Destroy;
 begin
-  _ImageRefCount -= 1;
+  fImageRefCount -= 1;
 
-  if _ImageRefCount <= 0 then
+  if fImageRefCount <= 0 then
   begin
     TTF_Quit;
   end;
@@ -22,7 +22,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TCustomImage.__TTF_Init;
+procedure TCustomImage.TTF_Initiate;
 var
   errStr: string;
 begin
@@ -40,7 +40,7 @@ constructor TTexture.Create(renderer: PSDL_Renderer);
 begin
   inherited Create;
 
-  _Renderer := renderer;
+  fRenderer := renderer;
 end;
 
 constructor TTexture.Create;
@@ -52,37 +52,37 @@ function TTexture.CreateBlank(width, Height: integer): Boolean;
 var
   errStr: String;
 begin
-  __Free;
+  _Free;
 
-  _Texture := SDL_CreateTexture
+  fTexture := SDL_CreateTexture
   (
-    _Renderer,
+    fRenderer,
     SDL_PIXELFORMAT_RGBA8888,
     SDL_TEXTUREACCESS_TARGET,
     Width,
     Height
   );
 
-  if _Texture = nil then
+  if fTexture = nil then
   begin
     errStr := 'Unable to create streamable blank texture! SDL Error: %s';
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  Result := _Texture <> nil;
+  Result := fTexture <> nil;
 end;
 
 destructor TTexture.Destroy;
 begin
-  Self.__Free;
+  Self._Free;
   inherited Destroy;
 end;
 
 function TTexture.GetScale: TTexture.TScale;
 begin
-  Result.x := _Scale.x;
-  Result.y := _Scale.y;
+  Result.x := fScale.x;
+  Result.y := fScale.y;
 end;
 
 procedure TTexture.LoadFormString(ttfName: string; ttfSize: integer; Text: string;
@@ -93,7 +93,7 @@ var
   textSurface: PSDL_Surface;
   newTexture: PSDL_Texture;
 begin
-  Self.__Free;
+  Self._Free;
 
   font := PTTF_Font(nil);
   font := TTF_OpenFont(CrossFixFileName(ttfName).ToPAnsiChar, ttfSize);
@@ -117,7 +117,7 @@ begin
 
     // Create texture from surface pixels
     newTexture := PSDL_Texture(nil);
-    newTexture := SDL_CreateTextureFromSurface(_Renderer, textSurface);
+    newTexture := SDL_CreateTextureFromSurface(fRenderer, textSurface);
     if newTexture = nil then
     begin
       errStr := 'Unable to create texture from rendered text! SDL Error: %s';
@@ -126,7 +126,7 @@ begin
     end;
 
     // Get image
-    _Texture := newTexture;
+    fTexture := newTexture;
   finally
     TTF_CloseFont(font);
     SDL_DestroySurface(textSurface);
@@ -138,11 +138,11 @@ var
   fileName, errStr: String;
   newTexture: PSDL_Texture;
 begin
-  Self.__Free;
+  Self._Free;
   fileName := CrossFixFileName(path);
 
   newTexture := PSDL_Texture(nil);
-  newTexture := IMG_LoadTexture(_Renderer, fileName.ToPAnsiChar);
+  newTexture := IMG_LoadTexture(fRenderer, fileName.ToPAnsiChar);
 
   if newTexture = nil then
   begin
@@ -151,14 +151,14 @@ begin
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  _Texture := newTexture;
+  fTexture := newTexture;
 end;
 
 procedure TTexture.SetColorMod(color: TSDL_Color);
 var
   errStr: String;
 begin
-  if not SDL_SetTextureColorMod(_Texture, color.r, color.g, color.b) then
+  if not SDL_SetTextureColorMod(fTexture, color.r, color.g, color.b) then
   begin
     errStr := 'Failed to SDL_GetRenderDrawColorFloat()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
@@ -168,7 +168,7 @@ end;
 
 procedure TTexture.SetPosition(x, y: Single);
 begin
-  _Position := TPointF.Create(x, y);
+  fPosition := TPointF.Create(x, y);
 end;
 
 procedure TTexture.SetPosition(p: TPointF);
@@ -183,13 +183,13 @@ end;
 
 procedure TTexture.SetRenderer(renderer: PSDL_Renderer);
 begin
-  _Renderer := renderer;
+  fRenderer := renderer;
 end;
 
 procedure TTexture.SetScale(x, y: Single);
 begin
-  _Scale.x := x;
-  _Scale.y := y;
+  fScale.x := x;
+  fScale.y := y;
 end;
 
 procedure TTexture.SetScale(scale: TScale);
@@ -201,7 +201,7 @@ procedure TTexture.SetTarget;
 var
   errStr: String;
 begin
-  if not SDL_SetRenderTarget(_Renderer, _Texture) then
+  if not SDL_SetRenderTarget(fRenderer, fTexture) then
   begin
     errStr := 'Failed to SDL_SetRenderTarget()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
@@ -211,14 +211,14 @@ end;
 
 function TTexture.ToPSDL_Texture: PSDL_Texture;
 begin
-  Result := _Texture;
+  Result := fTexture;
 end;
 
 procedure TTexture.UnsetTarget;
 var
   errStr: String;
 begin
-  if not SDL_SetRenderTarget(_Renderer, nil) then
+  if not SDL_SetRenderTarget(fRenderer, nil) then
   begin
     errStr := 'Failed to SDL_SetRenderTarget()! SDL Error: %s';
     errStr.Format([SDL_GetError()]);
@@ -226,42 +226,42 @@ begin
   end;
 end;
 
-procedure TTexture.__Free;
+procedure TTexture._Free;
 begin
-  if _Texture <> nil then
+  if fTexture <> nil then
   begin
-    SDL_DestroyTexture(_Texture);
-    _Texture := nil;
+    SDL_DestroyTexture(fTexture);
+    fTexture := nil;
   end;
 end;
 
-function TTexture.__GetBoundsRect: TRectF;
+function TTexture.GetBoundsRect: TRectF;
 var
   res: TRectF;
 begin
   res := Default(TRectF);
 
-  res.Left := _Position.x;
-  res.Top := _Position.y;
-  res.Right := _Position.x + _Texture^.w;
-  res.Bottom := _Position.y + _Texture^.h;
+  res.Left := fPosition.x;
+  res.Top := fPosition.y;
+  res.Right := fPosition.x + fTexture^.w;
+  res.Bottom := fPosition.y + fTexture^.h;
 
   Result := res;
 end;
 
-function TTexture.__GetHeight: integer;
+function TTexture.GetHeight: integer;
 begin
-  Result := IfThen(_Texture <> nil, _Texture^.h, 0);
+  Result := IfThen(fTexture <> nil, fTexture^.h, 0);
 end;
 
-function TTexture.__GetPosition: TPointF;
+function TTexture.GetPosition: TPointF;
 begin
-  Result := _Position;
+  Result := fPosition;
 end;
 
-function TTexture.__GetWidth: integer;
+function TTexture.GetWidth: integer;
 begin
-  Result := IfThen(_Texture <> nil, _Texture^.w, 0);
+  Result := IfThen(fTexture <> nil, fTexture^.w, 0);
 end;
 
 { TTexture.TScale }

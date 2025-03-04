@@ -15,17 +15,17 @@ begin
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  _Renderer := res;
+  fRenderer := res;
 
-  _Color := TSDL_Color(TAlphaColors.White);
-  _ColorF := SDL_ColorF(1, 1, 1, 1);
+  fColor := TSDL_Color(TAlphaColors.White);
+  fColorF := SDL_ColorF(1, 1, 1, 1);
 end;
 
 procedure TRenderer.Clear;
 var
   errStr: String;
 begin
-  if not SDL_RenderClear(_Renderer) then
+  if not SDL_RenderClear(fRenderer) then
   begin
     errStr := 'Failed to SDL_RenderClear()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
@@ -35,10 +35,10 @@ end;
 
 destructor TRenderer.Destroy;
 begin
-  if _Renderer <> nil then
+  if fRenderer <> nil then
   begin
-    SDL_DestroyRenderer(_Renderer);
-    _Renderer := nil;
+    SDL_DestroyRenderer(fRenderer);
+    fRenderer := nil;
   end;
 
   inherited Destroy;
@@ -78,14 +78,14 @@ begin
     renderQuad.h := clip^.h;
   end;
 
-  if not SDL_SetRenderScale(_Renderer, scale.x, scale.y) then
+  if not SDL_SetRenderScale(fRenderer, scale.x, scale.y) then
   begin
     errStr := 'Failed to SDL_SetRenderScale()! SDL Error: %s';
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  if not SDL_RenderTextureRotated(_Renderer, texture.ToPSDL_Texture, clip,
+  if not SDL_RenderTextureRotated(fRenderer, texture.ToPSDL_Texture, clip,
     @renderQuad, angle, center, flip) then
   begin
     errStr := 'Failed to SDL_RenderTextureRotated()! SDL Error: %s';
@@ -101,14 +101,14 @@ var
 begin
   scale := texture.GetScale;
 
-  if not SDL_SetRenderScale(_Renderer, scale.x, scale.y) then
+  if not SDL_SetRenderScale(fRenderer, scale.x, scale.y) then
   begin
     errStr := 'Failed to SDL_SetRenderScale()! SDL Error: %s';
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  if not SDL_RenderTexture(_Renderer, texture.ToPSDL_Texture, srcRect, destRect) then
+  if not SDL_RenderTexture(fRenderer, texture.ToPSDL_Texture, srcRect, destRect) then
   begin
     errStr := 'Failed to SDL_RenderTexture()! SDL Error: %s';
     errStr.Format([SDL_GetError()]);
@@ -125,7 +125,7 @@ procedure TRenderer.RenderPresent;
 var
   errStr: String;
 begin
-  if not SDL_RenderPresent(_Renderer) then
+  if not SDL_RenderPresent(fRenderer) then
   begin
     errStr := 'Failed to SDL_RenderPresent()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
@@ -135,80 +135,80 @@ end;
 
 procedure TRenderer.SetDrawColor(r, g, b, a: Byte);
 begin
-  _Color := SDL_Color(r, g, b, a);
+  fColor := SDL_Color(r, g, b, a);
 
-  __SetDrawColor;
-  __GetDrawColorF;
+  SetDrawColor;
+  GetDrawColorF;
 end;
 
 procedure TRenderer.SetDrawColor(color: TSDL_Color);
 begin
-  _Color := color;
+  fColor := color;
 
-  __SetDrawColor;
-  __GetDrawColorF;
+  SetDrawColor;
+  GetDrawColorF;
 end;
 
 procedure TRenderer.SetDrawColorFloat(r, g, b, a: Single);
 begin
-  _ColorF := SDL_ColorF(r, g, b, a);
-  __SetDrawColorF;
-  __GetDrawColor;
+  fColorF := SDL_ColorF(r, g, b, a);
+  SetDrawColorF;
+  GetDrawColor;
 end;
 
 procedure TRenderer.SetDrawColorFloat(color: TSDL_FColor);
 begin
-  _ColorF := color;
-  __SetDrawColorF;
-  __GetDrawColor;
+  fColorF := color;
+  SetDrawColorF;
+  GetDrawColor;
 end;
 
 function TRenderer.ToPSDL_Renderer: PSDL_Renderer;
 begin
-  Result := _Renderer;
+  Result := fRenderer;
 end;
 
-procedure TRenderer.__GetDrawColor;
+procedure TRenderer.GetDrawColor;
 var
   r, g, b, a: byte;
   errStr: String;
 begin
-  if not SDL_GetRenderDrawColorFloat(_Renderer, @r, @g, @b, @a) then
+  if not SDL_GetRenderDrawColorFloat(fRenderer, @r, @g, @b, @a) then
   begin
     errStr := 'Failed to SDL_GetRenderDrawColorFloat()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  _Color := SDL_Color(r, g, b, a);
+  fColor := SDL_Color(r, g, b, a);
 end;
 
-procedure TRenderer.__GetDrawColorF;
+procedure TRenderer.GetDrawColorF;
 var
   r, g, b, a: single;
   errStr: String;
 begin
-  if not SDL_GetRenderDrawColorFloat(_Renderer, @r, @g, @b, @a) then
+  if not SDL_GetRenderDrawColorFloat(fRenderer, @r, @g, @b, @a) then
   begin
     errStr := 'Failed to SDL_GetRenderDrawColorFloat()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
     raise Exception.Create(errStr.ToAnsiString);
   end;
 
-  _ColorF := SDL_ColorF(r, g, b, a);
+  fColorF := SDL_ColorF(r, g, b, a);
 end;
 
-procedure TRenderer.__SetDrawColor;
+procedure TRenderer.SetDrawColor;
 var
   r, g, b, a: byte;
   errStr: String;
 begin
-  r := _Color.r;
-  g := _Color.g;
-  b := _Color.b;
-  a := _Color.a;
+  r := fColor.r;
+  g := fColor.g;
+  b := fColor.b;
+  a := fColor.a;
 
-  if not SDL_SetRenderDrawColor(_Renderer, r, g, b, a) then
+  if not SDL_SetRenderDrawColor(fRenderer, r, g, b, a) then
   begin
     errStr := 'Failed to SDL_SetRenderDrawColor()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);
@@ -216,17 +216,17 @@ begin
   end;
 end;
 
-procedure TRenderer.__SetDrawColorF;
+procedure TRenderer.SetDrawColorF;
 var
   r, g, b, a: single;
   errStr: String;
 begin
-  r := _ColorF.r;
-  g := _ColorF.g;
-  b := _ColorF.b;
-  a := _ColorF.a;
+  r := fColorF.r;
+  g := fColorF.g;
+  b := fColorF.b;
+  a := fColorF.a;
 
-  if not SDL_SetRenderDrawColorFloat(_Renderer, r, g, b, a) then
+  if not SDL_SetRenderDrawColorFloat(fRenderer, r, g, b, a) then
   begin
     errStr := 'Failed to SDL_SetRenderDrawColorFloat()! SDL Error: %s!';
     errStr.Format([SDL_GetError()]);

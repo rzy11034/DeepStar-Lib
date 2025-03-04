@@ -1,10 +1,10 @@
 ﻿type
   TCustomMixer = class abstract(TInterfacedObject)
   protected class var
-    _MixerRefCount: integer;
+    fMixerRefCount: integer;
 
   private
-    procedure __MixerOpenAudio;
+    procedure MixerOpenAudio;
 
   public
     constructor Create; virtual;
@@ -16,7 +16,7 @@
 
   TMusic = class(TCustomMixer)
   private
-    _Music: PMix_Music;
+    fMusic: PMix_Music;
 
   public
     constructor Create; override;
@@ -28,7 +28,7 @@
 
   TChunk = class(TCustomMixer)
   private
-    _Chunk: PMix_Chunk;
+    fChunk: PMix_Chunk;
 
   public
     constructor Create; override;

@@ -2,125 +2,147 @@
 
 constructor TClock.Create;
 begin
-  _interval := 1000;
-  _enabled := true;
-  _timer := _interval;
-  _startTime := __GetTicks;
+  fInterval := 1000;
+  fEnabled := true;
+  fTimer := fInterval;
+  fStartTime := GetTicks;
 end;
 
 destructor TClock.Destroy;
 begin
-  _timer := 0;
+  fTimer := 0;
   inherited Destroy;
 end;
 
 procedure TClock.Restart;
 begin
-  Self._startTime := __GetTicks;
+  Self.fStartTime := GetTicks;
 end;
 
 procedure TClock.Tick;
 var
   time: cardinal;
 begin
-  if not _enabled then Exit;
+  if not fEnabled then Exit;
 
   time := Self.ElapsedTime;
   Restart;
 
-  _timer += time;
+  fTimer += time;
 
-  if _timer > _interval then
+  if fTimer > fInterval then
   begin
     OnTick;
-    _timer := 0;
+    fTimer := 0;
   end;
 end;
 
-function TClock.__GetElapsedTime: cardinal;
+function TClock.GetElapsedTime: cardinal;
 begin
-  Result := __GetTicks - _startTime;
+  Result := GetTicks - fStartTime;
 end;
 
-function TClock.__GetElapsedTimeAsSeconds: single;
+function TClock.GetElapsedTimeAsSeconds: single;
 begin
-  Result := (__GetTicks - _startTime) / 1000;
+  Result := (GetTicks - fStartTime) / 1000;
 end;
 
-function TClock.__GetSeconds: single;
+function TClock.GetSeconds: single;
 begin
-  Result := _interval / 1000;
+  Result := fInterval / 1000;
 end;
 
-function TClock.__GetTicks: cardinal;
+function TClock.GetTicks: cardinal;
 begin
   Result := SDL_GetTicks();
 end;
 
-procedure TClock.__SetOnTimer(const Value: TEventProc);
+procedure TClock.SetOnTimer(const Value: TEventProc);
 begin
-  if _OnTicks = Value then Exit;
-  _OnTicks := Value;
+  if fOnTicks = Value then Exit;
+  fOnTicks := Value;
 end;
 
-procedure TClock.__SetSeconds(const Value: single);
+procedure TClock.SetSeconds(const Value: single);
 begin
-  _interval := trunc(Value * 1000);
+  fInterval := trunc(Value * 1000);
+end;
+
+function TClock.GetEnabled: boolean;
+begin
+  Result := fEnabled;
+end;
+
+procedure TClock.SetEnabled(const value: boolean);
+begin
+  if fEnabled = value then Exit;
+  fEnabled := value;
+end;
+
+function TClock.GetInterval: cardinal;
+begin
+  Result := Interval;
+end;
+
+procedure TClock.SetInterval(const value: cardinal);
+begin
+  if fInterval = value then Exit;
+  fInterval := value;
 end;
 
 { TFrames }
 
 constructor TFrames.Create;
 begin
-  _fpsTimer := TClock.Create;
-  _capTimer := TClock.Create;
+  fFpsTimer := TClock.Create;
+  fCapTimer := TClock.Create;
 end;
 
 destructor TFrames.Destroy;
 begin
-  if _fpsTimer <> nil then
-    FreeAndNil(_fpsTimer);
+  if fFpsTimer <> nil then
+    FreeAndNil(fFpsTimer);
 
-  if _capTimer <> nil then
-    FreeAndNil(_capTimer);
+  if fCapTimer <> nil then
+    FreeAndNil(fCapTimer);
 
   inherited Destroy;
 end;
 
-function TFrames.__GetAvgFPS: single;
+function TFrames.GetAvgFPS: single;
 var
   res: single;
 begin
   res := single(0);
-  res := _countedFrames / (_fpsTimer.ElapsedTime / 1000);
+  res := fCountedFrames / (fFpsTimer.ElapsedTime / 1000);
   if res > 2000000 then
   begin
     res := 0;
   end;
 
-  _countedFrames += 1;
+  fCountedFrames += 1;
 
   Result := res;
 end;
 
-procedure TFrames.__SetFramerateLimit(Value: integer);
+procedure TFrames.SetFramerateLimit(Value: integer);
 var
   frameTicks, ScreenTicksPerFrame: integer;
 begin
-  if _framerateLimit <> Value then
-    _framerateLimit := Value;
+  if fFramerateLimit <> Value then
+    fFramerateLimit := Value;
 
-  ScreenTicksPerFrame := trunc(1000 / _framerateLimit);
+  ScreenTicksPerFrame := trunc(1000 / fFramerateLimit);
 
   // If frame finished early
   frameTicks := integer(0);
-  frameTicks := _capTimer.ElapsedTime;
+  frameTicks := fCapTimer.ElapsedTime;
   if frameTicks < ScreenTicksPerFrame then
   begin
     // Wait remaining time
     SDL_Delay(ScreenTicksPerFrame - frameTicks);
   end;
 
-  _capTimer.Restart;
+  fCapTimer.Restart;
 end;
 
