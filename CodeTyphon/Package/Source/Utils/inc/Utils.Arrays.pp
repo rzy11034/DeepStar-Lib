@@ -1,6 +1,5 @@
 ﻿  {%MainUint DeepStar.Utils.pas}
 
-  {$IfDef InterfacePart}
 type
   // 一维数组
   TArr_int = array of integer;
@@ -24,6 +23,4 @@ type
   TArr3D_int = array of array of array of integer;
   TArr3D_Cardinal = array of array of array of Cardinal;
 
-  {$Else}
 
-  {$EndIf}

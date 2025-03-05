@@ -1,7 +1,5 @@
 ﻿  {%MainUint DeepStar.Utils.pas}
 
-  {$IfDef InterfacePart}
-
 type
   THeapkind = DeepStar.DSA.Tree.Heap.THeapkind;
 
@@ -10,5 +8,3 @@ type
   THeap_chr = specialize THeap<char>;
   THeap_str = specialize THeap<string>;
   THeap_dbl = specialize THeap<double>;
-
-  {$EndIf}

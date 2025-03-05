@@ -1,29 +1,3 @@
-﻿  {%MainUint DeepStar.Utils.pas}
-
-  {$IfDef InterfacePart}
-
-type
-  TMath = class(TInterfacedObject)
-  private
-    class function __CharToNum(c: UChar): integer;
-    class function __NumToChar(n: integer): char;
-
-  public
-    // 转换任意进制字符串到十进制数
-    class function AnyToDec(numStr: string; NumberSystem: integer): integer;
-    // 转换十进制数到任意进制字符串
-    class function DecToAny(num: integer; NumberSystem: integer): string;
-    // 判断一个正整数是否为质数
-    class function IsPrime(n: uint64): boolean;
-    // 自定义版本四舍五入
-    // RoundMode: TFPURoundingMode = rmNearest 四舍五入
-    // RoundMode: TFPURoundingMode = rmDown 四舍五入到小于value的最大整数。
-    // RoundMode: TFPURoundingMode = rmUp 四舍五入到比value大的最小整数
-    // RoundMode: TFPURoundingMode = rmTruncate 截断小数部分
-    class function RoundEx(Value: extended; roundMode: TFPURoundingMode = rmNearest): int64;
-  end;
-
-  {$Else}
 
 class function TMath.AnyToDec(numStr: string; NumberSystem: integer): integer;
 var
@@ -39,7 +13,7 @@ begin
   i := 0;
   while not stack.IsEmpty do
   begin
-    res += __CharToNum(stack.Pop) * Trunc(IntPower(NumberSystem, i));
+    res += CharToNum(stack.Pop) * Trunc(IntPower(NumberSystem, i));
     i += 1;
   end;
 
@@ -57,7 +31,7 @@ begin
   try
     while num > 0 do
     begin
-      stack.Push(__NumToChar(num mod NumberSystem));
+      stack.Push(NumToChar(num mod NumberSystem));
       num := num div NumberSystem;
     end;
 
@@ -115,7 +89,7 @@ begin
   Result := res;
 end;
 
-class function TMath.__CharToNum(c: UChar): integer;
+class function TMath.CharToNum(c: UChar): integer;
 var
   res: integer;
 begin
@@ -129,7 +103,7 @@ begin
   Result := res;
 end;
 
-class function TMath.__NumToChar(n: integer): char;
+class function TMath.NumToChar(n: integer): char;
 var
   res: char;
 begin
@@ -140,5 +114,3 @@ begin
 
   Result := res;
 end;
-
-{$EndIf}

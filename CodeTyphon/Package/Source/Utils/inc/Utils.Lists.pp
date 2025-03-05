@@ -1,7 +1,5 @@
 ﻿  {%MainUint DeepStar.Utils.pas}
 
-  {$IfDef InterfacePart}
-
 type
   IList_int = specialize IList<integer>;
   TArrayList_int = specialize TArrayList<integer>;
@@ -40,9 +38,5 @@ type
 
   IList_TArr_Cardinal = specialize IList<TArr_Cardinal>;
   TArrayList_TArr_Cardinal = specialize TArrayList<TArr_Cardinal>;
-
-  {$Else}
-
-
-  {$EndIf}
-
+  
+  

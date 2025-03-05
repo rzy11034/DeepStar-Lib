@@ -1,7 +1,5 @@
 ﻿  {%MainUint DeepStar.Utils.pas}
 
-  {$IfDef InterfacePart}
-
 type
   ISet_str = specialize ISet<string>;
   THashSet_str = specialize THashSet<string>;
@@ -18,6 +16,4 @@ type
   ISet_dbl = specialize ISet<double>;
   THashSet_dbl = specialize THashSet<double>;
   TTreeSet_dbl = specialize TTreeSet<double>;
-
-  {$EndIf}
-
+  

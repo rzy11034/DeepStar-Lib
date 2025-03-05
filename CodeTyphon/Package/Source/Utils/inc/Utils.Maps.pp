@@ -1,7 +1,5 @@
 ﻿  {%MainUint DeepStar.Utils.pas}
 
-  {$IfDef InterfacePart}
-
 type
   IMap_int_int = specialize IMap<integer, integer>;
   THashMap_int_int = specialize THashMap<integer, integer>;
@@ -18,6 +16,3 @@ type
   IMap_int_str = specialize IMap<integer, string>;
   THashMap_int_str = specialize THashMap<integer, string>;
   TTreeMap_int_str = specialize TTreeMap<integer, string>;
-
-  {$EndIf}
-

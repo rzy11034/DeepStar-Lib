@@ -9,7 +9,7 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp_inc;Source\Utils\Utils_inc;Source\SDL3_Package\inc"/>
+        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp_inc;Source\SDL3_Package\inc;Source;Source\Utils\inc"/>
         <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2_Package;Source\SDL3_Package"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
@@ -151,66 +151,6 @@
         <UnitName Value="DeepStar.OpenGL.Assimp"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Arrays.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.ArrayUtils.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Common.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Heaps.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Lists.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Maps.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Math.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Object.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.PriorityQueues.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Queues.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Sets.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Stacks.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
         <Filename Value="Source\OpenGL\Assimp_inc\Assimp.aianim.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
@@ -325,18 +265,8 @@
         <UnitName Value="DeepStar.OpenGL.Mesh"/>
       </Item>
       <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.Types.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
-      </Item>
-      <Item>
         <Filename Value="Source\OpenGL\DeepStar.OpenGL.Model.pas"/>
         <UnitName Value="DeepStar.OpenGL.Model"/>
-      </Item>
-      <Item>
-        <Filename Value="Source\Utils\Utils_inc\Utils.SysHelper.inc"/>
-        <Type Value="Include"/>
-        <FRMtype Value="0"/>
       </Item>
       <Item>
         <Filename Value="Source\SDL2_Package\DeepStar.SDL2_Package.Mixer.pas"/>
@@ -421,6 +351,87 @@
         <Filename Value="Source\SDL3_Package\inc\DeepStar.SDL3_Package.Timer_impl.inc"/>
         <Type Value="Include"/>
         <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Arrays.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.ArrayUtils.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.ArrayUtils_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Common.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Common_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Heaps.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Lists.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Maps.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Math.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Math_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Object.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Object_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.PriorityQueues.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Queues.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Sets.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Stacks.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.SysHelper.pp"/>
+        <AddToUsesPkgSection Value="False"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.SysHelper_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\Utils\inc\Utils.Types.pp"/>
+        <AddToUsesPkgSection Value="False"/>
       </Item>
     </Files>
     <RequiredPkgs>

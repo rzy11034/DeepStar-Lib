@@ -1,12 +1,10 @@
 ﻿unit DeepStar.Utils;
 
 {$mode objfpc}{$H+}
-{$ModeSwitch unicodestrings}{$J-}
-{$modeswitch typehelpers}
+
+{$I invoke}
 
 interface
-
-{$define InterfacePart}
 
 uses
   Classes,
@@ -30,42 +28,38 @@ uses
   DeepStar.DSA.Tree.PriorityQueue;
 
   // 常用基础类型定义
-  {$Include Utils.Types.inc}
+  {$Include Utils.Types}
 
-  // object 根节点
-  {$Include Utils.Object.inc}
+  // object 类型根节点
+  {$Include Utils.Object}
 
   // 常用数组定义
-  {$Include Utils.Arrays.inc}
+  {$Include Utils.Arrays}
 
   //═════════════════════════════════════════════════════════════════════════
 
-  {$Include Utils.SysHelper.inc}
-  {$Include Utils.ArrayUtils.inc}
-  {$Include Utils.Math.inc}
-  {$Include Utils.Common.inc}
+  {$I Utils.SysHelper}
+  {$I Utils.ArrayUtils}
+  {$I Utils.Math}
+  {$I Utils.Common}
 
   //════════════════════ 常用容器类特例化定义 ═══════════════════════════════
 
-  {$Include Utils.Lists.inc}
-  {$Include Utils.Stacks.inc}
-  {$Include Utils.Queues.inc}
-  {$Include Utils.Maps.inc}
-  {$Include Utils.Sets.inc}
-  {$Include Utils.Heaps.inc}
-  {$Include Utils.PriorityQueues.inc}
+  {$I Utils.Lists}
+  {$I Utils.Stacks}
+  {$I Utils.Queues}
+  {$I Utils.Maps}
+  {$I Utils.Sets}
+  {$I Utils.Heaps}
+  {$I Utils.PriorityQueues}
 
-  //═════════════════════════════════════════════════════════════════════════
-
-  {$undef InterfacePart}
 
 implementation
 
-{$Include Utils.Common.inc}
-{$Include Utils.Math.inc}
-{$Include Utils.ArrayUtils.inc}
-{$Include Utils.SysHelper.inc}
-
-{$Include Utils.Object.inc}
+  {$I Utils.Common_impl}
+  {$I Utils.Math_impl}
+  {$I Utils.ArrayUtils_impl}
+  {$I Utils.SysHelper_impl}
+  {$I Utils.Object_impl}
 
 end.
