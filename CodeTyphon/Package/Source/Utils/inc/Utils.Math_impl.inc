@@ -1,4 +1,4 @@
-
+﻿
 class function TMath.AnyToDec(numStr: string; NumberSystem: integer): integer;
 var
   stack: IStack_chr;

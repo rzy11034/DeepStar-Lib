@@ -1,4 +1,4 @@
-{ TRenderer }
+﻿{ TRenderer }
 
 constructor TRenderer.Create(win: PSDL_Window; name: string);
 var

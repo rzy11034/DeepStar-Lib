@@ -1,4 +1,4 @@
-{ TCustomImage }
+﻿{ TCustomImage }
 
 constructor TCustomImage.Create;
 begin

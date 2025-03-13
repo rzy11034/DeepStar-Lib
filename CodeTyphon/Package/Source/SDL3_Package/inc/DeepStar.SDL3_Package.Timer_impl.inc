@@ -1,4 +1,4 @@
-{ TClock }
+﻿{ TClock }
 
 constructor TClock.Create;
 begin

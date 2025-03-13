@@ -17,7 +17,7 @@ type
     TDoubleLinkedList = specialize TDoubleLinkedList<T>;
 
   private
-    _data: TDoubleLinkedList;
+    fData: TDoubleLinkedList;
 
   public
     constructor Create;
@@ -32,42 +32,7 @@ type
 
 implementation
 
-{ TStack }
+{$I DeepStar.DSA.Linear.Stack_impl}
 
-constructor TStack.Create;
-begin
-  _data := TDoubleLinkedList.Create;
-end;
-
-function TStack.Count: integer;
-begin
-  Result := _data.Count;
-end;
-
-destructor TStack.Destroy;
-begin
-  _data.Free;
-  inherited Destroy;
-end;
-
-function TStack.IsEmpty: boolean;
-begin
-  Result := _data.IsEmpty;
-end;
-
-function TStack.Peek: T;
-begin
-  Result := _data.GetLast;
-end;
-
-function TStack.Pop: T;
-begin
-  Result := _data.RemoveLast;
-end;
-
-procedure TStack.Push(e: T);
-begin
-  _data.AddLast(e);
-end;
 
 end.

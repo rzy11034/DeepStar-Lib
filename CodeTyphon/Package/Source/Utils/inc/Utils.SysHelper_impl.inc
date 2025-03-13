@@ -1,4 +1,4 @@
-constructor TUnicodeStringHelper.Create(const chrArr: TArr_chr);
+﻿constructor TUnicodeStringHelper.Create(const chrArr: TArr_chr);
 begin
   Create(chrArr, 0, System.Length(chrArr));
 end;
@@ -114,17 +114,17 @@ begin
   Result := SysUtils.Trim(Self);
 end;
 
-function TUnicodeStringHelper.__getChar(index: integer): UChar;
+function TUnicodeStringHelper.GetChar(index: integer): UChar;
 begin
   Result := Self[index + 1];
 end;
 
-function TUnicodeStringHelper.__getLength: integer;
+function TUnicodeStringHelper.GetLength: integer;
 begin
   Result := System.Length(Self);
 end;
 
-procedure TUnicodeStringHelper.__setChar(index: integer; const newChars: UChar);
+procedure TUnicodeStringHelper.SetChar(index: integer; const newChars: UChar);
 begin
   Self[index + 1] := newChars;
 end;
@@ -211,6 +211,16 @@ end;
 
 { TSingleHelper }
 
+function TSingleHelper.Round: int64;
+begin
+  Result := System.Round(Self);
+end;
+
+function TSingleHelper.Trunc: int64;
+begin
+  Result := System.Trunc(Self);
+end;
+
 function TSingleHelper.ToString(const AFormat: TFloatFormat; const APrecision, ADigits: Integer): string;
 begin
   Result := String(inherited ToString(AFormat, APrecision, ADigits));
@@ -233,6 +243,16 @@ begin
 end;
 
 { TDoubleHelper }
+
+function TDoubleHelper.Round: int64;
+begin
+  Result := System.Round(Self);
+end;
+
+function TDoubleHelper.Trunc: int64;
+begin
+  Result := System.Trunc(Self);
+end;
 
 function TDoubleHelper.ToString(const AFormat: TFloatFormat; const APrecision, ADigits: Integer): string;
 begin

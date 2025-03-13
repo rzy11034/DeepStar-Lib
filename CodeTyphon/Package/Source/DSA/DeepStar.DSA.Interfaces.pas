@@ -86,7 +86,7 @@ type
 
   generic TPtrValue<T> = class(TInterfacedObject, specialize IPtrValue<T>)
   private
-    _Value: T;
+    fValue: T;
   public
     function Value: T;
     constructor Create(newValue: T);
@@ -117,12 +117,12 @@ implementation
 
 constructor TPtrValue.Create(newValue: T);
 begin
-  _Value := newValue;
+  fValue := newValue;
 end;
 
 function TPtrValue.Value: T;
 begin
-  Result := _Value;
+  Result := fValue;
 end;
 
 end.

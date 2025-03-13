@@ -9,8 +9,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="Source\Utils;Source\OpenGL\Assimp_inc;Source\SDL3_Package\inc;Source;Source\Utils\inc"/>
-        <OtherUnitFiles Value="Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\Utils;Source\OpenGL;Source\SDL2_Package;Source\SDL3_Package"/>
+        <IncludeFiles Value="Source;Source\Utils;Source\Utils\inc;Source\OpenGL\Assimp_inc;Source\SDL3_Package\inc"/>
+        <OtherUnitFiles Value="Source\Utils;Source\DSA;Source\DSA\Linear;Source\DSA\Strings;Source\DSA\Hash;Source\DSA\Tree;Source\OpenGL;Source\SDL2_Package;Source\SDL3_Package"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
       </SearchPaths>
       <CodeGeneration>
@@ -355,10 +355,12 @@
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Arrays.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Arrays"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.ArrayUtils.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.ArrayUtils"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.ArrayUtils_impl.inc"/>
@@ -368,6 +370,7 @@
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Common.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Common"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Common_impl.inc"/>
@@ -377,18 +380,22 @@
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Heaps.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Heaps"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Lists.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Lists"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Maps.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Maps"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Math.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Math"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Math_impl.inc"/>
@@ -398,6 +405,7 @@
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Object.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Object"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Object_impl.inc"/>
@@ -407,22 +415,27 @@
       <Item>
         <Filename Value="Source\Utils\inc\Utils.PriorityQueues.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.PriorityQueues"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Queues.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Queues"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Sets.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Sets"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Stacks.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Stacks"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.SysHelper.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.SysHelper"/>
       </Item>
       <Item>
         <Filename Value="Source\Utils\inc\Utils.SysHelper_impl.inc"/>
@@ -432,6 +445,32 @@
       <Item>
         <Filename Value="Source\Utils\inc\Utils.Types.pp"/>
         <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="Utils.Types"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.ArrayList_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.DoubleLinkedList_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.LinkedList_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.Queue_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
+      </Item>
+      <Item>
+        <Filename Value="Source\DSA\Linear\DeepStar.DSA.Linear.Stack_impl.inc"/>
+        <Type Value="Include"/>
+        <FRMtype Value="0"/>
       </Item>
     </Files>
     <RequiredPkgs>

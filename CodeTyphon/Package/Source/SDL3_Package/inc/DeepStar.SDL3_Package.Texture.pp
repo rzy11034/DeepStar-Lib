@@ -1,4 +1,4 @@
-
+﻿
 type
   TCustomImage = class (TInterfacedObject)
   protected class var

@@ -9,7 +9,7 @@ interface
 uses
   Classes,
   SysUtils,
-  {%H-}Rtti,
+  Rtti,
   DeepStar.DSA.Interfaces,
   DeepStar.DSA.Linear.LinkedList;
 

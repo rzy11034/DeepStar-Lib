@@ -9,7 +9,7 @@ uses
   Classes,
   SysUtils,
   Math,
-  {%H-}Rtti,
+  Rtti,
   DeepStar.DSA.Interfaces,
   DeepStar.DSA.Linear.ArrayList,
   DeepStar.DSA.Linear.Queue;

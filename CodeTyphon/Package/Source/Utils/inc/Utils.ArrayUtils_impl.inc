@@ -1,4 +1,4 @@
-class function TArrayUtils.BinarySearch(const arr: TArr_T; const e: T): integer;
+﻿class function TArrayUtils.BinarySearch(const arr: TArr_T; const e: T): integer;
 var
   ret: SizeInt;
 begin
